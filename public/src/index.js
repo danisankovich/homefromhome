@@ -11,6 +11,7 @@ import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
 import Information from './components/information';
 import Profile from './components/user/profile';
+import Settings from './components/user/settings';
 
 import RequireAuth from './components/auth/require_auth';
 import Welcome from './components/welcome';
@@ -38,6 +39,7 @@ ReactDOM.render(
           <Route path='signout' component={Signout}></Route>
           <Route path='information' component={RequireAuth(Information)}></Route>
           <Route path='profile' component={RequireAuth(Profile)}></Route>
+          <Route path='settings' component={RequireAuth(Settings)}></Route>
         </Route>
     </Router>
   </Provider>

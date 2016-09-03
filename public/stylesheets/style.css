@@ -10,3 +10,7 @@ a {
 .error {
   color: red;
 }
+
+.navbar-right {
+  margin-right: 15px !important;
+}
