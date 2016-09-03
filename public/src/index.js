@@ -6,15 +6,20 @@ import { Router, Route, IndexRoute, browserHistory} from 'react-router';
 import reduxThunk from 'redux-thunk';
 
 import App from './components/app';
+
+// Main Routes
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
 import Information from './components/information';
-import Profile from './components/user/profile';
-import Settings from './components/user/settings';
+import Profile from './components/auth/user/profile';
+import Settings from './components/auth/user/settings';
+import Welcome_Container from './components/welcome_container';
+
+// Listings Routes
+import Listings_Container from './components/listings_container';
 
 import RequireAuth from './components/auth/require_auth';
-import Welcome from './components/welcome';
 
 import reducers from './reducers';
 import {AUTH_USER} from './actions/types';
@@ -33,7 +38,16 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
         <Route path='/' component={App}>
-          <IndexRoute component={Welcome} />
+          <IndexRoute component={Welcome_Container} />
+          <Route path='signin' component={Signin}></Route>
+          <Route path='signup' component={Signup}></Route>
+          <Route path='signout' component={Signout}></Route>
+          <Route path='information' component={RequireAuth(Information)}></Route>
+          <Route path='profile' component={RequireAuth(Profile)}></Route>
+          <Route path='settings' component={RequireAuth(Settings)}></Route>
+        </Route>
+        <Route path='/listings' component={App}>
+          <IndexRoute component={Listings_Container} />
           <Route path='signin' component={Signin}></Route>
           <Route path='signup' component={Signup}></Route>
           <Route path='signout' component={Signout}></Route>
