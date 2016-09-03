@@ -14,3 +14,7 @@ a {
 .navbar-right {
   margin-right: 15px !important;
 }
+
+.listingBorder {
+  border: 1px black solid;
+}

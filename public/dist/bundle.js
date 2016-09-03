@@ -41922,20 +41922,90 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(/*! react */ 2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../actions */ 252);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _listing = __webpack_require__(/*! ./listings/listing */ 314);
+	
+	var _listing2 = _interopRequireDefault(_listing);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
 	//WELCOMING PAGE
-	exports.default = function () {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'Welcome To The Listings'
-	  );
-	};
+	var Listings_Container = function (_Component) {
+	  _inherits(Listings_Container, _Component);
+	
+	  function Listings_Container() {
+	    _classCallCheck(this, Listings_Container);
+	
+	    return _possibleConstructorReturn(this, (Listings_Container.__proto__ || Object.getPrototypeOf(Listings_Container)).apply(this, arguments));
+	  }
+	
+	  _createClass(Listings_Container, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      if (userInfo) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Listings'
+	          ),
+	          'aaa: ',
+	          this.props.userInfo.username,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(_listing2.default, null),
+	            _react2.default.createElement(_listing2.default, null),
+	            _react2.default.createElement(_listing2.default, null),
+	            _react2.default.createElement(_listing2.default, null),
+	            _react2.default.createElement(_listing2.default, null),
+	            _react2.default.createElement(_listing2.default, null)
+	          )
+	        );
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'Loading...... '
+	      );
+	    }
+	  }]);
+	
+	  return Listings_Container;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
 
 /***/ },
 /* 312 */
@@ -42107,6 +42177,108 @@
 	  return { userInfo: state.auth.userInfo };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Settings);
+
+/***/ },
+/* 314 */
+/*!***************************************************!*\
+  !*** ./public/src/components/listings/listing.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 252);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Listing = function (_Component) {
+	  _inherits(Listing, _Component);
+	
+	  function Listing() {
+	    _classCallCheck(this, Listing);
+	
+	    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+	  }
+	
+	  _createClass(Listing, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      if (userInfo) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-4' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'listingBorder' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Listing 1'
+	            ),
+	            'LISTING: STUFF here',
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'NAME'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'MORE STUFF'
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'AND MORE'
+	            )
+	          ),
+	          _react2.default.createElement('br', null)
+	        );
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'Loading...... '
+	      );
+	    }
+	  }]);
+	
+	  return Listing;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
 
 /***/ }
 /******/ ]);
