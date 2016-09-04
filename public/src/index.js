@@ -18,6 +18,7 @@ import Welcome_Container from './components/welcome_container';
 
 // Listings Routes
 import Listings_Container from './components/listings_container';
+import Listing from './components/listings/listing';
 
 import RequireAuth from './components/auth/require_auth';
 
@@ -48,7 +49,7 @@ ReactDOM.render(
         </Route>
         <Route path='/listings' component={App}>
           <IndexRoute component={Listings_Container} />
-          <Route path='signin' component={Signin}></Route>
+          <Route path=':id' component={Listing}></Route>
           <Route path='signup' component={Signup}></Route>
           <Route path='signout' component={Signout}></Route>
           <Route path='information' component={RequireAuth(Information)}></Route>

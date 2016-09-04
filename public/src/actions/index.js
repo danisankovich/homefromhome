@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { browserHistory } from 'react-router'; // commits info about url to react router, and to make changes to url
-import {AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_INFO, FETCH_LISTINGS} from './types';
+import {AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_INFO, FETCH_LISTINGS, FETCH_SINGLE_LISTING} from './types';
 
 const ROOT_URL = 'http://localhost:3000/api';
 
@@ -84,6 +84,24 @@ export function fetchListings() {
     }).done((response) => {
       dispatch({
         type: FETCH_LISTINGS,
+        payload: response
+      })
+    });
+  }
+}
+
+export function fetchSingleListing(id) {
+  var token = localStorage.getItem('token')
+  return function(dispatch) {
+    $.ajax({
+       url: `${ROOT_URL}/listings/${id}`,
+       type: "GET",
+       headers: {
+          "authorization": token
+       }
+    }).done((response) => {
+      dispatch({
+        type: FETCH_SINGLE_LISTING,
         payload: response
       })
     });

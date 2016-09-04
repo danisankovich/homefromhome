@@ -7,14 +7,14 @@ import Listings from './listings/listings';
 class Listings_Container extends Component {
   componentWillMount() {
     this.props.fetchInfo();
+    this.props.fetchListings();
   }
   render() {
-    let {userInfo} = this.props;
-    if(userInfo) {
+    let {listings, userInfo} = this.props;
+    if(listings) {
       return (
         <div>
           <h3>Listings</h3>
-          aaa: {this.props.userInfo.username}
           <div className='row'>
             <Listings />
           </div>
@@ -27,6 +27,6 @@ class Listings_Container extends Component {
   };
 }
 function mapStateToProps(state) {
-  return {userInfo: state.auth.userInfo};
+  return {userInfo: state.auth.userInfo, listings: state.listing.listings};
 }
 export default connect(mapStateToProps, actions)(Listings_Container);

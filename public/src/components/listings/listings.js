@@ -1,22 +1,30 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
+import { browserHistory } from 'react-router'
+
 
 class Listing extends Component {
+  handleClick() {
+    let clickResult = this._id;
+    console.log(clickResult)
+    browserHistory.push(`/listings/${clickResult}`);
+
+  }
   componentWillMount() {
     this.props.fetchInfo();
     this.props.fetchListings();
   }
   render() {
+    const { handleSubmit} = this.props;
+
     let {userInfo, listings} = this.props;
-    if(userInfo && listings) {
-      console.log(listings)
+    if(listings) {
       return (
         <div>
           {listings.map(function(result) {
-            console.log(result)
             return (
-              <div className="col-sm-4" key={result._id}>
+              <div className="col-sm-4" key={result._id} onClick={this.handleClick.bind(result)}>
                 <div className="listingBorder">
                   <div className="thumbnail">
                     <img className="img-responsive center-block"
@@ -36,7 +44,7 @@ class Listing extends Component {
                 <br />
               </div>
             );
-          })}
+          }.bind(this))}
         </div>
 
       );

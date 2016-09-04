@@ -15,9 +15,13 @@ router.get('/', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
+  console.log('adsf', req.params)
   Listing.findById(req.params.id, (err, listing) => {
     if (err) res.send(err);
-    res.json(listing);
+    else {
+      console.log(listing)
+      res.send(listing);
+    }
   })
 })
 

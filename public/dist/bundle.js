@@ -113,6 +113,10 @@
 	
 	var _listings_container2 = _interopRequireDefault(_listings_container);
 	
+	var _listing = __webpack_require__(/*! ./components/listings/listing */ 313);
+	
+	var _listing2 = _interopRequireDefault(_listing);
+	
 	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 309);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
@@ -125,10 +129,10 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// Listings Routes
+	// Main Routes
 	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
 	
-	// Main Routes
+	// Listings Routes
 	
 	var store = createStoreWithMiddleware(_reducers2.default);
 	
@@ -159,7 +163,7 @@
 	      _reactRouter.Route,
 	      { path: '/listings', component: _app2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }),
@@ -28022,11 +28026,19 @@
 	      if (this.props.authenticated && this.props.userInfo) {
 	        return [_react2.default.createElement(
 	          'li',
-	          { className: 'nav-item', key: 2 },
+	          { className: 'nav-item', key: 1 },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { className: 'nav-link', to: '/information' },
 	            'Information'
+	          )
+	        ), _react2.default.createElement(
+	          'li',
+	          { className: 'nav-item', key: 2 },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { className: 'nav-link', to: '/listings' },
+	            'Listings'
 	          )
 	        ), _react2.default.createElement(
 	          'li',
@@ -28072,6 +28084,14 @@
 	        )];
 	      } else {
 	        return [_react2.default.createElement(
+	          'li',
+	          { className: 'nav-item', key: 1 },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { className: 'nav-link', to: '/listings' },
+	            'Listings'
+	          )
+	        ), _react2.default.createElement(
 	          'li',
 	          { className: 'nav-item', key: 2 },
 	          _react2.default.createElement(
@@ -28139,6 +28159,7 @@
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
 	exports.fetchListings = fetchListings;
+	exports.fetchSingleListing = fetchSingleListing;
 	
 	var _jquery = __webpack_require__(/*! jquery */ 253);
 	
@@ -28236,6 +28257,24 @@
 	    }).done(function (response) {
 	      dispatch({
 	        type: _types.FETCH_LISTINGS,
+	        payload: response
+	      });
+	    });
+	  };
+	}
+	
+	function fetchSingleListing(id) {
+	  var token = localStorage.getItem('token');
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: ROOT_URL + '/listings/' + id,
+	      type: "GET",
+	      headers: {
+	        "authorization": token
+	      }
+	    }).done(function (response) {
+	      dispatch({
+	        type: _types.FETCH_SINGLE_LISTING,
 	        payload: response
 	      });
 	    });
@@ -38082,6 +38121,7 @@
 	var AUTH_ERROR = exports.AUTH_ERROR = 'auth_error';
 	var FETCH_INFO = exports.FETCH_INFO = 'fetch_info';
 	var FETCH_LISTINGS = exports.FETCH_LISTINGS = 'fetch_listings';
+	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
 
 /***/ },
 /* 255 */
@@ -41978,7 +42018,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _listings = __webpack_require__(/*! ./listings/listings */ 313);
+	var _listings = __webpack_require__(/*! ./listings/listings */ 308);
 	
 	var _listings2 = _interopRequireDefault(_listings);
 	
@@ -42006,13 +42046,16 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchInfo();
+	      this.props.fetchListings();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var userInfo = this.props.userInfo;
+	      var _props = this.props;
+	      var listings = _props.listings;
+	      var userInfo = _props.userInfo;
 	
-	      if (userInfo) {
+	      if (listings) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
@@ -42021,8 +42064,6 @@
 	            null,
 	            'Listings'
 	          ),
-	          'aaa: ',
-	          this.props.userInfo.username,
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
@@ -42042,12 +42083,146 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
+	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
 
 /***/ },
-/* 308 */,
+/* 308 */
+/*!****************************************************!*\
+  !*** ./public/src/components/listings/listings.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 252);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Listing = function (_Component) {
+	  _inherits(Listing, _Component);
+	
+	  function Listing() {
+	    _classCallCheck(this, Listing);
+	
+	    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+	  }
+	
+	  _createClass(Listing, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      console.log(clickResult);
+	      _reactRouter.browserHistory.push('/listings/' + clickResult);
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	      this.props.fetchListings();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var handleSubmit = this.props.handleSubmit;
+	      var _props = this.props;
+	      var userInfo = _props.userInfo;
+	      var listings = _props.listings;
+	
+	      if (listings) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          listings.map(function (result) {
+	            return _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-4', key: result._id, onClick: this.handleClick.bind(result) },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'listingBorder' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'thumbnail' },
+	                  _react2.default.createElement('img', { className: 'img-responsive center-block',
+	                    src: result.image
+	                  })
+	                ),
+	                _react2.default.createElement('hr', null),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10 col-sm-offset-1' },
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'Country: ',
+	                      result.location.country
+	                    ),
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'City: ',
+	                      result.location.city
+	                    ),
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'Price: $',
+	                      result.pricePerNight,
+	                      ' / night'
+	                    )
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement('br', null)
+	            );
+	          }.bind(this))
+	        );
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'Loading...... '
+	      );
+	    }
+	  }]);
+	
+	  return Listing;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
+
+/***/ },
 /* 309 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
@@ -42215,6 +42390,8 @@
 	  switch (action.type) {
 	    case _types.FETCH_LISTINGS:
 	      return _extends({}, state, { listings: action.payload });
+	    case _types.FETCH_SINGLE_LISTING:
+	      return _extends({}, state, { listing: action.payload });
 	  }
 	  return state;
 	};
@@ -42223,9 +42400,9 @@
 
 /***/ },
 /* 313 */
-/*!****************************************************!*\
-  !*** ./public/src/components/listings/listings.js ***!
-  \****************************************************/
+/*!***************************************************!*\
+  !*** ./public/src/components/listings/listing.js ***!
+  \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42246,6 +42423,8 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42256,80 +42435,101 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var Listing = function (_Component) {
-	  _inherits(Listing, _Component);
+	var SingleListing = function (_Component) {
+	  _inherits(SingleListing, _Component);
 	
-	  function Listing() {
-	    _classCallCheck(this, Listing);
+	  function SingleListing() {
+	    _classCallCheck(this, SingleListing);
 	
-	    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (SingleListing.__proto__ || Object.getPrototypeOf(SingleListing)).apply(this, arguments));
 	  }
 	
-	  _createClass(Listing, [{
+	  _createClass(SingleListing, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	      this.props.fetchListings();
+	      var id = this.props.location.pathname.split('listings/')[1];
+	      this.props.fetchSingleListing(id);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var userInfo = _props.userInfo;
-	      var listings = _props.listings;
+	      var listing = this.props.listing;
 	
-	      if (userInfo && listings) {
-	        console.log(listings);
+	      console.log(listing);
+	      if (listing) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          listings.map(function (result) {
-	            console.log(result);
-	            return _react2.default.createElement(
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10 col-sm-offset-1' },
+	            _react2.default.createElement(
 	              'div',
-	              { className: 'col-sm-4', key: result._id },
+	              { className: 'listingBorder' },
 	              _react2.default.createElement(
 	                'div',
-	                { className: 'listingBorder' },
+	                { className: 'thumbnail' },
+	                _react2.default.createElement('img', { className: 'img-responsive center-block',
+	                  src: listing.image
+	                })
+	              ),
+	              _react2.default.createElement('hr', null),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'row' },
 	                _react2.default.createElement(
 	                  'div',
-	                  { className: 'thumbnail' },
-	                  _react2.default.createElement('img', { className: 'img-responsive center-block',
-	                    src: result.image
-	                  })
-	                ),
-	                _react2.default.createElement('hr', null),
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'row' },
+	                  { className: 'col-sm-12' },
 	                  _react2.default.createElement(
 	                    'div',
 	                    { className: 'col-sm-10 col-sm-offset-1' },
 	                    _react2.default.createElement(
-	                      'h3',
+	                      'h2',
 	                      null,
-	                      'Country: ',
-	                      result.location.country
-	                    ),
-	                    _react2.default.createElement(
-	                      'h3',
-	                      null,
-	                      'City: ',
-	                      result.location.city
+	                      listing.location.address,
+	                      ', ',
+	                      listing.location.city,
+	                      ', ',
+	                      listing.location.country
 	                    ),
 	                    _react2.default.createElement(
 	                      'h3',
 	                      null,
 	                      'Price: $',
-	                      result.pricePerNight,
+	                      listing.pricePerNight,
 	                      ' / night'
+	                    ),
+	                    _react2.default.createElement('hr', null),
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'Contact Info: '
+	                    ),
+	                    _react2.default.createElement(
+	                      'h4',
+	                      null,
+	                      'Email: ',
+	                      listing.creator.email
+	                    ),
+	                    _react2.default.createElement(
+	                      'h4',
+	                      null,
+	                      'Phone Number: ',
+	                      listing.creator.phoneNumber
+	                    ),
+	                    _react2.default.createElement('hr', null),
+	                    _react2.default.createElement(
+	                      'h4',
+	                      null,
+	                      'Dates Available: ',
+	                      listing.datesAvailable
 	                    )
 	                  )
 	                )
-	              ),
-	              _react2.default.createElement('br', null)
-	            );
-	          })
+	              )
+	            ),
+	            _react2.default.createElement('br', null)
+	          )
 	        );
 	      }
 	      return _react2.default.createElement(
@@ -42340,13 +42540,13 @@
 	    }
 	  }]);
 	
-	  return Listing;
+	  return SingleListing;
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
+	  return { userInfo: state.auth.userInfo, listing: state.listing.listing };
 	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleListing);
 
 /***/ }
 /******/ ]);

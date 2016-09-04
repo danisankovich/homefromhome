@@ -11,8 +11,11 @@ class Header extends Component {
     let {userInfo} = this.props;
     if (this.props.authenticated && this.props.userInfo) {
       return [
-        <li className="nav-item" key={2}>
+        <li className="nav-item" key={1}>
           <Link className="nav-link" to="/information">Information</Link>
+        </li>,
+        <li className="nav-item" key={2}>
+          <Link className="nav-link" to="/listings">Listings</Link>
         </li>,
          <li className="dropdown" key={3}>
            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -29,6 +32,9 @@ class Header extends Component {
       ]
     } else {
       return [
+        <li className="nav-item" key={1}>
+          <Link className="nav-link" to="/listings">Listings</Link>
+        </li>,
         <li className="nav-item" key={2}>
           <Link className="nav-link" to="/signin">Sign In</Link>
         </li>,
