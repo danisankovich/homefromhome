@@ -17,6 +17,8 @@ const listingSchema = new Schema({
   pricePerNight: String,
   availableForRent: Boolean,
   datesAvailable: String,
+  description: String,
+  type: String
 });
 const LISTING = mongoose.model('listing', listingSchema);
 module.exports = LISTING;

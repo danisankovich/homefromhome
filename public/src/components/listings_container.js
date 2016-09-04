@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
-import Listing from './listings/listing';
+import Listings from './listings/listings';
 
 //WELCOMING PAGE
 class Listings_Container extends Component {
@@ -16,12 +16,7 @@ class Listings_Container extends Component {
           <h3>Listings</h3>
           aaa: {this.props.userInfo.username}
           <div className='row'>
-            <Listing />
-            <Listing />
-            <Listing />
-            <Listing />
-            <Listing />
-            <Listing />
+            <Listings />
           </div>
         </div>
       );

@@ -28138,6 +28138,7 @@
 	exports.authError = authError;
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
+	exports.fetchListings = fetchListings;
 	
 	var _jquery = __webpack_require__(/*! jquery */ 253);
 	
@@ -28161,9 +28162,7 @@
 	    _jquery2.default.post(ROOT_URL + '/signin', { email: email, password: password }).done(function (response) {
 	      console.log(response);
 	      dispatch({ type: _types.AUTH_USER });
-	
 	      localStorage.setItem('token', response.token);
-	
 	      _reactRouter.browserHistory.push('/information'); // success pushes you to /information.
 	    }).fail(function () {
 	      // catch does not take you to new page
@@ -28219,6 +28218,24 @@
 	    }).done(function (response) {
 	      dispatch({
 	        type: _types.FETCH_INFO,
+	        payload: response
+	      });
+	    });
+	  };
+	}
+	
+	function fetchListings() {
+	  var token = localStorage.getItem('token');
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: ROOT_URL + '/listings/',
+	      type: "GET",
+	      headers: {
+	        "authorization": token
+	      }
+	    }).done(function (response) {
+	      dispatch({
+	        type: _types.FETCH_LISTINGS,
 	        payload: response
 	      });
 	    });
@@ -38064,6 +38081,7 @@
 	var UNAUTH_USER = exports.UNAUTH_USER = 'unauth_user';
 	var AUTH_ERROR = exports.AUTH_ERROR = 'auth_error';
 	var FETCH_INFO = exports.FETCH_INFO = 'fetch_info';
+	var FETCH_LISTINGS = exports.FETCH_LISTINGS = 'fetch_listings';
 
 /***/ },
 /* 255 */
@@ -41960,9 +41978,9 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _listing = __webpack_require__(/*! ./listings/listing */ 308);
+	var _listings = __webpack_require__(/*! ./listings/listings */ 313);
 	
-	var _listing2 = _interopRequireDefault(_listing);
+	var _listings2 = _interopRequireDefault(_listings);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -42008,12 +42026,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'row' },
-	            _react2.default.createElement(_listing2.default, null),
-	            _react2.default.createElement(_listing2.default, null),
-	            _react2.default.createElement(_listing2.default, null),
-	            _react2.default.createElement(_listing2.default, null),
-	            _react2.default.createElement(_listing2.default, null),
-	            _react2.default.createElement(_listing2.default, null)
+	            _react2.default.createElement(_listings2.default, null)
 	          )
 	        );
 	      }
@@ -42034,108 +42047,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
 
 /***/ },
-/* 308 */
-/*!***************************************************!*\
-  !*** ./public/src/components/listings/listing.js ***!
-  \***************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _actions = __webpack_require__(/*! ../../actions */ 252);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Listing = function (_Component) {
-	  _inherits(Listing, _Component);
-	
-	  function Listing() {
-	    _classCallCheck(this, Listing);
-	
-	    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
-	  }
-	
-	  _createClass(Listing, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var userInfo = this.props.userInfo;
-	
-	      if (userInfo) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-4' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'listingBorder' },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Listing 1'
-	            ),
-	            'LISTING: STUFF here',
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              'NAME'
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'MORE STUFF'
-	            ),
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'AND MORE'
-	            )
-	          ),
-	          _react2.default.createElement('br', null)
-	        );
-	      }
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Loading...... '
-	      );
-	    }
-	  }]);
-	
-	  return Listing;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
-
-/***/ },
+/* 308 */,
 /* 309 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
@@ -42233,12 +42145,16 @@
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 312);
+	
+	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// import userReducer from './user_reducer';
 	var rootReducer = (0, _redux.combineReducers)({
 	  form: _reduxForm.reducer,
-	  auth: _auth_reducer2.default
+	  auth: _auth_reducer2.default,
+	  listing: _listing_reducer2.default
 	});
 	
 	exports.default = rootReducer;
@@ -42276,6 +42192,161 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 254);
+
+/***/ },
+/* 312 */
+/*!************************************************!*\
+  !*** ./public/src/reducers/listing_reducer.js ***!
+  \************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _types.FETCH_LISTINGS:
+	      return _extends({}, state, { listings: action.payload });
+	  }
+	  return state;
+	};
+	
+	var _types = __webpack_require__(/*! ../actions/types */ 254);
+
+/***/ },
+/* 313 */
+/*!****************************************************!*\
+  !*** ./public/src/components/listings/listings.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 252);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Listing = function (_Component) {
+	  _inherits(Listing, _Component);
+	
+	  function Listing() {
+	    _classCallCheck(this, Listing);
+	
+	    return _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).apply(this, arguments));
+	  }
+	
+	  _createClass(Listing, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	      this.props.fetchListings();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var userInfo = _props.userInfo;
+	      var listings = _props.listings;
+	
+	      if (userInfo && listings) {
+	        console.log(listings);
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          listings.map(function (result) {
+	            console.log(result);
+	            return _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-4', key: result._id },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'listingBorder' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'thumbnail' },
+	                  _react2.default.createElement('img', { className: 'img-responsive center-block',
+	                    src: result.image
+	                  })
+	                ),
+	                _react2.default.createElement('hr', null),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10 col-sm-offset-1' },
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'Country: ',
+	                      result.location.country
+	                    ),
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'City: ',
+	                      result.location.city
+	                    ),
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'Price: $',
+	                      result.pricePerNight,
+	                      ' / night'
+	                    )
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement('br', null)
+	            );
+	          })
+	        );
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        'Loading...... '
+	      );
+	    }
+	  }]);
+	
+	  return Listing;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
 
 /***/ }
 /******/ ]);

@@ -18,3 +18,9 @@ a {
 .listingBorder {
   border: 1px black solid;
 }
+
+.thumbnail {
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+}
