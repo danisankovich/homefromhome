@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var listings = require('./routes/listings');
 
 var app = express();
 
@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/api/users', users);
+app.use('/api/listings', listings);
 
 app.set('view engine', 'ejs');
 app.get('*', (req, res) => {
@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.render(path.join(__dirname, 'views/error.html'), {
       message: err.message,
       error: err
     });
@@ -59,7 +59,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.render(path.join(__dirname, 'views/error.html'), {
     message: err.message,
     error: {}
   });

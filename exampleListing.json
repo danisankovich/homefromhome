@@ -1,0 +1,17 @@
+{
+  "creator": {
+    "username": "asdf",
+    "id": "asddf",
+    "phoneNumber": "dfdaf",
+    "email": "dfadfadsf"
+  },
+  "location": {
+    "city": "asdfadsf",
+    "country": "countrytest",
+    "address": "addrestest"
+  },
+  "image": "www.google.com",
+  "pricePerNight": "Price",
+  "availableForRent": "true",
+  "datesAvailable": "These Dates"
+}

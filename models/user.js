@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt-nodejs');
 const userSchema = new Schema({
   email: {type: String, unique: true, lowercase: true, required: true},
   username: {type: String, lowercase: true, require: true},
-  password: String
+  password: String,
+  phoneNumber: String,
 });
 
 // hook that runs before the model gets saved
