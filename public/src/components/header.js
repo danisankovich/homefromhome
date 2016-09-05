@@ -46,9 +46,9 @@ class Header extends Component {
   }
   render() {
     return (
-      <nav className="navbar navbar-inverse navbar-fixed-top">
-        <Link to="/" className="navbar-brand">Sauthenkovich</Link>
-        <ul className="nav navbar-nav navbar-right">
+      <nav className="navbar navbar-transparent navbar-fixed-top">
+        <Link to="/" className="navbar-logo-hfh">HFH</Link>
+        <ul className="nav navbar-nav navbar-right navbar-links-hfh">
           {this.renderLinks()}
         </ul>
       </nav>

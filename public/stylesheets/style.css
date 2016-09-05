@@ -27,3 +27,45 @@ a {
 .hidden {
   display:none;
 }
+
+#wrapper, img{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.navbar-logo-hfh {
+  font-size: 36px;
+  top: 3px;
+  color: #D3D3D3;
+  padding: 0 0 0 11px;
+}
+
+.navbar-links-hfh > li > a{
+  color: black;
+  font-size: 24px;
+}
+.center-div {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+.transbox {
+  text-align:center;
+  margin: 30px;
+  margin-top: 22%;
+  height: 150px;
+  background-color: #000000;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+.transbox h1 {
+  font-size: 64px;
+  margin: 5%;
+  padding-top: 6%;
+  font-weight: bold;
+  color: white;
+}

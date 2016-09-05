@@ -66,13 +66,13 @@ class Settings extends Component {
                   {phoneNumber.touched && phoneNumber.error && <div className="error">{phoneNumber.error}</div>}
                   <input className="form-control" {...phoneNumber}/>
                 </fieldset>
-                <button type='button'
+                <button type='button' className="btn btn-danger"
                   onClick={function(){
                     this.handleClick({editPhone: false})
                   }.bind(this)}>
                   hide
                 </button>
-                <button action="submit" className="btn btn-primary">Sign Up</button>
+                <button action="submit" className="btn btn-primary">Save</button>
               </form>
             </li>
             <li
@@ -89,13 +89,13 @@ class Settings extends Component {
                   {email.touched && email.error && <div className="error">{email.error}</div>}
                   <input className="form-control" {...email}/>
                 </fieldset>
-                <button type='button'
+                <button type='button' className="btn btn-danger"
                   onClick={function(){
                     this.handleClick({editEmail: false})
                   }.bind(this)}>
                   hide
                 </button>
-                <button action="submit" className="btn btn-primary">Sign Up</button>
+                <button action="submit" className="btn btn-primary">Save</button>
               </form>
             </li>
           </ul>
