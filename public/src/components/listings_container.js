@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import Listings from './listings/listings';
+import {Link} from 'react-router';
 
 //WELCOMING PAGE
 class Listings_Container extends Component {
@@ -15,6 +16,7 @@ class Listings_Container extends Component {
       return (
         <div>
           <h3>Listings</h3>
+          <Link to="/new">New Listing</Link>
           <div className='row'>
             <Listings />
           </div>

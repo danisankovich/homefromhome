@@ -6,7 +6,7 @@ export default () => (
     </img>
     <div className='center-div'>
     <div className="transbox">
-      <h1>LIVE, LEARN, LIFE</h1>
+      <h1>Find your Home Away from Home</h1>
     </div>
     </div>
   </div>

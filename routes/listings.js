@@ -26,11 +26,33 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/new', (req, res) => {
-  const newListing = new Listing(req.body);
-  newListing.save((err) => {
-    if (err) res.send(err);
-    res.json(newListing);
-  });
+  var data = {};
+  data.image = req.body.image;
+  data.pricePerNight = req.body.pricePerNight;
+  data.availableForRent = req.body.availableForRent;
+  data.datesAvailable = req.body.datesAvailable;
+  data.location = {
+    city: req.body.city,
+    address: req.body.address,
+    country: req.body.country
+  }
+  data.creator = {
+    username: req.body.username,
+    id: req.body.id,
+    phoneNumber: req.body.phoneNumber,
+    email: req.body.email
+  }
+  console.log(data);
+  console.log('________________');
+  Listing.create(data, (err, listing) => {
+    console.log(listing)
+    res.json(listing)
+  })
+  // newListing.save((err) => {
+  //   if (err) res.send(err);
+  //   console.log(newListing)
+  //   res.json(newListing);
+  // });
 });
 
 module.exports = router;

@@ -117,6 +117,10 @@
 	
 	var _listing2 = _interopRequireDefault(_listing);
 	
+	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 315);
+	
+	var _newListing2 = _interopRequireDefault(_newListing);
+	
 	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 311);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
@@ -129,10 +133,10 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// Main Routes
+	// Listings Routes
 	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
 	
-	// Listings Routes
+	// Main Routes
 	
 	var store = createStoreWithMiddleware(_reducers2.default);
 	
@@ -164,7 +168,7 @@
 	      { path: '/listings', component: _app2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/new', component: _newListing2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }),
@@ -28202,6 +28206,7 @@
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
 	exports.fetchListings = fetchListings;
+	exports.newListing = newListing;
 	exports.fetchSingleListing = fetchSingleListing;
 	
 	var _jquery = __webpack_require__(/*! jquery */ 254);
@@ -28338,6 +28343,26 @@
 	    }).done(function (response) {
 	      dispatch({
 	        type: _types.FETCH_LISTINGS,
+	        payload: response
+	      });
+	    });
+	  };
+	}
+	function newListing(data) {
+	  console.log(data);
+	  var token = localStorage.getItem('token');
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: ROOT_URL + '/listings/new',
+	      type: "POST",
+	      headers: {
+	        "authorization": token
+	      },
+	      data: data
+	    }).done(function (response) {
+	      console.log(response);
+	      dispatch({
+	        type: _types.NEW_LISTING,
 	        payload: response
 	      });
 	    });
@@ -38202,6 +38227,7 @@
 	var AUTH_ERROR = exports.AUTH_ERROR = 'auth_error';
 	var FETCH_INFO = exports.FETCH_INFO = 'fetch_info';
 	var FETCH_LISTINGS = exports.FETCH_LISTINGS = 'fetch_listings';
+	var NEW_LISTING = exports.NEW_LISTING = 'new_listing';
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
 
@@ -42238,7 +42264,7 @@
 	        _react2.default.createElement(
 	          'h1',
 	          null,
-	          'LIVE, LEARN, LIFE'
+	          'Find your Home Away from Home'
 	        )
 	      )
 	    )
@@ -42273,6 +42299,8 @@
 	var _listings = __webpack_require__(/*! ./listings/listings */ 309);
 	
 	var _listings2 = _interopRequireDefault(_listings);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -42315,6 +42343,11 @@
 	            'h3',
 	            null,
 	            'Listings'
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/new' },
+	            'New Listing'
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -42796,11 +42829,228 @@
 	      return _extends({}, state, { listings: action.payload });
 	    case _types.FETCH_SINGLE_LISTING:
 	      return _extends({}, state, { listing: action.payload });
+	    case _types.NEW_LISTING:
+	      return _extends({}, state, { listing: action.payload });
 	  }
 	  return state;
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 255);
+
+/***/ },
+/* 315 */
+/*!******************************************************!*\
+  !*** ./public/src/components/listings/newListing.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 257);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 253);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewListing = function (_Component) {
+	  _inherits(NewListing, _Component);
+	
+	  function NewListing() {
+	    _classCallCheck(this, NewListing);
+	
+	    return _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).apply(this, arguments));
+	  }
+	
+	  _createClass(NewListing, [{
+	    key: 'handleFormSubmit',
+	    value: function handleFormSubmit(formProps) {
+	      //called with props from submit form
+	      var data = formProps;
+	      data.username = this.props.userInfo.username;
+	      data.id = this.props.userInfo._id;
+	      data.phoneNumber = this.props.userInfo.phoneNumber;
+	      data.email = this.props.userInfo.email;
+	      this.props.newListing(data);
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'renderAlert',
+	    value: function renderAlert() {
+	      if (this.props.errorMessage) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'alert alert-danger' },
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Error!!! '
+	          ),
+	          ' ',
+	          this.props.errorMessage
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
+	      var userInfo = _props.userInfo;
+	      var _props$fields = _props.fields;
+	      var city = _props$fields.city;
+	      var country = _props$fields.country;
+	      var address = _props$fields.address;
+	      var image = _props$fields.image;
+	      var pricePerNight = _props$fields.pricePerNight;
+	      var availableForRent = _props$fields.availableForRent;
+	      var datesAvailable = _props$fields.datesAvailable;
+	
+	      return _react2.default.createElement(
+	        'form',
+	        { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	        _react2.default.createElement(
+	          'fieldset',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'City: '
+	          ),
+	          _react2.default.createElement('input', _extends({ className: 'form-control' }, city))
+	        ),
+	        _react2.default.createElement(
+	          'fieldset',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Country: '
+	          ),
+	          _react2.default.createElement('input', _extends({ className: 'form-control' }, country))
+	        ),
+	        _react2.default.createElement(
+	          'fieldset',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Address: '
+	          ),
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address))
+	        ),
+	        _react2.default.createElement(
+	          'fieldset',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Image: '
+	          ),
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, image))
+	        ),
+	        _react2.default.createElement(
+	          'fieldset',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Price Per Night: '
+	          ),
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, pricePerNight))
+	        ),
+	        _react2.default.createElement(
+	          'fieldset',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Currently Available?: '
+	          ),
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, availableForRent))
+	        ),
+	        _react2.default.createElement(
+	          'fieldset',
+	          { className: 'form-group' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            'Dates Available: '
+	          ),
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, datesAvailable))
+	        ),
+	        this.renderAlert(),
+	        _react2.default.createElement(
+	          'button',
+	          { action: 'submit', className: 'btn btn-primary' },
+	          'Sign Up'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewListing;
+	}(_react.Component);
+	
+	function validate(formProps) {
+	  var errors = {};
+	
+	  // if (!formProps.email) {
+	  //   errors.email = 'Please Enter Your Email';
+	  // }
+	  // if (!formProps.username) {
+	  //   errors.username = 'Please Enter Your Username';
+	  // }
+	  // if (!formProps.password) {
+	  //   errors.password = 'Please Enter a Password';
+	  // }
+	  // if (!formProps.passwordConfirm) {
+	  //   errors.passwordConfirm = 'Please Re-enter the Password';
+	  // }
+	  //
+	  // if(formProps.password !== formProps.passwordConfirm) {
+	  //   errors.password = 'Passwords must match';
+	  // }
+	  return errors;
+	}
+	
+	function mapStateToProps(state) {
+	  return {
+	    errorMessage: state.auth.error,
+	    userInfo: state.auth.userInfo
+	  };
+	}
+	
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'newListing',
+	  fields: ['image', 'pricePerNight', 'availableForRent', 'datesAvailable', 'city', 'country', 'address'],
+	  validate: validate
+	}, mapStateToProps, actions)(NewListing);
 
 /***/ }
 /******/ ]);

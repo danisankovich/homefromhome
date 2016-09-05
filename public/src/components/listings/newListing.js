@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
-class newListing extends Component {
+class NewListing extends Component {
   handleFormSubmit(formProps) { //called with props from submit form
-    this.props.submitListing(formProps);
+    var data = formProps
+    data.username = this.props.userInfo.username;
+    data.id = this.props.userInfo._id;
+    data.phoneNumber = this.props.userInfo.phoneNumber;
+    data.email = this.props.userInfo.email;
+    this.props.newListing(data);
   }
-
+  componentWillMount() {
+    this.props.fetchInfo();
+  }
   renderAlert() {
     if(this.props.errorMessage) {
       return (
@@ -17,28 +24,36 @@ class newListing extends Component {
     }
   }
   render() {
-    const { handleSubmit, fields: {email, username, password, passwordConfirm }} = this.props;
+    const { handleSubmit, userInfo, fields: {city, country, address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <fieldset className="form-group">
-          <label>Email: </label>
-          <input className="form-control" {...email} />
-          {email.touched && email.error && <div className="error">{email.error}</div>}
+          <label>City: </label>
+          <input className="form-control" {...city} />
         </fieldset>
         <fieldset className="form-group">
-          <label>Username: </label>
-          <input className="form-control" {...username} />
-          {username.touched && username.error && <div className="error">{username.error}</div>}
+          <label>Country: </label>
+          <input className="form-control" {...country} />
         </fieldset>
         <fieldset className="form-group">
-          <label>Password: </label>
-          <input className="form-control" type="password" {...password} />
-          {password.touched && password.error && <div className="error">{password.error}</div>}
+          <label>Address: </label>
+          <input className="form-control" type="text" {...address} />
         </fieldset>
         <fieldset className="form-group">
-          <label>Confirm Password: </label>
-          <input className="form-control" type="password" {...passwordConfirm} />
-          {passwordConfirm.touched && passwordConfirm.error && <div className="error">{passwordConfirm.error}</div>}
+          <label>Image: </label>
+          <input className="form-control" type="text" {...image} />
+        </fieldset>
+        <fieldset className="form-group">
+          <label>Price Per Night: </label>
+          <input className="form-control" type="text" {...pricePerNight} />
+        </fieldset>
+        <fieldset className="form-group">
+          <label>Currently Available?: </label>
+          <input className="form-control" type="text" {...availableForRent} />
+        </fieldset>
+        <fieldset className="form-group">
+          <label>Dates Available: </label>
+          <input className="form-control" type="text" {...datesAvailable} />
         </fieldset>
         {this.renderAlert()}
         <button action="submit" className="btn btn-primary">Sign Up</button>
@@ -50,31 +65,34 @@ class newListing extends Component {
 function validate(formProps) {
   const errors = {};
 
-  if (!formProps.email) {
-    errors.email = 'Please Enter Your Email';
-  }
-  if (!formProps.username) {
-    errors.username = 'Please Enter Your Username';
-  }
-  if (!formProps.password) {
-    errors.password = 'Please Enter a Password';
-  }
-  if (!formProps.passwordConfirm) {
-    errors.passwordConfirm = 'Please Re-enter the Password';
-  }
-
-  if(formProps.password !== formProps.passwordConfirm) {
-    errors.password = 'Passwords must match';
-  }
+  // if (!formProps.email) {
+  //   errors.email = 'Please Enter Your Email';
+  // }
+  // if (!formProps.username) {
+  //   errors.username = 'Please Enter Your Username';
+  // }
+  // if (!formProps.password) {
+  //   errors.password = 'Please Enter a Password';
+  // }
+  // if (!formProps.passwordConfirm) {
+  //   errors.passwordConfirm = 'Please Re-enter the Password';
+  // }
+  //
+  // if(formProps.password !== formProps.passwordConfirm) {
+  //   errors.password = 'Passwords must match';
+  // }
   return errors;
 }
 
 function mapStateToProps(state) {
-  return {errorMessage: state.auth.error};
+  return {
+    errorMessage: state.auth.error,
+    userInfo: state.auth.userInfo
+  };
 }
 
 export default reduxForm({
   form: 'newListing',
   fields: ['image', 'pricePerNight', 'availableForRent', 'datesAvailable', 'city', 'country', 'address'],
   validate,
-}, mapStateToProps, actions)(Signup);
+}, mapStateToProps, actions)(NewListing);

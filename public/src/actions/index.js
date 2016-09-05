@@ -6,6 +6,7 @@ import {
   UNAUTH_USER,
   FETCH_INFO,
   FETCH_LISTINGS,
+  NEW_LISTING,
   FETCH_SINGLE_LISTING,
   EDIT_USER
 } from './types';
@@ -128,6 +129,26 @@ export function fetchListings() {
     }).done((response) => {
       dispatch({
         type: FETCH_LISTINGS,
+        payload: response
+      })
+    });
+  }
+}
+export function newListing(data) {
+  console.log(data)
+  var token = localStorage.getItem('token')
+  return function(dispatch) {
+    $.ajax({
+       url: `${ROOT_URL}/listings/new`,
+       type: "POST",
+       headers: {
+          "authorization": token
+       },
+       data: data
+    }).done((response) => {
+      console.log(response)
+      dispatch({
+        type: NEW_LISTING,
         payload: response
       })
     });
