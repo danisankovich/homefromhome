@@ -17,4 +17,14 @@ const User = require('../models/user');
 router.get('/api', requireAuth, Authentication.getUser);
 router.post('/api/signup', Authentication.signup);
 router.post('/api/signin', requireSignin, Authentication.signin);
+router.post('/api/editInfo', (req, res) => {
+  var newPhone = req.body.phoneNumber
+  User.findById(req.body.user, (err, user) => {
+    user.phoneNumber = newPhone;
+    user.save()
+    console.log(user)
+    res.send(user);
+
+  })
+});
 module.exports = router;

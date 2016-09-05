@@ -1,6 +1,14 @@
 import $ from 'jquery';
 import { browserHistory } from 'react-router'; // commits info about url to react router, and to make changes to url
-import {AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_INFO, FETCH_LISTINGS, FETCH_SINGLE_LISTING} from './types';
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  UNAUTH_USER,
+  FETCH_INFO,
+  FETCH_LISTINGS,
+  FETCH_SINGLE_LISTING,
+  EDIT_PHONE
+} from './types';
 
 const ROOT_URL = 'http://localhost:3000/api';
 
@@ -35,6 +43,24 @@ export function signupUser({email, password, username}) {
         localStorage.setItem('token', response.token);
 
         browserHistory.push('/information'); // success pushes you to /information.
+      }).fail((error) => {
+        console.log(error)
+        dispatch(authError(error.response.error));
+      });
+  }
+}
+export function editPhoneNumber({phoneNumber}, user) {
+  return function(dispatch) {
+    console.log(phoneNumber)
+    dispatch({type: EDIT_PHONE});
+
+    $.ajax({
+      url: `${ROOT_URL}/editInfo`,
+      type: "POST",
+      data: {phoneNumber, user},
+    })
+      .done(response => {
+        dispatch({type: FETCH_INFO});
       }).fail((error) => {
         console.log(error)
         dispatch(authError(error.response.error));

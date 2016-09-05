@@ -113,15 +113,15 @@
 	
 	var _listings_container2 = _interopRequireDefault(_listings_container);
 	
-	var _listing = __webpack_require__(/*! ./components/listings/listing */ 313);
+	var _listing = __webpack_require__(/*! ./components/listings/listing */ 309);
 	
 	var _listing2 = _interopRequireDefault(_listing);
 	
-	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 309);
+	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 310);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 310);
+	var _reducers = __webpack_require__(/*! ./reducers */ 311);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -28155,6 +28155,7 @@
 	});
 	exports.signinUser = signinUser;
 	exports.signupUser = signupUser;
+	exports.editPhoneNumber = editPhoneNumber;
 	exports.authError = authError;
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
@@ -28208,6 +28209,25 @@
 	      localStorage.setItem('token', response.token);
 	
 	      _reactRouter.browserHistory.push('/information'); // success pushes you to /information.
+	    }).fail(function (error) {
+	      console.log(error);
+	      dispatch(authError(error.response.error));
+	    });
+	  };
+	}
+	function editPhoneNumber(_ref3, user) {
+	  var phoneNumber = _ref3.phoneNumber;
+	
+	  return function (dispatch) {
+	    console.log(phoneNumber);
+	    dispatch({ type: _types.EDIT_PHONE });
+	
+	    _jquery2.default.ajax({
+	      url: ROOT_URL + '/editInfo',
+	      type: "POST",
+	      data: { phoneNumber: phoneNumber, user: user }
+	    }).done(function (response) {
+	      dispatch({ type: _types.FETCH_INFO });
 	    }).fail(function (error) {
 	      console.log(error);
 	      dispatch(authError(error.response.error));
@@ -38122,6 +38142,7 @@
 	var FETCH_INFO = exports.FETCH_INFO = 'fetch_info';
 	var FETCH_LISTINGS = exports.FETCH_LISTINGS = 'fetch_listings';
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
+	var EDIT_PHONE = exports.EDIT_PHONE = 'edit_phone';
 
 /***/ },
 /* 255 */
@@ -41890,6 +41911,8 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 2);
@@ -41901,6 +41924,8 @@
 	var _actions = __webpack_require__(/*! ../../../actions */ 252);
 	
 	var actions = _interopRequireWildcard(_actions);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 256);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -41915,20 +41940,55 @@
 	var Settings = function (_Component) {
 	  _inherits(Settings, _Component);
 	
-	  function Settings() {
+	  function Settings(props) {
 	    _classCallCheck(this, Settings);
 	
-	    return _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).call(this, props));
+	
+	    _this.state = {
+	      editEmail: false,
+	      editPhone: false,
+	      editUser: false
+	    };
+	    return _this;
 	  }
+	  // handle hide/show clicks
+	
 	
 	  _createClass(Settings, [{
+	    key: 'handleClick',
+	    value: function handleClick(type) {
+	      this.setState(type);
+	      console.log(Object.keys(type)[0]);
+	      if (Object.keys(type)[0] === 'editUser') {
+	        this.setState({ username: this.props.userInfo.userName });
+	      }
+	    }
+	  }, {
+	    key: 'onEmailChange',
+	    value: function onEmailChange(event) {
+	      console.log(event.target.value);
+	      this.props.userInfo.username = +event.target.value;
+	    }
+	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchInfo();
 	    }
 	  }, {
+	    key: 'handleFormSubmit',
+	    value: function handleFormSubmit(formProps) {
+	      //called with props from submit form
+	      this.props.editPhoneNumber(formProps, this.props.userInfo._id);
+	      this.props.fetchInfo();
+	      this.setState({ editPhone: false });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
+	      var phoneNumber = _props.fields.phoneNumber;
 	      var userInfo = this.props.userInfo;
 	
 	      if (userInfo) {
@@ -41945,8 +42005,57 @@
 	            null,
 	            'Edit User Info: '
 	          ),
-	          'aaa: ',
-	          this.props.userInfo.username
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Username: ',
+	              this.props.userInfo.username
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              {
+	                className: this.state.editPhone ? 'hidden' : '',
+	                onClick: function () {
+	                  this.handleClick({ editPhone: true });
+	                }.bind(this) },
+	              'Phone Number: ',
+	              this.props.userInfo.phoneNumber || 'Set Number'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              { className: this.state.editPhone ? '' : 'hidden' },
+	              _react2.default.createElement(
+	                'form',
+	                { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	                _react2.default.createElement(
+	                  'fieldset',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    null,
+	                    'Phone Number: '
+	                  ),
+	                  _react2.default.createElement('input', _extends({ className: 'form-control' }, phoneNumber))
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { type: 'button',
+	                    onClick: function () {
+	                      this.handleClick({ editPhone: false });
+	                    }.bind(this) },
+	                  'hide'
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { action: 'submit', className: 'btn btn-primary' },
+	                  'Sign Up'
+	                )
+	              )
+	            )
+	          )
 	        );
 	      }
 	      return _react2.default.createElement(
@@ -41963,7 +42072,11 @@
 	function mapStateToProps(state) {
 	  return { userInfo: state.auth.userInfo };
 	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Settings);
+	
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'settings',
+	  fields: ['email', 'phoneNumber']
+	}, mapStateToProps, actions)(Settings);
 
 /***/ },
 /* 306 */
@@ -42224,182 +42337,6 @@
 
 /***/ },
 /* 309 */
-/*!****************************************************!*\
-  !*** ./public/src/components/auth/require_auth.js ***!
-  \****************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	exports.default = function (ComposedComponent) {
-	  var Authentication = function (_Component) {
-	    _inherits(Authentication, _Component);
-	
-	    function Authentication() {
-	      _classCallCheck(this, Authentication);
-	
-	      return _possibleConstructorReturn(this, (Authentication.__proto__ || Object.getPrototypeOf(Authentication)).apply(this, arguments));
-	    }
-	
-	    _createClass(Authentication, [{
-	      key: 'componentWillMount',
-	      value: function componentWillMount() {
-	        if (!this.props.authenticated) {
-	          this.context.router.push('/');
-	        }
-	      }
-	    }, {
-	      key: 'componentWillUpdate',
-	      value: function componentWillUpdate(nextProps) {
-	        if (!nextProps.authenticated) {
-	          this.context.router.push('/');
-	        }
-	      }
-	    }, {
-	      key: 'render',
-	      value: function render() {
-	        return _react2.default.createElement(ComposedComponent, this.props);
-	      }
-	    }]);
-	
-	    return Authentication;
-	  }(_react.Component);
-	
-	  Authentication.contextTypes = {
-	    router: _react2.default.PropTypes.object
-	  };
-	
-	  function mapStateToProps(state) {
-	    return { authenticated: state.auth.authenticated };
-	  }
-	  return (0, _reactRedux.connect)(mapStateToProps)(Authentication);
-	};
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// HIGHER ORDER COMPONENT
-	
-	//wraps other components to add this feature to it: feature => kicks out unauthed users
-
-/***/ },
-/* 310 */
-/*!**************************************!*\
-  !*** ./public/src/reducers/index.js ***!
-  \**************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(/*! redux */ 167);
-	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 256);
-	
-	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 311);
-	
-	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
-	
-	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 312);
-	
-	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var rootReducer = (0, _redux.combineReducers)({
-	  form: _reduxForm.reducer,
-	  auth: _auth_reducer2.default,
-	  listing: _listing_reducer2.default
-	});
-	
-	exports.default = rootReducer;
-
-/***/ },
-/* 311 */
-/*!*********************************************!*\
-  !*** ./public/src/reducers/auth_reducer.js ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case _types.AUTH_USER:
-	      return _extends({}, state, { authenticated: true });
-	    case _types.UNAUTH_USER:
-	      return _extends({}, state, { authenticated: false });
-	    case _types.AUTH_ERROR:
-	      return _extends({}, state, { error: action.payload });
-	    case _types.FETCH_INFO:
-	      return _extends({}, state, { userInfo: action.payload });
-	  }
-	  return state;
-	};
-	
-	var _types = __webpack_require__(/*! ../actions/types */ 254);
-
-/***/ },
-/* 312 */
-/*!************************************************!*\
-  !*** ./public/src/reducers/listing_reducer.js ***!
-  \************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case _types.FETCH_LISTINGS:
-	      return _extends({}, state, { listings: action.payload });
-	    case _types.FETCH_SINGLE_LISTING:
-	      return _extends({}, state, { listing: action.payload });
-	  }
-	  return state;
-	};
-	
-	var _types = __webpack_require__(/*! ../actions/types */ 254);
-
-/***/ },
-/* 313 */
 /*!***************************************************!*\
   !*** ./public/src/components/listings/listing.js ***!
   \***************************************************/
@@ -42547,6 +42484,184 @@
 	  return { userInfo: state.auth.userInfo, listing: state.listing.listing };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleListing);
+
+/***/ },
+/* 310 */
+/*!****************************************************!*\
+  !*** ./public/src/components/auth/require_auth.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	exports.default = function (ComposedComponent) {
+	  var Authentication = function (_Component) {
+	    _inherits(Authentication, _Component);
+	
+	    function Authentication() {
+	      _classCallCheck(this, Authentication);
+	
+	      return _possibleConstructorReturn(this, (Authentication.__proto__ || Object.getPrototypeOf(Authentication)).apply(this, arguments));
+	    }
+	
+	    _createClass(Authentication, [{
+	      key: 'componentWillMount',
+	      value: function componentWillMount() {
+	        if (!this.props.authenticated) {
+	          this.context.router.push('/');
+	        }
+	      }
+	    }, {
+	      key: 'componentWillUpdate',
+	      value: function componentWillUpdate(nextProps) {
+	        if (!nextProps.authenticated) {
+	          this.context.router.push('/');
+	        }
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        return _react2.default.createElement(ComposedComponent, this.props);
+	      }
+	    }]);
+	
+	    return Authentication;
+	  }(_react.Component);
+	
+	  Authentication.contextTypes = {
+	    router: _react2.default.PropTypes.object
+	  };
+	
+	  function mapStateToProps(state) {
+	    return { authenticated: state.auth.authenticated };
+	  }
+	  return (0, _reactRedux.connect)(mapStateToProps)(Authentication);
+	};
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// HIGHER ORDER COMPONENT
+	
+	//wraps other components to add this feature to it: feature => kicks out unauthed users
+
+/***/ },
+/* 311 */
+/*!**************************************!*\
+  !*** ./public/src/reducers/index.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(/*! redux */ 167);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 256);
+	
+	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 312);
+	
+	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
+	
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 313);
+	
+	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var rootReducer = (0, _redux.combineReducers)({
+	  form: _reduxForm.reducer,
+	  auth: _auth_reducer2.default,
+	  listing: _listing_reducer2.default
+	});
+	
+	exports.default = rootReducer;
+
+/***/ },
+/* 312 */
+/*!*********************************************!*\
+  !*** ./public/src/reducers/auth_reducer.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _types.AUTH_USER:
+	      return _extends({}, state, { authenticated: true });
+	    case _types.UNAUTH_USER:
+	      return _extends({}, state, { authenticated: false });
+	    case _types.AUTH_ERROR:
+	      return _extends({}, state, { error: action.payload });
+	    case _types.FETCH_INFO:
+	      return _extends({}, state, { userInfo: action.payload });
+	    case _types.EDIT_PHONE:
+	      return _extends({}, state, { userInfo: action.payload });
+	  }
+	  return state;
+	};
+	
+	var _types = __webpack_require__(/*! ../actions/types */ 254);
+
+/***/ },
+/* 313 */
+/*!************************************************!*\
+  !*** ./public/src/reducers/listing_reducer.js ***!
+  \************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _types.FETCH_LISTINGS:
+	      return _extends({}, state, { listings: action.payload });
+	    case _types.FETCH_SINGLE_LISTING:
+	      return _extends({}, state, { listing: action.payload });
+	  }
+	  return state;
+	};
+	
+	var _types = __webpack_require__(/*! ../actions/types */ 254);
 
 /***/ }
 /******/ ]);
