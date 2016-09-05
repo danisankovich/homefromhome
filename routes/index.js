@@ -19,10 +19,12 @@ router.post('/api/signup', Authentication.signup);
 router.post('/api/signin', requireSignin, Authentication.signin);
 router.post('/api/editInfo', (req, res) => {
   var newPhone = req.body.phoneNumber
+  var newEmail = req.body.email
+  console.log(req.body)
   User.findById(req.body.user, (err, user) => {
-    user.phoneNumber = newPhone;
+    user.phoneNumber = newPhone || user.phoneNumber;
+    user.email = newEmail || user.email;
     user.save()
-    console.log(user)
     res.send(user);
 
   })

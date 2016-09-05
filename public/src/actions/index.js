@@ -7,7 +7,7 @@ import {
   FETCH_INFO,
   FETCH_LISTINGS,
   FETCH_SINGLE_LISTING,
-  EDIT_PHONE
+  EDIT_USER
 } from './types';
 
 const ROOT_URL = 'http://localhost:3000/api';
@@ -49,15 +49,15 @@ export function signupUser({email, password, username}) {
       });
   }
 }
-export function editPhoneNumber({phoneNumber}, user) {
+export function editUser({phoneNumber, email}, user) {
   return function(dispatch) {
     console.log(phoneNumber)
-    dispatch({type: EDIT_PHONE});
+    dispatch({type: EDIT_USER});
 
     $.ajax({
       url: `${ROOT_URL}/editInfo`,
       type: "POST",
-      data: {phoneNumber, user},
+      data: {phoneNumber, email, user},
     })
       .done(response => {
         dispatch({type: FETCH_INFO});
@@ -67,6 +67,24 @@ export function editPhoneNumber({phoneNumber}, user) {
       });
   }
 }
+// export function editEmail({phoneNumber, email}, user) {
+//   return function(dispatch) {
+//     console.log(phoneNumber, email)
+//     dispatch({type: EDIT_USER});
+//
+//     $.ajax({
+//       url: `${ROOT_URL}/editInfo`,
+//       type: "POST",
+//       data: {phoneNumber, email, user},
+//     })
+//       .done(response => {
+//         dispatch({type: FETCH_INFO});
+//       }).fail((error) => {
+//         console.log(error)
+//         dispatch(authError(error.response.error));
+//       });
+//   }
+// }
 
 export function authError(error) {
   return {

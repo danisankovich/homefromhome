@@ -28155,7 +28155,7 @@
 	});
 	exports.signinUser = signinUser;
 	exports.signupUser = signupUser;
-	exports.editPhoneNumber = editPhoneNumber;
+	exports.editUser = editUser;
 	exports.authError = authError;
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
@@ -28215,17 +28215,18 @@
 	    });
 	  };
 	}
-	function editPhoneNumber(_ref3, user) {
+	function editUser(_ref3, user) {
 	  var phoneNumber = _ref3.phoneNumber;
+	  var email = _ref3.email;
 	
 	  return function (dispatch) {
 	    console.log(phoneNumber);
-	    dispatch({ type: _types.EDIT_PHONE });
+	    dispatch({ type: _types.EDIT_USER });
 	
 	    _jquery2.default.ajax({
 	      url: ROOT_URL + '/editInfo',
 	      type: "POST",
-	      data: { phoneNumber: phoneNumber, user: user }
+	      data: { phoneNumber: phoneNumber, email: email, user: user }
 	    }).done(function (response) {
 	      dispatch({ type: _types.FETCH_INFO });
 	    }).fail(function (error) {
@@ -28234,6 +28235,24 @@
 	    });
 	  };
 	}
+	// export function editEmail({phoneNumber, email}, user) {
+	//   return function(dispatch) {
+	//     console.log(phoneNumber, email)
+	//     dispatch({type: EDIT_USER});
+	//
+	//     $.ajax({
+	//       url: `${ROOT_URL}/editInfo`,
+	//       type: "POST",
+	//       data: {phoneNumber, email, user},
+	//     })
+	//       .done(response => {
+	//         dispatch({type: FETCH_INFO});
+	//       }).fail((error) => {
+	//         console.log(error)
+	//         dispatch(authError(error.response.error));
+	//       });
+	//   }
+	// }
 	
 	function authError(error) {
 	  return {
@@ -38142,7 +38161,7 @@
 	var FETCH_INFO = exports.FETCH_INFO = 'fetch_info';
 	var FETCH_LISTINGS = exports.FETCH_LISTINGS = 'fetch_listings';
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
-	var EDIT_PHONE = exports.EDIT_PHONE = 'edit_phone';
+	var EDIT_USER = exports.EDIT_USER = 'edit_user';
 
 /***/ },
 /* 255 */
@@ -41976,19 +41995,31 @@
 	      this.props.fetchInfo();
 	    }
 	  }, {
-	    key: 'handleFormSubmit',
-	    value: function handleFormSubmit(formProps) {
+	    key: 'handleFormSubmitPhoneNumber',
+	    value: function handleFormSubmitPhoneNumber(formProps) {
 	      //called with props from submit form
-	      this.props.editPhoneNumber(formProps, this.props.userInfo._id);
+	      console.log(formProps);
+	      this.props.editUser(formProps, this.props.userInfo._id);
 	      this.props.fetchInfo();
 	      this.setState({ editPhone: false });
+	    }
+	  }, {
+	    key: 'handleFormSubmitEmail',
+	    value: function handleFormSubmitEmail(formProps) {
+	      //called with props from submit form
+	      console.log(formProps);
+	      this.props.editUser(formProps, this.props.userInfo._id);
+	      this.props.fetchInfo();
+	      this.setState({ editEmail: false });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
 	      var handleSubmit = _props.handleSubmit;
-	      var phoneNumber = _props.fields.phoneNumber;
+	      var _props$fields = _props.fields;
+	      var phoneNumber = _props$fields.phoneNumber;
+	      var email = _props$fields.email;
 	      var userInfo = this.props.userInfo;
 	
 	      if (userInfo) {
@@ -42029,14 +42060,20 @@
 	              { className: this.state.editPhone ? '' : 'hidden' },
 	              _react2.default.createElement(
 	                'form',
-	                { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	                { onSubmit: handleSubmit(this.handleFormSubmitPhoneNumber.bind(this)) },
 	                _react2.default.createElement(
 	                  'fieldset',
 	                  { className: 'form-group' },
 	                  _react2.default.createElement(
 	                    'label',
 	                    null,
-	                    'Phone Number: '
+	                    'Phone Number: ',
+	                    this.props.userInfo.phoneNumber
+	                  ),
+	                  phoneNumber.touched && phoneNumber.error && _react2.default.createElement(
+	                    'div',
+	                    { className: 'error' },
+	                    phoneNumber.error
 	                  ),
 	                  _react2.default.createElement('input', _extends({ className: 'form-control' }, phoneNumber))
 	                ),
@@ -42045,6 +42082,53 @@
 	                  { type: 'button',
 	                    onClick: function () {
 	                      this.handleClick({ editPhone: false });
+	                    }.bind(this) },
+	                  'hide'
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { action: 'submit', className: 'btn btn-primary' },
+	                  'Sign Up'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              {
+	                className: this.state.editEmail ? 'hidden' : '',
+	                onClick: function () {
+	                  this.handleClick({ editEmail: true });
+	                }.bind(this) },
+	              'Email: ',
+	              this.props.userInfo.email
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              { className: this.state.editEmail ? '' : 'hidden' },
+	              _react2.default.createElement(
+	                'form',
+	                { onSubmit: handleSubmit(this.handleFormSubmitEmail.bind(this)) },
+	                _react2.default.createElement(
+	                  'fieldset',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    null,
+	                    'Email: ',
+	                    this.props.userInfo.email
+	                  ),
+	                  email.touched && email.error && _react2.default.createElement(
+	                    'div',
+	                    { className: 'error' },
+	                    email.error
+	                  ),
+	                  _react2.default.createElement('input', _extends({ className: 'form-control' }, email))
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { type: 'button',
+	                    onClick: function () {
+	                      this.handleClick({ editEmail: false });
 	                    }.bind(this) },
 	                  'hide'
 	                ),
@@ -42625,7 +42709,7 @@
 	      return _extends({}, state, { error: action.payload });
 	    case _types.FETCH_INFO:
 	      return _extends({}, state, { userInfo: action.payload });
-	    case _types.EDIT_PHONE:
+	    case _types.EDIT_USER:
 	      return _extends({}, state, { userInfo: action.payload });
 	  }
 	  return state;

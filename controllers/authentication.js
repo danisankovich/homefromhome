@@ -9,7 +9,6 @@ tokenForUser = (user) => {
 }
 
 exports.signup = function(req, res, next) {
-  console.log(req.body);
   const email = req.body.email;
   const username = req.body.username;
   const password = req.body.password;
@@ -42,7 +41,6 @@ exports.signin = function(req, res, next) {
 }
 exports.getUser = (req, res) => {
   var token = req.headers.authorization;
-  console.log(token)
   var user;
   if(token) {
     try {

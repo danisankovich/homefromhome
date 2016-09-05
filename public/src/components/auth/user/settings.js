@@ -27,13 +27,20 @@ class Settings extends Component {
   componentWillMount() {
     this.props.fetchInfo();
   }
-  handleFormSubmit(formProps) { //called with props from submit form
-    this.props.editPhoneNumber(formProps, this.props.userInfo._id);
+  handleFormSubmitPhoneNumber(formProps) { //called with props from submit form
+    console.log(formProps)
+    this.props.editUser(formProps, this.props.userInfo._id);
     this.props.fetchInfo();
     this.setState({editPhone: false})
   }
+  handleFormSubmitEmail(formProps) { //called with props from submit form
+    console.log(formProps)
+    this.props.editUser(formProps, this.props.userInfo._id);
+    this.props.fetchInfo();
+    this.setState({editEmail: false})
+  }
   render() {
-    const { handleSubmit, fields: {phoneNumber}} = this.props;
+    const { handleSubmit, fields: {phoneNumber, email}} = this.props;
 
     let {userInfo} = this.props;
     if(userInfo) {
@@ -53,14 +60,38 @@ class Settings extends Component {
               Phone Number: {this.props.userInfo.phoneNumber || 'Set Number'}
             </li>
             <li className={this.state.editPhone ? '' : 'hidden'}>
-              <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+              <form onSubmit={handleSubmit(this.handleFormSubmitPhoneNumber.bind(this))}>
                 <fieldset className="form-group">
-                  <label>Phone Number: </label>
+                  <label>Phone Number: {this.props.userInfo.phoneNumber}</label>
+                  {phoneNumber.touched && phoneNumber.error && <div className="error">{phoneNumber.error}</div>}
                   <input className="form-control" {...phoneNumber}/>
                 </fieldset>
                 <button type='button'
                   onClick={function(){
                     this.handleClick({editPhone: false})
+                  }.bind(this)}>
+                  hide
+                </button>
+                <button action="submit" className="btn btn-primary">Sign Up</button>
+              </form>
+            </li>
+            <li
+              className={this.state.editEmail ? 'hidden' : ''}
+              onClick={function(){
+                this.handleClick({editEmail: true})
+              }.bind(this)}>
+              Email: {this.props.userInfo.email}
+            </li>
+            <li className={this.state.editEmail ? '' : 'hidden'}>
+              <form onSubmit={handleSubmit(this.handleFormSubmitEmail.bind(this))}>
+                <fieldset className="form-group">
+                  <label>Email: {this.props.userInfo.email}</label>
+                  {email.touched && email.error && <div className="error">{email.error}</div>}
+                  <input className="form-control" {...email}/>
+                </fieldset>
+                <button type='button'
+                  onClick={function(){
+                    this.handleClick({editEmail: false})
                   }.bind(this)}>
                   hide
                 </button>
@@ -76,6 +107,7 @@ class Settings extends Component {
     );
   };
 }
+
 function mapStateToProps(state) {
   return {userInfo: state.auth.userInfo};
 }
