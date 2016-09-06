@@ -8,11 +8,10 @@ import {Link} from 'react-router';
 class Listings_Container extends Component {
   componentWillMount() {
     this.props.fetchInfo();
-    this.props.fetchListings();
+    // this.props.fetchListings();
   }
   render() {
     let {listings, userInfo} = this.props;
-    if(listings) {
       return (
         <div>
           <h3>Listings</h3>
@@ -22,10 +21,6 @@ class Listings_Container extends Component {
           </div>
         </div>
       );
-    }
-    return (
-      <div><img src="http://bestanimations.com/Science/Gears/loadinggears/loading-gears-animation-3.gif"></img> </div>
-    );
   };
 }
 function mapStateToProps(state) {
