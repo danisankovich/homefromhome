@@ -7,7 +7,6 @@ import { browserHistory } from 'react-router'
 class Listing extends Component {
   handleClick() {
     let clickResult = this._id;
-    console.log(clickResult)
     browserHistory.push(`/listings/${clickResult}`);
 
   }
@@ -27,7 +26,7 @@ class Listing extends Component {
               <div className="col-sm-4" key={result._id} onClick={this.handleClick.bind(result)}>
                 <div className="listingBorder">
                   <div className="thumbnail">
-                    <img className="img-responsive center-block"
+                    <img className="img-responsive center-block listingListImage"
                       src={result.image}
                     />
                   </div>

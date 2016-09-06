@@ -45,7 +45,7 @@ router.post('/new', (req, res) => {
   console.log(data);
   console.log('________________');
   Listing.create(data, (err, listing) => {
-    console.log(listing)
+    console.log(err)
     res.json(listing)
   })
   // newListing.save((err) => {

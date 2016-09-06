@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 
+
 class NewListing extends Component {
+  constructor() {
+    super()
+    this.state = {
+      file: ''
+    }
+  }
   handleFormSubmit(formProps) { //called with props from submit form
     var data = formProps
+    data.image = this.state.file
     data.username = this.props.userInfo.username;
     data.id = this.props.userInfo._id;
     data.phoneNumber = this.props.userInfo.phoneNumber;
@@ -23,6 +31,21 @@ class NewListing extends Component {
       )
     }
   }
+  previewFile() {
+    var self = this;
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+    var image;
+    reader.addEventListener("load", function () {
+      image = reader.result;
+      self.setState({file: image})
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+
+  }
   render() {
     const { handleSubmit, userInfo, fields: {city, country, address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
     return (
@@ -40,8 +63,7 @@ class NewListing extends Component {
           <input className="form-control" type="text" {...address} />
         </fieldset>
         <fieldset className="form-group">
-          <label>Image: </label>
-          <input className="form-control" type="text" {...image} />
+          <input type="file" onChange={this.previewFile.bind(this)} />
         </fieldset>
         <fieldset className="form-group">
           <label>Price Per Night: </label>

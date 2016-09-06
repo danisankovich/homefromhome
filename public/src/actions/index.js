@@ -19,7 +19,6 @@ export function signinUser({email, password}) {
                               //of an object from action creator
     $.post(`${ROOT_URL}/signin`, { email, password })
       .done(response => {
-        console.log(response)
         dispatch({type: AUTH_USER});
         localStorage.setItem('token', response.token);
         browserHistory.push('/information'); // success pushes you to /information.
@@ -135,7 +134,6 @@ export function fetchListings() {
   }
 }
 export function newListing(data) {
-  console.log(data)
   var token = localStorage.getItem('token')
   return function(dispatch) {
     $.ajax({
@@ -146,7 +144,6 @@ export function newListing(data) {
        },
        data: data
     }).done((response) => {
-      console.log(response)
       dispatch({
         type: NEW_LISTING,
         payload: response
