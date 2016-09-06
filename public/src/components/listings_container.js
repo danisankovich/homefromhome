@@ -24,7 +24,7 @@ class Listings_Container extends Component {
       );
     }
     return (
-      <div>Loading...... </div>
+      <div><img src="http://bestanimations.com/Science/Gears/loadinggears/loading-gears-animation-3.gif"></img> </div>
     );
   };
 }

@@ -42356,7 +42356,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Loading...... '
+	        _react2.default.createElement('img', { src: 'http://bestanimations.com/Science/Gears/loadinggears/loading-gears-animation-3.gif' }),
+	        ' '
 	      );
 	    }
 	  }]);
@@ -42490,7 +42491,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'Loading...... '
+	        _react2.default.createElement('img', { src: '../../../images/loading-gears.gif' }),
+	        ' '
 	      );
 	    }
 	  }]);
@@ -42780,7 +42782,12 @@
 	            null,
 	            'City: '
 	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control' }, city))
+	          _react2.default.createElement('input', _extends({ className: 'form-control' }, city)),
+	          city.touched && city.error && _react2.default.createElement(
+	            'div',
+	            { className: 'error' },
+	            city.error
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'fieldset',
@@ -42790,7 +42797,12 @@
 	            null,
 	            'Country: '
 	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control' }, country))
+	          _react2.default.createElement('input', _extends({ className: 'form-control' }, country)),
+	          country.touched && country.error && _react2.default.createElement(
+	            'div',
+	            { className: 'error' },
+	            country.error
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'fieldset',
@@ -42800,7 +42812,12 @@
 	            null,
 	            'Address: '
 	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address))
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)),
+	          address.touched && address.error && _react2.default.createElement(
+	            'div',
+	            { className: 'error' },
+	            address.error
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'fieldset',
@@ -42815,7 +42832,12 @@
 	            null,
 	            'Price Per Night: '
 	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, pricePerNight))
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, pricePerNight)),
+	          pricePerNight.touched && pricePerNight.error && _react2.default.createElement(
+	            'div',
+	            { className: 'error' },
+	            pricePerNight.error
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'fieldset',
@@ -42825,7 +42847,12 @@
 	            null,
 	            'Currently Available?: '
 	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, availableForRent))
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, availableForRent)),
+	          availableForRent.touched && availableForRent.error && _react2.default.createElement(
+	            'div',
+	            { className: 'error' },
+	            availableForRent.error
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'fieldset',
@@ -42835,7 +42862,12 @@
 	            null,
 	            'Dates Available: '
 	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, datesAvailable))
+	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, datesAvailable)),
+	          datesAvailable.touched && datesAvailable.error && _react2.default.createElement(
+	            'div',
+	            { className: 'error' },
+	            datesAvailable.error
+	          )
 	        ),
 	        this.renderAlert(),
 	        _react2.default.createElement(
@@ -42853,22 +42885,25 @@
 	function validate(formProps) {
 	  var errors = {};
 	
-	  // if (!formProps.email) {
-	  //   errors.email = 'Please Enter Your Email';
-	  // }
-	  // if (!formProps.username) {
-	  //   errors.username = 'Please Enter Your Username';
-	  // }
-	  // if (!formProps.password) {
-	  //   errors.password = 'Please Enter a Password';
-	  // }
-	  // if (!formProps.passwordConfirm) {
-	  //   errors.passwordConfirm = 'Please Re-enter the Password';
-	  // }
-	  //
-	  // if(formProps.password !== formProps.passwordConfirm) {
-	  //   errors.password = 'Passwords must match';
-	  // }
+	  if (!formProps.city) {
+	    errors.city = 'Please Enter a City';
+	  }
+	  if (!formProps.country) {
+	    errors.country = 'Please Enter a Country';
+	  }
+	  if (!formProps.address) {
+	    errors.address = 'Please Enter an Address';
+	  }
+	  if (!formProps.pricePerNight) {
+	    errors.pricePerNight = 'Please Enter Price Per Night';
+	  }
+	
+	  if (formProps.datesAvailable !== formProps.datesAvailable) {
+	    errors.datesAvailable = 'Please enter dates the listing is available';
+	  }
+	  if (formProps.availableForRent !== formProps.availableForRent) {
+	    errors.availableForRent = 'Is the listing currently available for rent?';
+	  }
 	  return errors;
 	}
 	

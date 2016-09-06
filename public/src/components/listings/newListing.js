@@ -53,14 +53,17 @@ class NewListing extends Component {
         <fieldset className="form-group">
           <label>City: </label>
           <input className="form-control" {...city} />
+          {city.touched && city.error && <div className="error">{city.error}</div>}
         </fieldset>
         <fieldset className="form-group">
           <label>Country: </label>
           <input className="form-control" {...country} />
+          {country.touched && country.error && <div className="error">{country.error}</div>}
         </fieldset>
         <fieldset className="form-group">
           <label>Address: </label>
           <input className="form-control" type="text" {...address} />
+          {address.touched && address.error && <div className="error">{address.error}</div>}
         </fieldset>
         <fieldset className="form-group">
           <input type="file" onChange={this.previewFile.bind(this)} />
@@ -68,14 +71,17 @@ class NewListing extends Component {
         <fieldset className="form-group">
           <label>Price Per Night: </label>
           <input className="form-control" type="text" {...pricePerNight} />
+          {pricePerNight.touched && pricePerNight.error && <div className="error">{pricePerNight.error}</div>}
         </fieldset>
         <fieldset className="form-group">
           <label>Currently Available?: </label>
           <input className="form-control" type="text" {...availableForRent} />
+          {availableForRent.touched && availableForRent.error && <div className="error">{availableForRent.error}</div>}
         </fieldset>
         <fieldset className="form-group">
           <label>Dates Available: </label>
           <input className="form-control" type="text" {...datesAvailable} />
+          {datesAvailable.touched && datesAvailable.error && <div className="error">{datesAvailable.error}</div>}
         </fieldset>
         {this.renderAlert()}
         <button action="submit" className="btn btn-primary">Sign Up</button>
@@ -87,22 +93,25 @@ class NewListing extends Component {
 function validate(formProps) {
   const errors = {};
 
-  // if (!formProps.email) {
-  //   errors.email = 'Please Enter Your Email';
-  // }
-  // if (!formProps.username) {
-  //   errors.username = 'Please Enter Your Username';
-  // }
-  // if (!formProps.password) {
-  //   errors.password = 'Please Enter a Password';
-  // }
-  // if (!formProps.passwordConfirm) {
-  //   errors.passwordConfirm = 'Please Re-enter the Password';
-  // }
-  //
-  // if(formProps.password !== formProps.passwordConfirm) {
-  //   errors.password = 'Passwords must match';
-  // }
+  if (!formProps.city) {
+    errors.city = 'Please Enter a City';
+  }
+  if (!formProps.country) {
+    errors.country = 'Please Enter a Country';
+  }
+  if (!formProps.address) {
+    errors.address = 'Please Enter an Address';
+  }
+  if (!formProps.pricePerNight) {
+    errors.pricePerNight = 'Please Enter Price Per Night';
+  }
+
+  if(formProps.datesAvailable !== formProps.datesAvailable) {
+    errors.datesAvailable = 'Please enter dates the listing is available';
+  }
+  if(formProps.availableForRent !== formProps.availableForRent) {
+    errors.availableForRent = 'Is the listing currently available for rent?';
+  }
   return errors;
 }
 

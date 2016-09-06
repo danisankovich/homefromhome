@@ -49,7 +49,7 @@ class Listing extends Component {
       );
     }
     return (
-      <div>Loading...... </div>
+      <div><img src="../../../images/loading-gears.gif"></img> </div>
     );
   };
 }
