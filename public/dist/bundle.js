@@ -28001,7 +28001,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'backgroundThing' },
 	        _react2.default.createElement(_header2.default, null),
 	        this.props.children
 	      );
@@ -28231,7 +28231,7 @@
 	    _jquery2.default.post(ROOT_URL + '/signin', { email: email, password: password }).done(function (response) {
 	      dispatch({ type: _types.AUTH_USER });
 	      localStorage.setItem('token', response.token);
-	      _reactRouter.browserHistory.push('/information'); // success pushes you to /information.
+	      _reactRouter.browserHistory.push('/'); // success pushes you to /information.
 	    }).fail(function () {
 	      // catch does not take you to new page
 	      dispatch(authError('EMAIL/PASSWORD combo incorrect'));
@@ -42250,21 +42250,26 @@
 	exports.default = function () {
 	  return _react2.default.createElement(
 	    'div',
-	    { id: 'wrapper' },
-	    _react2.default.createElement('img', { id: 'headerImage', src: '../../images/header3.jpg' }),
+	    null,
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'center-div' },
+	      { id: 'wrapper' },
+	      _react2.default.createElement('img', { id: 'headerImage', src: '../../images/header3.jpg' }),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'transbox' },
+	        { className: 'center-div' },
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Find your Home Away from Home'
+	          'div',
+	          { className: 'transbox' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Find your Home Away from Home'
+	          )
 	        )
 	      )
-	    )
+	    ),
+	    _react2.default.createElement('div', { className: 'bodyThing' })
 	  );
 	};
 

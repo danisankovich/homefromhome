@@ -21,7 +21,7 @@ export function signinUser({email, password}) {
       .done(response => {
         dispatch({type: AUTH_USER});
         localStorage.setItem('token', response.token);
-        browserHistory.push('/information'); // success pushes you to /information.
+        browserHistory.push('/'); // success pushes you to /information.
       })
       .fail(() => {
         // catch does not take you to new page
