@@ -2,14 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
-import SearchBar from '../tools/search_bar';
 import _ from 'lodash';
 
 class Listing extends Component {
-  handleClick() {
-    let clickResult = this._id;
-    browserHistory.push(`/listings/${clickResult}`);
-
+  constructor(props) {
+    super(props);
+    this.state = { term: '' };
   }
   componentWillMount() {
     this.setState({
@@ -18,19 +16,31 @@ class Listing extends Component {
     this.props.fetchInfo();
     this.props.fetchListings();
   }
-  cityCountrySearch(term) {
+  onInputChange(term) {
+    this.setState({term});
+  }
+  handleClick() {
+    let clickResult = this._id;
+    browserHistory.push(`/listings/${clickResult}`);
+  }
+  cityCountrySearch() {
+    var term = this.state.term;
     var places = this.props.listings.filter(function(e) {
       return e.location.country === term || e.location.city === term;
     })
     this.setState({listings: places})
   }
   render() {
-    const { handleSubmit} = this.props;
-    const cityCountrySearch = _.debounce((term) => {this.cityCountrySearch(term)}, 300);
+    const cityCountrySearch = this.cityCountrySearch;
     let {userInfo} = this.props;
     return (
       <div>
-        <SearchBar onSearchTermChange={cityCountrySearch}/>
+        <div className='col-sm-8'>
+          <input placeholder='Enter Your Search Terms' className="form-control" id='searchBar'
+            value={this.state.term}
+            onChange={event => this.onInputChange(event.target.value)}/>
+          <button onClick={this.cityCountrySearch.bind(this)}>Submit</button>
+        </div>
         {this.state.listings.map(function(result) {
           return (
             <div className="col-sm-4" key={result._id} onClick={this.handleClick.bind(result)}>
@@ -48,7 +58,6 @@ class Listing extends Component {
                     <h3>Price: ${result.pricePerNight} / night</h3>
                   </div>
                 </div>
-
               </div>
               <br />
             </div>
