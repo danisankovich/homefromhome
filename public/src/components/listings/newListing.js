@@ -84,7 +84,7 @@ class NewListing extends Component {
           {datesAvailable.touched && datesAvailable.error && <div className="error">{datesAvailable.error}</div>}
         </fieldset>
         {this.renderAlert()}
-        <button action="submit" className="btn btn-primary">Sign Up</button>
+        <button action="submit" className="btn btn-primary">Add Listing</button>
       </form>
     );
   }

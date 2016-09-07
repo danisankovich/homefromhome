@@ -73,3 +73,7 @@ a {
 .listingListImage {
   width: 100%;
 }
+
+.searchInput {
+  float: right;
+}

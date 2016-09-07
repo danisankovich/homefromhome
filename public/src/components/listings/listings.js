@@ -35,11 +35,15 @@ class Listing extends Component {
     let {userInfo} = this.props;
     return (
       <div>
-        <div className='col-sm-8'>
-          <input placeholder='Enter Your Search Terms' className="form-control" id='searchBar'
-            value={this.state.term}
-            onChange={event => this.onInputChange(event.target.value)}/>
-          <button onClick={this.cityCountrySearch.bind(this)}>Submit</button>
+        <div className='col-sm-12'>
+          <div className='col-sm-8 col-sm-offset-1'>
+            <input placeholder='Enter Your Search Terms' className="form-control searchInput" id='searchBar'
+              value={this.state.term}
+              onChange={event => this.onInputChange(event.target.value)}/>
+          </div>
+          <div className='col-sm-3'>
+            <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City/Country</button>
+          </div>
         </div>
         {this.state.listings.map(function(result) {
           return (

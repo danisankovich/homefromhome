@@ -14,8 +14,13 @@ class Listings_Container extends Component {
     let {listings, userInfo} = this.props;
       return (
         <div>
-          <h3>Listings</h3>
-          <Link to="/new">New Listing</Link>
+          <div className="row">
+            <div className="col-sm-12">
+              <h1 className='text-center'>Listings</h1>
+              <Link to="/new"><button className="btn btn-success">Post New Listing</button></Link>
+            </div>
+          </div>
+          <br />
           <div className='row'>
             <Listings />
           </div>
