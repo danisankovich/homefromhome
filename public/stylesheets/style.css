@@ -1,6 +1,6 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #efefef !important;
 }
 
 a {
@@ -28,12 +28,32 @@ a {
   display:none;
 }
 
-#wrapper, img#headerImage{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: -1;
+#headerImage {
+  height: 500px;
+  background-image: url("../images/header3.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.center-div {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  margin-top: -400px;
+}
+.transbox {
+  text-align:center;
+  margin: 30px;
+  height: 225px;
+  background-color: #000000;
+  opacity: 0.6;
+  filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+.transbox h1 {
+  font-size: 64px;
+  padding-top: 6%;
+  font-weight: bold;
+  color: white;
 }
 
 .navbar-logo-hfh {
@@ -47,36 +67,18 @@ a {
   color: black;
   font-size: 24px;
 }
-.center-div {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
-.transbox {
-  text-align:center;
-  margin: 30px;
-  margin-top: 22%;
-  height: 225px;
-  background-color: #000000;
-  opacity: 0.6;
-  filter: alpha(opacity=60); /* For IE8 and earlier */
-}
 
-.transbox h1 {
-  font-size: 64px;
-  margin: 5%;
-  padding-top: 6%;
-  font-weight: bold;
-  color: white;
-}
 
 .listingListImage {
   width: 100%;
 }
-
 .searchInput {
   float: right;
 }
 .searchLabel {
   font-size: 18px;
+}
+
+.background-down {
+  margin-top: 150px;
 }
