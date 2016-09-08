@@ -29096,24 +29096,6 @@
 	    });
 	  };
 	}
-	// export function editEmail({phoneNumber, email}, user) {
-	//   return function(dispatch) {
-	//     console.log(phoneNumber, email)
-	//     dispatch({type: EDIT_USER});
-	//
-	//     $.ajax({
-	//       url: `${ROOT_URL}/editInfo`,
-	//       type: "POST",
-	//       data: {phoneNumber, email, user},
-	//     })
-	//       .done(response => {
-	//         dispatch({type: FETCH_INFO});
-	//       }).fail((error) => {
-	//         console.log(error)
-	//         dispatch(authError(error.response.error));
-	//       });
-	//   }
-	// }
 	
 	function authError(error) {
 	  return {
@@ -29156,21 +29138,7 @@
 	        type: _types.FETCH_LISTINGS,
 	        payload: response
 	      });
-	      // this.setState({listings: response})
 	    });
-	    // $.ajax({
-	    //    url: `${ROOT_URL}/listings/`,
-	    //    type: "GET",
-	    //    headers: {
-	    //       "authorization": token
-	    //    }
-	    // }).done((response) => {
-	    //   console.log(response)
-	    //   dispatch({
-	    //     type: FETCH_LISTINGS,
-	    //     payload: response
-	    //   })
-	    // });
 	  };
 	}
 	function newListing(data) {
