@@ -77,3 +77,6 @@ a {
 .searchInput {
   float: right;
 }
+.searchLabel {
+  font-size: 18px;
+}

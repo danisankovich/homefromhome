@@ -7,28 +7,31 @@ import _ from 'lodash';
 class Listing extends Component {
   constructor(props) {
     super(props);
-    this.state = { term: '' };
+    this.state = { city: '', country: '', listings: [] };
   }
   componentWillMount() {
-    this.setState({
-      listings: []
-    })
     this.props.fetchInfo();
-    this.props.fetchListings();
+    // this.props.fetchListings();
   }
-  onInputChange(term) {
-    this.setState({term});
+  onInputChangeCity(term) {
+    this.setState({city: term});
+  }
+  onInputChangeCountry(term) {
+    this.setState({country: term});
   }
   handleClick() {
     let clickResult = this._id;
     browserHistory.push(`/listings/${clickResult}`);
   }
   cityCountrySearch() {
-    var term = this.state.term;
-    var places = this.props.listings.filter(function(e) {
-      return e.location.country === term || e.location.city === term;
-    })
-    this.setState({listings: places})
+    var self = this;
+    $.ajax({
+       url: `api/listings/location/${self.state.country}_${self.state.city}`,
+       type: "GET",
+    }).done((response) => {
+      console.log(response)
+      this.setState({listings: response})
+    });
   }
   render() {
     const cityCountrySearch = this.cityCountrySearch;
@@ -36,13 +39,19 @@ class Listing extends Component {
     return (
       <div>
         <div className='col-sm-12'>
-          <div className='col-sm-8 col-sm-offset-1'>
-            <input placeholder='Enter Your Search Terms' className="form-control searchInput" id='searchBar'
-              value={this.state.term}
-              onChange={event => this.onInputChange(event.target.value)}/>
+          <div className='col-sm-1'><label className='searchLabel'>City/ State: </label></div>
+          <div className='col-sm-4'>
+            <input placeholder='Enter City' className="form-control searchInput" id='searchBar'
+              value={this.state.city}
+              onChange={event => this.onInputChangeCity(event.target.value)}/>
           </div>
-          <div className='col-sm-3'>
-            <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City/Country</button>
+          <div className='col-sm-4'>
+            <input placeholder='Enter Country' className="form-control searchInput" id='searchBar'
+              value={this.state.country}
+              onChange={event => this.onInputChangeCountry(event.target.value)}/>
+          </div>
+          <div className='col-sm-2'>
+            <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City</button>
           </div>
         </div>
         {this.state.listings.map(function(result) {

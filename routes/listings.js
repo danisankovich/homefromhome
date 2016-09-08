@@ -25,6 +25,36 @@ router.get('/:id', (req, res) => {
   })
 })
 
+router.get('/location/:location', (req, res) => {
+  let city = req.params.location.split('_')[1]
+  let country = req.params.location.split('_')[0]
+  if (city.length > 0 && country.length > 0) {
+    Listing.find({'location.city': city, 'location.country': country}, (err, listings) => {
+      if (err) res.send(err);
+      res.send(listings)
+    })
+  }
+  else if (city.length > 0 && country.length === 0) {
+    Listing.find({'location.city': city}, (err, listings) => {
+      if (err) res.send(err);
+      res.send(listings)
+    })
+  }
+  else if (country.length > 0) {
+    Listing.find({'location.country': country}, (err, listings) => {
+      if (err) res.send(err);
+      res.send(listings)
+    })
+  }
+  // Listing.find(req.params.id, (err, listing) => {
+  //   if (err) res.send(err);
+  //   else {
+  //     console.log(listing)
+  //     res.send(listing);
+  //   }
+  // })
+})
+
 router.post('/new', (req, res) => {
   var data = {};
   data.image = req.body.image;

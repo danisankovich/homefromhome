@@ -116,21 +116,34 @@ export function fetchInfo() {
   }
 }
 
-export function fetchListings() {
-  var token = localStorage.getItem('token')
+export function fetchListings(term) {
+  console.log(term)
   return function(dispatch) {
+
     $.ajax({
-       url: `${ROOT_URL}/listings/`,
+       url: `api/listings/location/${term}`,
        type: "GET",
-       headers: {
-          "authorization": token
-       }
     }).done((response) => {
+      console.log(response)
       dispatch({
         type: FETCH_LISTINGS,
         payload: response
       })
+      // this.setState({listings: response})
     });
+    // $.ajax({
+    //    url: `${ROOT_URL}/listings/`,
+    //    type: "GET",
+    //    headers: {
+    //       "authorization": token
+    //    }
+    // }).done((response) => {
+    //   console.log(response)
+    //   dispatch({
+    //     type: FETCH_LISTINGS,
+    //     payload: response
+    //   })
+    // });
   }
 }
 export function newListing(data) {
