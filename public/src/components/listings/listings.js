@@ -24,22 +24,19 @@ class Listing extends Component {
     browserHistory.push(`/listings/${clickResult}`);
   }
   cityCountrySearch() {
-    var self = this;
-    $.ajax({
-       url: `api/listings/location/${self.state.country}_${self.state.city}`,
-       type: "GET",
-    }).done((response) => {
-      console.log(response)
-      this.setState({listings: response})
-    });
+    this.props.fetchListings(`${this.state.country}_${this.state.city}`)
   }
   render() {
     const cityCountrySearch = this.cityCountrySearch;
     let {userInfo} = this.props;
+    let listings = [];
+    if(this.props.listings) {
+      listings = this.props.listings
+    }
     return (
       <div>
         <div className='col-sm-12'>
-          <div className='col-sm-1'><label className='searchLabel'>City/ State: </label></div>
+          <div className='col-sm-1'><label className='searchLabel'>City/State: </label></div>
           <div className='col-sm-4'>
             <input placeholder='Enter City' className="form-control searchInput" id='searchBar'
               value={this.state.city}
@@ -54,14 +51,14 @@ class Listing extends Component {
             <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City</button>
           </div>
         </div>
-        {this.state.listings.map(function(result) {
+        {listings.map(function(result) {
           return (
             <div className="col-sm-4" key={result._id} onClick={this.handleClick.bind(result)}>
               <div className="listingBorder">
                 <div className="thumbnail">
                   <img className="img-responsive center-block listingListImage"
                     src={result.image}
-                  />
+                    />
                 </div>
                 <hr />
                 <div className="row">
@@ -78,8 +75,8 @@ class Listing extends Component {
         }.bind(this))}
       </div>
 
-    );
-  };
+  );
+};
 }
 function mapStateToProps(state) {
   return {userInfo: state.auth.userInfo, listings: state.listing.listings};

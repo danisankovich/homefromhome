@@ -117,14 +117,12 @@ export function fetchInfo() {
 }
 
 export function fetchListings(term) {
-  console.log(term)
   return function(dispatch) {
 
     $.ajax({
        url: `api/listings/location/${term}`,
        type: "GET",
     }).done((response) => {
-      console.log(response)
       dispatch({
         type: FETCH_LISTINGS,
         payload: response
