@@ -10,7 +10,7 @@ class Information extends Component {
     let {userInfo} = this.props;
     if(userInfo) {
       return (
-        <div>
+        <div className='container toppush'>
           <h3>Information</h3>
           aaa: {this.props.userInfo.username}
         </div>

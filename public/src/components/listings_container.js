@@ -13,7 +13,7 @@ class Listings_Container extends Component {
   render() {
     let {listings, userInfo} = this.props;
       return (
-        <div>
+        <div className='container toppush'>
           <div className="row">
             <div className="col-sm-12">
               <h1 className='text-center'>Listings</h1>

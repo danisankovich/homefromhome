@@ -17,13 +17,17 @@ class Header extends Component {
         <li className="nav-item" key={2}>
           <Link className="nav-link" to="/listings">Listings</Link>
         </li>,
-         <li className="dropdown" key={3}>
+        <li className="nav-item" key={3}>
+          <Link className="nav-link" to="/blogs">Blogs</Link>
+        </li>,
+         <li className="dropdown" key={4}>
            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               {this.props.userInfo.username}
               <span className="caret"></span>
            </a>
            <ul className="dropdown-menu">
              <li><Link className="nav-link" to="/profile">Profile</Link></li>
+             <li><Link className="nav-link" to="/blogs/mine">My Blog</Link></li>
              <li><Link className="nav-link" to="/settings">Settings</Link></li>
              <li role="separator" className="divider"></li>
              <li><Link className="nav-link" to="/signout">Sign Out</Link></li>
@@ -32,8 +36,11 @@ class Header extends Component {
       ]
     } else {
       return [
-        <li className="nav-item" key={1}>
+        <li className="nav-item" key={0}>
           <Link className="nav-link" to="/listings">Listings</Link>
+        </li>,
+        <li className="nav-item" key={1}>
+          <Link className="nav-link" to="/blogs">Blogs</Link>
         </li>,
         <li className="nav-item" key={2}>
           <Link className="nav-link" to="/signin">Sign In</Link>

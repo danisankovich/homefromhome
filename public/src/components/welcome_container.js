@@ -4,7 +4,7 @@ import BasicInfo from './info/basic';
 export default () => (
   <div>
     <div id="headerImage">
-      
+
     </div>
     <div className='center-div'>
       <div className="transbox">

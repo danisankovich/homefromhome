@@ -23,6 +23,12 @@ import Listings_Container from './components/listings_container';
 import Listing from './components/listings/listing';
 import NewListing from './components/listings/newListing';
 
+// blog Routes
+import Blog_Container from './components/blog/blog_container';
+import My_Blog from './components/blog/mine/my_blog';
+import New_Blog from './components/blog/mine/new_blog';
+import Blog_List from './components/blog/blog_list';
+
 import RequireAuth from './components/auth/require_auth';
 
 import reducers from './reducers';
@@ -58,6 +64,11 @@ ReactDOM.render(
           <Route path='information' component={RequireAuth(Information)}></Route>
           <Route path='profile' component={RequireAuth(Profile)}></Route>
           <Route path='settings' component={RequireAuth(Settings)}></Route>
+        </Route>
+        <Route path='/blogs' component={App}>
+          <IndexRoute component={Blog_Container} />
+          <Route path='/blogs/mine' component={My_Blog}></Route>
+          <Route path='/blogs/mine/new' component={New_Blog}></Route>
         </Route>
     </Router>
   </Provider>
