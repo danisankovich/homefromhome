@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var listings = require('./routes/listings');
+var blogs = require('./routes/blogs');
 
 var app = express();
 
@@ -24,8 +25,10 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', routes);
 app.use('/api/listings', listings);
+app.use('/api/blogs', blogs);
 
 app.set('view engine', 'ejs');
 app.get('*', (req, res) => {
