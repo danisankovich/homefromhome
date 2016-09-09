@@ -3,12 +3,14 @@ import { browserHistory } from 'react-router'; // commits info about url to reac
 import {
   AUTH_USER,
   AUTH_ERROR,
+  EDIT_USER,
   UNAUTH_USER,
   FETCH_INFO,
   FETCH_LISTINGS,
   NEW_LISTING,
   FETCH_SINGLE_LISTING,
-  EDIT_USER
+  NEW_BLOG
+
 } from './types';
 
 const ROOT_URL = 'http://localhost:3000/api';
@@ -127,6 +129,24 @@ export function newListing(data) {
         type: NEW_LISTING,
         payload: response
       })
+    })
+  }
+}
+export function newBlog(data) {
+  console.log(data)
+  return function(dispatch) {
+    $.ajax({
+       url: `${ROOT_URL}/blogs/new`,
+       type: "POST",
+       data: data
+    }).done((response) => {
+      console.log(response)
+      dispatch({
+        type: NEW_BLOG,
+        payload: response
+      })
+    }).fail((err) => {
+      console.log(err)
     });
   }
 }

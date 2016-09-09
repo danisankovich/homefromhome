@@ -29073,6 +29073,7 @@
 	exports.fetchInfo = fetchInfo;
 	exports.fetchListings = fetchListings;
 	exports.newListing = newListing;
+	exports.newBlog = newBlog;
 	exports.fetchSingleListing = fetchSingleListing;
 	
 	var _jquery = __webpack_require__(/*! jquery */ 261);
@@ -29207,6 +29208,24 @@
 	        type: _types.NEW_LISTING,
 	        payload: response
 	      });
+	    });
+	  };
+	}
+	function newBlog(data) {
+	  console.log(data);
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: ROOT_URL + '/blogs/new',
+	      type: "POST",
+	      data: data
+	    }).done(function (response) {
+	      console.log(response);
+	      dispatch({
+	        type: _types.NEW_BLOG,
+	        payload: response
+	      });
+	    }).fail(function (err) {
+	      console.log(err);
 	    });
 	  };
 	}
@@ -39072,6 +39091,7 @@
 	var NEW_LISTING = exports.NEW_LISTING = 'new_listing';
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
+	var NEW_BLOG = exports.NEW_BLOG = 'new_blog';
 
 /***/ },
 /* 263 */
@@ -56744,12 +56764,10 @@
 	    value: function handleFormSubmit(formProps) {
 	      //called with props from submit form
 	      var data = formProps;
-	      data.image = this.state.file;
 	      data.username = this.props.userInfo.username;
 	      data.id = this.props.userInfo._id;
-	      data.phoneNumber = this.props.userInfo.phoneNumber;
-	      data.email = this.props.userInfo.email;
-	      this.props.newListing(data);
+	      data.image = [];
+	      this.props.newBlog(data);
 	    }
 	  }, {
 	    key: 'componentWillMount',
@@ -56774,35 +56792,15 @@
 	      }
 	    }
 	  }, {
-	    key: 'previewFile',
-	    value: function previewFile() {
-	      var self = this;
-	      var file = document.querySelector('input[type=file]').files[0];
-	      var reader = new FileReader();
-	      var image;
-	      reader.addEventListener("load", function () {
-	        image = reader.result;
-	        self.setState({ file: image });
-	      }, false);
-	
-	      if (file) {
-	        reader.readAsDataURL(file);
-	      }
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
 	      var handleSubmit = _props.handleSubmit;
 	      var userInfo = _props.userInfo;
 	      var _props$fields = _props.fields;
-	      var city = _props$fields.city;
-	      var country = _props$fields.country;
-	      var address = _props$fields.address;
-	      var image = _props$fields.image;
-	      var pricePerNight = _props$fields.pricePerNight;
-	      var availableForRent = _props$fields.availableForRent;
-	      var datesAvailable = _props$fields.datesAvailable;
+	      var tagline = _props$fields.tagline;
+	      var title = _props$fields.title;
+	      var body = _props$fields.body;
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -56816,13 +56814,13 @@
 	            _react2.default.createElement(
 	              'label',
 	              null,
-	              'City: '
+	              'Title: '
 	            ),
-	            _react2.default.createElement('input', _extends({ className: 'form-control' }, city)),
-	            city.touched && city.error && _react2.default.createElement(
+	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)),
+	            title.touched && title.error && _react2.default.createElement(
 	              'div',
 	              { className: 'error' },
-	              city.error
+	              title.error
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -56831,13 +56829,13 @@
 	            _react2.default.createElement(
 	              'label',
 	              null,
-	              'Country: '
+	              'Tagline: '
 	            ),
-	            _react2.default.createElement('input', _extends({ className: 'form-control' }, country)),
-	            country.touched && country.error && _react2.default.createElement(
+	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
+	            tagline.touched && tagline.error && _react2.default.createElement(
 	              'div',
 	              { className: 'error' },
-	              country.error
+	              tagline.error
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -56846,70 +56844,20 @@
 	            _react2.default.createElement(
 	              'label',
 	              null,
-	              'Address: '
+	              'Body: '
 	            ),
-	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)),
-	            address.touched && address.error && _react2.default.createElement(
+	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, body)),
+	            body.touched && body.error && _react2.default.createElement(
 	              'div',
 	              { className: 'error' },
-	              address.error
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'fieldset',
-	            { className: 'form-group' },
-	            _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
-	          ),
-	          _react2.default.createElement(
-	            'fieldset',
-	            { className: 'form-group' },
-	            _react2.default.createElement(
-	              'label',
-	              null,
-	              'Price Per Night: '
-	            ),
-	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, pricePerNight)),
-	            pricePerNight.touched && pricePerNight.error && _react2.default.createElement(
-	              'div',
-	              { className: 'error' },
-	              pricePerNight.error
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'fieldset',
-	            { className: 'form-group' },
-	            _react2.default.createElement(
-	              'label',
-	              null,
-	              'Currently Available?: '
-	            ),
-	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, availableForRent)),
-	            availableForRent.touched && availableForRent.error && _react2.default.createElement(
-	              'div',
-	              { className: 'error' },
-	              availableForRent.error
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'fieldset',
-	            { className: 'form-group' },
-	            _react2.default.createElement(
-	              'label',
-	              null,
-	              'Dates Available: '
-	            ),
-	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, datesAvailable)),
-	            datesAvailable.touched && datesAvailable.error && _react2.default.createElement(
-	              'div',
-	              { className: 'error' },
-	              datesAvailable.error
+	              body.error
 	            )
 	          ),
 	          this.renderAlert(),
 	          _react2.default.createElement(
 	            'button',
 	            { action: 'submit', className: 'btn btn-primary' },
-	            'Add Listing'
+	            'Post Blog'
 	          )
 	        )
 	      );
@@ -56922,25 +56870,19 @@
 	function validate(formProps) {
 	  var errors = {};
 	
-	  if (!formProps.city) {
-	    errors.city = 'Please Enter a City';
+	  if (!formProps.title) {
+	    errors.title = 'Please Enter a Title';
 	  }
-	  if (!formProps.country) {
-	    errors.country = 'Please Enter a Country';
+	  if (!formProps.tagline) {
+	    errors.tagline = 'Please Enter a Tagline';
 	  }
-	  if (!formProps.address) {
-	    errors.address = 'Please Enter an Address';
+	  if (!formProps.body) {
+	    errors.body = 'Please Enter a Body for your Blog';
 	  }
-	  if (!formProps.pricePerNight) {
-	    errors.pricePerNight = 'Please Enter Price Per Night';
+	  if (formProps.body && formProps.body.length < 200) {
+	    errors.body = 'Blog post must be at least 200 characters';
 	  }
 	
-	  if (formProps.datesAvailable !== formProps.datesAvailable) {
-	    errors.datesAvailable = 'Please enter dates the listing is available';
-	  }
-	  if (formProps.availableForRent !== formProps.availableForRent) {
-	    errors.availableForRent = 'Is the listing currently available for rent?';
-	  }
 	  return errors;
 	}
 	
@@ -56952,8 +56894,8 @@
 	}
 	
 	exports.default = (0, _reduxForm.reduxForm)({
-	  form: 'newListing',
-	  fields: ['image', 'pricePerNight', 'availableForRent', 'datesAvailable', 'city', 'country', 'address'],
+	  form: 'newBlog',
+	  fields: ['image', 'body', 'title', 'tagline'],
 	  validate: validate
 	}, mapStateToProps, actions)(NewBlog);
 

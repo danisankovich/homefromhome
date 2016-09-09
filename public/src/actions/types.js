@@ -6,3 +6,4 @@ export const FETCH_LISTINGS = 'fetch_listings';
 export const NEW_LISTING = 'new_listing';
 export const FETCH_SINGLE_LISTING = 'fetch_single_listing';
 export const EDIT_USER = 'edit_user';
+export const NEW_BLOG = 'new_blog'

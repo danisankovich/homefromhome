@@ -12,6 +12,7 @@ const blogSchema = new Schema({
   tagline: String,
   title: String,
   body: String,
+  previewImage: String,
   comments: []
 });
 const BLOG = mongoose.model('blog', blogSchema);

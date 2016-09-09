@@ -8,23 +8,23 @@ const User = require('../models/user');
 const Blog = require('../models/blog');
 
 router.post('/new', (req, res, next) => {
-  const newBlog = new Blog({
+  console.log('123123123alsdkfjlkdsfjldskfjlkj')
+  const newBlog = {
     creator: {
-      username: req.body.creator.username,
-      id: req.body.creator.id,
+      username: req.body.username,
+      id: req.body.id,
     },
     images: req.body.images,
     tagline: req.body.tagline,
     title: req.body.title,
     body: req.body.body,
     comments: req.body.comments
-  });
-  newBlog.save((err) => {
-    if (err) {
-      res.send(err);
-    }
-    res.send(newBlog);
-  });
+  };
+  console.log('asdfdasf',newBlog)
+  Blog.create(newBlog, (err, blog) => {
+    console.log(err)
+    res.json(blog)
+  })
 })
 
 module.exports = router;
