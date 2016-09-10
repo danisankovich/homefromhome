@@ -46,7 +46,7 @@ class NewBlog extends Component {
           </fieldset>
           <fieldset className="form-group">
             <label>Body: </label>
-            <input className="form-control" type="text" {...body} />
+            <textarea className="form-control" type="text" {...body}></textarea>
             {body.touched && body.error && <div className="error">{body.error}</div>}
           </fieldset>
           {this.renderAlert()}

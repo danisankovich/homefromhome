@@ -7,7 +7,7 @@ const userSchema = new Schema({
   username: {type: String, lowercase: true, require: true},
   password: String,
   phoneNumber: String,
-  blogIds: Array,
+  blogs: Array,
 });
 
 // hook that runs before the model gets saved

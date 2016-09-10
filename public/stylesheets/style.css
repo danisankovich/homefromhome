@@ -86,3 +86,8 @@ a {
 .toppush {
   margin-top: 75px;
 }
+.blogListingBorder {
+  border: 1px black solid;
+  padding: 5px 5px 5px 5px;
+  list-style: none;
+}

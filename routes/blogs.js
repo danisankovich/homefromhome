@@ -8,7 +8,6 @@ const User = require('../models/user');
 const Blog = require('../models/blog');
 
 router.post('/new', (req, res, next) => {
-  console.log('123123123alsdkfjlkdsfjldskfjlkj')
   const newBlog = {
     creator: {
       username: req.body.username,
@@ -20,10 +19,14 @@ router.post('/new', (req, res, next) => {
     body: req.body.body,
     comments: req.body.comments
   };
-  console.log('asdfdasf',newBlog)
   Blog.create(newBlog, (err, blog) => {
-    console.log(err)
-    res.json(blog)
+    if (err) res.send(err)
+    User.findById(req.body.id, (err, user)=> {
+      if(err) res.send(err);
+      user.blogs.push(blog);
+      user.save();
+      res.json(user)
+    })
   })
 })
 

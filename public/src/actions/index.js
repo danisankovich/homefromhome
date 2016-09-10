@@ -145,6 +145,7 @@ export function newBlog(data) {
         type: NEW_BLOG,
         payload: response
       })
+      browserHistory.push('/blogs/mine'); // success pushes you to /information.
     }).fail((err) => {
       console.log(err)
     });

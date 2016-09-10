@@ -29224,6 +29224,7 @@
 	        type: _types.NEW_BLOG,
 	        payload: response
 	      });
+	      _reactRouter.browserHistory.push('/blogs/mine'); // success pushes you to /information.
 	    }).fail(function (err) {
 	      console.log(err);
 	    });
@@ -56402,6 +56403,10 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 2);
@@ -56436,9 +56441,20 @@
 	  }
 	
 	  _createClass(MyBlog, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var userInfo = this.props.userInfo;
 	
+	      console.log(userInfo);
+	      var blogs = [];
+	      if (this.props.userInfo) {
+	        blogs = this.props.userInfo.blogs;
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-12 toppush' },
@@ -56455,6 +56471,30 @@
 	            { className: 'btn btn-success' },
 	            'Post New Blog Article'
 	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          blogs.map(function (e) {
+	            return _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-3', key: e._id },
+	              _react2.default.createElement(
+	                'ul',
+	                { className: 'blogListingBorder' },
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  e.title
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  e.tagline
+	                )
+	              )
+	            );
+	          })
 	        )
 	      );
 	    }
@@ -56463,7 +56503,10 @@
 	  return MyBlog;
 	}(_react.Component);
 	
-	module.exports = MyBlog;
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyBlog);
 
 /***/ },
 /* 324 */
@@ -56846,7 +56889,7 @@
 	              null,
 	              'Body: '
 	            ),
-	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, body)),
+	            _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, body)),
 	            body.touched && body.error && _react2.default.createElement(
 	              'div',
 	              { className: 'error' },
