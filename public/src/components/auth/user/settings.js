@@ -10,42 +10,55 @@ class Settings extends Component {
       editEmail: false,
       editPhone: false,
       editUser: false,
+      editLang: false,
+      selectedLanguages: []
     };
   }
   // handle hide/show clicks
   handleClick(type) {
      this.setState(type);
-     console.log(Object.keys(type)[0])
      if (Object.keys(type)[0] === 'editUser') {
        this.setState({username: this.props.userInfo.userName})
      }
   }
   onEmailChange(event) {
-    console.log(event.target.value)
     this.props.userInfo.username =+ event.target.value
   }
   componentWillMount() {
     this.props.fetchInfo();
   }
   handleFormSubmitPhoneNumber(formProps) { //called with props from submit form
-    console.log(formProps)
     this.props.editUser(formProps, this.props.userInfo._id);
     this.props.fetchInfo();
     this.setState({editPhone: false})
   }
   handleFormSubmitEmail(formProps) { //called with props from submit form
-    console.log(formProps)
     this.props.editUser(formProps, this.props.userInfo._id);
     this.props.fetchInfo();
     this.setState({editEmail: false})
   }
+  handleLangClick(formProps) {
+    formProps.lang = this.state.selectedLanguages;
+
+    this.props.editUser(formProps, this.props.userInfo._id);
+    this.props.fetchInfo();
+  }
   render() {
-    const { handleSubmit, fields: {phoneNumber, email}} = this.props;
+    let self = this;
+    const { handleSubmit, fields: {phoneNumber, email, lang}} = this.props;
 
     let {userInfo} = this.props;
+    let languages = [
+      'English', 'Español', 'Français', '日本語', 'Italiano', 'Deutsch', 'Русский язык',
+      '中文', '한국어', 'دزيري / جزائري', 'Português', 'Kiswahili', 'Polish'
+    ]
+    let currentLangs;
+    if(userInfo) {
+      currentLangs = userInfo.languages;
+    }
     if(userInfo) {
       return (
-        <div>
+        <div className="toppush">
           <h3>Settings</h3>
           <p>Edit User Info: </p>
           <ul>
@@ -98,7 +111,64 @@ class Settings extends Component {
                 <button action="submit" className="btn btn-primary">Save</button>
               </form>
             </li>
+            <li
+              className={this.state.selectedLanguages ? '' : 'hidden'}
+              onClick={function(){
+                $('#myModal').modal('show');
+              }}>
+              Languages: {
+                this.props.userInfo.languages.map((lang, i) => {
+                  if (i === this.props.userInfo.languages.length -1) {
+                    return lang;
+                  }
+                  return lang + ', '
+                })
+              }
+            </li>
           </ul>
+          <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 className="modal-title" id="myModalLabel">Languages</h4>
+                </div>
+                <div className="modal-body">
+                  <form>
+                    {languages.map((lang) => {
+                      let isChecked;
+                      if (currentLangs.indexOf(lang) > -1) {
+                        isChecked=true;
+                        if(this.state.selectedLanguages.indexOf(lang) === -1) {
+                          this.state.selectedLanguages.push(lang)
+                        }
+                      }
+                      return (
+                        <div key={lang} className='langDiv col-sm-6' >
+                          <label htmlFor={lang}> {lang} </label>
+                          <input type="checkbox" id={lang} value={lang} defaultChecked={isChecked}
+                            onChange={()=>{
+                              if (currentLangs.indexOf(lang) === -1) {
+                                currentLangs.push(lang)
+                              } else {
+                                currentLangs.splice(currentLangs.indexOf(lang), 1)
+                              }
+                              this.state.selectedLanguages = currentLangs
+                            }} />
+                        </div>
+                    )
+                    })}
+                  </form>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-primary" onClick={handleSubmit(self.handleLangClick.bind(self))} data-dismiss="modal">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -114,5 +184,5 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'settings',
-  fields: ['email', 'phoneNumber'],
+  fields: ['email', 'phoneNumber', 'lang'],
 }, mapStateToProps, actions)(Settings);

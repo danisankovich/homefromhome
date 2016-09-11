@@ -51,15 +51,15 @@ export function signupUser({email, password, username}) {
       });
   }
 }
-export function editUser({phoneNumber, email}, user) {
+export function editUser({phoneNumber, email, lang}, user) {
   return function(dispatch) {
-    console.log(phoneNumber)
+    console.log(lang)
     dispatch({type: EDIT_USER});
 
     $.ajax({
       url: `${ROOT_URL}/editInfo`,
       type: "POST",
-      data: {phoneNumber, email, user},
+      data: {phoneNumber, email, user, 'lang': lang },
     })
       .done(response => {
         dispatch({type: FETCH_INFO});

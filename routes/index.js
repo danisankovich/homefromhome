@@ -20,10 +20,12 @@ router.post('/api/signin', requireSignin, Authentication.signin);
 router.post('/api/editInfo', (req, res) => {
   var newPhone = req.body.phoneNumber
   var newEmail = req.body.email
-  console.log(req.body)
+  var newLang = req.body['lang[]']
+  console.log(newLang)
   User.findById(req.body.user, (err, user) => {
     user.phoneNumber = newPhone || user.phoneNumber;
     user.email = newEmail || user.email;
+    user.languages = newLang || user.languages
     user.save()
     res.send(user);
 

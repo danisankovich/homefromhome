@@ -10,7 +10,7 @@ class Profile extends Component {
     let {userInfo} = this.props;
     if(userInfo) {
       return (
-        <div>
+        <div className="toppush">
           <h3>Profile</h3>
           aaa: {this.props.userInfo.username}
         </div>

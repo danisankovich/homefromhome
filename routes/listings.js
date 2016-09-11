@@ -6,28 +6,18 @@ var jwt = require('jwt-simple');
 
 
 const Listing = require('../models/listing');
-
-router.get('/', (req, res) => {
-  Listing.find({}, (err, listings) => {
-    if (err) res.send(err);
-    res.send(listings)
-  })
-})
+const User = require('../models/user');
 
 router.get('/:id', (req, res) => {
-  console.log('adsf', req.params)
   Listing.findById(req.params.id, (err, listing) => {
     if (err) res.send(err);
-    else {
-      console.log(listing)
-      res.send(listing);
-    }
+    res.send(listing);
   })
 })
 
 router.get('/location/:location', (req, res) => {
-  let city = req.params.location.split('_')[1]
-  let country = req.params.location.split('_')[0]
+  let city = req.params.location.split('_')[1].toLowerCase();
+  let country = req.params.location.split('_')[0].toLowerCase();
   if (city.length > 0 && country.length > 0) {
     Listing.find({'location.city': city, 'location.country': country}, (err, listings) => {
       if (err) res.send(err);
@@ -46,13 +36,6 @@ router.get('/location/:location', (req, res) => {
       res.send(listings)
     })
   }
-  // Listing.find(req.params.id, (err, listing) => {
-  //   if (err) res.send(err);
-  //   else {
-  //     console.log(listing)
-  //     res.send(listing);
-  //   }
-  // })
 })
 
 router.post('/new', (req, res) => {
@@ -62,9 +45,9 @@ router.post('/new', (req, res) => {
   data.availableForRent = req.body.availableForRent;
   data.datesAvailable = req.body.datesAvailable;
   data.location = {
-    city: req.body.city,
-    address: req.body.address,
-    country: req.body.country
+    city: req.body.city.toLowerCase(),
+    address: req.body.address.toLowerCase(),
+    country: req.body.country.toLowerCase()
   }
   data.creator = {
     username: req.body.username,
@@ -72,17 +55,15 @@ router.post('/new', (req, res) => {
     phoneNumber: req.body.phoneNumber,
     email: req.body.email
   }
-  console.log(data);
-  console.log('________________');
   Listing.create(data, (err, listing) => {
-    console.log(err)
-    res.json(listing)
-  })
-  // newListing.save((err) => {
-  //   if (err) res.send(err);
-  //   console.log(newListing)
-  //   res.json(newListing);
-  // });
+    if(err) res.send(err);
+    User.findById(data.creator.id, (err, user) => {
+      if (err) res.send(err);
+      user.myListings.push(listing._id)
+      user.save();
+      res.json(listing)
+    });
+  });
 });
 
 module.exports = router;

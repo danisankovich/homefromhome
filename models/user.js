@@ -8,6 +8,9 @@ const userSchema = new Schema({
   password: String,
   phoneNumber: String,
   blogs: Array,
+  aboutMe: String,
+  languages: Array,
+  myListings: Array
 });
 
 // hook that runs before the model gets saved
