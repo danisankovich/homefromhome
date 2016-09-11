@@ -141,11 +141,15 @@
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
-	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 326);
+	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 326);
+	
+	var _single_blog2 = _interopRequireDefault(_single_blog);
+	
+	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 327);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 327);
+	var _reducers = __webpack_require__(/*! ./reducers */ 328);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -153,13 +157,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// Listings Routes
-	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxPromise2.default)(_redux.createStore);
-	
 	// blog Routes
 	
 	
 	// Main Routes
+	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxPromise2.default)(_redux.createStore);
+	
+	// Listings Routes
 	
 	var store = createStoreWithMiddleware(_reducers2.default);
 	
@@ -202,7 +206,8 @@
 	      { path: '/blogs', component: _app2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: _my_blog2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: _new_blog2.default })
+	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: _new_blog2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })
 	    )
 	  )
 	), document.querySelector('.thing'));
@@ -29075,6 +29080,7 @@
 	exports.newListing = newListing;
 	exports.newBlog = newBlog;
 	exports.fetchSingleListing = fetchSingleListing;
+	exports.fetchSingleBlog = fetchSingleBlog;
 	
 	var _jquery = __webpack_require__(/*! jquery */ 261);
 	
@@ -29244,6 +29250,21 @@
 	    }).done(function (response) {
 	      dispatch({
 	        type: _types.FETCH_SINGLE_LISTING,
+	        payload: response
+	      });
+	    });
+	  };
+	}
+	
+	function fetchSingleBlog(id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/api/blogs/' + id,
+	      type: "GET"
+	    }).done(function (response) {
+	      console.log(response);
+	      dispatch({
+	        type: _types.FETCH_SINGLE_BLOG,
 	        payload: response
 	      });
 	    });
@@ -39094,6 +39115,7 @@
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
 	var NEW_BLOG = exports.NEW_BLOG = 'new_blog';
+	var FETCH_SINGLE_BLOG = exports.FETCH_SINGLE_BLOG = 'fetch_single_blog';
 
 /***/ },
 /* 263 */
@@ -56653,7 +56675,9 @@
 	          blogs.map(function (e) {
 	            return _react2.default.createElement(
 	              'div',
-	              { className: 'col-sm-3', key: e._id },
+	              { className: 'col-sm-3', key: e._id, onClick: function onClick() {
+	                  _reactRouter.browserHistory.push('/blogs/' + e._id);
+	                } },
 	              _react2.default.createElement(
 	                'ul',
 	                { className: 'blogListingBorder' },
@@ -56876,6 +56900,102 @@
 
 /***/ },
 /* 326 */
+/*!***************************************************!*\
+  !*** ./public/src/components/blog/single_blog.js ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SingleBlog = function (_Component) {
+	  _inherits(SingleBlog, _Component);
+	
+	  function SingleBlog() {
+	    _classCallCheck(this, SingleBlog);
+	
+	    return _possibleConstructorReturn(this, (SingleBlog.__proto__ || Object.getPrototypeOf(SingleBlog)).apply(this, arguments));
+	  }
+	
+	  _createClass(SingleBlog, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var id = this.props.location.pathname.split('blogs/')[1];
+	      this.props.fetchSingleBlog(id);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var blog = this.props.blog;
+	
+	      console.log(blog);
+	      if (blog) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'toppush' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            blog.title
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            blog.tagline
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            blog.body
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'toppush' },
+	          'LOADING ....... '
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return SingleBlog;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo, blog: state.blogs.blog };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleBlog);
+
+/***/ },
+/* 327 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
   \****************************************************/
@@ -56952,7 +57072,7 @@
 	//wraps other components to add this feature to it: feature => kicks out unauthed users
 
 /***/ },
-/* 327 */
+/* 328 */
 /*!**************************************!*\
   !*** ./public/src/reducers/index.js ***!
   \**************************************/
@@ -56968,26 +57088,31 @@
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
 	
-	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 328);
+	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 329);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
-	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 329);
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 330);
 	
 	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
+	
+	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 331);
+	
+	var _blog_reducer2 = _interopRequireDefault(_blog_reducer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  form: _reduxForm.reducer,
 	  auth: _auth_reducer2.default,
-	  listing: _listing_reducer2.default
+	  listing: _listing_reducer2.default,
+	  blogs: _blog_reducer2.default
 	});
 	
 	exports.default = rootReducer;
 
 /***/ },
-/* 328 */
+/* 329 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/auth_reducer.js ***!
   \*********************************************/
@@ -57023,7 +57148,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 329 */
+/* 330 */
 /*!************************************************!*\
   !*** ./public/src/reducers/listing_reducer.js ***!
   \************************************************/
@@ -57048,6 +57173,36 @@
 	      return _extends({}, state, { listing: action.payload });
 	    case _types.NEW_LISTING:
 	      return _extends({}, state, { listing: action.payload });
+	  }
+	  return state;
+	};
+	
+	var _types = __webpack_require__(/*! ../actions/types */ 262);
+
+/***/ },
+/* 331 */
+/*!*********************************************!*\
+  !*** ./public/src/reducers/blog_reducer.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case _types.NEW_BLOG:
+	      return _extends({}, state, { blogs: action.payload });
+	    case _types.FETCH_SINGLE_BLOG:
+	      return _extends({}, state, { blog: action.payload });
 	  }
 	  return state;
 	};

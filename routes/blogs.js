@@ -30,4 +30,13 @@ router.post('/new', (req, res, next) => {
   })
 })
 
+router.get('/:id', (req, res) => {
+  console.log(req.params.id);
+  Blog.findById(req.params.id, (err, blog) => {
+    if (err) res.send(err)
+    console.log(blog)
+    res.send(blog)
+  })
+})
+
 module.exports = router;

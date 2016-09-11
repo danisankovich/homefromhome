@@ -26,7 +26,7 @@ class MyBlog extends Component {
         <div className="col-sm-12">
           {blogs.map((e) => {
             return (
-              <div className="col-sm-3" key={e._id}>
+              <div className="col-sm-3" key={e._id} onClick={() => {browserHistory.push(`/blogs/${e._id}`)}}>
                 <ul className="blogListingBorder">
                   <li>{e.title}</li>
                   <li>{e.tagline}</li>

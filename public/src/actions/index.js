@@ -9,8 +9,8 @@ import {
   FETCH_LISTINGS,
   NEW_LISTING,
   FETCH_SINGLE_LISTING,
-  NEW_BLOG
-
+  NEW_BLOG,
+  FETCH_SINGLE_BLOG
 } from './types';
 
 const ROOT_URL = 'http://localhost:3000/api';
@@ -164,6 +164,21 @@ export function fetchSingleListing(id) {
     }).done((response) => {
       dispatch({
         type: FETCH_SINGLE_LISTING,
+        payload: response
+      })
+    });
+  }
+}
+
+export function fetchSingleBlog(id) {
+  return function(dispatch) {
+    $.ajax({
+       url: `/api/blogs/${id}`,
+       type: "GET",
+    }).done((response) => {
+      console.log(response)
+      dispatch({
+        type: FETCH_SINGLE_BLOG,
         payload: response
       })
     });
