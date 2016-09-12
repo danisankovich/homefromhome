@@ -7,6 +7,14 @@ var jwt = require('jwt-simple');
 const User = require('../models/user');
 const Blog = require('../models/blog');
 
+router.get('/', (req, res) => {
+  Blog.find({}, (err, blogs) => {
+    if (err) res.send(err);
+    console.log(blogs);
+    res.send(blogs);
+  })
+})
+
 router.post('/new', (req, res, next) => {
   const newBlog = {
     creator: {

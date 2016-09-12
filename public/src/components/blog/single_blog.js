@@ -10,12 +10,12 @@ class SingleBlog extends Component {
     this.props.fetchSingleBlog(id);
   }
   render() {
-    let {blog} = this.props;
+    let {blog, userInfo} = this.props;
     console.log(blog)
     if(blog) {
       return (
-        <div className='toppush'>
-          <h1>{blog.title}</h1>
+        <div className='toppush container'>
+          <h1>{blog.title}   --    by {blog.creator.username}</h1>
           <h3>{blog.tagline}</h3>
           <p>{blog.body}</p>
         </div>

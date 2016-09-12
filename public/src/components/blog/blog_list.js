@@ -5,16 +5,38 @@ import { browserHistory } from 'react-router'
 
 
 class BlogList extends Component {
-
+  componentWillMount() {
+    this.props.fetchAllBlogs();
+  }
   render() {
-
-    return (
-      <div className="col-sm-12">
-        <div className="col-sm-10 col-sm-offset-1">
-          This is where blogs are listed
+    let {blogs} = this.props;
+    console.log(blogs)
+    if(blogs) {
+      return (
+        <div className="col-sm-12">
+          <div className="col-sm-10 col-sm-offset-1">
+            <div className="col-sm-12">
+              {blogs.map((e) => {
+                return (
+                  <div className="col-sm-3" key={e._id} onClick={() => {browserHistory.push(`/blogs/${e._id}`)}}>
+                    <ul className="blogListingBorder">
+                      <li>{e.title}</li>
+                      <li>{e.tagline}</li>
+                    </ul>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <div className="toppush"><h1>LOADING........</h1></div>
+    }
+
   }
 }
-module.exports = BlogList
+function mapStateToProps(state) {
+  return {userInfo: state.auth.userInfo, blogs: state.blogs.blogs};
+}
+export default connect(mapStateToProps, actions)(BlogList);

@@ -29081,6 +29081,7 @@
 	exports.newBlog = newBlog;
 	exports.fetchSingleListing = fetchSingleListing;
 	exports.fetchSingleBlog = fetchSingleBlog;
+	exports.fetchAllBlogs = fetchAllBlogs;
 	
 	var _jquery = __webpack_require__(/*! jquery */ 261);
 	
@@ -29262,9 +29263,21 @@
 	      url: '/api/blogs/' + id,
 	      type: "GET"
 	    }).done(function (response) {
-	      console.log(response);
 	      dispatch({
 	        type: _types.FETCH_SINGLE_BLOG,
+	        payload: response
+	      });
+	    });
+	  };
+	}
+	function fetchAllBlogs() {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/api/blogs/',
+	      type: "GET"
+	    }).done(function (response) {
+	      dispatch({
+	        type: _types.FETCH_ALL_BLOGS,
 	        payload: response
 	      });
 	    });
@@ -39116,6 +39129,7 @@
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
 	var NEW_BLOG = exports.NEW_BLOG = 'new_blog';
 	var FETCH_SINGLE_BLOG = exports.FETCH_SINGLE_BLOG = 'fetch_single_blog';
+	var FETCH_ALL_BLOGS = exports.FETCH_ALL_BLOGS = 'fetch_all_blogs';
 
 /***/ },
 /* 263 */
@@ -56448,10 +56462,6 @@
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 2);
@@ -56489,15 +56499,8 @@
 	  }
 	
 	  _createClass(Blog_Container, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var userInfo = this.props.userInfo;
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container toppush' },
@@ -56523,10 +56526,7 @@
 	  return Blog_Container;
 	}(_react.Component);
 	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Blog_Container);
+	module.exports = Blog_Container;
 
 /***/ },
 /* 323 */
@@ -56536,6 +56536,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -56571,25 +56575,72 @@
 	  }
 	
 	  _createClass(BlogList, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchAllBlogs();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var blogs = this.props.blogs;
 	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'col-sm-12' },
-	        _react2.default.createElement(
+	      console.log(blogs);
+	      if (blogs) {
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-10 col-sm-offset-1' },
-	          'This is where blogs are listed'
-	        )
-	      );
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10 col-sm-offset-1' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-12' },
+	              blogs.map(function (e) {
+	                return _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-3', key: e._id, onClick: function onClick() {
+	                      _reactRouter.browserHistory.push('/blogs/' + e._id);
+	                    } },
+	                  _react2.default.createElement(
+	                    'ul',
+	                    { className: 'blogListingBorder' },
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      e.title
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      e.tagline
+	                    )
+	                  )
+	                );
+	              })
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'toppush' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'LOADING........'
+	          )
+	        );
+	      }
 	    }
 	  }]);
 	
 	  return BlogList;
 	}(_react.Component);
 	
-	module.exports = BlogList;
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo, blogs: state.blogs.blogs };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BlogList);
 
 /***/ },
 /* 324 */
@@ -56953,17 +57004,21 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var blog = this.props.blog;
+	      var _props = this.props;
+	      var blog = _props.blog;
+	      var userInfo = _props.userInfo;
 	
 	      console.log(blog);
 	      if (blog) {
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'toppush' },
+	          { className: 'toppush container' },
 	          _react2.default.createElement(
 	            'h1',
 	            null,
-	            blog.title
+	            blog.title,
+	            '   --    by ',
+	            blog.creator.username
 	          ),
 	          _react2.default.createElement(
 	            'h3',
@@ -57203,6 +57258,8 @@
 	      return _extends({}, state, { blogs: action.payload });
 	    case _types.FETCH_SINGLE_BLOG:
 	      return _extends({}, state, { blog: action.payload });
+	    case _types.FETCH_ALL_BLOGS:
+	      return _extends({}, state, { blogs: action.payload });
 	  }
 	  return state;
 	};

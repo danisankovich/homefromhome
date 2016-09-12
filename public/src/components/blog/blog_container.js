@@ -5,11 +5,7 @@ import BlogList from './blog_list';
 
 //WELCOMING PAGE
 class Blog_Container extends Component {
-  componentWillMount() {
-    this.props.fetchInfo();
-  }
   render() {
-    let {userInfo} = this.props;
       return (
         <div className='container toppush'>
           <div className="row">
@@ -23,7 +19,4 @@ class Blog_Container extends Component {
       );
   };
 }
-function mapStateToProps(state) {
-  return {userInfo: state.auth.userInfo};
-}
-export default connect(mapStateToProps, actions)(Blog_Container);
+module.exports = Blog_Container;
