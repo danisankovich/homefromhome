@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { reduxForm } from 'redux-form';
 import * as actions from '../../../actions';
 import { browserHistory } from 'react-router'
 
@@ -9,16 +10,54 @@ class PhotoBook extends Component {
     this.props.fetchInfo();
   }
   uploadPhoto() {
-    this.props.uploadMyPhoto('asfsdf', this.props.userInfo._id)
+    this.props.uploadMyPhoto(this.state.file, this.props.userInfo._id)
+    this.props.fetchInfo();
+
+  }
+  renderAlert() {
+    if(this.props.errorMessage) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Error!!! </strong> {this.props.errorMessage}
+        </div>
+      )
+    }
+  }
+  previewFile() {
+    var self = this;
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+    var image;
+    reader.addEventListener("load", function () {
+      image = reader.result;
+      self.setState({file: image})
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+
   }
   render() {
-    let {userInfo} = this.props;
+    const { handleSubmit, userInfo, fields: {image, tagline }} = this.props;
+
     let photos = userInfo.myPhotos || [];
     console.log(userInfo)
-    if(photos) {
+    if(userInfo) {
       return (
         <div className="col-sm-12">
-          <button onClick={this.uploadPhoto.bind(this)}>asdfs f</button>
+          <form onSubmit={handleSubmit(this.uploadPhoto.bind(this))}>
+            <fieldset className="form-group">
+              <input type="file" onChange={this.previewFile.bind(this)} />
+            </fieldset>
+            <fieldset className="form-group">
+              <label>Tagline: </label>
+              <input className="form-control" type="text" {...tagline} />
+              {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
+            </fieldset>
+            {this.renderAlert()}
+            <button action="submit" className="btn btn-primary">Post Blog</button>
+          </form>
           <div className="col-sm-10 col-sm-offset-1">
             <div className="col-sm-12">
               {photos.map((e) => {
@@ -41,7 +80,19 @@ class PhotoBook extends Component {
 
   }
 }
+function validate(formProps) {
+  const errors = {};
+
+  if (!formProps.tagline) {
+    errors.tagline = 'Please Enter a Tagline';
+  }
+  return errors;
+}
 function mapStateToProps(state) {
   return {userInfo: state.auth.userInfo};
 }
-export default connect(mapStateToProps, actions)(PhotoBook);
+export default reduxForm({
+  form: 'photoBook',
+  fields: ['image', 'tagline'],
+  validate,
+}, mapStateToProps, actions)(PhotoBook);

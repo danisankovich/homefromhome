@@ -42974,6 +42974,7 @@
 	    value: function componentWillMount() {
 	      this.props.fetchInfo();
 	    }
+	
 	    // handle hide/show clicks
 	
 	  }, {
@@ -57309,6 +57310,8 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 2);
@@ -57316,6 +57319,8 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
 	
 	var _actions = __webpack_require__(/*! ../../../actions */ 260);
 	
@@ -57350,23 +57355,88 @@
 	  }, {
 	    key: 'uploadPhoto',
 	    value: function uploadPhoto() {
-	      this.props.uploadMyPhoto('asfsdf', this.props.userInfo._id);
+	      this.props.uploadMyPhoto(this.state.file, this.props.userInfo._id);
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'renderAlert',
+	    value: function renderAlert() {
+	      if (this.props.errorMessage) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'alert alert-danger' },
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Error!!! '
+	          ),
+	          ' ',
+	          this.props.errorMessage
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'previewFile',
+	    value: function previewFile() {
+	      var self = this;
+	      var file = document.querySelector('input[type=file]').files[0];
+	      var reader = new FileReader();
+	      var image;
+	      reader.addEventListener("load", function () {
+	        image = reader.result;
+	        self.setState({ file: image });
+	      }, false);
+	
+	      if (file) {
+	        reader.readAsDataURL(file);
+	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var userInfo = this.props.userInfo;
+	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
+	      var userInfo = _props.userInfo;
+	      var _props$fields = _props.fields;
+	      var image = _props$fields.image;
+	      var tagline = _props$fields.tagline;
+	
 	
 	      var photos = userInfo.myPhotos || [];
 	      console.log(userInfo);
-	      if (photos) {
+	      if (userInfo) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'col-sm-12' },
 	          _react2.default.createElement(
-	            'button',
-	            { onClick: this.uploadPhoto.bind(this) },
-	            'asdfs f'
+	            'form',
+	            { onSubmit: handleSubmit(this.uploadPhoto.bind(this)) },
+	            _react2.default.createElement(
+	              'fieldset',
+	              { className: 'form-group' },
+	              _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
+	            ),
+	            _react2.default.createElement(
+	              'fieldset',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Tagline: '
+	              ),
+	              _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
+	              tagline.touched && tagline.error && _react2.default.createElement(
+	                'div',
+	                { className: 'error' },
+	                tagline.error
+	              )
+	            ),
+	            this.renderAlert(),
+	            _react2.default.createElement(
+	              'button',
+	              { action: 'submit', className: 'btn btn-primary' },
+	              'Post Blog'
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -57416,10 +57486,22 @@
 	  return PhotoBook;
 	}(_react.Component);
 	
+	function validate(formProps) {
+	  var errors = {};
+	
+	  if (!formProps.tagline) {
+	    errors.tagline = 'Please Enter a Tagline';
+	  }
+	  return errors;
+	}
 	function mapStateToProps(state) {
 	  return { userInfo: state.auth.userInfo };
 	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(PhotoBook);
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'photoBook',
+	  fields: ['image', 'tagline'],
+	  validate: validate
+	}, mapStateToProps, actions)(PhotoBook);
 
 /***/ }
 /******/ ]);

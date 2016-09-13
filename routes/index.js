@@ -34,7 +34,8 @@ router.post('/api/editInfo', (req, res) => {
 router.post('/api/uploadmyphoto', (req, res) => {
   console.log(req.body)
   User.findById(req.body.user, (err, user) => {
-    console.log(user);
+    user.myPhotos.push(req.body.photo)
+    user.save();
     res.send(user);
   })
 });

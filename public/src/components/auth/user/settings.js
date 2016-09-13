@@ -18,6 +18,7 @@ class Settings extends Component {
   componentWillMount() {
     this.props.fetchInfo();
   }
+
   // handle hide/show clicks
   handleClick(type) {
      this.setState(type);
