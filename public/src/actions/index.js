@@ -4,6 +4,7 @@ import {
   AUTH_USER,
   AUTH_ERROR,
   EDIT_USER,
+  UPLOAD_PHOTO,
   UNAUTH_USER,
   FETCH_INFO,
   FETCH_LISTINGS,
@@ -61,6 +62,23 @@ export function editUser({phoneNumber, email, lang}, user) {
       url: `${ROOT_URL}/editInfo`,
       type: "POST",
       data: {phoneNumber, email, user, 'lang': lang },
+    })
+      .done(response => {
+        dispatch({type: FETCH_INFO});
+      }).fail((error) => {
+        console.log(error)
+        dispatch(authError(error.response.error));
+      });
+  }
+}
+export function uploadMyPhoto(photo, user) {
+  return function(dispatch) {
+    dispatch({type: UPLOAD_PHOTO});
+
+    $.ajax({
+      url: `${ROOT_URL}/uploadmyphoto`,
+      type: "POST",
+      data: {photo, user},
     })
       .done(response => {
         dispatch({type: FETCH_INFO});

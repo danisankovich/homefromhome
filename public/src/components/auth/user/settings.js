@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions';
 import { reduxForm } from 'redux-form';
+import PhotoBook from './photobook';
 
 class Settings extends Component {
   constructor(props) {
@@ -14,6 +15,9 @@ class Settings extends Component {
       selectedLanguages: []
     };
   }
+  componentWillMount() {
+    this.props.fetchInfo();
+  }
   // handle hide/show clicks
   handleClick(type) {
      this.setState(type);
@@ -24,9 +28,7 @@ class Settings extends Component {
   onEmailChange(event) {
     this.props.userInfo.username =+ event.target.value
   }
-  componentWillMount() {
-    this.props.fetchInfo();
-  }
+
   handleFormSubmitPhoneNumber(formProps) { //called with props from submit form
     this.props.editUser(formProps, this.props.userInfo._id);
     this.props.fetchInfo();
@@ -126,6 +128,9 @@ class Settings extends Component {
               }
             </li>
           </ul>
+
+          <PhotoBook />
+
           <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
               <div className="modal-content">

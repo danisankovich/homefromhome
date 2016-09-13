@@ -31,4 +31,11 @@ router.post('/api/editInfo', (req, res) => {
 
   })
 });
+router.post('/api/uploadmyphoto', (req, res) => {
+  console.log(req.body)
+  User.findById(req.body.user, (err, user) => {
+    console.log(user);
+    res.send(user);
+  })
+});
 module.exports = router;

@@ -29073,6 +29073,7 @@
 	exports.signinUser = signinUser;
 	exports.signupUser = signupUser;
 	exports.editUser = editUser;
+	exports.uploadMyPhoto = uploadMyPhoto;
 	exports.authError = authError;
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
@@ -29148,6 +29149,22 @@
 	      url: ROOT_URL + '/editInfo',
 	      type: "POST",
 	      data: { phoneNumber: phoneNumber, email: email, user: user, 'lang': lang }
+	    }).done(function (response) {
+	      dispatch({ type: _types.FETCH_INFO });
+	    }).fail(function (error) {
+	      console.log(error);
+	      dispatch(authError(error.response.error));
+	    });
+	  };
+	}
+	function uploadMyPhoto(photo, user) {
+	  return function (dispatch) {
+	    dispatch({ type: _types.UPLOAD_PHOTO });
+	
+	    _jquery2.default.ajax({
+	      url: ROOT_URL + '/uploadmyphoto',
+	      type: "POST",
+	      data: { photo: photo, user: user }
 	    }).done(function (response) {
 	      dispatch({ type: _types.FETCH_INFO });
 	    }).fail(function (error) {
@@ -39127,6 +39144,7 @@
 	var NEW_LISTING = exports.NEW_LISTING = 'new_listing';
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
+	var UPLOAD_PHOTO = exports.UPLOAD_PHOTO = 'upload_photo';
 	var NEW_BLOG = exports.NEW_BLOG = 'new_blog';
 	var FETCH_SINGLE_BLOG = exports.FETCH_SINGLE_BLOG = 'fetch_single_blog';
 	var FETCH_ALL_BLOGS = exports.FETCH_ALL_BLOGS = 'fetch_all_blogs';
@@ -42827,6 +42845,10 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
+	var _photobook = __webpack_require__(/*! ./photobook */ 332);
+	
+	var _photobook2 = _interopRequireDefault(_photobook);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42866,7 +42888,8 @@
 	            'Profile'
 	          ),
 	          'aaa: ',
-	          this.props.userInfo.username
+	          this.props.userInfo.username,
+	          _react2.default.createElement(_photobook2.default, null)
 	        );
 	      }
 	      return _react2.default.createElement(
@@ -42914,6 +42937,10 @@
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
 	
+	var _photobook = __webpack_require__(/*! ./photobook */ 332);
+	
+	var _photobook2 = _interopRequireDefault(_photobook);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42941,10 +42968,15 @@
 	    };
 	    return _this;
 	  }
-	  // handle hide/show clicks
-	
 	
 	  _createClass(Settings, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	    // handle hide/show clicks
+	
+	  }, {
 	    key: 'handleClick',
 	    value: function handleClick(type) {
 	      this.setState(type);
@@ -42956,11 +42988,6 @@
 	    key: 'onEmailChange',
 	    value: function onEmailChange(event) {
 	      this.props.userInfo.username = +event.target.value;
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
 	    }
 	  }, {
 	    key: 'handleFormSubmitPhoneNumber',
@@ -43138,6 +43165,7 @@
 	              })
 	            )
 	          ),
+	          _react2.default.createElement(_photobook2.default, null),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'modal fade', id: 'myModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'myModalLabel', 'aria-hidden': 'true' },
@@ -57196,6 +57224,8 @@
 	      return _extends({}, state, { userInfo: action.payload });
 	    case _types.EDIT_USER:
 	      return _extends({}, state, { userInfo: action.payload });
+	    case _types.UPLOAD_PHOTO:
+	      return _extends({}, state, { myPhoto: action.payload });
 	  }
 	  return state;
 	};
@@ -57265,6 +57295,131 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
+
+/***/ },
+/* 332 */
+/*!******************************************************!*\
+  !*** ./public/src/components/auth/user/photobook.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PhotoBook = function (_Component) {
+	  _inherits(PhotoBook, _Component);
+	
+	  function PhotoBook() {
+	    _classCallCheck(this, PhotoBook);
+	
+	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).apply(this, arguments));
+	  }
+	
+	  _createClass(PhotoBook, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'uploadPhoto',
+	    value: function uploadPhoto() {
+	      this.props.uploadMyPhoto('asfsdf', this.props.userInfo._id);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      var photos = userInfo.myPhotos || [];
+	      console.log(userInfo);
+	      if (photos) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: this.uploadPhoto.bind(this) },
+	            'asdfs f'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10 col-sm-offset-1' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-12' },
+	              photos.map(function (e) {
+	                return _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-3', key: e._id, onClick: function onClick() {
+	                      _reactRouter.browserHistory.push('/myphotos/' + e._id);
+	                    } },
+	                  _react2.default.createElement(
+	                    'ul',
+	                    { className: 'photoBookBorder' },
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      e.title
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      e.tagline
+	                    )
+	                  )
+	                );
+	              })
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'toppush' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'LOADING........'
+	          )
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return PhotoBook;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(PhotoBook);
 
 /***/ }
 /******/ ]);

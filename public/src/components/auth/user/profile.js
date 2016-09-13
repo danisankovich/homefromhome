@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions';
+import PhotoBook from './photobook';
 
 class Profile extends Component {
   componentWillMount() {
@@ -13,6 +14,7 @@ class Profile extends Component {
         <div className="toppush">
           <h3>Profile</h3>
           aaa: {this.props.userInfo.username}
+          <PhotoBook />
         </div>
       );
     }

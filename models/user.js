@@ -10,7 +10,8 @@ const userSchema = new Schema({
   blogs: Array,
   aboutMe: String,
   languages: Array,
-  myListings: Array
+  myListings: Array,
+  myPhotos: Array
 });
 
 // hook that runs before the model gets saved
