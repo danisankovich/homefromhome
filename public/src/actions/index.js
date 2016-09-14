@@ -78,7 +78,7 @@ export function uploadMyPhoto(photo, user) {
     $.ajax({
       url: `${ROOT_URL}/uploadmyphoto`,
       type: "POST",
-      data: {photo, user},
+      data: {image: photo.image, location: photo.location, tagline: photo.tagline, user},
     })
       .done(response => {
         dispatch({type: FETCH_INFO});

@@ -105,51 +105,51 @@
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
-	var _settings = __webpack_require__(/*! ./components/auth/user/settings */ 313);
+	var _settings = __webpack_require__(/*! ./components/auth/user/settings */ 314);
 	
 	var _settings2 = _interopRequireDefault(_settings);
 	
-	var _welcome_container = __webpack_require__(/*! ./components/welcome_container */ 314);
+	var _welcome_container = __webpack_require__(/*! ./components/welcome_container */ 315);
 	
 	var _welcome_container2 = _interopRequireDefault(_welcome_container);
 	
-	var _listings_container = __webpack_require__(/*! ./components/listings_container */ 316);
+	var _listings_container = __webpack_require__(/*! ./components/listings_container */ 317);
 	
 	var _listings_container2 = _interopRequireDefault(_listings_container);
 	
-	var _listing = __webpack_require__(/*! ./components/listings/listing */ 320);
+	var _listing = __webpack_require__(/*! ./components/listings/listing */ 321);
 	
 	var _listing2 = _interopRequireDefault(_listing);
 	
-	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 321);
+	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 322);
 	
 	var _newListing2 = _interopRequireDefault(_newListing);
 	
-	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 322);
+	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 323);
 	
 	var _blog_container2 = _interopRequireDefault(_blog_container);
 	
-	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 324);
+	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 325);
 	
 	var _my_blog2 = _interopRequireDefault(_my_blog);
 	
-	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 325);
+	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 326);
 	
 	var _new_blog2 = _interopRequireDefault(_new_blog);
 	
-	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 323);
+	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 324);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
-	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 326);
+	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 327);
 	
 	var _single_blog2 = _interopRequireDefault(_single_blog);
 	
-	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 327);
+	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 328);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 328);
+	var _reducers = __webpack_require__(/*! ./reducers */ 329);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -29164,7 +29164,7 @@
 	    _jquery2.default.ajax({
 	      url: ROOT_URL + '/uploadmyphoto',
 	      type: "POST",
-	      data: { photo: photo, user: user }
+	      data: { image: photo.image, location: photo.location, tagline: photo.tagline, user: user }
 	    }).done(function (response) {
 	      dispatch({ type: _types.FETCH_INFO });
 	    }).fail(function (error) {
@@ -42845,7 +42845,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _photobook = __webpack_require__(/*! ./photobook */ 332);
+	var _photobook = __webpack_require__(/*! ./photobook */ 313);
 	
 	var _photobook2 = _interopRequireDefault(_photobook);
 	
@@ -42879,17 +42879,16 @@
 	      var userInfo = this.props.userInfo;
 	
 	      if (userInfo) {
+	        var photos = userInfo.myPhotos;
 	        return _react2.default.createElement(
 	          'div',
-	          { className: 'toppush' },
+	          { className: 'toppush container' },
 	          _react2.default.createElement(
-	            'h3',
+	            'h2',
 	            null,
-	            'Profile'
-	          ),
-	          'aaa: ',
-	          this.props.userInfo.username,
-	          _react2.default.createElement(_photobook2.default, null)
+	            this.props.userInfo.username + "'s",
+	            ' Profile'
+	          )
 	        );
 	      }
 	      return _react2.default.createElement(
@@ -42910,6 +42909,233 @@
 
 /***/ },
 /* 313 */
+/*!******************************************************!*\
+  !*** ./public/src/components/auth/user/photobook.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
+	
+	var _actions = __webpack_require__(/*! ../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PhotoBook = function (_Component) {
+	  _inherits(PhotoBook, _Component);
+	
+	  function PhotoBook() {
+	    _classCallCheck(this, PhotoBook);
+	
+	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).apply(this, arguments));
+	  }
+	
+	  _createClass(PhotoBook, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'uploadPhoto',
+	    value: function uploadPhoto(formprops) {
+	      formprops.image = this.state.file;
+	      this.props.uploadMyPhoto(formprops, this.props.userInfo._id);
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'renderAlert',
+	    value: function renderAlert() {
+	      if (this.props.errorMessage) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'alert alert-danger' },
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Error!!! '
+	          ),
+	          ' ',
+	          this.props.errorMessage
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'previewFile',
+	    value: function previewFile() {
+	      var self = this;
+	      var file = document.querySelector('input[type=file]').files[0];
+	      var reader = new FileReader();
+	      var image;
+	      reader.addEventListener("load", function () {
+	        image = reader.result;
+	        self.setState({ file: image });
+	      }, false);
+	
+	      if (file) {
+	        reader.readAsDataURL(file);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
+	      var userInfo = _props.userInfo;
+	      var _props$fields = _props.fields;
+	      var image = _props$fields.image;
+	      var tagline = _props$fields.tagline;
+	      var location = _props$fields.location;
+	
+	
+	      var photos = userInfo.myPhotos || [];
+	      if (userInfo) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-12' },
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: handleSubmit(this.uploadPhoto.bind(this)) },
+	            _react2.default.createElement(
+	              'fieldset',
+	              { className: 'form-group' },
+	              _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
+	            ),
+	            _react2.default.createElement(
+	              'fieldset',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Tagline: '
+	              ),
+	              _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
+	              tagline.touched && tagline.error && _react2.default.createElement(
+	                'div',
+	                { className: 'error' },
+	                tagline.error
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'fieldset',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'Location: '
+	              ),
+	              _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, location)),
+	              location.touched && location.error && _react2.default.createElement(
+	                'div',
+	                { className: 'error' },
+	                location.error
+	              )
+	            ),
+	            this.renderAlert(),
+	            _react2.default.createElement(
+	              'button',
+	              { action: 'submit', className: 'btn btn-primary' },
+	              'Post Blog'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10 col-sm-offset-1' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-12' },
+	              photos.map(function (e) {
+	                return _react2.default.createElement(
+	                  'div',
+	                  { className: 'col-sm-3', key: e._id, onClick: function onClick() {
+	                      _reactRouter.browserHistory.push('/myphotos/' + e._id);
+	                    } },
+	                  _react2.default.createElement(
+	                    'ul',
+	                    { className: 'photoBookBorder' },
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      e.location
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      e.tagline
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      _react2.default.createElement('img', { className: 'photoBookImage', src: e.image })
+	                    )
+	                  )
+	                );
+	              })
+	            )
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'toppush' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'LOADING........'
+	          )
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return PhotoBook;
+	}(_react.Component);
+	
+	function validate(formProps) {
+	  var errors = {};
+	
+	  if (!formProps.tagline) {
+	    errors.tagline = 'Please Enter a Tagline';
+	  }
+	  return errors;
+	}
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'photoBook',
+	  fields: ['image', 'tagline', 'location'],
+	  validate: validate
+	}, mapStateToProps, actions)(PhotoBook);
+
+/***/ },
+/* 314 */
 /*!*****************************************************!*\
   !*** ./public/src/components/auth/user/settings.js ***!
   \*****************************************************/
@@ -42937,7 +43163,7 @@
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
 	
-	var _photobook = __webpack_require__(/*! ./photobook */ 332);
+	var _photobook = __webpack_require__(/*! ./photobook */ 313);
 	
 	var _photobook2 = _interopRequireDefault(_photobook);
 	
@@ -43271,7 +43497,7 @@
 	}, mapStateToProps, actions)(Settings);
 
 /***/ },
-/* 314 */
+/* 315 */
 /*!****************************************************!*\
   !*** ./public/src/components/welcome_container.js ***!
   \****************************************************/
@@ -43287,7 +43513,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _basic = __webpack_require__(/*! ./info/basic */ 315);
+	var _basic = __webpack_require__(/*! ./info/basic */ 316);
 	
 	var _basic2 = _interopRequireDefault(_basic);
 	
@@ -43325,7 +43551,7 @@
 	};
 
 /***/ },
-/* 315 */
+/* 316 */
 /*!*********************************************!*\
   !*** ./public/src/components/info/basic.js ***!
   \*********************************************/
@@ -43388,7 +43614,7 @@
 	module.exports = BasicInfo;
 
 /***/ },
-/* 316 */
+/* 317 */
 /*!*****************************************************!*\
   !*** ./public/src/components/listings_container.js ***!
   \*****************************************************/
@@ -43412,7 +43638,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _listings = __webpack_require__(/*! ./listings/listings */ 317);
+	var _listings = __webpack_require__(/*! ./listings/listings */ 318);
 	
 	var _listings2 = _interopRequireDefault(_listings);
 	
@@ -43495,7 +43721,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
 
 /***/ },
-/* 317 */
+/* 318 */
 /*!****************************************************!*\
   !*** ./public/src/components/listings/listings.js ***!
   \****************************************************/
@@ -43521,7 +43747,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 318);
+	var _lodash = __webpack_require__(/*! lodash */ 319);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -43688,7 +43914,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
 
 /***/ },
-/* 318 */
+/* 319 */
 /*!***************************!*\
   !*** ./~/lodash/index.js ***!
   \***************************/
@@ -56046,10 +56272,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 319)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 320)(module), (function() { return this; }())))
 
 /***/ },
-/* 319 */
+/* 320 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -56068,7 +56294,7 @@
 
 
 /***/ },
-/* 320 */
+/* 321 */
 /*!***************************************************!*\
   !*** ./public/src/components/listings/listing.js ***!
   \***************************************************/
@@ -56218,7 +56444,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleListing);
 
 /***/ },
-/* 321 */
+/* 322 */
 /*!******************************************************!*\
   !*** ./public/src/components/listings/newListing.js ***!
   \******************************************************/
@@ -56243,6 +56469,8 @@
 	var _actions = __webpack_require__(/*! ../../actions */ 260);
 	
 	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -56279,6 +56507,7 @@
 	      data.phoneNumber = this.props.userInfo.phoneNumber;
 	      data.email = this.props.userInfo.email;
 	      this.props.newListing(data);
+	      _reactRouter.browserHistory.push('/listings');
 	    }
 	  }, {
 	    key: 'componentWillMount',
@@ -56483,7 +56712,7 @@
 	}, mapStateToProps, actions)(NewListing);
 
 /***/ },
-/* 322 */
+/* 323 */
 /*!******************************************************!*\
   !*** ./public/src/components/blog/blog_container.js ***!
   \******************************************************/
@@ -56503,7 +56732,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _blog_list = __webpack_require__(/*! ./blog_list */ 323);
+	var _blog_list = __webpack_require__(/*! ./blog_list */ 324);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
@@ -56558,7 +56787,7 @@
 	module.exports = Blog_Container;
 
 /***/ },
-/* 323 */
+/* 324 */
 /*!*************************************************!*\
   !*** ./public/src/components/blog/blog_list.js ***!
   \*************************************************/
@@ -56614,7 +56843,7 @@
 	      var blogs = this.props.blogs;
 	
 	      console.log(blogs);
-	      if (blogs) {
+	      if (blogs && blogs.length) {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'col-sm-12' },
@@ -56672,7 +56901,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BlogList);
 
 /***/ },
-/* 324 */
+/* 325 */
 /*!****************************************************!*\
   !*** ./public/src/components/blog/mine/my_blog.js ***!
   \****************************************************/
@@ -56788,7 +57017,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyBlog);
 
 /***/ },
-/* 325 */
+/* 326 */
 /*!*****************************************************!*\
   !*** ./public/src/components/blog/mine/new_blog.js ***!
   \*****************************************************/
@@ -56979,7 +57208,7 @@
 	}, mapStateToProps, actions)(NewBlog);
 
 /***/ },
-/* 326 */
+/* 327 */
 /*!***************************************************!*\
   !*** ./public/src/components/blog/single_blog.js ***!
   \***************************************************/
@@ -57079,7 +57308,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleBlog);
 
 /***/ },
-/* 327 */
+/* 328 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
   \****************************************************/
@@ -57156,7 +57385,7 @@
 	//wraps other components to add this feature to it: feature => kicks out unauthed users
 
 /***/ },
-/* 328 */
+/* 329 */
 /*!**************************************!*\
   !*** ./public/src/reducers/index.js ***!
   \**************************************/
@@ -57172,15 +57401,15 @@
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
 	
-	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 329);
+	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 330);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
-	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 330);
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 331);
 	
 	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
 	
-	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 331);
+	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 332);
 	
 	var _blog_reducer2 = _interopRequireDefault(_blog_reducer);
 	
@@ -57196,7 +57425,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 329 */
+/* 330 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/auth_reducer.js ***!
   \*********************************************/
@@ -57234,7 +57463,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 330 */
+/* 331 */
 /*!************************************************!*\
   !*** ./public/src/reducers/listing_reducer.js ***!
   \************************************************/
@@ -57266,7 +57495,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 331 */
+/* 332 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/blog_reducer.js ***!
   \*********************************************/
@@ -57296,212 +57525,6 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
-
-/***/ },
-/* 332 */
-/*!******************************************************!*\
-  !*** ./public/src/components/auth/user/photobook.js ***!
-  \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
-	
-	var _actions = __webpack_require__(/*! ../../../actions */ 260);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 189);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var PhotoBook = function (_Component) {
-	  _inherits(PhotoBook, _Component);
-	
-	  function PhotoBook() {
-	    _classCallCheck(this, PhotoBook);
-	
-	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).apply(this, arguments));
-	  }
-	
-	  _createClass(PhotoBook, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	    }
-	  }, {
-	    key: 'uploadPhoto',
-	    value: function uploadPhoto() {
-	      this.props.uploadMyPhoto(this.state.file, this.props.userInfo._id);
-	      this.props.fetchInfo();
-	    }
-	  }, {
-	    key: 'renderAlert',
-	    value: function renderAlert() {
-	      if (this.props.errorMessage) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'alert alert-danger' },
-	          _react2.default.createElement(
-	            'strong',
-	            null,
-	            'Error!!! '
-	          ),
-	          ' ',
-	          this.props.errorMessage
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'previewFile',
-	    value: function previewFile() {
-	      var self = this;
-	      var file = document.querySelector('input[type=file]').files[0];
-	      var reader = new FileReader();
-	      var image;
-	      reader.addEventListener("load", function () {
-	        image = reader.result;
-	        self.setState({ file: image });
-	      }, false);
-	
-	      if (file) {
-	        reader.readAsDataURL(file);
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var handleSubmit = _props.handleSubmit;
-	      var userInfo = _props.userInfo;
-	      var _props$fields = _props.fields;
-	      var image = _props$fields.image;
-	      var tagline = _props$fields.tagline;
-	
-	
-	      var photos = userInfo.myPhotos || [];
-	      console.log(userInfo);
-	      if (userInfo) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-12' },
-	          _react2.default.createElement(
-	            'form',
-	            { onSubmit: handleSubmit(this.uploadPhoto.bind(this)) },
-	            _react2.default.createElement(
-	              'fieldset',
-	              { className: 'form-group' },
-	              _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
-	            ),
-	            _react2.default.createElement(
-	              'fieldset',
-	              { className: 'form-group' },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Tagline: '
-	              ),
-	              _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
-	              tagline.touched && tagline.error && _react2.default.createElement(
-	                'div',
-	                { className: 'error' },
-	                tagline.error
-	              )
-	            ),
-	            this.renderAlert(),
-	            _react2.default.createElement(
-	              'button',
-	              { action: 'submit', className: 'btn btn-primary' },
-	              'Post Blog'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-10 col-sm-offset-1' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'col-sm-12' },
-	              photos.map(function (e) {
-	                return _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-3', key: e._id, onClick: function onClick() {
-	                      _reactRouter.browserHistory.push('/myphotos/' + e._id);
-	                    } },
-	                  _react2.default.createElement(
-	                    'ul',
-	                    { className: 'photoBookBorder' },
-	                    _react2.default.createElement(
-	                      'li',
-	                      null,
-	                      e.title
-	                    ),
-	                    _react2.default.createElement(
-	                      'li',
-	                      null,
-	                      e.tagline
-	                    )
-	                  )
-	                );
-	              })
-	            )
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'toppush' },
-	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'LOADING........'
-	          )
-	        );
-	      }
-	    }
-	  }]);
-	
-	  return PhotoBook;
-	}(_react.Component);
-	
-	function validate(formProps) {
-	  var errors = {};
-	
-	  if (!formProps.tagline) {
-	    errors.tagline = 'Please Enter a Tagline';
-	  }
-	  return errors;
-	}
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reduxForm.reduxForm)({
-	  form: 'photoBook',
-	  fields: ['image', 'tagline'],
-	  validate: validate
-	}, mapStateToProps, actions)(PhotoBook);
 
 /***/ }
 /******/ ]);

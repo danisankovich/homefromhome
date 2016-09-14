@@ -11,7 +11,7 @@ class BlogList extends Component {
   render() {
     let {blogs} = this.props;
     console.log(blogs)
-    if(blogs) {
+    if(blogs && blogs.length) {
       return (
         <div className="col-sm-12">
           <div className="col-sm-10 col-sm-offset-1">

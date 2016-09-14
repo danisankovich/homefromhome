@@ -32,9 +32,15 @@ router.post('/api/editInfo', (req, res) => {
   })
 });
 router.post('/api/uploadmyphoto', (req, res) => {
-  console.log(req.body)
   User.findById(req.body.user, (err, user) => {
-    user.myPhotos.push(req.body.photo)
+    let _id = user.myPhotos.length;
+    user.myPhotos.push({
+      image: req.body.image,
+      tagline: req.body.tagline,
+      location: req.body.location,
+      showcased: false,
+      _id
+    })
     user.save();
     res.send(user);
   })

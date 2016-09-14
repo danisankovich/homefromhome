@@ -91,7 +91,14 @@ a {
   padding: 5px 5px 5px 5px;
   list-style: none;
 }
-/*
-.modal-body .langDiv {
-  padding-left:4em
-}*/
+.photoBookBorder {
+  border: 1px black solid;
+  padding: 5px 5px 5px 5px;
+  list-style: none;
+  width: 250px;
+  height: 250px;
+}
+.photoBookImage {
+  width: 200px;
+  max-height: 150px;
+}

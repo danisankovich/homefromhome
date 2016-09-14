@@ -10,11 +10,10 @@ class Profile extends Component {
   render() {
     let {userInfo} = this.props;
     if(userInfo) {
+      let photos = userInfo.myPhotos;
       return (
-        <div className="toppush">
-          <h3>Profile</h3>
-          aaa: {this.props.userInfo.username}
-          <PhotoBook />
+        <div className="toppush container">
+          <h2>{this.props.userInfo.username + "'s"} Profile</h2>
         </div>
       );
     }

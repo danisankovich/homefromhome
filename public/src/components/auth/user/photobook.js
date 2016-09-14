@@ -9,8 +9,9 @@ class PhotoBook extends Component {
   componentWillMount() {
     this.props.fetchInfo();
   }
-  uploadPhoto() {
-    this.props.uploadMyPhoto(this.state.file, this.props.userInfo._id)
+  uploadPhoto(formprops) {
+    formprops.image = this.state.file;
+    this.props.uploadMyPhoto(formprops, this.props.userInfo._id)
     this.props.fetchInfo();
 
   }
@@ -39,10 +40,9 @@ class PhotoBook extends Component {
 
   }
   render() {
-    const { handleSubmit, userInfo, fields: {image, tagline }} = this.props;
+    const { handleSubmit, userInfo, fields: {image, tagline, location }} = this.props;
 
     let photos = userInfo.myPhotos || [];
-    console.log(userInfo)
     if(userInfo) {
       return (
         <div className="col-sm-12">
@@ -55,6 +55,11 @@ class PhotoBook extends Component {
               <input className="form-control" type="text" {...tagline} />
               {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
             </fieldset>
+            <fieldset className="form-group">
+              <label>Location: </label>
+              <input className="form-control" type="text" {...location} />
+              {location.touched && location.error && <div className="error">{location.error}</div>}
+            </fieldset>
             {this.renderAlert()}
             <button action="submit" className="btn btn-primary">Post Blog</button>
           </form>
@@ -64,8 +69,9 @@ class PhotoBook extends Component {
                 return (
                   <div className="col-sm-3" key={e._id} onClick={() => {browserHistory.push(`/myphotos/${e._id}`)}}>
                     <ul className="photoBookBorder">
-                      <li>{e.title}</li>
+                      <li>{e.location}</li>
                       <li>{e.tagline}</li>
+                      <li><img className="photoBookImage" src={e.image}/></li>
                     </ul>
                   </div>
                 )
@@ -93,6 +99,6 @@ function mapStateToProps(state) {
 }
 export default reduxForm({
   form: 'photoBook',
-  fields: ['image', 'tagline'],
+  fields: ['image', 'tagline', 'location'],
   validate,
 }, mapStateToProps, actions)(PhotoBook);

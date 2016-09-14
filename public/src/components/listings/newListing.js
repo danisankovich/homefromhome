@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
+import { browserHistory } from 'react-router'
 
 
 class NewListing extends Component {
@@ -18,6 +19,7 @@ class NewListing extends Component {
     data.phoneNumber = this.props.userInfo.phoneNumber;
     data.email = this.props.userInfo.email;
     this.props.newListing(data);
+    browserHistory.push('/listings')
   }
   componentWillMount() {
     this.props.fetchInfo();
