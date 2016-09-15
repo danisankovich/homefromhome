@@ -53,11 +53,24 @@ class Header extends Component {
   }
   render() {
     return (
-      <nav className="navbar navbar-transparent navbar-fixed-top">
-        <Link to="/" className="navbar-logo-hfh">HFH</Link>
-        <ul className="nav navbar-nav navbar-right navbar-links-hfh">
-          {this.renderLinks()}
-        </ul>
+      <nav className="navbar navbar-inverse">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link to="/" className="navbar-logo-hfh">HFH</Link>
+
+            <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+          </div>
+
+          <div className="collapse navbar-collapse" id="myNavbar">
+            <ul className="nav navbar-nav navbar-right navbar-links-hfh">
+              {this.renderLinks()}
+            </ul>
+          </div>
+        </div>
       </nav>
     )
   }

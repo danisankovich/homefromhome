@@ -29032,16 +29032,35 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'nav',
-	        { className: 'navbar navbar-transparent navbar-fixed-top' },
+	        { className: 'navbar navbar-inverse' },
 	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/', className: 'navbar-logo-hfh' },
-	          'HFH'
-	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'nav navbar-nav navbar-right navbar-links-hfh' },
-	          this.renderLinks()
+	          'div',
+	          { className: 'container-fluid' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'navbar-header' },
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/', className: 'navbar-logo-hfh' },
+	              'HFH'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '#myNavbar' },
+	              _react2.default.createElement('span', { className: 'icon-bar' }),
+	              _react2.default.createElement('span', { className: 'icon-bar' }),
+	              _react2.default.createElement('span', { className: 'icon-bar' })
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'collapse navbar-collapse', id: 'myNavbar' },
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'nav navbar-nav navbar-right navbar-links-hfh' },
+	              this.renderLinks()
+	            )
+	          )
 	        )
 	      );
 	    }
