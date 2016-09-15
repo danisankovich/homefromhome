@@ -1,5 +1,5 @@
 import {
-  NEW_BLOG, FETCH_SINGLE_BLOG, FETCH_ALL_BLOGS
+  NEW_BLOG, FETCH_SINGLE_BLOG, FETCH_ALL_BLOGS, SET_MARKDOWN
 } from '../actions/types';
 export default function(state = {}, action) {
   switch(action.type) {
@@ -9,6 +9,8 @@ export default function(state = {}, action) {
       return {...state, blog: action.payload};
     case FETCH_ALL_BLOGS:
       return {...state, blogs: action.payload};
+    case SET_MARKDOWN:
+      return {...state, markdown: action.payload};
   }
   return state;
 }

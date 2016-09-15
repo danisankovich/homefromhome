@@ -13,6 +13,7 @@ import {
   NEW_BLOG,
   FETCH_SINGLE_BLOG,
   FETCH_ALL_BLOGS,
+  SET_MARKDOWN,
 } from './types';
 
 const ROOT_URL = 'http://localhost:3000/api';
@@ -213,5 +214,12 @@ export function fetchAllBlogs() {
         payload: response
       })
     });
+  }
+}
+export function sendMarkdown(markdown) {
+  console.log(markdown)
+  return {
+    type: SET_MARKDOWN,
+    payload: markdown
   }
 }

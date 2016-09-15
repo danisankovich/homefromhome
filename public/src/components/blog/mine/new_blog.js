@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../../actions';
+import ReactMarkdown from 'react-markdown';
 
 
 class NewBlog extends Component {
   constructor() {
     super()
     this.state = {
-      file: ''
+      file: '',
+      text: ''
     }
   }
   handleFormSubmit(formProps) { //called with props from submit form
@@ -29,29 +31,44 @@ class NewBlog extends Component {
       )
     }
   }
+  markdown() {
+    this.setState({text: ''})
+  }
   render() {
+
     const { handleSubmit, userInfo, fields: { tagline, title, body }} = this.props;
+    var input = '# This is a header\n\nAnd this is a paragraph';
+
     return (
       <div className='toppush'>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <fieldset className="form-group">
-            <label>Title: </label>
-            <input className="form-control" type="text" {...title} />
-            {title.touched && title.error && <div className="error">{title.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Tagline: </label>
-            <input className="form-control" type="text" {...tagline} />
-            {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
-          </fieldset>
-          <fieldset className="form-group">
-            <label>Body: </label>
-            <textarea className="form-control" type="text" {...body}></textarea>
-            {body.touched && body.error && <div className="error">{body.error}</div>}
-          </fieldset>
-          {this.renderAlert()}
-          <button action="submit" className="btn btn-primary">Post Blog</button>
-        </form>
+        <div className='col-sm-12'>
+          <div className='col-sm-6'>
+            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+              <fieldset className="form-group">
+                <label>Title: </label>
+                <input className="form-control" type="text" {...title} />
+                {title.touched && title.error && <div className="error">{title.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <label>Tagline: </label>
+                <input className="form-control" type="text" {...tagline} />
+                {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <label>Body: </label>
+                <textarea className="form-control" type="text" {...body} onInput={this.markdown.bind(this)}></textarea>
+                {body.touched && body.error && <div className="error">{body.error}</div>}
+              </fieldset>
+              {this.renderAlert()}
+              <button action="submit" className="btn btn-primary">Post Blog</button>
+            </form>
+          </div>
+          <div className='col-sm-6 previewMarkdown'>
+            <h2>{title.value}</h2>
+            <h3>{tagline.value}</h3>
+            <ReactMarkdown source={body.value} />
+          </div>
+        </div>
       </div>
     );
   }

@@ -10,3 +10,4 @@ export const UPLOAD_PHOTO = 'upload_photo';
 export const NEW_BLOG = 'new_blog';
 export const FETCH_SINGLE_BLOG = 'fetch_single_blog';
 export const FETCH_ALL_BLOGS = 'fetch_all_blogs';
+export const SET_MARKDOWN = 'set_markdown';

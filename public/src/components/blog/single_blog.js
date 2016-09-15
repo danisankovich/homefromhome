@@ -15,9 +15,14 @@ class SingleBlog extends Component {
     if(blog) {
       return (
         <div className='toppush container'>
-          <h1>{blog.title}   --    by {blog.creator.username}</h1>
-          <h3>{blog.tagline}</h3>
-          <p>{blog.body}</p>
+          <div className='row'>
+            <div className='col-sm-8 col-sm-offset-2'>
+              <h1>{blog.title}   --    by {blog.creator.username}</h1>
+              <h3>{blog.tagline}</h3>
+              <p>{blog.body}</p>
+            </div>
+          </div>
+
         </div>
       )
     } else {
