@@ -29102,7 +29102,6 @@
 	exports.fetchSingleListing = fetchSingleListing;
 	exports.fetchSingleBlog = fetchSingleBlog;
 	exports.fetchAllBlogs = fetchAllBlogs;
-	exports.sendMarkdown = sendMarkdown;
 	
 	var _jquery = __webpack_require__(/*! jquery */ 261);
 	
@@ -29318,13 +29317,6 @@
 	        payload: response
 	      });
 	    });
-	  };
-	}
-	function sendMarkdown(markdown) {
-	  console.log(markdown);
-	  return {
-	    type: _types.SET_MARKDOWN,
-	    payload: markdown
 	  };
 	}
 
@@ -42979,16 +42971,17 @@
 	var PhotoBook = function (_Component) {
 	  _inherits(PhotoBook, _Component);
 	
-	  function PhotoBook() {
+	  function PhotoBook(props) {
 	    _classCallCheck(this, PhotoBook);
 	
-	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).call(this, props));
 	  }
 	
 	  _createClass(PhotoBook, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchInfo();
+	      this.setState({ file: '' });
 	    }
 	  }, {
 	    key: 'uploadPhoto',
@@ -43025,7 +43018,6 @@
 	        image = reader.result;
 	        self.setState({ file: image });
 	      }, false);
-	
 	      if (file) {
 	        reader.readAsDataURL(file);
 	      }
@@ -43033,6 +43025,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      setstate;
 	      var _props = this.props;
 	      var handleSubmit = _props.handleSubmit;
 	      var userInfo = _props.userInfo;
@@ -43041,8 +43034,8 @@
 	      var tagline = _props$fields.tagline;
 	      var location = _props$fields.location;
 	
-	
 	      var photos = userInfo.myPhotos || [];
+	      var notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden';
 	      if (userInfo) {
 	        return _react2.default.createElement(
 	          'div',
@@ -43057,7 +43050,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'fieldset',
-	              { className: 'form-group' },
+	              { className: notHiddenClass },
 	              _react2.default.createElement(
 	                'label',
 	                null,
@@ -43072,7 +43065,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'fieldset',
-	              { className: 'form-group' },
+	              { className: notHiddenClass },
 	              _react2.default.createElement(
 	                'label',
 	                null,
@@ -43089,7 +43082,7 @@
 	            _react2.default.createElement(
 	              'button',
 	              { action: 'submit', className: 'btn btn-primary' },
-	              'Post Blog'
+	              'Submit Changes'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -65452,7 +65445,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'p',
-	                null,
+	                { className: 'body-spacing' },
 	                blog.body
 	              )
 	            )

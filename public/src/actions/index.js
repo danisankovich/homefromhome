@@ -216,10 +216,3 @@ export function fetchAllBlogs() {
     });
   }
 }
-export function sendMarkdown(markdown) {
-  console.log(markdown)
-  return {
-    type: SET_MARKDOWN,
-    payload: markdown
-  }
-}

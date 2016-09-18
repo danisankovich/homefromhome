@@ -6,8 +6,12 @@ import { browserHistory } from 'react-router'
 
 
 class PhotoBook extends Component {
+  constructor(props) {
+    super(props)
+  }
   componentWillMount() {
     this.props.fetchInfo();
+    this.setState({file: ''});
   }
   uploadPhoto(formprops) {
     formprops.image = this.state.file;
@@ -26,23 +30,21 @@ class PhotoBook extends Component {
   }
   previewFile() {
     var self = this;
-    var file    = document.querySelector('input[type=file]').files[0];
-    var reader  = new FileReader();
+    var file = document.querySelector('input[type=file]').files[0];
+    var reader = new FileReader();
     var image;
     reader.addEventListener("load", function () {
       image = reader.result;
       self.setState({file: image})
     }, false);
-
     if (file) {
       reader.readAsDataURL(file);
     }
-
   }
-  render() {
+  render() {setstate
     const { handleSubmit, userInfo, fields: {image, tagline, location }} = this.props;
-
     let photos = userInfo.myPhotos || [];
+    let notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden'
     if(userInfo) {
       return (
         <div className="col-sm-12">
@@ -50,18 +52,18 @@ class PhotoBook extends Component {
             <fieldset className="form-group">
               <input type="file" onChange={this.previewFile.bind(this)} />
             </fieldset>
-            <fieldset className="form-group">
+            <fieldset className={notHiddenClass}>
               <label>Tagline: </label>
               <input className="form-control" type="text" {...tagline} />
               {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
             </fieldset>
-            <fieldset className="form-group">
+            <fieldset className={notHiddenClass}>
               <label>Location: </label>
               <input className="form-control" type="text" {...location} />
               {location.touched && location.error && <div className="error">{location.error}</div>}
             </fieldset>
             {this.renderAlert()}
-            <button action="submit" className="btn btn-primary">Post Blog</button>
+            <button action="submit" className="btn btn-primary">Submit Changes</button>
           </form>
           <div className="col-sm-10 col-sm-offset-1">
             <div className="col-sm-12">
