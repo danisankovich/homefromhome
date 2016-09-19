@@ -46,6 +46,26 @@ class Settings extends Component {
     this.props.editUser(formProps, this.props.userInfo._id);
     this.props.fetchInfo();
   }
+  previewFile() {
+    var self = this;
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
+    var image;
+    reader.addEventListener("load", function () {
+      image = reader.result;
+      self.setState({file: image})
+    }, false);
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+  uploadAvatar() {
+    let avatar = this.state.file;
+    this.props.uploadAvatar(avatar, this.props.userInfo._id)
+    this.props.fetchInfo();
+    this.setState({file: ''})
+  }
   render() {
     let self = this;
     const { handleSubmit, fields: {phoneNumber, email, lang}} = this.props;
@@ -59,6 +79,7 @@ class Settings extends Component {
     if(userInfo) {
       currentLangs = userInfo.languages;
     }
+    let avatar = this.state.file
     if(userInfo) {
       return (
         <div className="toppush">
@@ -128,10 +149,17 @@ class Settings extends Component {
                 })
               }
             </li>
+            <li>
+              <form onSubmit={handleSubmit(this.uploadAvatar.bind(this))}>
+                <fieldset className="form-group">
+                  <img src={userInfo.avatar} height="200px"/>
+                  <br />
+                  <label>Upload Avatar: <input type="file" onChange={this.previewFile.bind(this)}/> </label>
+                </fieldset>
+                <button action="submit" className={this.state.file ? '' : 'hidden'}>Change Avatar</button>
+              </form>
+            </li>
           </ul>
-
-          <PhotoBook />
-
           <div className="modal fade" id="myModal" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
@@ -190,5 +218,5 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'settings',
-  fields: ['email', 'phoneNumber', 'lang'],
+  fields: ['email', 'phoneNumber', 'lang', 'avatar'],
 }, mapStateToProps, actions)(Settings);

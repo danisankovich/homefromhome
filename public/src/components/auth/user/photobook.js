@@ -13,11 +13,10 @@ class PhotoBook extends Component {
     this.props.fetchInfo();
     this.setState({file: ''});
   }
-  uploadPhoto(formprops) {
+  uploadPhotos(formprops) {
     formprops.image = this.state.file;
     this.props.uploadMyPhoto(formprops, this.props.userInfo._id)
     this.props.fetchInfo();
-
   }
   renderAlert() {
     if(this.props.errorMessage) {
@@ -30,25 +29,27 @@ class PhotoBook extends Component {
   }
   previewFile() {
     var self = this;
-    var file = document.querySelector('input[type=file]').files[0];
-    var reader = new FileReader();
+    var file    = document.querySelector('input[type=file]').files[0];
+    var reader  = new FileReader();
     var image;
     reader.addEventListener("load", function () {
       image = reader.result;
       self.setState({file: image})
     }, false);
+
     if (file) {
       reader.readAsDataURL(file);
     }
+
   }
-  render() {setstate
+  render() {
     const { handleSubmit, userInfo, fields: {image, tagline, location }} = this.props;
     let photos = userInfo.myPhotos || [];
     let notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden'
     if(userInfo) {
       return (
         <div className="col-sm-12">
-          <form onSubmit={handleSubmit(this.uploadPhoto.bind(this))}>
+          <form onSubmit={handleSubmit(this.uploadPhotos.bind(this))}>
             <fieldset className="form-group">
               <input type="file" onChange={this.previewFile.bind(this)} />
             </fieldset>

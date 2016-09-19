@@ -7,6 +7,7 @@ export const NEW_LISTING = 'new_listing';
 export const FETCH_SINGLE_LISTING = 'fetch_single_listing';
 export const EDIT_USER = 'edit_user';
 export const UPLOAD_PHOTO = 'upload_photo';
+export const UPLOAD_AVATAR = 'upload_avatar';
 export const NEW_BLOG = 'new_blog';
 export const FETCH_SINGLE_BLOG = 'fetch_single_blog';
 export const FETCH_ALL_BLOGS = 'fetch_all_blogs';

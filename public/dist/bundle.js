@@ -29093,6 +29093,7 @@
 	exports.signupUser = signupUser;
 	exports.editUser = editUser;
 	exports.uploadMyPhoto = uploadMyPhoto;
+	exports.uploadAvatar = uploadAvatar;
 	exports.authError = authError;
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
@@ -29184,6 +29185,22 @@
 	      url: ROOT_URL + '/uploadmyphoto',
 	      type: "POST",
 	      data: { image: photo.image, location: photo.location, tagline: photo.tagline, user: user }
+	    }).done(function (response) {
+	      dispatch({ type: _types.FETCH_INFO });
+	    }).fail(function (error) {
+	      console.log(error);
+	      dispatch(authError(error.response.error));
+	    });
+	  };
+	}
+	function uploadAvatar(photo, user) {
+	  return function (dispatch) {
+	    dispatch({ type: _types.UPLOAD_AVATAR });
+	
+	    _jquery2.default.ajax({
+	      url: ROOT_URL + '/uploadavatar',
+	      type: "POST",
+	      data: { image: photo, user: user }
 	    }).done(function (response) {
 	      dispatch({ type: _types.FETCH_INFO });
 	    }).fail(function (error) {
@@ -39164,6 +39181,7 @@
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
 	var UPLOAD_PHOTO = exports.UPLOAD_PHOTO = 'upload_photo';
+	var UPLOAD_AVATAR = exports.UPLOAD_AVATAR = 'upload_avatar';
 	var NEW_BLOG = exports.NEW_BLOG = 'new_blog';
 	var FETCH_SINGLE_BLOG = exports.FETCH_SINGLE_BLOG = 'fetch_single_blog';
 	var FETCH_ALL_BLOGS = exports.FETCH_ALL_BLOGS = 'fetch_all_blogs';
@@ -42984,8 +43002,8 @@
 	      this.setState({ file: '' });
 	    }
 	  }, {
-	    key: 'uploadPhoto',
-	    value: function uploadPhoto(formprops) {
+	    key: 'uploadPhotos',
+	    value: function uploadPhotos(formprops) {
 	      formprops.image = this.state.file;
 	      this.props.uploadMyPhoto(formprops, this.props.userInfo._id);
 	      this.props.fetchInfo();
@@ -43018,6 +43036,7 @@
 	        image = reader.result;
 	        self.setState({ file: image });
 	      }, false);
+	
 	      if (file) {
 	        reader.readAsDataURL(file);
 	      }
@@ -43025,7 +43044,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      setstate;
 	      var _props = this.props;
 	      var handleSubmit = _props.handleSubmit;
 	      var userInfo = _props.userInfo;
@@ -43042,7 +43060,7 @@
 	          { className: 'col-sm-12' },
 	          _react2.default.createElement(
 	            'form',
-	            { onSubmit: handleSubmit(this.uploadPhoto.bind(this)) },
+	            { onSubmit: handleSubmit(this.uploadPhotos.bind(this)) },
 	            _react2.default.createElement(
 	              'fieldset',
 	              { className: 'form-group' },
@@ -43262,6 +43280,30 @@
 	      this.props.fetchInfo();
 	    }
 	  }, {
+	    key: 'previewFile',
+	    value: function previewFile() {
+	      var self = this;
+	      var file = document.querySelector('input[type=file]').files[0];
+	      var reader = new FileReader();
+	      var image;
+	      reader.addEventListener("load", function () {
+	        image = reader.result;
+	        self.setState({ file: image });
+	      }, false);
+	
+	      if (file) {
+	        reader.readAsDataURL(file);
+	      }
+	    }
+	  }, {
+	    key: 'uploadAvatar',
+	    value: function uploadAvatar() {
+	      var avatar = this.state.file;
+	      this.props.uploadAvatar(avatar, this.props.userInfo._id);
+	      this.props.fetchInfo();
+	      this.setState({ file: '' });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -43280,6 +43322,7 @@
 	      if (userInfo) {
 	        currentLangs = userInfo.languages;
 	      }
+	      var avatar = this.state.file;
 	      if (userInfo) {
 	        return _react2.default.createElement(
 	          'div',
@@ -43411,9 +43454,34 @@
 	                }
 	                return lang + ', ';
 	              })
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'form',
+	                { onSubmit: handleSubmit(this.uploadAvatar.bind(this)) },
+	                _react2.default.createElement(
+	                  'fieldset',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement('img', { src: userInfo.avatar, height: '200px' }),
+	                  _react2.default.createElement('br', null),
+	                  _react2.default.createElement(
+	                    'label',
+	                    null,
+	                    'Upload Avatar: ',
+	                    _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) }),
+	                    ' '
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { action: 'submit', className: this.state.file ? '' : 'hidden' },
+	                  'Change Avatar'
+	                )
+	              )
 	            )
 	          ),
-	          _react2.default.createElement(_photobook2.default, null),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'modal fade', id: 'myModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'myModalLabel', 'aria-hidden': 'true' },
@@ -43514,7 +43582,7 @@
 	
 	exports.default = (0, _reduxForm.reduxForm)({
 	  form: 'settings',
-	  fields: ['email', 'phoneNumber', 'lang']
+	  fields: ['email', 'phoneNumber', 'lang', 'avatar']
 	}, mapStateToProps, actions)(Settings);
 
 /***/ },
@@ -65618,6 +65686,8 @@
 	      return _extends({}, state, { userInfo: action.payload });
 	    case _types.UPLOAD_PHOTO:
 	      return _extends({}, state, { myPhoto: action.payload });
+	    case _types.UPLOAD_AVATAR:
+	      return _extends({}, state, { myAvatar: action.payload });
 	  }
 	  return state;
 	};

@@ -11,7 +11,8 @@ const userSchema = new Schema({
   aboutMe: String,
   languages: Array,
   myListings: Array,
-  myPhotos: Array
+  myPhotos: Array,
+  avatar: String
 });
 
 // hook that runs before the model gets saved

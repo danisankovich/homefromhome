@@ -45,4 +45,12 @@ router.post('/api/uploadmyphoto', (req, res) => {
     res.send(user);
   })
 });
+router.post('/api/uploadavatar', (req, res) => {
+  User.findById(req.body.user, (err, user) => {
+    let _id = user.myPhotos.length;
+    user.avatar = req.body.image
+    user.save();
+    res.send(user);
+  })
+});
 module.exports = router;
