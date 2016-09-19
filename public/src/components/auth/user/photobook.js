@@ -67,19 +67,17 @@ class PhotoBook extends Component {
             <button action="submit" className="btn btn-primary">Submit Changes</button>
           </form>
           <div className="col-sm-10 col-sm-offset-1">
-            <div className="col-sm-12">
-              {photos.map((e) => {
-                return (
-                  <div className="col-sm-3" key={e._id} onClick={() => {browserHistory.push(`/myphotos/${e._id}`)}}>
-                    <ul className="photoBookBorder">
-                      <li>{e.location}</li>
-                      <li>{e.tagline}</li>
-                      <li><img className="photoBookImage" src={e.image}/></li>
-                    </ul>
-                  </div>
-                )
-              })}
-            </div>
+            {photos.map((e) => {
+              return (
+                <div className="col-sm-4" key={e._id} onClick={() => {browserHistory.push(`/myphotos/${e._id}`)}}>
+                  <ul className="photoBookBorder">
+                    <li>{e.location}</li>
+                    <li>{e.tagline}</li>
+                    <li><img className="photoBookImage" src={e.image}/></li>
+                  </ul>
+                </div>
+              )
+            })}
           </div>
         </div>
       );

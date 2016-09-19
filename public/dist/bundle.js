@@ -42926,7 +42926,8 @@
 	            null,
 	            this.props.userInfo.username + "'s",
 	            ' Profile'
-	          )
+	          ),
+	          _react2.default.createElement(_photobook2.default, null)
 	        );
 	      }
 	      return _react2.default.createElement(
@@ -43106,37 +43107,33 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-10 col-sm-offset-1' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'col-sm-12' },
-	              photos.map(function (e) {
-	                return _react2.default.createElement(
-	                  'div',
-	                  { className: 'col-sm-3', key: e._id, onClick: function onClick() {
-	                      _reactRouter.browserHistory.push('/myphotos/' + e._id);
-	                    } },
+	            photos.map(function (e) {
+	              return _react2.default.createElement(
+	                'div',
+	                { className: 'col-sm-4', key: e._id, onClick: function onClick() {
+	                    _reactRouter.browserHistory.push('/myphotos/' + e._id);
+	                  } },
+	                _react2.default.createElement(
+	                  'ul',
+	                  { className: 'photoBookBorder' },
 	                  _react2.default.createElement(
-	                    'ul',
-	                    { className: 'photoBookBorder' },
-	                    _react2.default.createElement(
-	                      'li',
-	                      null,
-	                      e.location
-	                    ),
-	                    _react2.default.createElement(
-	                      'li',
-	                      null,
-	                      e.tagline
-	                    ),
-	                    _react2.default.createElement(
-	                      'li',
-	                      null,
-	                      _react2.default.createElement('img', { className: 'photoBookImage', src: e.image })
-	                    )
+	                    'li',
+	                    null,
+	                    e.location
+	                  ),
+	                  _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    e.tagline
+	                  ),
+	                  _react2.default.createElement(
+	                    'li',
+	                    null,
+	                    _react2.default.createElement('img', { className: 'photoBookImage', src: e.image })
 	                  )
-	                );
-	              })
-	            )
+	                )
+	              );
+	            })
 	          )
 	        );
 	      } else {
@@ -43201,10 +43198,6 @@
 	var actions = _interopRequireWildcard(_actions);
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
-	
-	var _photobook = __webpack_require__(/*! ./photobook */ 313);
-	
-	var _photobook2 = _interopRequireDefault(_photobook);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	

@@ -14,6 +14,7 @@ class Profile extends Component {
       return (
         <div className="toppush container">
           <h2>{this.props.userInfo.username + "'s"} Profile</h2>
+          <PhotoBook />
         </div>
       );
     }
