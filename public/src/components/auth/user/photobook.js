@@ -49,6 +49,7 @@ class PhotoBook extends Component {
     if(userInfo) {
       return (
         <div className="col-sm-12">
+          <h4>Upload Photos to Your Photo Album</h4>
           <form onSubmit={handleSubmit(this.uploadPhotos.bind(this))}>
             <fieldset className="form-group">
               <input type="file" onChange={this.previewFile.bind(this)} />
@@ -64,7 +65,7 @@ class PhotoBook extends Component {
               {location.touched && location.error && <div className="error">{location.error}</div>}
             </fieldset>
             {this.renderAlert()}
-            <button action="submit" className="btn btn-primary">Submit Changes</button>
+            <button action="submit" className={this.state.file ? "btn btn-primary" : "hidden"}>Upload Photo</button>
           </form>
           <div className="col-sm-10 col-sm-offset-1">
             {photos.map((e) => {

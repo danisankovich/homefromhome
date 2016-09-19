@@ -42914,6 +42914,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var userInfo = this.props.userInfo;
 	
 	      if (userInfo) {
@@ -42924,9 +42926,33 @@
 	          _react2.default.createElement(
 	            'h2',
 	            null,
-	            this.props.userInfo.username + "'s",
+	            userInfo.username + "'s",
 	            ' Profile'
 	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Email: ',
+	            userInfo.email
+	          ),
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Phone Number: ',
+	            userInfo.phoneNumber
+	          ),
+	          _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Languages: ',
+	            userInfo.languages.map(function (lang, i) {
+	              if (i === _this2.props.userInfo.languages.length - 1) {
+	                return lang;
+	              }
+	              return lang + ', ';
+	            })
+	          ),
+	          _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }),
 	          _react2.default.createElement(_photobook2.default, null)
 	        );
 	      }
@@ -43060,6 +43086,11 @@
 	          'div',
 	          { className: 'col-sm-12' },
 	          _react2.default.createElement(
+	            'h4',
+	            null,
+	            'Upload Photos to Your Photo Album'
+	          ),
+	          _react2.default.createElement(
 	            'form',
 	            { onSubmit: handleSubmit(this.uploadPhotos.bind(this)) },
 	            _react2.default.createElement(
@@ -43100,8 +43131,8 @@
 	            this.renderAlert(),
 	            _react2.default.createElement(
 	              'button',
-	              { action: 'submit', className: 'btn btn-primary' },
-	              'Submit Changes'
+	              { action: 'submit', className: this.state.file ? "btn btn-primary" : "hidden" },
+	              'Upload Photo'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -43462,7 +43493,7 @@
 	                  _react2.default.createElement(
 	                    'label',
 	                    null,
-	                    'Upload Avatar: ',
+	                    'Upload/Change Avatar: ',
 	                    _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) }),
 	                    ' '
 	                  )
@@ -65449,6 +65480,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 327);
+	
+	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -65481,7 +65516,6 @@
 	      var blog = _props.blog;
 	      var userInfo = _props.userInfo;
 	
-	      console.log(blog);
 	      if (blog) {
 	        return _react2.default.createElement(
 	          'div',
@@ -65504,11 +65538,7 @@
 	                null,
 	                blog.tagline
 	              ),
-	              _react2.default.createElement(
-	                'p',
-	                { className: 'body-spacing' },
-	                blog.body
-	              )
+	              _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: blog.body })
 	            )
 	          )
 	        );

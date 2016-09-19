@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
-
+import ReactMarkdown from 'react-markdown';
 
 class SingleBlog extends Component {
   componentWillMount() {
@@ -11,7 +11,6 @@ class SingleBlog extends Component {
   }
   render() {
     let {blog, userInfo} = this.props;
-    console.log(blog)
     if(blog) {
       return (
         <div className='toppush container'>
@@ -19,7 +18,7 @@ class SingleBlog extends Component {
             <div className='col-sm-8 col-sm-offset-2'>
               <h1>{blog.title}   --    by {blog.creator.username}</h1>
               <h3>{blog.tagline}</h3>
-              <p className='body-spacing'>{blog.body}</p>
+              <ReactMarkdown className='body-spacing' source={blog.body} />
             </div>
           </div>
 

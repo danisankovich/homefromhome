@@ -153,7 +153,7 @@ class Settings extends Component {
                 <fieldset className="form-group">
                   <img src={userInfo.avatar} height="200px"/>
                   <br />
-                  <label>Upload Avatar: <input type="file" onChange={this.previewFile.bind(this)}/> </label>
+                  <label>Upload/Change Avatar: <input type="file" onChange={this.previewFile.bind(this)}/> </label>
                 </fieldset>
                 <button action="submit" className={this.state.file ? '' : 'hidden'}>Change Avatar</button>
               </form>
