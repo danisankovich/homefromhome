@@ -29242,17 +29242,19 @@
 	}
 	
 	function fetchListings(term) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: 'api/listings/location/' + term,
-	      type: "GET"
-	    }).done(function (response) {
-	      dispatch({
-	        type: _types.FETCH_LISTINGS,
-	        payload: response
+	  if (term) {
+	    return function (dispatch) {
+	      _jquery2.default.ajax({
+	        url: 'api/listings/location/' + term,
+	        type: "GET"
+	      }).done(function (response) {
+	        dispatch({
+	          type: _types.FETCH_LISTINGS,
+	          payload: response
+	        });
 	      });
-	    });
-	  };
+	    };
+	  }
 	}
 	function fetchMyListings(array) {
 	  return function (dispatch) {
@@ -29262,7 +29264,7 @@
 	      data: { 'data': array }
 	    }).done(function (response) {
 	      dispatch({
-	        type: _types.FETCH_LISTINGS,
+	        type: _types.FETCH_MY_LISTINGS,
 	        payload: response
 	      });
 	    });
@@ -39191,6 +39193,7 @@
 	var AUTH_ERROR = exports.AUTH_ERROR = 'auth_error';
 	var FETCH_INFO = exports.FETCH_INFO = 'fetch_info';
 	var FETCH_LISTINGS = exports.FETCH_LISTINGS = 'fetch_listings';
+	var FETCH_MY_LISTINGS = exports.FETCH_MY_LISTINGS = 'fetch_my_listings';
 	var NEW_LISTING = exports.NEW_LISTING = 'new_listing';
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
@@ -43305,11 +43308,11 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.props.listings) {
+	      if (this.props.mylistings) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          this.props.listings.map(function (result) {
+	          this.props.mylistings.map(function (result) {
 	            return _react2.default.createElement(
 	              'div',
 	              { className: 'col-sm-4', key: result._id },
@@ -43370,7 +43373,7 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
+	  return { userInfo: state.auth.userInfo, mylistings: state.listing.mylistings };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyListings);
 
@@ -44002,7 +44005,7 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
+	  return { userInfo: state.auth.userInfo };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
 
@@ -44063,7 +44066,6 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchInfo();
-	      // this.props.fetchListings();
 	    }
 	  }, {
 	    key: 'onInputChangeCity',
@@ -65912,6 +65914,8 @@
 	  switch (action.type) {
 	    case _types.FETCH_LISTINGS:
 	      return _extends({}, state, { listings: action.payload });
+	    case _types.FETCH_MY_LISTINGS:
+	      return _extends({}, state, { mylistings: action.payload });
 	    case _types.FETCH_SINGLE_LISTING:
 	      return _extends({}, state, { listing: action.payload });
 	    case _types.NEW_LISTING:

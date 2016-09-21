@@ -29,6 +29,6 @@ class Listings_Container extends Component {
   };
 }
 function mapStateToProps(state) {
-  return {userInfo: state.auth.userInfo, listings: state.listing.listings};
+  return {userInfo: state.auth.userInfo};
 }
 export default connect(mapStateToProps, actions)(Listings_Container);

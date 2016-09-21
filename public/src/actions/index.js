@@ -9,6 +9,7 @@ import {
   UNAUTH_USER,
   FETCH_INFO,
   FETCH_LISTINGS,
+  FETCH_MY_LISTINGS,
   NEW_LISTING,
   FETCH_SINGLE_LISTING,
   NEW_BLOG,
@@ -139,16 +140,18 @@ export function fetchInfo() {
 }
 
 export function fetchListings(term) {
-  return function(dispatch) {
-    $.ajax({
-       url: `api/listings/location/${term}`,
-       type: "GET",
-    }).done((response) => {
-      dispatch({
-        type: FETCH_LISTINGS,
-        payload: response
-      })
-    });
+  if (term) {
+    return function(dispatch) {
+      $.ajax({
+         url: `api/listings/location/${term}`,
+         type: "GET",
+      }).done((response) => {
+        dispatch({
+          type: FETCH_LISTINGS,
+          payload: response
+        })
+      });
+    }
   }
 }
 export function fetchMyListings(array) {
@@ -159,7 +162,7 @@ export function fetchMyListings(array) {
        data: {'data': array}
     }).done((response) => {
       dispatch({
-        type: FETCH_LISTINGS,
+        type: FETCH_MY_LISTINGS,
         payload: response
       })
     });

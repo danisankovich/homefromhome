@@ -9,10 +9,10 @@ class MyListings extends Component {
     this.props.fetchMyListings(listings)
   }
   render() {
-    if(this.props.listings) {
+    if(this.props.mylistings) {
       return (
         <div>
-          {this.props.listings.map((result) => {
+          {this.props.mylistings.map((result) => {
             return (
               <div className="col-sm-4" key={result._id}>
                 <div className="listingBorder">
@@ -44,6 +44,6 @@ class MyListings extends Component {
 }
 
 function mapStateToProps(state) {
-  return {userInfo: state.auth.userInfo, listings: state.listing.listings};
+  return {userInfo: state.auth.userInfo, mylistings: state.listing.mylistings};
 }
 export default connect(mapStateToProps, actions)(MyListings);

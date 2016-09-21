@@ -11,7 +11,6 @@ class Listing extends Component {
   }
   componentWillMount() {
     this.props.fetchInfo();
-    // this.props.fetchListings();
   }
   onInputChangeCity(term) {
     this.setState({city: term});
