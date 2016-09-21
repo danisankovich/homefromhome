@@ -140,10 +140,23 @@ export function fetchInfo() {
 
 export function fetchListings(term) {
   return function(dispatch) {
-
     $.ajax({
        url: `api/listings/location/${term}`,
        type: "GET",
+    }).done((response) => {
+      dispatch({
+        type: FETCH_LISTINGS,
+        payload: response
+      })
+    });
+  }
+}
+export function fetchMyListings(array) {
+  return function(dispatch) {
+    $.ajax({
+       url: 'api/listings/mylistings',
+       type: "POST",
+       data: {'data': array}
     }).done((response) => {
       dispatch({
         type: FETCH_LISTINGS,

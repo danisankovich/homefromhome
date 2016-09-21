@@ -105,51 +105,51 @@
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
-	var _settings = __webpack_require__(/*! ./components/auth/user/settings */ 314);
+	var _settings = __webpack_require__(/*! ./components/auth/user/settings */ 315);
 	
 	var _settings2 = _interopRequireDefault(_settings);
 	
-	var _welcome_container = __webpack_require__(/*! ./components/welcome_container */ 315);
+	var _welcome_container = __webpack_require__(/*! ./components/welcome_container */ 316);
 	
 	var _welcome_container2 = _interopRequireDefault(_welcome_container);
 	
-	var _listings_container = __webpack_require__(/*! ./components/listings_container */ 317);
+	var _listings_container = __webpack_require__(/*! ./components/listings_container */ 318);
 	
 	var _listings_container2 = _interopRequireDefault(_listings_container);
 	
-	var _listing = __webpack_require__(/*! ./components/listings/listing */ 321);
+	var _listing = __webpack_require__(/*! ./components/listings/listing */ 322);
 	
 	var _listing2 = _interopRequireDefault(_listing);
 	
-	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 322);
+	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 323);
 	
 	var _newListing2 = _interopRequireDefault(_newListing);
 	
-	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 323);
+	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 324);
 	
 	var _blog_container2 = _interopRequireDefault(_blog_container);
 	
-	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 325);
+	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 326);
 	
 	var _my_blog2 = _interopRequireDefault(_my_blog);
 	
-	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 326);
+	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 327);
 	
 	var _new_blog2 = _interopRequireDefault(_new_blog);
 	
-	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 324);
+	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 325);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
-	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 353);
+	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 354);
 	
 	var _single_blog2 = _interopRequireDefault(_single_blog);
 	
-	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 354);
+	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 355);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 355);
+	var _reducers = __webpack_require__(/*! ./reducers */ 356);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -29098,6 +29098,7 @@
 	exports.signoutUser = signoutUser;
 	exports.fetchInfo = fetchInfo;
 	exports.fetchListings = fetchListings;
+	exports.fetchMyListings = fetchMyListings;
 	exports.newListing = newListing;
 	exports.newBlog = newBlog;
 	exports.fetchSingleListing = fetchSingleListing;
@@ -29242,10 +29243,23 @@
 	
 	function fetchListings(term) {
 	  return function (dispatch) {
-	
 	    _jquery2.default.ajax({
 	      url: 'api/listings/location/' + term,
 	      type: "GET"
+	    }).done(function (response) {
+	      dispatch({
+	        type: _types.FETCH_LISTINGS,
+	        payload: response
+	      });
+	    });
+	  };
+	}
+	function fetchMyListings(array) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: 'api/listings/mylistings',
+	      type: "POST",
+	      data: { 'data': array }
 	    }).done(function (response) {
 	      dispatch({
 	        type: _types.FETCH_LISTINGS,
@@ -42887,6 +42901,10 @@
 	
 	var _photobook2 = _interopRequireDefault(_photobook);
 	
+	var _myListings = __webpack_require__(/*! ./myListings */ 314);
+	
+	var _myListings2 = _interopRequireDefault(_myListings);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42910,6 +42928,19 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.fetchInfo();
+	      this.setState({ showPhotos: false, showListings: false });
+	    }
+	  }, {
+	    key: 'showAlbums',
+	    value: function showAlbums() {
+	      this.state.showListings = false;
+	      this.state.showPhotos ? this.setState({ showPhotos: false }) : this.setState({ showPhotos: true });
+	    }
+	  }, {
+	    key: 'showListings',
+	    value: function showListings() {
+	      this.state.showPhotos = false;
+	      this.state.showListings ? this.setState({ showListings: false }) : this.setState({ showListings: true });
 	    }
 	  }, {
 	    key: 'render',
@@ -42924,36 +42955,67 @@
 	          'div',
 	          { className: 'toppush container' },
 	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            userInfo.username + "'s",
-	            ' Profile'
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-10 col-sm-offset-1' },
+	              _react2.default.createElement(
+	                'h2',
+	                null,
+	                userInfo.username + "'s",
+	                ' Profile'
+	              ),
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                'Email: ',
+	                userInfo.email
+	              ),
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                'Phone Number: ',
+	                userInfo.phoneNumber
+	              ),
+	              _react2.default.createElement(
+	                'h4',
+	                null,
+	                'Languages: ',
+	                userInfo.languages.map(function (lang, i) {
+	                  if (i === _this2.props.userInfo.languages.length - 1) {
+	                    return lang;
+	                  }
+	                  return lang + ', ';
+	                })
+	              ),
+	              _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' })
+	            )
 	          ),
 	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'Email: ',
-	            userInfo.email
-	          ),
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'Phone Number: ',
-	            userInfo.phoneNumber
-	          ),
-	          _react2.default.createElement(
-	            'h4',
-	            null,
-	            'Languages: ',
-	            userInfo.languages.map(function (lang, i) {
-	              if (i === _this2.props.userInfo.languages.length - 1) {
-	                return lang;
-	              }
-	              return lang + ', ';
-	            })
-	          ),
-	          _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }),
-	          _react2.default.createElement(_photobook2.default, null)
+	            'div',
+	            { className: 'row' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-10 col-sm-offset-1' },
+	              _react2.default.createElement(
+	                'button',
+	                { onClick: this.showAlbums.bind(this) },
+	                'Show Albums'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                { onClick: this.showListings.bind(this) },
+	                'Show Listings'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-10 col-sm-offset-1' },
+	              this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }),
+	              this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo })
+	            )
+	          )
 	        );
 	      }
 	      return _react2.default.createElement(
@@ -43025,7 +43087,6 @@
 	  _createClass(PhotoBook, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.props.fetchInfo();
 	      this.setState({ file: '' });
 	    }
 	  }, {
@@ -43081,103 +43142,91 @@
 	
 	      var photos = userInfo.myPhotos || [];
 	      var notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden';
-	      if (userInfo) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'col-sm-12' },
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-12' },
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          'Upload Photos to Your Photo Album'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: handleSubmit(this.uploadPhotos.bind(this)) },
 	          _react2.default.createElement(
-	            'h4',
-	            null,
-	            'Upload Photos to Your Photo Album'
+	            'fieldset',
+	            { className: 'form-group' },
+	            _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
 	          ),
 	          _react2.default.createElement(
-	            'form',
-	            { onSubmit: handleSubmit(this.uploadPhotos.bind(this)) },
+	            'fieldset',
+	            { className: notHiddenClass },
 	            _react2.default.createElement(
-	              'fieldset',
-	              { className: 'form-group' },
-	              _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
+	              'label',
+	              null,
+	              'Tagline: '
 	            ),
-	            _react2.default.createElement(
-	              'fieldset',
-	              { className: notHiddenClass },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Tagline: '
-	              ),
-	              _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
-	              tagline.touched && tagline.error && _react2.default.createElement(
-	                'div',
-	                { className: 'error' },
-	                tagline.error
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'fieldset',
-	              { className: notHiddenClass },
-	              _react2.default.createElement(
-	                'label',
-	                null,
-	                'Location: '
-	              ),
-	              _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, location)),
-	              location.touched && location.error && _react2.default.createElement(
-	                'div',
-	                { className: 'error' },
-	                location.error
-	              )
-	            ),
-	            this.renderAlert(),
-	            _react2.default.createElement(
-	              'button',
-	              { action: 'submit', className: this.state.file ? "btn btn-primary" : "hidden" },
-	              'Upload Photo'
+	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
+	            tagline.touched && tagline.error && _react2.default.createElement(
+	              'div',
+	              { className: 'error' },
+	              tagline.error
 	            )
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-10 col-sm-offset-1' },
-	            photos.map(function (e) {
-	              return _react2.default.createElement(
-	                'div',
-	                { className: 'col-sm-4', key: e._id, onClick: function onClick() {
-	                    _reactRouter.browserHistory.push('/myphotos/' + e._id);
-	                  } },
-	                _react2.default.createElement(
-	                  'ul',
-	                  { className: 'photoBookBorder' },
-	                  _react2.default.createElement(
-	                    'li',
-	                    null,
-	                    e.location
-	                  ),
-	                  _react2.default.createElement(
-	                    'li',
-	                    null,
-	                    e.tagline
-	                  ),
-	                  _react2.default.createElement(
-	                    'li',
-	                    null,
-	                    _react2.default.createElement('img', { className: 'photoBookImage', src: e.image })
-	                  )
-	                )
-	              );
-	            })
-	          )
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'toppush' },
+	            'fieldset',
+	            { className: notHiddenClass },
+	            _react2.default.createElement(
+	              'label',
+	              null,
+	              'Location: '
+	            ),
+	            _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, location)),
+	            location.touched && location.error && _react2.default.createElement(
+	              'div',
+	              { className: 'error' },
+	              location.error
+	            )
+	          ),
+	          this.renderAlert(),
 	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'LOADING........'
+	            'button',
+	            { action: 'submit', className: this.state.file ? "btn btn-primary" : "hidden" },
+	            'Upload Photo'
 	          )
-	        );
-	      }
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-10 col-sm-offset-1' },
+	          photos.map(function (e) {
+	            return _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-4', key: e._id, onClick: function onClick() {
+	                  _reactRouter.browserHistory.push('/myphotos/' + e._id);
+	                } },
+	              _react2.default.createElement(
+	                'ul',
+	                { className: 'photoBookBorder' },
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  e.location
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  e.tagline
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement('img', { className: 'photoBookImage', src: e.image })
+	                )
+	              )
+	            );
+	          })
+	        )
+	      );
 	    }
 	  }]);
 	
@@ -43203,6 +43252,130 @@
 
 /***/ },
 /* 314 */
+/*!*******************************************************!*\
+  !*** ./public/src/components/auth/user/myListings.js ***!
+  \*******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MyListings = function (_Component) {
+	  _inherits(MyListings, _Component);
+	
+	  function MyListings() {
+	    _classCallCheck(this, MyListings);
+	
+	    return _possibleConstructorReturn(this, (MyListings.__proto__ || Object.getPrototypeOf(MyListings)).apply(this, arguments));
+	  }
+	
+	  _createClass(MyListings, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var listings = this.props.userInfo.myListings;
+	      this.props.fetchMyListings(listings);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.listings) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          this.props.listings.map(function (result) {
+	            return _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-4', key: result._id },
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'listingBorder' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'thumbnail' },
+	                  _react2.default.createElement('img', { className: 'img-responsive center-block listingListImage',
+	                    src: result.image
+	                  })
+	                ),
+	                _react2.default.createElement('hr', null),
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'row' },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'col-sm-10 col-sm-offset-1' },
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'Country: ',
+	                      result.location.country
+	                    ),
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'City: ',
+	                      result.location.city
+	                    ),
+	                    _react2.default.createElement(
+	                      'h3',
+	                      null,
+	                      'Price: $',
+	                      result.pricePerNight,
+	                      ' / night'
+	                    )
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement('br', null)
+	            );
+	          })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'LOADING...'
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return MyListings;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyListings);
+
+/***/ },
+/* 315 */
 /*!*****************************************************!*\
   !*** ./public/src/components/auth/user/settings.js ***!
   \*****************************************************/
@@ -43610,7 +43783,7 @@
 	}, mapStateToProps, actions)(Settings);
 
 /***/ },
-/* 315 */
+/* 316 */
 /*!****************************************************!*\
   !*** ./public/src/components/welcome_container.js ***!
   \****************************************************/
@@ -43626,7 +43799,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _basic = __webpack_require__(/*! ./info/basic */ 316);
+	var _basic = __webpack_require__(/*! ./info/basic */ 317);
 	
 	var _basic2 = _interopRequireDefault(_basic);
 	
@@ -43664,7 +43837,7 @@
 	};
 
 /***/ },
-/* 316 */
+/* 317 */
 /*!*********************************************!*\
   !*** ./public/src/components/info/basic.js ***!
   \*********************************************/
@@ -43727,7 +43900,7 @@
 	module.exports = BasicInfo;
 
 /***/ },
-/* 317 */
+/* 318 */
 /*!*****************************************************!*\
   !*** ./public/src/components/listings_container.js ***!
   \*****************************************************/
@@ -43751,7 +43924,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _listings = __webpack_require__(/*! ./listings/listings */ 318);
+	var _listings = __webpack_require__(/*! ./listings/listings */ 319);
 	
 	var _listings2 = _interopRequireDefault(_listings);
 	
@@ -43834,7 +44007,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
 
 /***/ },
-/* 318 */
+/* 319 */
 /*!****************************************************!*\
   !*** ./public/src/components/listings/listings.js ***!
   \****************************************************/
@@ -43860,7 +44033,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 319);
+	var _lodash = __webpack_require__(/*! lodash */ 320);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
@@ -44027,7 +44200,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
 
 /***/ },
-/* 319 */
+/* 320 */
 /*!***************************!*\
   !*** ./~/lodash/index.js ***!
   \***************************/
@@ -56385,10 +56558,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 320)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 321)(module), (function() { return this; }())))
 
 /***/ },
-/* 320 */
+/* 321 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -56407,7 +56580,7 @@
 
 
 /***/ },
-/* 321 */
+/* 322 */
 /*!***************************************************!*\
   !*** ./public/src/components/listings/listing.js ***!
   \***************************************************/
@@ -56557,7 +56730,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleListing);
 
 /***/ },
-/* 322 */
+/* 323 */
 /*!******************************************************!*\
   !*** ./public/src/components/listings/newListing.js ***!
   \******************************************************/
@@ -56825,7 +56998,7 @@
 	}, mapStateToProps, actions)(NewListing);
 
 /***/ },
-/* 323 */
+/* 324 */
 /*!******************************************************!*\
   !*** ./public/src/components/blog/blog_container.js ***!
   \******************************************************/
@@ -56845,7 +57018,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _blog_list = __webpack_require__(/*! ./blog_list */ 324);
+	var _blog_list = __webpack_require__(/*! ./blog_list */ 325);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
@@ -56900,7 +57073,7 @@
 	module.exports = Blog_Container;
 
 /***/ },
-/* 324 */
+/* 325 */
 /*!*************************************************!*\
   !*** ./public/src/components/blog/blog_list.js ***!
   \*************************************************/
@@ -57014,7 +57187,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BlogList);
 
 /***/ },
-/* 325 */
+/* 326 */
 /*!****************************************************!*\
   !*** ./public/src/components/blog/mine/my_blog.js ***!
   \****************************************************/
@@ -57130,7 +57303,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyBlog);
 
 /***/ },
-/* 326 */
+/* 327 */
 /*!*****************************************************!*\
   !*** ./public/src/components/blog/mine/new_blog.js ***!
   \*****************************************************/
@@ -57156,7 +57329,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 327);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 328);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
@@ -57356,7 +57529,7 @@
 	}, mapStateToProps, actions)(NewBlog);
 
 /***/ },
-/* 327 */
+/* 328 */
 /*!************************************************!*\
   !*** ./~/react-markdown/src/react-markdown.js ***!
   \************************************************/
@@ -57365,8 +57538,8 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 2);
-	var Parser = __webpack_require__(/*! commonmark */ 328).Parser;
-	var ReactRenderer = __webpack_require__(/*! commonmark-react-renderer */ 348);
+	var Parser = __webpack_require__(/*! commonmark */ 329).Parser;
+	var ReactRenderer = __webpack_require__(/*! commonmark-react-renderer */ 349);
 	
 	var parser = new Parser();
 	var propTypes = React.PropTypes;
@@ -57436,7 +57609,7 @@
 
 
 /***/ },
-/* 328 */
+/* 329 */
 /*!***********************************!*\
   !*** ./~/commonmark/lib/index.js ***!
   \***********************************/
@@ -57456,14 +57629,14 @@
 	// console.log(renderer.render(parser.parse('Hello *world*')));
 	
 	module.exports.version = '0.24.0'
-	module.exports.Node = __webpack_require__(/*! ./node */ 329);
-	module.exports.Parser = __webpack_require__(/*! ./blocks */ 330);
-	module.exports.HtmlRenderer = __webpack_require__(/*! ./html */ 346);
-	module.exports.XmlRenderer = __webpack_require__(/*! ./xml */ 347);
+	module.exports.Node = __webpack_require__(/*! ./node */ 330);
+	module.exports.Parser = __webpack_require__(/*! ./blocks */ 331);
+	module.exports.HtmlRenderer = __webpack_require__(/*! ./html */ 347);
+	module.exports.XmlRenderer = __webpack_require__(/*! ./xml */ 348);
 
 
 /***/ },
-/* 329 */
+/* 330 */
 /*!**********************************!*\
   !*** ./~/commonmark/lib/node.js ***!
   \**********************************/
@@ -57743,7 +57916,7 @@
 
 
 /***/ },
-/* 330 */
+/* 331 */
 /*!************************************!*\
   !*** ./~/commonmark/lib/blocks.js ***!
   \************************************/
@@ -57751,10 +57924,10 @@
 
 	"use strict";
 	
-	var Node = __webpack_require__(/*! ./node */ 329);
-	var unescapeString = __webpack_require__(/*! ./common */ 331).unescapeString;
-	var OPENTAG = __webpack_require__(/*! ./common */ 331).OPENTAG;
-	var CLOSETAG = __webpack_require__(/*! ./common */ 331).CLOSETAG;
+	var Node = __webpack_require__(/*! ./node */ 330);
+	var unescapeString = __webpack_require__(/*! ./common */ 332).unescapeString;
+	var OPENTAG = __webpack_require__(/*! ./common */ 332).OPENTAG;
+	var CLOSETAG = __webpack_require__(/*! ./common */ 332).CLOSETAG;
 	
 	var CODE_INDENT = 4;
 	
@@ -57765,7 +57938,7 @@
 	var C_SPACE = 32;
 	var C_OPEN_BRACKET = 91;
 	
-	var InlineParser = __webpack_require__(/*! ./inlines */ 342);
+	var InlineParser = __webpack_require__(/*! ./inlines */ 343);
 	
 	var reHtmlBlockOpen = [
 	   /./, // dummy for 0
@@ -58622,7 +58795,7 @@
 
 
 /***/ },
-/* 331 */
+/* 332 */
 /*!************************************!*\
   !*** ./~/commonmark/lib/common.js ***!
   \************************************/
@@ -58630,12 +58803,12 @@
 
 	"use strict";
 	
-	var encode = __webpack_require__(/*! mdurl/encode */ 332);
-	var decode = __webpack_require__(/*! mdurl/decode */ 333);
+	var encode = __webpack_require__(/*! mdurl/encode */ 333);
+	var decode = __webpack_require__(/*! mdurl/decode */ 334);
 	
 	var C_BACKSLASH = 92;
 	
-	var decodeHTML = __webpack_require__(/*! entities */ 334).decodeHTML;
+	var decodeHTML = __webpack_require__(/*! entities */ 335).decodeHTML;
 	
 	var ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
 	
@@ -58734,7 +58907,7 @@
 
 
 /***/ },
-/* 332 */
+/* 333 */
 /*!***************************!*\
   !*** ./~/mdurl/encode.js ***!
   \***************************/
@@ -58841,7 +59014,7 @@
 
 
 /***/ },
-/* 333 */
+/* 334 */
 /*!***************************!*\
   !*** ./~/mdurl/decode.js ***!
   \***************************/
@@ -58972,14 +59145,14 @@
 
 
 /***/ },
-/* 334 */
+/* 335 */
 /*!*****************************!*\
   !*** ./~/entities/index.js ***!
   \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var encode = __webpack_require__(/*! ./lib/encode.js */ 335),
-	    decode = __webpack_require__(/*! ./lib/decode.js */ 338);
+	var encode = __webpack_require__(/*! ./lib/encode.js */ 336),
+	    decode = __webpack_require__(/*! ./lib/decode.js */ 339);
 	
 	exports.decode = function(data, level){
 		return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
@@ -59014,18 +59187,18 @@
 
 
 /***/ },
-/* 335 */
+/* 336 */
 /*!**********************************!*\
   !*** ./~/entities/lib/encode.js ***!
   \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var inverseXML = getInverseObj(__webpack_require__(/*! ../maps/xml.json */ 336)),
+	var inverseXML = getInverseObj(__webpack_require__(/*! ../maps/xml.json */ 337)),
 	    xmlReplacer = getInverseReplacer(inverseXML);
 	
 	exports.XML = getInverse(inverseXML, xmlReplacer);
 	
-	var inverseHTML = getInverseObj(__webpack_require__(/*! ../maps/entities.json */ 337)),
+	var inverseHTML = getInverseObj(__webpack_require__(/*! ../maps/entities.json */ 338)),
 	    htmlReplacer = getInverseReplacer(inverseHTML);
 	
 	exports.HTML = getInverse(inverseHTML, htmlReplacer);
@@ -59096,7 +59269,7 @@
 
 
 /***/ },
-/* 336 */
+/* 337 */
 /*!**********************************!*\
   !*** ./~/entities/maps/xml.json ***!
   \**********************************/
@@ -59111,7 +59284,7 @@
 	};
 
 /***/ },
-/* 337 */
+/* 338 */
 /*!***************************************!*\
   !*** ./~/entities/maps/entities.json ***!
   \***************************************/
@@ -61246,16 +61419,16 @@
 	};
 
 /***/ },
-/* 338 */
+/* 339 */
 /*!**********************************!*\
   !*** ./~/entities/lib/decode.js ***!
   \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var entityMap = __webpack_require__(/*! ../maps/entities.json */ 337),
-	    legacyMap = __webpack_require__(/*! ../maps/legacy.json */ 339),
-	    xmlMap    = __webpack_require__(/*! ../maps/xml.json */ 336),
-	    decodeCodePoint = __webpack_require__(/*! ./decode_codepoint.js */ 340);
+	var entityMap = __webpack_require__(/*! ../maps/entities.json */ 338),
+	    legacyMap = __webpack_require__(/*! ../maps/legacy.json */ 340),
+	    xmlMap    = __webpack_require__(/*! ../maps/xml.json */ 337),
+	    decodeCodePoint = __webpack_require__(/*! ./decode_codepoint.js */ 341);
 	
 	var decodeXMLStrict  = getStrictDecoder(xmlMap),
 	    decodeHTMLStrict = getStrictDecoder(entityMap);
@@ -61326,7 +61499,7 @@
 	};
 
 /***/ },
-/* 339 */
+/* 340 */
 /*!*************************************!*\
   !*** ./~/entities/maps/legacy.json ***!
   \*************************************/
@@ -61442,13 +61615,13 @@
 	};
 
 /***/ },
-/* 340 */
+/* 341 */
 /*!********************************************!*\
   !*** ./~/entities/lib/decode_codepoint.js ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var decodeMap = __webpack_require__(/*! ../maps/decode.json */ 341);
+	var decodeMap = __webpack_require__(/*! ../maps/decode.json */ 342);
 	
 	module.exports = decodeCodePoint;
 	
@@ -61477,7 +61650,7 @@
 
 
 /***/ },
-/* 341 */
+/* 342 */
 /*!*************************************!*\
   !*** ./~/entities/maps/decode.json ***!
   \*************************************/
@@ -61515,7 +61688,7 @@
 	};
 
 /***/ },
-/* 342 */
+/* 343 */
 /*!*************************************!*\
   !*** ./~/commonmark/lib/inlines.js ***!
   \*************************************/
@@ -61523,15 +61696,15 @@
 
 	"use strict";
 	
-	var Node = __webpack_require__(/*! ./node */ 329);
-	var common = __webpack_require__(/*! ./common */ 331);
-	var normalizeReference = __webpack_require__(/*! ./normalize-reference */ 343);
+	var Node = __webpack_require__(/*! ./node */ 330);
+	var common = __webpack_require__(/*! ./common */ 332);
+	var normalizeReference = __webpack_require__(/*! ./normalize-reference */ 344);
 	
 	var normalizeURI = common.normalizeURI;
 	var unescapeString = common.unescapeString;
-	var fromCodePoint = __webpack_require__(/*! ./from-code-point.js */ 344);
-	var decodeHTML = __webpack_require__(/*! entities */ 334).decodeHTML;
-	__webpack_require__(/*! string.prototype.repeat */ 345); // Polyfill for String.prototype.repeat
+	var fromCodePoint = __webpack_require__(/*! ./from-code-point.js */ 345);
+	var decodeHTML = __webpack_require__(/*! entities */ 335).decodeHTML;
+	__webpack_require__(/*! string.prototype.repeat */ 346); // Polyfill for String.prototype.repeat
 	
 	// Constants for character codes:
 	
@@ -62455,7 +62628,7 @@
 
 
 /***/ },
-/* 343 */
+/* 344 */
 /*!*************************************************!*\
   !*** ./~/commonmark/lib/normalize-reference.js ***!
   \*************************************************/
@@ -62506,7 +62679,7 @@
 
 
 /***/ },
-/* 344 */
+/* 345 */
 /*!*********************************************!*\
   !*** ./~/commonmark/lib/from-code-point.js ***!
   \*********************************************/
@@ -62574,7 +62747,7 @@
 
 
 /***/ },
-/* 345 */
+/* 346 */
 /*!*********************************************!*\
   !*** ./~/string.prototype.repeat/repeat.js ***!
   \*********************************************/
@@ -62633,7 +62806,7 @@
 
 
 /***/ },
-/* 346 */
+/* 347 */
 /*!**********************************!*\
   !*** ./~/commonmark/lib/html.js ***!
   \**********************************/
@@ -62641,7 +62814,7 @@
 
 	"use strict";
 	
-	var escapeXml = __webpack_require__(/*! ./common */ 331).escapeXml;
+	var escapeXml = __webpack_require__(/*! ./common */ 332).escapeXml;
 	
 	// Helper function to produce an HTML tag.
 	var tag = function(name, attrs, selfclosing) {
@@ -62928,7 +63101,7 @@
 
 
 /***/ },
-/* 347 */
+/* 348 */
 /*!*********************************!*\
   !*** ./~/commonmark/lib/xml.js ***!
   \*********************************/
@@ -62936,7 +63109,7 @@
 
 	"use strict";
 	
-	var escapeXml = __webpack_require__(/*! ./common */ 331).escapeXml;
+	var escapeXml = __webpack_require__(/*! ./common */ 332).escapeXml;
 	
 	// Helper function to produce an XML tag.
 	var tag = function(name, attrs, selfclosing) {
@@ -63114,7 +63287,7 @@
 
 
 /***/ },
-/* 348 */
+/* 349 */
 /*!**********************************************************************!*\
   !*** ./~/commonmark-react-renderer/src/commonmark-react-renderer.js ***!
   \**********************************************************************/
@@ -63123,10 +63296,10 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 2);
-	var assign = __webpack_require__(/*! lodash.assign */ 349);
-	var isPlainObject = __webpack_require__(/*! lodash.isplainobject */ 350);
-	var xssFilters = __webpack_require__(/*! xss-filters */ 351);
-	var pascalCase = __webpack_require__(/*! pascalcase */ 352);
+	var assign = __webpack_require__(/*! lodash.assign */ 350);
+	var isPlainObject = __webpack_require__(/*! lodash.isplainobject */ 351);
+	var xssFilters = __webpack_require__(/*! xss-filters */ 352);
+	var pascalCase = __webpack_require__(/*! pascalcase */ 353);
 	
 	var typeAliases = {
 	    blockquote: 'block_quote',
@@ -63522,7 +63695,7 @@
 
 
 /***/ },
-/* 349 */
+/* 350 */
 /*!**********************************!*\
   !*** ./~/lodash.assign/index.js ***!
   \**********************************/
@@ -64168,7 +64341,7 @@
 
 
 /***/ },
-/* 350 */
+/* 351 */
 /*!*********************************************************************!*\
   !*** ./~/commonmark-react-renderer/~/lodash.isplainobject/index.js ***!
   \*********************************************************************/
@@ -64316,7 +64489,7 @@
 
 
 /***/ },
-/* 351 */
+/* 352 */
 /*!******************************************!*\
   !*** ./~/xss-filters/src/xss-filters.js ***!
   \******************************************/
@@ -65424,7 +65597,7 @@
 
 
 /***/ },
-/* 352 */
+/* 353 */
 /*!*******************************!*\
   !*** ./~/pascalcase/index.js ***!
   \*******************************/
@@ -65454,7 +65627,7 @@
 
 
 /***/ },
-/* 353 */
+/* 354 */
 /*!***************************************************!*\
   !*** ./public/src/components/blog/single_blog.js ***!
   \***************************************************/
@@ -65480,7 +65653,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 327);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 328);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
@@ -65561,7 +65734,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleBlog);
 
 /***/ },
-/* 354 */
+/* 355 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
   \****************************************************/
@@ -65638,7 +65811,7 @@
 	//wraps other components to add this feature to it: feature => kicks out unauthed users
 
 /***/ },
-/* 355 */
+/* 356 */
 /*!**************************************!*\
   !*** ./public/src/reducers/index.js ***!
   \**************************************/
@@ -65654,15 +65827,15 @@
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 264);
 	
-	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 356);
+	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 357);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
-	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 357);
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 358);
 	
 	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
 	
-	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 358);
+	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 359);
 	
 	var _blog_reducer2 = _interopRequireDefault(_blog_reducer);
 	
@@ -65678,7 +65851,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 356 */
+/* 357 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/auth_reducer.js ***!
   \*********************************************/
@@ -65718,7 +65891,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 357 */
+/* 358 */
 /*!************************************************!*\
   !*** ./public/src/reducers/listing_reducer.js ***!
   \************************************************/
@@ -65750,7 +65923,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 358 */
+/* 359 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/blog_reducer.js ***!
   \*********************************************/

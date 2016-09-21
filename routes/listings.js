@@ -15,6 +15,13 @@ router.get('/:id', (req, res) => {
   })
 })
 
+router.post('/mylistings', (req, res) => {
+  Listing.find({'_id': { $in: req.body['data[]']}}, (err, listings) => {
+    if (err) res.send(err);
+    res.send(listings);
+  });
+})
+
 router.get('/location/:location', (req, res) => {
   let city = req.params.location.split('_')[1].toLowerCase();
   let country = req.params.location.split('_')[0].toLowerCase();

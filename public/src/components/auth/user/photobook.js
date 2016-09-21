@@ -10,7 +10,6 @@ class PhotoBook extends Component {
     super(props)
   }
   componentWillMount() {
-    this.props.fetchInfo();
     this.setState({file: ''});
   }
   uploadPhotos(formprops) {
@@ -46,46 +45,41 @@ class PhotoBook extends Component {
     const { handleSubmit, userInfo, fields: {image, tagline, location }} = this.props;
     let photos = userInfo.myPhotos || [];
     let notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden'
-    if(userInfo) {
-      return (
-        <div className="col-sm-12">
-          <h4>Upload Photos to Your Photo Album</h4>
-          <form onSubmit={handleSubmit(this.uploadPhotos.bind(this))}>
-            <fieldset className="form-group">
-              <input type="file" onChange={this.previewFile.bind(this)} />
-            </fieldset>
-            <fieldset className={notHiddenClass}>
-              <label>Tagline: </label>
-              <input className="form-control" type="text" {...tagline} />
-              {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
-            </fieldset>
-            <fieldset className={notHiddenClass}>
-              <label>Location: </label>
-              <input className="form-control" type="text" {...location} />
-              {location.touched && location.error && <div className="error">{location.error}</div>}
-            </fieldset>
-            {this.renderAlert()}
-            <button action="submit" className={this.state.file ? "btn btn-primary" : "hidden"}>Upload Photo</button>
-          </form>
-          <div className="col-sm-10 col-sm-offset-1">
-            {photos.map((e) => {
-              return (
-                <div className="col-sm-4" key={e._id} onClick={() => {browserHistory.push(`/myphotos/${e._id}`)}}>
-                  <ul className="photoBookBorder">
-                    <li>{e.location}</li>
-                    <li>{e.tagline}</li>
-                    <li><img className="photoBookImage" src={e.image}/></li>
-                  </ul>
-                </div>
-              )
-            })}
-          </div>
+    return (
+      <div className="col-sm-12">
+        <h4>Upload Photos to Your Photo Album</h4>
+        <form onSubmit={handleSubmit(this.uploadPhotos.bind(this))}>
+          <fieldset className="form-group">
+            <input type="file" onChange={this.previewFile.bind(this)} />
+          </fieldset>
+          <fieldset className={notHiddenClass}>
+            <label>Tagline: </label>
+            <input className="form-control" type="text" {...tagline} />
+            {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
+          </fieldset>
+          <fieldset className={notHiddenClass}>
+            <label>Location: </label>
+            <input className="form-control" type="text" {...location} />
+            {location.touched && location.error && <div className="error">{location.error}</div>}
+          </fieldset>
+          {this.renderAlert()}
+          <button action="submit" className={this.state.file ? "btn btn-primary" : "hidden"}>Upload Photo</button>
+        </form>
+        <div className="col-sm-10 col-sm-offset-1">
+          {photos.map((e) => {
+            return (
+              <div className="col-sm-4" key={e._id} onClick={() => {browserHistory.push(`/myphotos/${e._id}`)}}>
+                <ul className="photoBookBorder">
+                  <li>{e.location}</li>
+                  <li>{e.tagline}</li>
+                  <li><img className="photoBookImage" src={e.image}/></li>
+                </ul>
+              </div>
+            )
+          })}
         </div>
-      );
-    } else {
-      return <div className="toppush"><h1>LOADING........</h1></div>
-    }
-
+      </div>
+    );
   }
 }
 function validate(formProps) {
