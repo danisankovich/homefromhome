@@ -195,7 +195,7 @@
 	      { path: '/listings', component: _app2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/new', component: _newListing2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/new', component: (0, _require_auth2.default)(_newListing2.default) }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }),
@@ -205,8 +205,8 @@
 	      _reactRouter.Route,
 	      { path: '/blogs', component: _app2.default },
 	      _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: _my_blog2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: _new_blog2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: (0, _require_auth2.default)(_my_blog2.default) }),
+	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: (0, _require_auth2.default)(_new_blog2.default) }),
 	      _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })
 	    )
 	  )

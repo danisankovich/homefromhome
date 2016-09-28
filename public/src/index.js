@@ -60,7 +60,7 @@ ReactDOM.render(
         <Route path='/listings' component={App}>
           <IndexRoute component={Listings_Container} />
           <Route path=':id' component={Listing}></Route>
-          <Route path='/new' component={NewListing}></Route>
+          <Route path='/new' component={RequireAuth(NewListing)}></Route>
           <Route path='signout' component={Signout}></Route>
           <Route path='information' component={RequireAuth(Information)}></Route>
           <Route path='profile' component={RequireAuth(Profile)}></Route>
@@ -68,8 +68,8 @@ ReactDOM.render(
         </Route>
         <Route path='/blogs' component={App}>
           <IndexRoute component={Blog_Container} />
-          <Route path='/blogs/mine' component={My_Blog}></Route>
-          <Route path='/blogs/mine/new' component={New_Blog}></Route>
+          <Route path='/blogs/mine' component={RequireAuth(My_Blog)}></Route>
+          <Route path='/blogs/mine/new' component={RequireAuth(New_Blog)}></Route>
           <Route path='/blogs/:id' component={Single_Blog}></Route>
         </Route>
     </Router>
