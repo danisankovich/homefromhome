@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../actions';
-import Listings from './listings/listings';
+import * as actions from '../../actions';
+import Listings from './listings';
 import {Link} from 'react-router';
 
 //WELCOMING PAGE

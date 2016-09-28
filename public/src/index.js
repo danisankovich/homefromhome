@@ -19,7 +19,7 @@ import Settings from './components/auth/user/settings';
 import Welcome_Container from './components/welcome_container';
 
 // Listings Routes
-import Listings_Container from './components/listings_container';
+import Listings_Container from './components/listings/listings_container';
 import Listing from './components/listings/listing';
 import NewListing from './components/listings/newListing';
 

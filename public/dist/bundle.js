@@ -113,7 +113,7 @@
 	
 	var _welcome_container2 = _interopRequireDefault(_welcome_container);
 	
-	var _listings_container = __webpack_require__(/*! ./components/listings_container */ 318);
+	var _listings_container = __webpack_require__(/*! ./components/listings/listings_container */ 360);
 	
 	var _listings_container2 = _interopRequireDefault(_listings_container);
 	
@@ -43903,113 +43903,7 @@
 	module.exports = BasicInfo;
 
 /***/ },
-/* 318 */
-/*!*****************************************************!*\
-  !*** ./public/src/components/listings_container.js ***!
-  \*****************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _actions = __webpack_require__(/*! ../actions */ 260);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _listings = __webpack_require__(/*! ./listings/listings */ 319);
-	
-	var _listings2 = _interopRequireDefault(_listings);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 189);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//WELCOMING PAGE
-	var Listings_Container = function (_Component) {
-	  _inherits(Listings_Container, _Component);
-	
-	  function Listings_Container() {
-	    _classCallCheck(this, Listings_Container);
-	
-	    return _possibleConstructorReturn(this, (Listings_Container.__proto__ || Object.getPrototypeOf(Listings_Container)).apply(this, arguments));
-	  }
-	
-	  _createClass(Listings_Container, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	      // this.props.fetchListings();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var listings = _props.listings;
-	      var userInfo = _props.userInfo;
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container toppush' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-12' },
-	            _react2.default.createElement(
-	              'h1',
-	              { className: 'text-center' },
-	              'Listings'
-	            ),
-	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/new' },
-	              _react2.default.createElement(
-	                'button',
-	                { className: 'btn btn-success' },
-	                'Post New Listing'
-	              )
-	            )
-	          )
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(_listings2.default, null)
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Listings_Container;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
-
-/***/ },
+/* 318 */,
 /* 319 */
 /*!****************************************************!*\
   !*** ./public/src/components/listings/listings.js ***!
@@ -56794,6 +56688,10 @@
 	      data.id = this.props.userInfo._id;
 	      data.phoneNumber = this.props.userInfo.phoneNumber;
 	      data.email = this.props.userInfo.email;
+	      if (data.image.length === 0) {
+	        alert('Must supply Image');
+	        return;
+	      }
 	      this.props.newListing(data);
 	      _reactRouter.browserHistory.push('/listings');
 	    }
@@ -56851,108 +56749,139 @@
 	      var datesAvailable = _props$fields.datesAvailable;
 	
 	      return _react2.default.createElement(
-	        'form',
-	        { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	        'div',
+	        { className: 'container' },
 	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
+	          'div',
+	          { className: 'row' },
 	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'City: '
-	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control' }, city)),
-	          city.touched && city.error && _react2.default.createElement(
 	            'div',
-	            { className: 'error' },
-	            city.error
+	            { className: 'col-sm-10 col-sm-offset-1' },
+	            _react2.default.createElement(
+	              'form',
+	              { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'City: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control' }, city)),
+	                city.touched && city.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  city.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Country: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control' }, country)),
+	                country.touched && country.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  country.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Address: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)),
+	                address.touched && address.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  address.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Price Per Night: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, pricePerNight)),
+	                pricePerNight.touched && pricePerNight.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  pricePerNight.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'h3',
+	                  null,
+	                  'Currently Available For Rent?'
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { className: 'radio-inline' },
+	                  _react2.default.createElement('input', {
+	                    type: 'radio',
+	                    name: 'availableForRent',
+	                    onChange: availableForRent.onChange,
+	                    value: 'true' }),
+	                  'Yes:'
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { className: 'radio-inline' },
+	                  _react2.default.createElement('input', {
+	                    type: 'radio',
+	                    name: 'availableForRent',
+	                    onChange: availableForRent.onChange,
+	                    value: 'false' }),
+	                  'No:'
+	                ),
+	                availableForRent.touched && availableForRent.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  availableForRent.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Dates Available: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, datesAvailable)),
+	                datesAvailable.touched && datesAvailable.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  datesAvailable.error
+	                )
+	              ),
+	              this.renderAlert(),
+	              _react2.default.createElement(
+	                'button',
+	                { action: 'submit', className: 'btn btn-primary' },
+	                'Add Listing'
+	              )
+	            )
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Country: '
-	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control' }, country)),
-	          country.touched && country.error && _react2.default.createElement(
-	            'div',
-	            { className: 'error' },
-	            country.error
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Address: '
-	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)),
-	          address.touched && address.error && _react2.default.createElement(
-	            'div',
-	            { className: 'error' },
-	            address.error
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Price Per Night: '
-	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, pricePerNight)),
-	          pricePerNight.touched && pricePerNight.error && _react2.default.createElement(
-	            'div',
-	            { className: 'error' },
-	            pricePerNight.error
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Currently Available?: '
-	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, availableForRent)),
-	          availableForRent.touched && availableForRent.error && _react2.default.createElement(
-	            'div',
-	            { className: 'error' },
-	            availableForRent.error
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'fieldset',
-	          { className: 'form-group' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            'Dates Available: '
-	          ),
-	          _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, datesAvailable)),
-	          datesAvailable.touched && datesAvailable.error && _react2.default.createElement(
-	            'div',
-	            { className: 'error' },
-	            datesAvailable.error
-	          )
-	        ),
-	        this.renderAlert(),
-	        _react2.default.createElement(
-	          'button',
-	          { action: 'submit', className: 'btn btn-primary' },
-	          'Add Listing'
 	        )
 	      );
 	    }
@@ -65959,6 +65888,113 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
+
+/***/ },
+/* 360 */
+/*!**************************************************************!*\
+  !*** ./public/src/components/listings/listings_container.js ***!
+  \**************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _listings = __webpack_require__(/*! ./listings */ 319);
+	
+	var _listings2 = _interopRequireDefault(_listings);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//WELCOMING PAGE
+	var Listings_Container = function (_Component) {
+	  _inherits(Listings_Container, _Component);
+	
+	  function Listings_Container() {
+	    _classCallCheck(this, Listings_Container);
+	
+	    return _possibleConstructorReturn(this, (Listings_Container.__proto__ || Object.getPrototypeOf(Listings_Container)).apply(this, arguments));
+	  }
+	
+	  _createClass(Listings_Container, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	      // this.props.fetchListings();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var listings = _props.listings;
+	      var userInfo = _props.userInfo;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container toppush' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-12' },
+	            _react2.default.createElement(
+	              'h1',
+	              { className: 'text-center' },
+	              'Listings'
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { to: '/new' },
+	              _react2.default.createElement(
+	                'button',
+	                { className: 'btn btn-success' },
+	                'Post New Listing'
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(_listings2.default, null)
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Listings_Container;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
 
 /***/ }
 /******/ ]);

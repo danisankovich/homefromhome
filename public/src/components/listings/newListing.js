@@ -18,6 +18,10 @@ class NewListing extends Component {
     data.id = this.props.userInfo._id;
     data.phoneNumber = this.props.userInfo.phoneNumber;
     data.email = this.props.userInfo.email;
+    if(data.image.length === 0) {
+      alert('Must supply Image');
+      return;
+    }
     this.props.newListing(data);
     browserHistory.push('/listings')
   }
@@ -49,45 +53,64 @@ class NewListing extends Component {
 
   }
   render() {
-    const { handleSubmit, userInfo, fields: {city, country, address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
+    let { handleSubmit, userInfo, fields: {city, country, address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <fieldset className="form-group">
-          <label>City: </label>
-          <input className="form-control" {...city} />
-          {city.touched && city.error && <div className="error">{city.error}</div>}
-        </fieldset>
-        <fieldset className="form-group">
-          <label>Country: </label>
-          <input className="form-control" {...country} />
-          {country.touched && country.error && <div className="error">{country.error}</div>}
-        </fieldset>
-        <fieldset className="form-group">
-          <label>Address: </label>
-          <input className="form-control" type="text" {...address} />
-          {address.touched && address.error && <div className="error">{address.error}</div>}
-        </fieldset>
-        <fieldset className="form-group">
-          <input type="file" onChange={this.previewFile.bind(this)} />
-        </fieldset>
-        <fieldset className="form-group">
-          <label>Price Per Night: </label>
-          <input className="form-control" type="text" {...pricePerNight} />
-          {pricePerNight.touched && pricePerNight.error && <div className="error">{pricePerNight.error}</div>}
-        </fieldset>
-        <fieldset className="form-group">
-          <label>Currently Available?: </label>
-          <input className="form-control" type="text" {...availableForRent} />
-          {availableForRent.touched && availableForRent.error && <div className="error">{availableForRent.error}</div>}
-        </fieldset>
-        <fieldset className="form-group">
-          <label>Dates Available: </label>
-          <input className="form-control" type="text" {...datesAvailable} />
-          {datesAvailable.touched && datesAvailable.error && <div className="error">{datesAvailable.error}</div>}
-        </fieldset>
-        {this.renderAlert()}
-        <button action="submit" className="btn btn-primary">Add Listing</button>
-      </form>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-10 col-sm-offset-1">
+            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+              <fieldset className="form-group">
+                <label>City: </label>
+                <input className="form-control" {...city} />
+                {city.touched && city.error && <div className="error">{city.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <label>Country: </label>
+                <input className="form-control" {...country} />
+                {country.touched && country.error && <div className="error">{country.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <label>Address: </label>
+                <input className="form-control" type="text" {...address} />
+                {address.touched && address.error && <div className="error">{address.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <input type="file" onChange={this.previewFile.bind(this)} />
+              </fieldset>
+              <fieldset className="form-group">
+                <label>Price Per Night: </label>
+                <input className="form-control" type="text" {...pricePerNight} />
+                {pricePerNight.touched && pricePerNight.error && <div className="error">{pricePerNight.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <h3>Currently Available For Rent?</h3>
+                <label className="radio-inline">
+                  <input
+                    type="radio"
+                    name="availableForRent"
+                    onChange={availableForRent.onChange}
+                    value="true" />Yes:
+                </label>
+                <label className="radio-inline">
+                  <input
+                    type="radio"
+                    name="availableForRent"
+                    onChange={availableForRent.onChange}
+                    value="false"/>No:
+                </label>
+                {availableForRent.touched && availableForRent.error && <div className="error">{availableForRent.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <label>Dates Available: </label>
+                <input className="form-control" type="text" {...datesAvailable} />
+                {datesAvailable.touched && datesAvailable.error && <div className="error">{datesAvailable.error}</div>}
+              </fieldset>
+              {this.renderAlert()}
+              <button action="submit" className="btn btn-primary">Add Listing</button>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }
