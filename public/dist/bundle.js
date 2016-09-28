@@ -43891,7 +43891,33 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col-sm-10 col-sm-offset-1' },
-	          'HLDFJLASDKFJLDSKFJSDL:KF'
+	          _react2.default.createElement(
+	            'select',
+	            { name: 'country', className: 'countries', id: 'countryId' },
+	            _react2.default.createElement(
+	              'option',
+	              { value: '' },
+	              'Select Country'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'select',
+	            { name: 'state', className: 'states', id: 'stateId' },
+	            _react2.default.createElement(
+	              'option',
+	              { value: '' },
+	              'Select State'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'select',
+	            { name: 'city', className: 'cities', id: 'cityId' },
+	            _react2.default.createElement(
+	              'option',
+	              { value: '' },
+	              'Select City'
+	            )
+	          )
 	        )
 	      );
 	    }
