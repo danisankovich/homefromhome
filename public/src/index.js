@@ -53,7 +53,7 @@ ReactDOM.render(
           <Route path='signin' component={Signin}></Route>
           <Route path='signup' component={Signup}></Route>
           <Route path='signout' component={Signout}></Route>
-          <Route path='information' component={RequireAuth(Information)}></Route>
+          <Route path='information' component={Information}></Route>
           <Route path='profile' component={RequireAuth(Profile)}></Route>
           <Route path='settings' component={RequireAuth(Settings)}></Route>
         </Route>

@@ -26,6 +26,7 @@ const jwtOptions = {
 
 // Create jwt strategy and see if user Id from payload exists in database.
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
+  console.log('here', payload)
   User.findById(payload.sub, (err, user) => {
     //if err, call done with eror and no user
     if (err) { return done(err, false); }

@@ -16,20 +16,22 @@ const userSchema = new Schema({
 });
 
 // hook that runs before the model gets saved
-userSchema.pre('save', function(next) {
-  const user = this;
-  bcrypt.genSalt(10, function(err, salt) {
-    if (err) { return next(err); }
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
-      if (err) {return next(err); }
-      user.password = hash;
-      return next(user);
-    })
-  })
-});
+// userSchema.pre('save', function(next) {
+//   const user = this;
+//   bcrypt.genSalt(10, function(err, salt) {
+//     if (err) { return next(err); }
+//     bcrypt.hash(user.password, salt, null, function(err, hash) {
+//       if (err) {return next(err); }
+//       user.password = hash;
+//       return next(user);
+//     })
+//   })
+// });
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+  let pwd = this.password
+  bcrypt.compare(candidatePassword, pwd, function(err, isMatch) {
+    console.log(candidatePassword == pwd, isMatch)
     if (err) {return cb(err); }
     cb(null, isMatch);
   });

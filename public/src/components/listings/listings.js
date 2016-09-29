@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
 import _ from 'lodash';
+import city_states from '../../../cities'
+import * as states from '../../../states.json'
+import * as countries from '../../../countries.json'
 
 class Listing extends Component {
   constructor(props) {
