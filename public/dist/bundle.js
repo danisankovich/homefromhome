@@ -44076,14 +44076,14 @@
 	      this.props.fetchInfo();
 	    }
 	  }, {
-	    key: 'onInputChangeCity',
-	    value: function onInputChangeCity(term) {
-	      this.setState({ city: term });
+	    key: 'changeCountry',
+	    value: function changeCountry(event) {
+	      this.setState({ country: event.target.value });
 	    }
 	  }, {
-	    key: 'onInputChangeCountry',
-	    value: function onInputChangeCountry(term) {
-	      this.setState({ country: term });
+	    key: 'changeCity',
+	    value: function changeCity(event) {
+	      this.setState({ city: event.target.value });
 	    }
 	  }, {
 	    key: 'handleClick',
@@ -44094,12 +44094,13 @@
 	  }, {
 	    key: 'cityCountrySearch',
 	    value: function cityCountrySearch() {
+	      console.log(this.state.country, this.state.city);
 	      this.props.fetchListings(this.state.country + '_' + this.state.city);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var incrementKey = 0;
 	
 	      var cityCountrySearch = this.cityCountrySearch;
 	      var userInfo = this.props.userInfo;
@@ -44107,6 +44108,14 @@
 	      var listings = [];
 	      if (this.props.listings) {
 	        listings = this.props.listings;
+	      }
+	      var citiesorstates = [];
+	      if (this.state.country) {
+	        if (!_cities2.default[this.state.country]) {
+	          alert('Sorry. We do not provide services in that country');
+	        } else {
+	          citiesorstates = _cities2.default[this.state.country].split('|');
+	        }
 	      }
 	      return _react2.default.createElement(
 	        'div',
@@ -44120,7 +44129,7 @@
 	            _react2.default.createElement(
 	              'label',
 	              { className: 'searchLabel' },
-	              'City/State: '
+	              'Country: '
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -44128,29 +44137,59 @@
 	            { className: 'col-sm-4' },
 	            _react2.default.createElement(
 	              'select',
-	              null,
+	              { className: 'form-control', onChange: this.changeCountry.bind(this) },
+	              _react2.default.createElement(
+	                'option',
+	                { key: 'default' },
+	                'Pick A Country'
+	              ),
 	              _countries2.default.map(function (e) {
 	                return _react2.default.createElement(
 	                  'option',
-	                  { key: e },
+	                  { key: e, value: e },
 	                  e
 	                );
 	              })
-	            ),
-	            _react2.default.createElement('input', { placeholder: 'Enter City', className: 'form-control searchInput', id: 'searchBar',
-	              value: this.state.city,
-	              onChange: function onChange(event) {
-	                return _this2.onInputChangeCity(event.target.value);
-	              } })
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',
+	            { className: 'col-sm-1' },
+	            this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' && _react2.default.createElement(
+	              'label',
+	              { className: 'searchLabel' },
+	              'State: '
+	            ),
+	            this.state.country && citiesorstates.length > 0 && this.state.country !== 'United States' && _react2.default.createElement(
+	              'label',
+	              { className: 'searchLabel' },
+	              'City: '
+	            )
+	          ),
+	          this.state.country && _react2.default.createElement(
+	            'div',
 	            { className: 'col-sm-4' },
-	            _react2.default.createElement('input', { placeholder: 'Enter Country', className: 'form-control searchInput', id: 'searchBar',
-	              value: this.state.country,
-	              onChange: function onChange(event) {
-	                return _this2.onInputChangeCountry(event.target.value);
-	              } })
+	            _react2.default.createElement(
+	              'select',
+	              { className: 'form-control', onChange: this.changeCity.bind(this) },
+	              this.state.country === 'United States' && _react2.default.createElement(
+	                'option',
+	                { key: 'default' },
+	                'Pick A State'
+	              ),
+	              this.state.country !== 'United States' && _react2.default.createElement(
+	                'option',
+	                { key: 'default' },
+	                'Pick A City'
+	              ),
+	              citiesorstates.map(function (e) {
+	                if (e.length > 0) return _react2.default.createElement(
+	                  'option',
+	                  { key: incrementKey += 1, value: e },
+	                  e
+	                );
+	              })
+	            )
 	          ),
 	          _react2.default.createElement(
 	            'div',

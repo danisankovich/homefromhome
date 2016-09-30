@@ -15,45 +15,62 @@ class Listing extends Component {
   componentWillMount() {
     this.props.fetchInfo();
   }
-  onInputChangeCity(term) {
-    this.setState({city: term});
+  changeCountry(event) {
+    this.setState({country: event.target.value});
   }
-  onInputChangeCountry(term) {
-    this.setState({country: term});
+  changeCity(event) {
+    this.setState({city: event.target.value});
   }
   handleClick() {
     let clickResult = this._id;
     browserHistory.push(`/listings/${clickResult}`);
   }
   cityCountrySearch() {
+    console.log(this.state.country, this.state.city)
     this.props.fetchListings(`${this.state.country}_${this.state.city}`)
   }
   render() {
+    let incrementKey = 0
+
     const cityCountrySearch = this.cityCountrySearch;
     let {userInfo} = this.props;
     let listings = [];
     if(this.props.listings) {
       listings = this.props.listings
     }
+    let citiesorstates = [];
+    if (this.state.country) {
+      if (!city_states[this.state.country]) {
+        alert('Sorry. We do not provide services in that country');
+      } else {
+        citiesorstates = city_states[this.state.country].split('|');
+      }
+    }
     return (
       <div>
         <div className='col-sm-12'>
-          <div className='col-sm-1'><label className='searchLabel'>City/State: </label></div>
+          <div className='col-sm-1'><label className='searchLabel'>Country: </label></div>
           <div className='col-sm-4'>
-            <select>
+            <select className="form-control" onChange={this.changeCountry.bind(this)}>
+              <option key="default">Pick A Country</option>
               {countries.map((e) => {
-                return <option key={e}>{e}</option>
+                return <option key={e} value={e}>{e}</option>
               })}
             </select>
-            <input placeholder='Enter City' className="form-control searchInput" id='searchBar'
-              value={this.state.city}
-              onChange={event => this.onInputChangeCity(event.target.value)}/>
           </div>
-          <div className='col-sm-4'>
-            <input placeholder='Enter Country' className="form-control searchInput" id='searchBar'
-              value={this.state.country}
-              onChange={event => this.onInputChangeCountry(event.target.value)}/>
+          <div className='col-sm-1'>
+            {this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' && <label className='searchLabel'>State: </label>}
+            {this.state.country && citiesorstates.length > 0 && this.state.country !== 'United States' && <label className='searchLabel'>City: </label>}
           </div>
+          {this.state.country && <div className='col-sm-4'>
+            <select className="form-control" onChange={this.changeCity.bind(this)}>
+              {this.state.country === 'United States' && <option key="default">Pick A State</option>}
+              {this.state.country !== 'United States' && <option key="default">Pick A City</option>}
+              {citiesorstates.map((e) => {
+                if(e.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
+              })}
+            </select>
+          </div>}
           <div className='col-sm-2'>
             <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City</button>
           </div>
