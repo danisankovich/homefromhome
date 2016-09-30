@@ -57070,7 +57070,7 @@
 	                  null,
 	                  'Price Per Night: '
 	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, pricePerNight)),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'number', min: '0.01', step: '0.01', max: '5000.00' }, pricePerNight)),
 	                pricePerNight.touched && pricePerNight.error && _react2.default.createElement(
 	                  'div',
 	                  { className: 'error' },

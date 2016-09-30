@@ -121,7 +121,7 @@ class NewListing extends Component {
               </fieldset>
               <fieldset className="form-group">
                 <label>Price Per Night: </label>
-                <input className="form-control" type="text" {...pricePerNight} />
+                <input className="form-control" type="number" min="0.01" step="0.01" max="5000.00" {...pricePerNight} />
                 {pricePerNight.touched && pricePerNight.error && <div className="error">{pricePerNight.error}</div>}
               </fieldset>
               <fieldset className="form-group">
