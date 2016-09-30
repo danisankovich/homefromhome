@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
-import { browserHistory } from 'react-router'
-import city_states from '../../../cities'
-import states from '../../../states'
-import countries from '../../../countries'
+import { browserHistory } from 'react-router';
+import ReactMarkdown from 'react-markdown';
+import city_states from '../../../cities';
+import states from '../../../states';
+import countries from '../../../countries';
 
 class NewListing extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      file: '',
+      file: '', text: ''
     }
   }
   handleFormSubmit(formProps) { //called with props from submit form
@@ -41,6 +42,9 @@ class NewListing extends Component {
   changeCity(event) {
     this.setState({city: event.target.value});
   }
+  markdown() {
+    this.setState({text: ''})
+  }
   componentWillMount() {
     this.props.fetchInfo();
   }
@@ -70,7 +74,7 @@ class NewListing extends Component {
   }
   render() {
     let incrementKey = 0
-    let { handleSubmit, userInfo, fields: {address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
+    let { handleSubmit, userInfo, fields: {address, image, pricePerNight, availableForRent, title, description }} = this.props;
 
     let citiesorstates = [];
     if (this.state.country) {
@@ -139,13 +143,21 @@ class NewListing extends Component {
                 {availableForRent.touched && availableForRent.error && <div className="error">{availableForRent.error}</div>}
               </fieldset>
               <fieldset className="form-group">
-                <label>Dates Available: </label>
-                <input className="form-control" type="text" {...datesAvailable} />
-                {datesAvailable.touched && datesAvailable.error && <div className="error">{datesAvailable.error}</div>}
+                <label>Listing Title: </label>
+                <input className="form-control" type="text" {...title} />
+                {title.touched && title.error && <div className="error">{title.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <label>Describe the Listing: </label>
+                <textarea className="form-control" type="text" {...description} onInput={this.markdown.bind(this)}></textarea>
+                {description.touched && description.error && <div className="error">{description.error}</div>}
               </fieldset>
               {this.renderAlert()}
               <button action="submit" className="btn btn-primary">Add Listing</button>
             </form>
+          </div>
+          <div className='col-sm-6 previewMarkdown'>
+            <ReactMarkdown source={description.value} />
           </div>
         </div>
       </div>
@@ -162,12 +174,14 @@ function validate(formProps) {
   if (!formProps.pricePerNight) {
     errors.pricePerNight = 'Please Enter Price Per Night';
   }
-
-  if(formProps.datesAvailable !== formProps.datesAvailable) {
-    errors.datesAvailable = 'Please enter dates the listing is available';
-  }
   if(formProps.availableForRent !== formProps.availableForRent) {
     errors.availableForRent = 'Is the listing currently available for rent?';
+  }
+  if(!formProps.availableForRent) {
+    errors.description = 'Describe the listing';
+  }
+  if(!formProps.title) {
+    errors.description = 'Title the listing';
   }
   return errors;
 }
@@ -181,6 +195,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'newListing',
-  fields: ['image', 'pricePerNight', 'availableForRent', 'datesAvailable', 'city', 'country', 'address'],
+  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title'],
   validate,
 }, mapStateToProps, actions)(NewListing);

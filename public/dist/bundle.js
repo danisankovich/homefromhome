@@ -44170,6 +44170,11 @@
 	              'div',
 	              { className: 'listingBorder' },
 	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                result.title
+	              ),
+	              _react2.default.createElement(
 	                'div',
 	                { className: 'thumbnail' },
 	                _react2.default.createElement('img', { className: 'img-responsive center-block listingListImage',
@@ -56627,6 +56632,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 328);
+	
+	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -56657,6 +56666,7 @@
 	    value: function render() {
 	      var listing = this.props.listing;
 	
+	
 	      console.log(listing);
 	      if (listing) {
 	        return _react2.default.createElement(
@@ -56667,7 +56677,7 @@
 	            { className: 'col-sm-10 col-sm-offset-1' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'listingBorder' },
+	              { className: '' },
 	              _react2.default.createElement(
 	                'div',
 	                { className: 'thumbnail' },
@@ -56723,9 +56733,9 @@
 	                    _react2.default.createElement(
 	                      'h4',
 	                      null,
-	                      'Dates Available: ',
-	                      listing.datesAvailable
-	                    )
+	                      'Description: '
+	                    ),
+	                    _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: listing.description })
 	                  )
 	                )
 	              )
@@ -56779,6 +56789,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 328);
+	
+	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+	
 	var _cities = __webpack_require__(/*! ../../../cities */ 360);
 	
 	var _cities2 = _interopRequireDefault(_cities);
@@ -56810,7 +56824,7 @@
 	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this, props));
 	
 	    _this.state = {
-	      file: ''
+	      file: '', text: ''
 	    };
 	    return _this;
 	  }
@@ -56849,6 +56863,11 @@
 	    key: 'changeCity',
 	    value: function changeCity(event) {
 	      this.setState({ city: event.target.value });
+	    }
+	  }, {
+	    key: 'markdown',
+	    value: function markdown() {
+	      this.setState({ text: '' });
 	    }
 	  }, {
 	    key: 'componentWillMount',
@@ -56900,7 +56919,8 @@
 	      var image = _props$fields.image;
 	      var pricePerNight = _props$fields.pricePerNight;
 	      var availableForRent = _props$fields.availableForRent;
-	      var datesAvailable = _props$fields.datesAvailable;
+	      var title = _props$fields.title;
+	      var description = _props$fields.description;
 	
 	
 	      var citiesorstates = [];
@@ -57058,13 +57078,28 @@
 	                _react2.default.createElement(
 	                  'label',
 	                  null,
-	                  'Dates Available: '
+	                  'Listing Title: '
 	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, datesAvailable)),
-	                datesAvailable.touched && datesAvailable.error && _react2.default.createElement(
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)),
+	                title.touched && title.error && _react2.default.createElement(
 	                  'div',
 	                  { className: 'error' },
-	                  datesAvailable.error
+	                  title.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Describe the Listing: '
+	                ),
+	                _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, description, { onInput: this.markdown.bind(this) })),
+	                description.touched && description.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  description.error
 	                )
 	              ),
 	              this.renderAlert(),
@@ -57074,6 +57109,11 @@
 	                'Add Listing'
 	              )
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6 previewMarkdown' },
+	            _react2.default.createElement(_reactMarkdown2.default, { source: description.value })
 	          )
 	        )
 	      );
@@ -57092,12 +57132,14 @@
 	  if (!formProps.pricePerNight) {
 	    errors.pricePerNight = 'Please Enter Price Per Night';
 	  }
-	
-	  if (formProps.datesAvailable !== formProps.datesAvailable) {
-	    errors.datesAvailable = 'Please enter dates the listing is available';
-	  }
 	  if (formProps.availableForRent !== formProps.availableForRent) {
 	    errors.availableForRent = 'Is the listing currently available for rent?';
+	  }
+	  if (!formProps.availableForRent) {
+	    errors.description = 'Describe the listing';
+	  }
+	  if (!formProps.title) {
+	    errors.description = 'Title the listing';
 	  }
 	  return errors;
 	}
@@ -57111,7 +57153,7 @@
 	
 	exports.default = (0, _reduxForm.reduxForm)({
 	  form: 'newListing',
-	  fields: ['image', 'pricePerNight', 'availableForRent', 'datesAvailable', 'city', 'country', 'address'],
+	  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title'],
 	  validate: validate
 	}, mapStateToProps, actions)(NewListing);
 
@@ -57594,16 +57636,6 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-6 previewMarkdown' },
-	            _react2.default.createElement(
-	              'h2',
-	              null,
-	              title.value
-	            ),
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              tagline.value
-	            ),
 	            _react2.default.createElement(_reactMarkdown2.default, { source: body.value })
 	          )
 	        )

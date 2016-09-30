@@ -21,6 +21,7 @@ a {
 }
 
 .thumbnail {
+  margin-top: 5px;
   width: 90%;
   text-align: center;
   margin: 0 auto;

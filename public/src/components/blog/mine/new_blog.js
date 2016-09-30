@@ -64,8 +64,6 @@ class NewBlog extends Component {
             </form>
           </div>
           <div className='col-sm-6 previewMarkdown'>
-            <h2>{title.value}</h2>
-            <h3>{tagline.value}</h3>
             <ReactMarkdown source={body.value} />
           </div>
         </div>

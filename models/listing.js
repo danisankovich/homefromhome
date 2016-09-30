@@ -18,7 +18,9 @@ const listingSchema = new Schema({
   availableForRent: Boolean,
   datesAvailable: String,
   description: String,
-  type: String
+  type: String,
+  title: String,
+  description: String,
 });
 const LISTING = mongoose.model('listing', listingSchema);
 module.exports = LISTING;

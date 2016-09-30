@@ -47,6 +47,8 @@ router.get('/location/:location', (req, res) => {
 
 router.post('/new', (req, res) => {
   var data = {};
+  data.title = req.body.title;
+  data.description = req.body.description;
   data.image = req.body.image;
   data.pricePerNight = req.body.pricePerNight;
   data.availableForRent = req.body.availableForRent;

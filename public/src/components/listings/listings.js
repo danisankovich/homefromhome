@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
-import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router';
 import _ from 'lodash';
-import city_states from '../../../cities'
-import states from '../../../states'
-import countries from '../../../countries'
+import city_states from '../../../cities';
+import states from '../../../states';
+import countries from '../../../countries';
 
 class Listing extends Component {
   constructor(props) {
@@ -62,6 +62,7 @@ class Listing extends Component {
           return (
             <div className="col-sm-4" key={result._id} onClick={this.handleClick.bind(result)}>
               <div className="listingBorder">
+                <h3>{result.title}</h3>
                 <div className="thumbnail">
                   <img className="img-responsive center-block listingListImage"
                     src={result.image}

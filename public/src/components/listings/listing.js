@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
+import ReactMarkdown from 'react-markdown';
 
 
 class SingleListing extends Component {
@@ -11,12 +12,13 @@ class SingleListing extends Component {
   }
   render() {
     let {listing} = this.props;
+
     console.log(listing)
     if(listing) {
       return (
         <div>
           <div className="col-sm-10 col-sm-offset-1">
-            <div className="listingBorder">
+            <div className="">
               <div className="thumbnail">
                 <img className="img-responsive center-block"
                   src={listing.image}
@@ -33,7 +35,8 @@ class SingleListing extends Component {
                     <h4>Email: {listing.creator.email}</h4>
                     <h4>Phone Number: {listing.creator.phoneNumber}</h4>
                     <hr />
-                    <h4>Dates Available: {listing.datesAvailable}</h4>
+                    <h4>Description: </h4>
+                    <ReactMarkdown className='body-spacing' source={listing.description} />
                   </div>
                 </div>
               </div>
