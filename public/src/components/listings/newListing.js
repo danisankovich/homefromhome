@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
-
+import city_states from '../../../cities'
+import states from '../../../states'
+import countries from '../../../countries'
 
 class NewListing extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      file: ''
+      file: '', city: ''
     }
   }
   handleFormSubmit(formProps) { //called with props from submit form
@@ -24,6 +26,14 @@ class NewListing extends Component {
     }
     this.props.newListing(data);
     browserHistory.push('/listings')
+  }
+  changeCountry(event) {
+    console.log(event.target.value)
+    this.setState({country: event.target.value})
+  }
+  changeCity(event) {
+    console.log(event.target.value)
+    this.setState({city: event.target.value})
   }
   componentWillMount() {
     this.props.fetchInfo();
@@ -53,21 +63,46 @@ class NewListing extends Component {
 
   }
   render() {
+    let x = 0
     let { handleSubmit, userInfo, fields: {city, country, address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
+
+    let citiesorstates = this.state.country ? city_states[this.state.country].split('|') : [];
     return (
       <div className="container">
         <div className="row">
           <div className="col-sm-10 col-sm-offset-1">
             <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
               <fieldset className="form-group">
-                <label>City: </label>
-                <input className="form-control" {...city} />
-                {city.touched && city.error && <div className="error">{city.error}</div>}
+                <label>Country: </label>
+                <select className="form-control" onChange={this.changeCountry.bind(this)}>
+                  <option key="default">Pick A Country</option>
+                  {countries.map((e) => {
+                    return <option key={e} value={e}>{e}</option>
+                  })}
+                </select>
               </fieldset>
+              {this.state.country &&
+                <fieldset className="form-group">
+                  {this.state.country === 'United States' && <label>State: </label>}
+                  {this.state.country !== 'United States' && <label>City: </label>}
+                  <select className="form-control" onChange={this.changeCity.bind(this)}>
+                    {this.state.country === 'United States' && <option key="default">Pick A State</option>}
+                    {this.state.country !== 'United States' && <option key="default">Pick A City</option>}
+                    {citiesorstates.map((e) => {
+                      return <option key={x+=1} value={e}>{e}</option>
+                    })}
+                  </select>
+                </fieldset>
+              }
               <fieldset className="form-group">
                 <label>Country: </label>
                 <input className="form-control" {...country} />
                 {country.touched && country.error && <div className="error">{country.error}</div>}
+              </fieldset>
+              <fieldset className="form-group">
+                <label>City: </label>
+                <input className="form-control" {...city} />
+                {city.touched && city.error && <div className="error">{city.error}</div>}
               </fieldset>
               <fieldset className="form-group">
                 <label>Address: </label>

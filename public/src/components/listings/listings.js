@@ -4,8 +4,8 @@ import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
 import _ from 'lodash';
 import city_states from '../../../cities'
-import * as states from '../../../states.json'
-import * as countries from '../../../countries.json'
+import states from '../../../states'
+import countries from '../../../countries'
 
 class Listing extends Component {
   constructor(props) {
@@ -40,6 +40,11 @@ class Listing extends Component {
         <div className='col-sm-12'>
           <div className='col-sm-1'><label className='searchLabel'>City/State: </label></div>
           <div className='col-sm-4'>
+            <select>
+              {countries.map((e) => {
+                return <option key={e}>{e}</option>
+              })}
+            </select>
             <input placeholder='Enter City' className="form-control searchInput" id='searchBar'
               value={this.state.city}
               onChange={event => this.onInputChangeCity(event.target.value)}/>

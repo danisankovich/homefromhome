@@ -44040,13 +44040,13 @@
 	
 	var _cities2 = _interopRequireDefault(_cities);
 	
-	var _states = __webpack_require__(/*! ../../../states.json */ 361);
+	var _states = __webpack_require__(/*! ../../../states */ 364);
 	
-	var states = _interopRequireWildcard(_states);
+	var _states2 = _interopRequireDefault(_states);
 	
-	var _countries = __webpack_require__(/*! ../../../countries.json */ 362);
+	var _countries = __webpack_require__(/*! ../../../countries */ 363);
 	
-	var countries = _interopRequireWildcard(_countries);
+	var _countries2 = _interopRequireDefault(_countries);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -44126,6 +44126,17 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-sm-4' },
+	            _react2.default.createElement(
+	              'select',
+	              null,
+	              _countries2.default.map(function (e) {
+	                return _react2.default.createElement(
+	                  'option',
+	                  { key: e },
+	                  e
+	                );
+	              })
+	            ),
 	            _react2.default.createElement('input', { placeholder: 'Enter City', className: 'form-control searchInput', id: 'searchBar',
 	              value: this.state.city,
 	              onChange: function onChange(event) {
@@ -56768,6 +56779,18 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
+	var _cities = __webpack_require__(/*! ../../../cities */ 360);
+	
+	var _cities2 = _interopRequireDefault(_cities);
+	
+	var _states = __webpack_require__(/*! ../../../states */ 364);
+	
+	var _states2 = _interopRequireDefault(_states);
+	
+	var _countries = __webpack_require__(/*! ../../../countries */ 363);
+	
+	var _countries2 = _interopRequireDefault(_countries);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -56781,13 +56804,13 @@
 	var NewListing = function (_Component) {
 	  _inherits(NewListing, _Component);
 	
-	  function NewListing() {
+	  function NewListing(props) {
 	    _classCallCheck(this, NewListing);
 	
-	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this));
+	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this, props));
 	
 	    _this.state = {
-	      file: ''
+	      file: '', city: ''
 	    };
 	    return _this;
 	  }
@@ -56808,6 +56831,18 @@
 	      }
 	      this.props.newListing(data);
 	      _reactRouter.browserHistory.push('/listings');
+	    }
+	  }, {
+	    key: 'changeCountry',
+	    value: function changeCountry(event) {
+	      console.log(event.target.value);
+	      this.setState({ country: event.target.value });
+	    }
+	  }, {
+	    key: 'changeCity',
+	    value: function changeCity(event) {
+	      console.log(event.target.value);
+	      this.setState({ city: event.target.value });
 	    }
 	  }, {
 	    key: 'componentWillMount',
@@ -56850,6 +56885,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var x = 0;
 	      var _props = this.props;
 	      var handleSubmit = _props.handleSubmit;
 	      var userInfo = _props.userInfo;
@@ -56862,6 +56898,8 @@
 	      var availableForRent = _props$fields.availableForRent;
 	      var datesAvailable = _props$fields.datesAvailable;
 	
+	
+	      var citiesorstates = this.state.country ? _cities2.default[this.state.country].split('|') : [];
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
@@ -56880,13 +56918,58 @@
 	                _react2.default.createElement(
 	                  'label',
 	                  null,
+	                  'Country: '
+	                ),
+	                _react2.default.createElement(
+	                  'select',
+	                  { className: 'form-control', onChange: this.changeCountry.bind(this) },
+	                  _react2.default.createElement(
+	                    'option',
+	                    { key: 'default' },
+	                    'Pick A Country'
+	                  ),
+	                  _countries2.default.map(function (e) {
+	                    return _react2.default.createElement(
+	                      'option',
+	                      { key: e, value: e },
+	                      e
+	                    );
+	                  })
+	                )
+	              ),
+	              this.state.country && _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                this.state.country === 'United States' && _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'State: '
+	                ),
+	                this.state.country !== 'United States' && _react2.default.createElement(
+	                  'label',
+	                  null,
 	                  'City: '
 	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control' }, city)),
-	                city.touched && city.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  city.error
+	                _react2.default.createElement(
+	                  'select',
+	                  { className: 'form-control', onChange: this.changeCity.bind(this) },
+	                  this.state.country === 'United States' && _react2.default.createElement(
+	                    'option',
+	                    { key: 'default' },
+	                    'Pick A State'
+	                  ),
+	                  this.state.country !== 'United States' && _react2.default.createElement(
+	                    'option',
+	                    { key: 'default' },
+	                    'Pick A City'
+	                  ),
+	                  citiesorstates.map(function (e) {
+	                    return _react2.default.createElement(
+	                      'option',
+	                      { key: x += 1, value: e },
+	                      e
+	                    );
+	                  })
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -56902,6 +56985,21 @@
 	                  'div',
 	                  { className: 'error' },
 	                  country.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'City: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control' }, city)),
+	                city.touched && city.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  city.error
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -66241,26 +66339,30 @@
 	var _exports = module.exports = city_states;
 
 /***/ },
-/* 361 */
-/*!****************************!*\
-  !*** ./public/states.json ***!
-  \****************************/
+/* 361 */,
+/* 362 */,
+/* 363 */
+/*!*****************************!*\
+  !*** ./public/countries.js ***!
+  \*****************************/
 /***/ function(module, exports) {
 
 	"use strict";
 	
-	module.exports = ["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Federated States of Micronesia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Marshall Islands", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virgin Island", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+	var countries = ["Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, The Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "England", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji Islands", "Finland", "France", "French Guiana", "French Polynesia", "French Southern territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard Island and McDonald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "North Korea", "Northern Ireland", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Helena", "Saint Kitts and Nevis", "Saint Lucia", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Scotland", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "South Korea", "South Sudan", "Spain", "SriLanka", "Sudan", "Suriname", "Svalbard and Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands, British", "Virgin Islands, U.S.", "Wales", "Wallis and Futuna", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"];
+	module.exports = countries;
 
 /***/ },
-/* 362 */
-/*!*******************************!*\
-  !*** ./public/countries.json ***!
-  \*******************************/
+/* 364 */
+/*!**************************!*\
+  !*** ./public/states.js ***!
+  \**************************/
 /***/ function(module, exports) {
 
 	"use strict";
 	
-	module.exports = ["Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, The Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "England", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji Islands", "Finland", "France", "French Guiana", "French Polynesia", "French Southern territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard Island and McDonald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "North Korea", "Northern Ireland", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Helena", "Saint Kitts and Nevis", "Saint Lucia", "Saint Pierre and Miquelon", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Scotland", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "South Korea", "South Sudan", "Spain", "SriLanka", "Sudan", "Suriname", "Svalbard and Jan Mayen", "Swaziland", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands, British", "Virgin Islands, U.S.", "Wales", "Wallis and Futuna", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"];
+	var states = ["Alabama", "Alaska", "American Samoa", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Federated States of Micronesia", "Florida", "Georgia", "Guam", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Marshall Islands", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio", "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virgin Island", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+	module.exports = states;
 
 /***/ }
 /******/ ]);
