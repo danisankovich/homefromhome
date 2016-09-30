@@ -10,11 +10,13 @@ class NewListing extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      file: '', city: ''
+      file: '',
     }
   }
   handleFormSubmit(formProps) { //called with props from submit form
     var data = formProps
+    data.city = this.state.city
+    data.country = this.state.country
     data.image = this.state.file
     data.username = this.props.userInfo.username;
     data.id = this.props.userInfo._id;
@@ -24,16 +26,20 @@ class NewListing extends Component {
       alert('Must supply Image');
       return;
     }
+    for (var key in data) {
+      if (!data[key]) {
+        alert(`All Fields Are Required. Please fill in the ${key} field`)
+        return;
+      }
+    }
     this.props.newListing(data);
     browserHistory.push('/listings')
   }
   changeCountry(event) {
-    console.log(event.target.value)
-    this.setState({country: event.target.value})
+    this.setState({country: event.target.value});
   }
   changeCity(event) {
-    console.log(event.target.value)
-    this.setState({city: event.target.value})
+    this.setState({city: event.target.value});
   }
   componentWillMount() {
     this.props.fetchInfo();
@@ -63,10 +69,17 @@ class NewListing extends Component {
 
   }
   render() {
-    let x = 0
-    let { handleSubmit, userInfo, fields: {city, country, address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
+    let incrementKey = 0
+    let { handleSubmit, userInfo, fields: {address, image, pricePerNight, availableForRent, datesAvailable }} = this.props;
 
-    let citiesorstates = this.state.country ? city_states[this.state.country].split('|') : [];
+    let citiesorstates = [];
+    if (this.state.country) {
+      if (!city_states[this.state.country]) {
+        alert('Sorry. We do not provide services in that country');
+      } else {
+        citiesorstates = city_states[this.state.country].split('|');
+      }
+    }
     return (
       <div className="container">
         <div className="row">
@@ -81,7 +94,7 @@ class NewListing extends Component {
                   })}
                 </select>
               </fieldset>
-              {this.state.country &&
+              {this.state.country && citiesorstates.length > 0 &&
                 <fieldset className="form-group">
                   {this.state.country === 'United States' && <label>State: </label>}
                   {this.state.country !== 'United States' && <label>City: </label>}
@@ -89,21 +102,11 @@ class NewListing extends Component {
                     {this.state.country === 'United States' && <option key="default">Pick A State</option>}
                     {this.state.country !== 'United States' && <option key="default">Pick A City</option>}
                     {citiesorstates.map((e) => {
-                      return <option key={x+=1} value={e}>{e}</option>
+                      if(e.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
                     })}
                   </select>
                 </fieldset>
               }
-              <fieldset className="form-group">
-                <label>Country: </label>
-                <input className="form-control" {...country} />
-                {country.touched && country.error && <div className="error">{country.error}</div>}
-              </fieldset>
-              <fieldset className="form-group">
-                <label>City: </label>
-                <input className="form-control" {...city} />
-                {city.touched && city.error && <div className="error">{city.error}</div>}
-              </fieldset>
               <fieldset className="form-group">
                 <label>Address: </label>
                 <input className="form-control" type="text" {...address} />
@@ -153,12 +156,6 @@ class NewListing extends Component {
 function validate(formProps) {
   const errors = {};
 
-  if (!formProps.city) {
-    errors.city = 'Please Enter a City';
-  }
-  if (!formProps.country) {
-    errors.country = 'Please Enter a Country';
-  }
   if (!formProps.address) {
     errors.address = 'Please Enter an Address';
   }

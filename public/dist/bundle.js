@@ -56810,7 +56810,7 @@
 	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this, props));
 	
 	    _this.state = {
-	      file: '', city: ''
+	      file: ''
 	    };
 	    return _this;
 	  }
@@ -56820,6 +56820,8 @@
 	    value: function handleFormSubmit(formProps) {
 	      //called with props from submit form
 	      var data = formProps;
+	      data.city = this.state.city;
+	      data.country = this.state.country;
 	      data.image = this.state.file;
 	      data.username = this.props.userInfo.username;
 	      data.id = this.props.userInfo._id;
@@ -56829,19 +56831,23 @@
 	        alert('Must supply Image');
 	        return;
 	      }
+	      for (var key in data) {
+	        if (!data[key]) {
+	          alert('All Fields Are Required. Please fill in the ' + key + ' field');
+	          return;
+	        }
+	      }
 	      this.props.newListing(data);
 	      _reactRouter.browserHistory.push('/listings');
 	    }
 	  }, {
 	    key: 'changeCountry',
 	    value: function changeCountry(event) {
-	      console.log(event.target.value);
 	      this.setState({ country: event.target.value });
 	    }
 	  }, {
 	    key: 'changeCity',
 	    value: function changeCity(event) {
-	      console.log(event.target.value);
 	      this.setState({ city: event.target.value });
 	    }
 	  }, {
@@ -56885,13 +56891,11 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var x = 0;
+	      var incrementKey = 0;
 	      var _props = this.props;
 	      var handleSubmit = _props.handleSubmit;
 	      var userInfo = _props.userInfo;
 	      var _props$fields = _props.fields;
-	      var city = _props$fields.city;
-	      var country = _props$fields.country;
 	      var address = _props$fields.address;
 	      var image = _props$fields.image;
 	      var pricePerNight = _props$fields.pricePerNight;
@@ -56899,7 +56903,14 @@
 	      var datesAvailable = _props$fields.datesAvailable;
 	
 	
-	      var citiesorstates = this.state.country ? _cities2.default[this.state.country].split('|') : [];
+	      var citiesorstates = [];
+	      if (this.state.country) {
+	        if (!_cities2.default[this.state.country]) {
+	          alert('Sorry. We do not provide services in that country');
+	        } else {
+	          citiesorstates = _cities2.default[this.state.country].split('|');
+	        }
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
@@ -56937,7 +56948,7 @@
 	                  })
 	                )
 	              ),
-	              this.state.country && _react2.default.createElement(
+	              this.state.country && citiesorstates.length > 0 && _react2.default.createElement(
 	                'fieldset',
 	                { className: 'form-group' },
 	                this.state.country === 'United States' && _react2.default.createElement(
@@ -56964,42 +56975,12 @@
 	                    'Pick A City'
 	                  ),
 	                  citiesorstates.map(function (e) {
-	                    return _react2.default.createElement(
+	                    if (e.length > 0) return _react2.default.createElement(
 	                      'option',
-	                      { key: x += 1, value: e },
+	                      { key: incrementKey += 1, value: e },
 	                      e
 	                    );
 	                  })
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Country: '
-	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control' }, country)),
-	                country.touched && country.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  country.error
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'City: '
-	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control' }, city)),
-	                city.touched && city.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  city.error
 	                )
 	              ),
 	              _react2.default.createElement(
@@ -57105,12 +57086,6 @@
 	function validate(formProps) {
 	  var errors = {};
 	
-	  if (!formProps.city) {
-	    errors.city = 'Please Enter a City';
-	  }
-	  if (!formProps.country) {
-	    errors.country = 'Please Enter a Country';
-	  }
 	  if (!formProps.address) {
 	    errors.address = 'Please Enter an Address';
 	  }
