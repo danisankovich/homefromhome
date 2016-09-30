@@ -12,21 +12,10 @@ const userSchema = new Schema({
   languages: Array,
   myListings: Array,
   myPhotos: Array,
-  avatar: String
+  avatar: String,
+  savedListings: Array,
+  favoriteBlogs: Array
 });
-
-// hook that runs before the model gets saved
-// userSchema.pre('save', function(next) {
-//   const user = this;
-//   bcrypt.genSalt(10, function(err, salt) {
-//     if (err) { return next(err); }
-//     bcrypt.hash(user.password, salt, null, function(err, hash) {
-//       if (err) {return next(err); }
-//       user.password = hash;
-//       return next(user);
-//     })
-//   })
-// });
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
   let pwd = this.password
