@@ -44303,7 +44303,7 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo, listings: state.listing.listings };
+	  return { listings: state.listing.listings };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
 

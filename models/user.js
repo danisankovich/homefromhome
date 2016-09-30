@@ -14,7 +14,9 @@ const userSchema = new Schema({
   myPhotos: Array,
   avatar: String,
   savedListings: Array,
-  favoriteBlogs: Array
+  favoriteBlogs: Array,
+  reviewsOfMe: Array,
+  myReviews: Array
 });
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {

@@ -110,6 +110,6 @@ class Listing extends Component {
 };
 }
 function mapStateToProps(state) {
-  return {userInfo: state.auth.userInfo, listings: state.listing.listings};
+  return {listings: state.listing.listings};
 }
 export default connect(mapStateToProps, actions)(Listing);
