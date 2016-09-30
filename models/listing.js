@@ -11,9 +11,11 @@ const listingSchema = new Schema({
   location: {
     city: {type: String, lowercase: true, require: true},
     country: {type: String, lowercase: true, require: true},
-    address: {type: String, lowercase: true, require: true}
+    address: {type: String, lowercase: true, require: true},
+    usCity: {type: String, lowercase: true}
   },
   image: String,
+  photos: [],
   pricePerNight: String,
   availableForRent: Boolean,
   datesAvailable: String,
@@ -21,6 +23,10 @@ const listingSchema = new Schema({
   type: String,
   title: String,
   description: String,
+  review: {
+    rating: String,
+    review: String
+  }
 });
 const LISTING = mongoose.model('listing', listingSchema);
 module.exports = LISTING;

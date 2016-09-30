@@ -23,12 +23,15 @@ class NewListing extends Component {
     data.id = this.props.userInfo._id;
     data.phoneNumber = this.props.userInfo.phoneNumber;
     data.email = this.props.userInfo.email;
+    if(data.country !== 'United States') {
+      data.usCity = 'not valid'
+    }
     if(data.image.length === 0) {
       alert('Must supply Image');
       return;
     }
     for (var key in data) {
-      if (!data[key]) {
+      if (!data[key] ) {
         alert(`All Fields Are Required. Please fill in the ${key} field`)
         return;
       }
@@ -74,7 +77,7 @@ class NewListing extends Component {
   }
   render() {
     let incrementKey = 0
-    let { handleSubmit, userInfo, fields: {address, image, pricePerNight, availableForRent, title, description }} = this.props;
+    let { handleSubmit, userInfo, fields: {address, usCity, image, pricePerNight, availableForRent, title, description }} = this.props;
 
     let citiesorstates = [];
     if (this.state.country) {
@@ -109,6 +112,12 @@ class NewListing extends Component {
                       if(e.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
                     })}
                   </select>
+                </fieldset>
+              }
+              {this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' &&
+                <fieldset className="form-group">
+                  <label>US City: </label>
+                  <input className='form-control' type='text' {...usCity}/>
                 </fieldset>
               }
               <fieldset className="form-group">
@@ -195,6 +204,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'newListing',
-  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title'],
+  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title', 'usCity'],
   validate,
 }, mapStateToProps, actions)(NewListing);

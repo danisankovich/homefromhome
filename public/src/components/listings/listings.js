@@ -17,6 +17,7 @@ class Listing extends Component {
   }
   changeCountry(event) {
     this.setState({country: event.target.value});
+    this.setState({city: ''})
   }
   changeCity(event) {
     this.setState({city: event.target.value});
@@ -75,29 +76,34 @@ class Listing extends Component {
             <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City</button>
           </div>
         </div>
-        {listings.map(function(result) {
-          return (
-            <div className="col-sm-4" key={result._id} onClick={this.handleClick.bind(result)}>
-              <div className="listingBorder">
-                <h3>{result.title}</h3>
-                <div className="thumbnail">
-                  <img className="img-responsive center-block listingListImage"
-                    src={result.image}
-                    />
-                </div>
-                <hr />
-                <div className="row">
-                  <div className="col-sm-10 col-sm-offset-1">
-                    <h3>Country: {result.location.country}</h3>
-                    <h3>City: {result.location.city}</h3>
-                    <h3>Price: ${result.pricePerNight} / night</h3>
-                  </div>
-                </div>
-              </div>
-              <br />
-            </div>
-          );
-        }.bind(this))}
+        {listings && listings.length > 0 && <table className="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>Listing Name</th>
+              <th>Country</th>
+              {this.state.country === 'United States' && <th>State</th>}
+              <th>City</th>
+              <th>Address</th>
+              <th>Price Per Night</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {listings.map(function(result) {
+              return (
+                <tr key={result._id} onClick={this.handleClick.bind(result)}>
+                  <td>{result.title}</td>
+                  <td>{result.location.country}</td>
+                  <td>{result.location.city}</td>
+                  {result.location.usCity !== 'not valid' && <td>{result.location.usCity}</td>}
+                  <td>{result.location.address}</td>
+                  <td>${result.pricePerNight}</td>
+                  <td>rating</td>
+                </tr>
+              )
+            }.bind(this))}
+          </tbody>
+        </table>}
       </div>
 
   );

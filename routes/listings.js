@@ -56,7 +56,8 @@ router.post('/new', (req, res) => {
   data.location = {
     city: req.body.city.toLowerCase(),
     address: req.body.address.toLowerCase(),
-    country: req.body.country.toLowerCase()
+    country: req.body.country.toLowerCase(),
+    usCity: req.body.usCity
   }
   data.creator = {
     username: req.body.username,

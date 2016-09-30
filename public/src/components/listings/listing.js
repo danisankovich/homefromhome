@@ -28,7 +28,7 @@ class SingleListing extends Component {
               <div className="row">
                 <div className="col-sm-12">
                   <div className="col-sm-10 col-sm-offset-1">
-                    <h2>{listing.location.address}, {listing.location.city}, {listing.location.country}</h2>
+                    <h2>{listing.location.address}, {listing.location.usCity !== 'not valid' && listing.location.usCity + ','} {listing.location.city},  {listing.location.country}</h2>
                     <h3>Price: ${listing.pricePerNight} / night</h3>
                     <hr />
                     <h3>Contact Info: </h3>
