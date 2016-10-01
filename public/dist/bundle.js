@@ -44048,6 +44048,10 @@
 	
 	var _countries2 = _interopRequireDefault(_countries);
 	
+	var _tablelisting = __webpack_require__(/*! ./tablelisting */ 363);
+	
+	var _tablelisting2 = _interopRequireDefault(_tablelisting);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -44085,12 +44089,6 @@
 	    key: 'changeCity',
 	    value: function changeCity(event) {
 	      this.setState({ city: event.target.value });
-	    }
-	  }, {
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      var clickResult = this._id;
-	      _reactRouter.browserHistory.push('/listings/' + clickResult);
 	    }
 	  }, {
 	    key: 'cityCountrySearch',
@@ -44252,46 +44250,7 @@
 	            'tbody',
 	            null,
 	            listings.map(function (result) {
-	              return _react2.default.createElement(
-	                'tr',
-	                { key: result._id, onClick: this.handleClick.bind(result) },
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  result.title
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  result.location.country
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  result.location.city
-	                ),
-	                result.location.usCity !== 'not valid' && _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  result.location.usCity
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  result.location.address
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  '$',
-	                  result.pricePerNight
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  'rating'
-	                )
-	              );
+	              return _react2.default.createElement(_tablelisting2.default, { result: result, key: result._id });
 	            }.bind(this))
 	          )
 	        )
@@ -66466,6 +66425,108 @@
 		return module;
 	}
 
+
+/***/ },
+/* 363 */
+/*!********************************************************!*\
+  !*** ./public/src/components/listings/tablelisting.js ***!
+  \********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TableListing = function (_Component) {
+	  _inherits(TableListing, _Component);
+	
+	  function TableListing() {
+	    _classCallCheck(this, TableListing);
+	
+	    return _possibleConstructorReturn(this, (TableListing.__proto__ || Object.getPrototypeOf(TableListing)).apply(this, arguments));
+	  }
+	
+	  _createClass(TableListing, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/listings/' + clickResult);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.log(this.props);
+	      var result = this.props.result;
+	
+	      return _react2.default.createElement(
+	        'tr',
+	        { key: result._id, onClick: this.handleClick.bind(result) },
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          result.title
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.country
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.city
+	        ),
+	        result.location.usCity !== 'not valid' && _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.usCity
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.address
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          '$',
+	          result.pricePerNight
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          'rating'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return TableListing;
+	}(_react.Component);
+	
+	module.exports = TableListing;
 
 /***/ }
 /******/ ]);

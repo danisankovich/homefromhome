@@ -7,6 +7,8 @@ import city_states from '../../../cities';
 import states from '../../../states';
 import countries from '../../../countries';
 
+import TableListing from './tablelisting';
+
 class Listing extends Component {
   constructor(props) {
     super(props);
@@ -21,10 +23,6 @@ class Listing extends Component {
   }
   changeCity(event) {
     this.setState({city: event.target.value});
-  }
-  handleClick() {
-    let clickResult = this._id;
-    browserHistory.push(`/listings/${clickResult}`);
   }
   cityCountrySearch() {
     console.log(this.state.country, this.state.city)
@@ -90,17 +88,7 @@ class Listing extends Component {
           </thead>
           <tbody>
             {listings.map(function(result) {
-              return (
-                <tr key={result._id} onClick={this.handleClick.bind(result)}>
-                  <td>{result.title}</td>
-                  <td>{result.location.country}</td>
-                  <td>{result.location.city}</td>
-                  {result.location.usCity !== 'not valid' && <td>{result.location.usCity}</td>}
-                  <td>{result.location.address}</td>
-                  <td>${result.pricePerNight}</td>
-                  <td>rating</td>
-                </tr>
-              )
+              return <TableListing result={result} key={result._id}/>
             }.bind(this))}
           </tbody>
         </table>}
