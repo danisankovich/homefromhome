@@ -29111,8 +29111,6 @@
 	
 	var _listing = __webpack_require__(/*! ./funcs/listing */ 367);
 	
-	var ROOT_URL = 'http://localhost:3000/api';
-	
 	//USER FUNCTIONS
 	function signinUser(_ref) {
 	  var email = _ref.email;
@@ -39084,14 +39082,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ROOT_URL = 'http://localhost:3000/api'; // commits info about url to react router, and to make changes to url
-	
+	// const ROOT_URL = 'http://localhost:3000/api';
 	
 	exports.signIn = function (dispatch, _ref) {
 	  var email = _ref.email;
 	  var password = _ref.password;
 	
-	  _jquery2.default.post(ROOT_URL + '/signin', { email: email, password: password }).done(function (response) {
+	  _jquery2.default.post('api/signin', { email: email, password: password }).done(function (response) {
 	    dispatch({ type: _types.AUTH_USER });
 	    localStorage.setItem('token', response.token);
 	    _reactRouter.browserHistory.push('/'); // success pushes you to /information.
@@ -39099,7 +39096,8 @@
 	    // catch does not take you to new page
 	    dispatch(authError('EMAIL/PASSWORD combo incorrect'));
 	  });
-	};
+	}; // commits info about url to react router, and to make changes to url
+	
 	
 	exports.signUp = function (dispatch, _ref2) {
 	  var email = _ref2.email;
@@ -39107,7 +39105,7 @@
 	  var username = _ref2.username;
 	
 	  _jquery2.default.ajax({
-	    url: ROOT_URL + '/signup',
+	    url: 'api/signup',
 	    type: "POST",
 	    data: { email: email, password: password, username: username }
 	  }).done(function (response) {
@@ -39130,7 +39128,7 @@
 	  dispatch({ type: _types.EDIT_USER });
 	
 	  _jquery2.default.ajax({
-	    url: ROOT_URL + '/editInfo',
+	    url: 'api/editInfo',
 	    type: "POST",
 	    data: { phoneNumber: phoneNumber, email: email, user: user, 'lang': lang }
 	  }).done(function (response) {
@@ -39144,7 +39142,7 @@
 	  dispatch({ type: _types.UPLOAD_AVATAR });
 	
 	  _jquery2.default.ajax({
-	    url: ROOT_URL + '/uploadavatar',
+	    url: 'api/uploadavatar',
 	    type: "POST",
 	    data: { image: photo, user: user }
 	  }).done(function (response) {
@@ -39158,7 +39156,7 @@
 	  dispatch({ type: _types.UPLOAD_PHOTO });
 	
 	  _jquery2.default.ajax({
-	    url: ROOT_URL + '/uploadmyphoto',
+	    url: 'api/uploadmyphoto',
 	    type: "POST",
 	    data: { image: photo.image, location: photo.location, tagline: photo.tagline, user: user }
 	  }).done(function (response) {
@@ -39171,7 +39169,7 @@
 	exports.getUser = function (dispatch) {
 	  var token = localStorage.getItem('token');
 	  _jquery2.default.ajax({
-	    url: ROOT_URL,
+	    url: 'api/',
 	    type: "GET",
 	    headers: {
 	      "authorization": token
@@ -66613,12 +66611,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ROOT_URL = 'http://localhost:3000/api'; // commits info about url to react router, and to make changes to url
-	
+	// const ROOT_URL = 'http://localhost:3000/api';
 	
 	exports.createBlog = function (data, dispatch) {
 	  _jquery2.default.ajax({
-	    url: ROOT_URL + '/blogs/new',
+	    url: 'api/blogs/new',
 	    type: "POST",
 	    data: data
 	  }).done(function (response) {
@@ -66631,7 +66628,8 @@
 	  }).fail(function (err) {
 	    console.log(err);
 	  });
-	};
+	}; // commits info about url to react router, and to make changes to url
+	
 	
 	exports.getBlog = function (id, dispatch) {
 	  _jquery2.default.ajax({
@@ -66676,14 +66674,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ROOT_URL = 'http://localhost:3000/api'; // commits info about url to react router, and to make changes to url
-	
+	// const ROOT_URL = 'http://localhost:3000/api';
 	
 	exports.getListing = function (id, dispatch) {
 	  var token = localStorage.getItem('token');
 	
 	  _jquery2.default.ajax({
-	    url: ROOT_URL + '/listings/' + id,
+	    url: '../api/listings/' + id,
 	    type: "GET",
 	    headers: {
 	      "authorization": token
@@ -66694,7 +66691,8 @@
 	      payload: response
 	    });
 	  });
-	};
+	}; // commits info about url to react router, and to make changes to url
+	
 	exports.getAllListings = function (term, dispatch) {
 	  _jquery2.default.ajax({
 	    url: 'api/listings/location/' + term,
@@ -66721,7 +66719,7 @@
 	exports.createListing = function (data, dispatch) {
 	  var token = localStorage.getItem('token');
 	  _jquery2.default.ajax({
-	    url: ROOT_URL + '/listings/new',
+	    url: 'api/listings/new',
 	    type: "POST",
 	    headers: {
 	      "authorization": token

@@ -6,11 +6,11 @@ import {
   FETCH_ALL_BLOGS,
 } from '../types';
 
-const ROOT_URL = 'http://localhost:3000/api';
+// const ROOT_URL = 'http://localhost:3000/api';
 
 exports.createBlog = function(data, dispatch) {
   $.ajax({
-     url: `${ROOT_URL}/blogs/new`,
+     url: `api/blogs/new`,
      type: "POST",
      data: data
   }).done((response) => {

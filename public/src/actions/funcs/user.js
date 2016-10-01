@@ -10,10 +10,10 @@ import {
   FETCH_INFO,
 } from '../types';
 
-const ROOT_URL = 'http://localhost:3000/api';
+// const ROOT_URL = 'http://localhost:3000/api';
 
 exports.signIn = function(dispatch, {email, password}) {
-  $.post(`${ROOT_URL}/signin`, { email, password })
+  $.post(`api/signin`, { email, password })
     .done(response => {
       dispatch({type: AUTH_USER});
       localStorage.setItem('token', response.token);
@@ -27,7 +27,7 @@ exports.signIn = function(dispatch, {email, password}) {
 
 exports.signUp = function(dispatch, {email, password, username}) {
   $.ajax({
-    url: `${ROOT_URL}/signup`,
+    url: `api/signup`,
     type: "POST",
     data: {email, password, username},
   })
@@ -47,7 +47,7 @@ exports.userEdit = function(dispatch, {phoneNumber, email, lang}, user) {
   dispatch({type: EDIT_USER});
 
   $.ajax({
-    url: `${ROOT_URL}/editInfo`,
+    url: `api/editInfo`,
     type: "POST",
     data: {phoneNumber, email, user, 'lang': lang },
   })
@@ -62,7 +62,7 @@ exports.avatarUpload = function(photo, user, dispatch) {
   dispatch({type: UPLOAD_AVATAR});
 
   $.ajax({
-    url: `${ROOT_URL}/uploadavatar`,
+    url: `api/uploadavatar`,
     type: "POST",
     data: {image: photo, user},
   })
@@ -77,7 +77,7 @@ exports.myPhotoUpload = function(dispatch, photo, user) {
   dispatch({type: UPLOAD_PHOTO});
 
   $.ajax({
-    url: `${ROOT_URL}/uploadmyphoto`,
+    url: `api/uploadmyphoto`,
     type: "POST",
     data: {image: photo.image, location: photo.location, tagline: photo.tagline, user},
   })
@@ -91,7 +91,7 @@ exports.myPhotoUpload = function(dispatch, photo, user) {
 exports.getUser = function(dispatch) {
   var token = localStorage.getItem('token')
   $.ajax({
-     url: ROOT_URL,
+     url: 'api/',
      type: "GET",
      headers: {
         "authorization": token

@@ -1,7 +1,6 @@
 import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser} from './funcs/user';
 import {createBlog, getBlog, getAllBlogs} from './funcs/blog';
 import {getListing, getAllListings, getMyListings, createListing} from './funcs/listing';
-const ROOT_URL = 'http://localhost:3000/api';
 
 //USER FUNCTIONS
 export function signinUser({email, password}) {

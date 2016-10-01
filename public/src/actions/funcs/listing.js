@@ -6,13 +6,13 @@ import {
   NEW_LISTING,
   FETCH_SINGLE_LISTING,
 } from '../types';
-const ROOT_URL = 'http://localhost:3000/api';
+// const ROOT_URL = 'http://localhost:3000/api';
 
 exports.getListing = function(id, dispatch) {
   var token = localStorage.getItem('token')
 
   $.ajax({
-     url: `${ROOT_URL}/listings/${id}`,
+     url: `../api/listings/${id}`,
      type: "GET",
      headers: {
         "authorization": token
@@ -50,7 +50,7 @@ exports.getMyListings = function(array, dispatch) {
 exports.createListing = function(data, dispatch) {
   var token = localStorage.getItem('token')
   $.ajax({
-     url: `${ROOT_URL}/listings/new`,
+     url: `api/listings/new`,
      type: "POST",
      headers: {
         "authorization": token
