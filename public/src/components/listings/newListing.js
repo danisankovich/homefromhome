@@ -190,7 +190,7 @@ function validate(formProps) {
     errors.description = 'Describe the listing';
   }
   if(!formProps.title) {
-    errors.description = 'Title the listing';
+    errors.title = 'Title the listing';
   }
   return errors;
 }
