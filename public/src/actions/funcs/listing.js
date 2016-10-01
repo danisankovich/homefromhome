@@ -12,7 +12,7 @@ exports.getListing = function(id, dispatch) {
   var token = localStorage.getItem('token')
 
   $.ajax({
-     url: `../api/listings/${id}`,
+     url: `/api/listings/${id}`,
      type: "GET",
      headers: {
         "authorization": token

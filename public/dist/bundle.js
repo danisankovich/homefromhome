@@ -66680,7 +66680,7 @@
 	  var token = localStorage.getItem('token');
 	
 	  _jquery2.default.ajax({
-	    url: '../api/listings/' + id,
+	    url: '/api/listings/' + id,
 	    type: "GET",
 	    headers: {
 	      "authorization": token
