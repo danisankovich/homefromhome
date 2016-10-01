@@ -15,9 +15,6 @@ class Listing extends Component {
     super(props);
     this.state = { city: '', country: ''};
   }
-  componentWillMount() {
-    this.props.fetchInfo();
-  }
   render() {
     let listings = [];
     if(this.props.listings) {
