@@ -44048,9 +44048,13 @@
 	
 	var _countries2 = _interopRequireDefault(_countries);
 	
-	var _tablelisting = __webpack_require__(/*! ./tablelisting */ 363);
+	var _tablelisting = __webpack_require__(/*! ./tools/tablelisting */ 365);
 	
 	var _tablelisting2 = _interopRequireDefault(_tablelisting);
+	
+	var _listing_search = __webpack_require__(/*! ./tools/listing_search */ 366);
+	
+	var _listing_search2 = _interopRequireDefault(_listing_search);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -44070,7 +44074,7 @@
 	
 	    var _this = _possibleConstructorReturn(this, (Listing.__proto__ || Object.getPrototypeOf(Listing)).call(this, props));
 	
-	    _this.state = { city: '', country: '', listings: [] };
+	    _this.state = { city: '', country: '' };
 	    return _this;
 	  }
 	
@@ -44080,125 +44084,19 @@
 	      this.props.fetchInfo();
 	    }
 	  }, {
-	    key: 'changeCountry',
-	    value: function changeCountry(event) {
-	      this.setState({ country: event.target.value });
-	      this.setState({ city: '' });
-	    }
-	  }, {
-	    key: 'changeCity',
-	    value: function changeCity(event) {
-	      this.setState({ city: event.target.value });
-	    }
-	  }, {
-	    key: 'cityCountrySearch',
-	    value: function cityCountrySearch() {
-	      console.log(this.state.country, this.state.city);
-	      this.props.fetchListings(this.state.country + '_' + this.state.city);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var incrementKey = 0;
-	
-	      var cityCountrySearch = this.cityCountrySearch;
-	      var userInfo = this.props.userInfo;
-	
 	      var listings = [];
 	      if (this.props.listings) {
 	        listings = this.props.listings;
-	      }
-	      var citiesorstates = [];
-	      if (this.state.country) {
-	        if (!_cities2.default[this.state.country]) {
-	          alert('Sorry. We do not provide services in that country');
-	        } else {
-	          citiesorstates = _cities2.default[this.state.country].split('|');
-	        }
 	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-12' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-1' },
-	            _react2.default.createElement(
-	              'label',
-	              { className: 'searchLabel' },
-	              'Country: '
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-4' },
-	            _react2.default.createElement(
-	              'select',
-	              { className: 'form-control', onChange: this.changeCountry.bind(this) },
-	              _react2.default.createElement(
-	                'option',
-	                { key: 'default' },
-	                'Pick A Country'
-	              ),
-	              _countries2.default.map(function (e) {
-	                return _react2.default.createElement(
-	                  'option',
-	                  { key: e, value: e },
-	                  e
-	                );
-	              })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-1' },
-	            this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' && _react2.default.createElement(
-	              'label',
-	              { className: 'searchLabel' },
-	              'State: '
-	            ),
-	            this.state.country && citiesorstates.length > 0 && this.state.country !== 'United States' && _react2.default.createElement(
-	              'label',
-	              { className: 'searchLabel' },
-	              'City: '
-	            )
-	          ),
-	          this.state.country && _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-4' },
-	            _react2.default.createElement(
-	              'select',
-	              { className: 'form-control', onChange: this.changeCity.bind(this) },
-	              this.state.country === 'United States' && _react2.default.createElement(
-	                'option',
-	                { key: 'default' },
-	                'Pick A State'
-	              ),
-	              this.state.country !== 'United States' && _react2.default.createElement(
-	                'option',
-	                { key: 'default' },
-	                'Pick A City'
-	              ),
-	              citiesorstates.map(function (e) {
-	                if (e.length > 0) return _react2.default.createElement(
-	                  'option',
-	                  { key: incrementKey += 1, value: e },
-	                  e
-	                );
-	              })
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-2' },
-	            _react2.default.createElement(
-	              'button',
-	              { className: 'btn btn-primary', onClick: this.cityCountrySearch.bind(this) },
-	              'Search City'
-	            )
-	          )
+	          null,
+	          _react2.default.createElement(_listing_search2.default, null)
 	        ),
 	        listings && listings.length > 0 && _react2.default.createElement(
 	          'table',
@@ -66427,10 +66325,12 @@
 
 
 /***/ },
-/* 363 */
-/*!********************************************************!*\
-  !*** ./public/src/components/listings/tablelisting.js ***!
-  \********************************************************/
+/* 363 */,
+/* 364 */,
+/* 365 */
+/*!**************************************************************!*\
+  !*** ./public/src/components/listings/tools/tablelisting.js ***!
+  \**************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66443,7 +66343,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
 	
-	var _actions = __webpack_require__(/*! ../../actions */ 260);
+	var _actions = __webpack_require__(/*! ../../../actions */ 260);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -66527,6 +66427,193 @@
 	}(_react.Component);
 	
 	module.exports = TableListing;
+
+/***/ },
+/* 366 */
+/*!****************************************************************!*\
+  !*** ./public/src/components/listings/tools/listing_search.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	var _lodash = __webpack_require__(/*! lodash */ 361);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _cities = __webpack_require__(/*! ../../../../cities */ 348);
+	
+	var _cities2 = _interopRequireDefault(_cities);
+	
+	var _states = __webpack_require__(/*! ../../../../states */ 349);
+	
+	var _states2 = _interopRequireDefault(_states);
+	
+	var _countries = __webpack_require__(/*! ../../../../countries */ 350);
+	
+	var _countries2 = _interopRequireDefault(_countries);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var ListingSearch = function (_Component) {
+	  _inherits(ListingSearch, _Component);
+	
+	  function ListingSearch(props) {
+	    _classCallCheck(this, ListingSearch);
+	
+	    var _this = _possibleConstructorReturn(this, (ListingSearch.__proto__ || Object.getPrototypeOf(ListingSearch)).call(this, props));
+	
+	    _this.state = { country: '', city: '' };
+	    return _this;
+	  }
+	
+	  _createClass(ListingSearch, [{
+	    key: 'changeCountry',
+	    value: function changeCountry(event) {
+	      this.setState({ country: event.target.value });
+	      this.setState({ city: '' });
+	    }
+	  }, {
+	    key: 'changeCity',
+	    value: function changeCity(event) {
+	      this.setState({ city: event.target.value });
+	    }
+	  }, {
+	    key: 'cityCountrySearch',
+	    value: function cityCountrySearch() {
+	      this.props.fetchListings(this.state.country + '_' + this.state.city);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var incrementKey = 0;
+	
+	      var cityCountrySearch = this.cityCountrySearch;
+	      var citiesorstates = [];
+	      if (this.state.country) {
+	        if (!_cities2.default[this.state.country]) {
+	          alert('Sorry. We do not provide services in that country');
+	        } else {
+	          citiesorstates = _cities2.default[this.state.country].split('|');
+	        }
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'col-sm-12' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-1' },
+	          _react2.default.createElement(
+	            'label',
+	            { className: 'searchLabel' },
+	            'Country: '
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-4' },
+	          _react2.default.createElement(
+	            'select',
+	            { className: 'form-control', onChange: this.changeCountry.bind(this) },
+	            _react2.default.createElement(
+	              'option',
+	              { key: 'default' },
+	              'Pick A Country'
+	            ),
+	            _countries2.default.map(function (e) {
+	              return _react2.default.createElement(
+	                'option',
+	                { key: e, value: e },
+	                e
+	              );
+	            })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-1' },
+	          this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' && _react2.default.createElement(
+	            'label',
+	            { className: 'searchLabel' },
+	            'State: '
+	          ),
+	          this.state.country && citiesorstates.length > 0 && this.state.country !== 'United States' && _react2.default.createElement(
+	            'label',
+	            { className: 'searchLabel' },
+	            'City: '
+	          )
+	        ),
+	        this.state.country && _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-4' },
+	          _react2.default.createElement(
+	            'select',
+	            { className: 'form-control', onChange: this.changeCity.bind(this) },
+	            this.state.country === 'United States' && _react2.default.createElement(
+	              'option',
+	              { key: 'default' },
+	              'Pick A State'
+	            ),
+	            this.state.country !== 'United States' && _react2.default.createElement(
+	              'option',
+	              { key: 'default' },
+	              'Pick A City'
+	            ),
+	            citiesorstates.map(function (e) {
+	              if (e.length > 0) return _react2.default.createElement(
+	                'option',
+	                { key: incrementKey += 1, value: e },
+	                e
+	              );
+	            })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-sm-2' },
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'btn btn-primary', onClick: this.cityCountrySearch.bind(this) },
+	            'Search City'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return ListingSearch;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { listings: state.listing.listings };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(ListingSearch);
 
 /***/ }
 /******/ ]);
