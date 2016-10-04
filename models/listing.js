@@ -16,7 +16,7 @@ const listingSchema = new Schema({
   },
   image: String,
   photos: [],
-  pricePerNight: String,
+  pricePerNight: Number,
   availableForRent: Boolean,
   datesAvailable: String,
   description: String,

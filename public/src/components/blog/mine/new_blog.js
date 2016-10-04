@@ -8,6 +8,10 @@ class NewBlog extends Component {
   handleFormSubmit(formProps) { //called with props from submit form
     var data = formProps
     data.username = this.props.userInfo.username;
+    if (data.tagline.length > 25) {
+      alert('Tagline must be 25 characters or fewer');
+      return;
+    }
     data.id = this.props.userInfo._id;
     data.image = []
     this.props.newBlog(data);

@@ -57427,9 +57427,15 @@
 	      listing.type = this.state.type;
 	      if (['address', 'city', 'usCity', 'country'].indexOf(listing.type) > -1) {
 	        listing.location[listing.type] = this.state.inputValue;
+	      } else {
+	        listing[listing.type] = this.state.inputValue;
+	        if (listing.type === 'pricePerNight' && isNaN(listing[listing.type])) {
+	          alert('Must supply a valid number');
+	          return;
+	        }
 	      }
 	      this.props.editListing({ listing: listing }, this.props.userInfo._id);
-	      this.setState({ editAddress: false, editusCity: false });
+	      this.setState({ editAddress: false, editusCity: false, editPrice: false });
 	    }
 	  }, {
 	    key: 'updateInputValue',
@@ -57604,10 +57610,51 @@
 	                      null,
 	                      _react2.default.createElement(
 	                        'li',
-	                        null,
+	                        {
+	                          className: this.state.editPrice ? 'hidden' : '',
+	                          onClick: function () {
+	                            this.handleClick({ editPrice: true });
+	                          }.bind(this)
+	                        },
 	                        'Price: $',
 	                        listing.pricePerNight,
 	                        ' / night'
+	                      ),
+	                      _react2.default.createElement(
+	                        'li',
+	                        { className: this.state.editPrice ? '' : 'hidden' },
+	                        _react2.default.createElement(
+	                          'form',
+	                          { onSubmit: this.handleFormSubmit.bind(this) },
+	                          _react2.default.createElement(
+	                            'fieldset',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                              'label',
+	                              null,
+	                              'New Price: '
+	                            ),
+	                            _react2.default.createElement('input', { className: 'form-control', type: 'number', min: '0.01', step: '0.01', max: '5000.00',
+	                              onChange: function (evt) {
+	                                this.setState({
+	                                  inputValue: evt.target.value, type: 'pricePerNight'
+	                                });
+	                              }.bind(this) })
+	                          ),
+	                          _react2.default.createElement(
+	                            'button',
+	                            { type: 'button', className: 'btn btn-danger',
+	                              onClick: function () {
+	                                this.handleClick({ editPrice: false });
+	                              }.bind(this) },
+	                            'hide'
+	                          ),
+	                          _react2.default.createElement(
+	                            'button',
+	                            { action: 'submit', className: 'btn btn-primary' },
+	                            'Save'
+	                          )
+	                        )
 	                      ),
 	                      _react2.default.createElement(
 	                        'li',
@@ -66520,6 +66567,10 @@
 	      //called with props from submit form
 	      var data = formProps;
 	      data.username = this.props.userInfo.username;
+	      if (data.tagline.length > 25) {
+	        alert('Tagline must be 25 characters or fewer');
+	        return;
+	      }
 	      data.id = this.props.userInfo._id;
 	      data.image = [];
 	      this.props.newBlog(data);

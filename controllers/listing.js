@@ -54,6 +54,8 @@ exports.editListing = (req, res) => {
       else {
         if(['address', 'city', 'usCity', 'country'].indexOf(updatedListing.type) > -1) {
           listing.location[updatedListing.type] = updatedListing.location[updatedListing.type]
+        } else {
+          listing[updatedListing.type] = updatedListing[updatedListing.type]
         }
         listing.save()
         res.send(listing);

@@ -20,9 +20,15 @@ class SingleListing extends Component {
     listing.type = this.state.type
     if(['address', 'city', 'usCity', 'country'].indexOf(listing.type) > -1) {
       listing.location[listing.type] = this.state.inputValue
+    } else {
+      listing[listing.type] = this.state.inputValue
+      if(listing.type === 'pricePerNight' && isNaN(listing[listing.type])) {
+        alert('Must supply a valid number');
+        return;
+      }
     }
     this.props.editListing({listing}, this.props.userInfo._id)
-    this.setState({editAddress: false, editusCity: false})
+    this.setState({editAddress: false, editusCity: false, editPrice: false})
   }
   updateInputValue(evt) {
     this.setState({
@@ -111,7 +117,34 @@ class SingleListing extends Component {
                     </ul>
                     <h3>Listing Details: </h3>
                     <ul>
-                      <li>Price: ${listing.pricePerNight} / night</li>
+                      <li
+                        className={this.state.editPrice ? 'hidden' : ''}
+                        onClick={function(){
+                          this.handleClick({editPrice: true})
+                        }.bind(this)}
+                      >
+                        Price: ${listing.pricePerNight} / night
+                      </li>
+                      <li className={this.state.editPrice ? '' : 'hidden'}>
+                        <form onSubmit={this.handleFormSubmit.bind(this)}>
+                          <fieldset className="form-group">
+                            <label>New Price: </label>
+                            <input className="form-control" type="number" min="0.01" step="0.01" max="5000.00"
+                              onChange={function(evt) {
+                                this.setState({
+                                  inputValue: evt.target.value, type: 'pricePerNight'
+                                });
+                              }.bind(this)}/>
+                          </fieldset>
+                          <button type='button' className="btn btn-danger"
+                            onClick={function(){
+                              this.handleClick({editPrice: false})
+                            }.bind(this)}>
+                            hide
+                          </button>
+                          <button action="submit" className="btn btn-primary">Save</button>
+                        </form>
+                      </li>
                       <li>Email: {listing.creator.email}</li>
                       <li>Phone Number: {listing.creator.phoneNumber}</li>
                     </ul>
