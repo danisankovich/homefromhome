@@ -9,8 +9,7 @@ class BlogList extends Component {
     this.props.fetchAllBlogs();
   }
   render() {
-    let {blogs} = this.props;
-    console.log(blogs)
+    let {userInfo, blogs} = this.props;
     if(blogs && blogs.length) {
       return (
         <div className="col-sm-12">

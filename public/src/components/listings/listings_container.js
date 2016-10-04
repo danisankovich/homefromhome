@@ -6,12 +6,7 @@ import {Link} from 'react-router';
 
 //WELCOMING PAGE
 class Listings_Container extends Component {
-  componentWillMount() {
-    this.props.fetchInfo();
-    // this.props.fetchListings();
-  }
   render() {
-    let {listings, userInfo} = this.props;
       return (
         <div className='container toppush'>
           <div className="row">
@@ -28,7 +23,5 @@ class Listings_Container extends Component {
       );
   };
 }
-function mapStateToProps(state) {
-  return {userInfo: state.auth.userInfo};
-}
-export default connect(mapStateToProps, actions)(Listings_Container);
+
+module.exports = Listings_Container

@@ -1,6 +1,6 @@
 import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser} from './funcs/user';
 import {createBlog, getBlog, getAllBlogs} from './funcs/blog';
-import {getListing, getAllListings, getMyListings, createListing} from './funcs/listing';
+import {getListing, getAllListings, getMyListings, createListing, edit} from './funcs/listing';
 
 //USER FUNCTIONS
 export function signinUser({email, password}) {
@@ -66,6 +66,11 @@ export function newListing(data) {
 export function fetchSingleListing(id) {
   return function(dispatch) {
     getListing(id, dispatch)
+  }
+}
+export function editListing({listing}, userId) {
+  return function(dispatch) {
+    edit({listing}, userId, dispatch)
   }
 }
 

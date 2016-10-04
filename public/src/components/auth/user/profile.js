@@ -19,7 +19,7 @@ class Profile extends Component {
   }
   render() {
     let {userInfo} = this.props;
-    if(userInfo) {
+    if(userInfo && userInfo.languages) {
       let photos = userInfo.myPhotos;
       return (
         <div className="toppush container">

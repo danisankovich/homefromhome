@@ -7,14 +7,32 @@ import ReactMarkdown from 'react-markdown';
 
 class SingleListing extends Component {
   componentWillMount() {
+    this.setState({listing: '', inputValue: ''})
     let id = this.props.location.pathname.split('listings/')[1]
     this.props.fetchSingleListing(id);
   }
+  handleClick(type) {
+     this.setState(type);
+  }
+  handleFormSubmit(e) { //called with props from submit form
+    e.preventDefault();
+    let listing = this.state.listing
+    listing.type = this.state.type
+    if(['address', 'city', 'usCity', 'country'].indexOf(listing.type) > -1) {
+      listing.location[listing.type] = this.state.inputValue
+    }
+    this.props.editListing({listing}, this.props.userInfo._id)
+    this.setState({editAddress: false, editusCity: false})
+  }
+  updateInputValue(evt) {
+    this.setState({
+      inputValue: evt.target.value
+    });
+  }
   render() {
-    let {listing} = this.props;
-
-    console.log(listing)
-    if(listing) {
+    let {listing, userInfo} = this.props;
+    if(listing && listing.location) {
+      this.state.listing = listing
       return (
         <div>
           <div className="col-sm-10 col-sm-offset-1">
@@ -28,14 +46,76 @@ class SingleListing extends Component {
               <div className="row">
                 <div className="col-sm-12">
                   <div className="col-sm-10 col-sm-offset-1">
-                    <h2>{listing.location.address}, {listing.location.usCity !== 'not valid' && listing.location.usCity + ','} {listing.location.city},  {listing.location.country}</h2>
-                    <h3>Price: ${listing.pricePerNight} / night</h3>
-                    <hr />
-                    <h3>Contact Info: </h3>
-                    <h4>Email: {listing.creator.email}</h4>
-                    <h4>Phone Number: {listing.creator.phoneNumber}</h4>
-                    <hr />
-                    <h4>Description: </h4>
+                    <h3>Listing Location: </h3>
+                    <ul>
+                      <li
+                        className={this.state.editAddress ? 'hidden' : ''}
+                        onClick={function(){
+                          this.handleClick({editAddress: true})
+                        }.bind(this)}
+                      >
+                        Address: {listing.location.address}
+                      </li>
+                      <li className={this.state.editAddress ? '' : 'hidden'}>
+                        <form onSubmit={this.handleFormSubmit.bind(this)}>
+                          <fieldset className="form-group">
+                            <label>New Address: </label>
+                            <input className="form-control"
+                              onChange={function(evt) {
+                                this.setState({
+                                  inputValue: evt.target.value, type: 'address'
+                                });
+                              }.bind(this)}/>
+                          </fieldset>
+                          <button type='button' className="btn btn-danger"
+                            onClick={function(){
+                              this.handleClick({editAddress: false})
+                            }.bind(this)}>
+                            hide
+                          </button>
+                          <button action="submit" className="btn btn-primary">Save</button>
+                        </form>
+                      </li>
+                      {listing.location.usCity !=='not valid' &&
+                        <li
+                          className={this.state.editusCity ? 'hidden' : ''}
+                          onClick={function(){
+                            this.handleClick({editusCity: true})
+                          }.bind(this)}
+                        >
+                          City: {listing.location.usCity}
+                        </li>}
+                        <li className={this.state.editusCity ? '' : 'hidden'}>
+                          <form onSubmit={this.handleFormSubmit.bind(this)}>
+                            <fieldset className="form-group">
+                              <label>New City: </label>
+                              <input className="form-control"
+                                onChange={function(evt) {
+                                  this.setState({
+                                    inputValue: evt.target.value, type: 'usCity'
+                                  });
+                                }.bind(this)}/>
+                            </fieldset>
+                            <button type='button' className="btn btn-danger"
+                              onClick={function(){
+                                this.handleClick({editusCity: false})
+                              }.bind(this)}>
+                              hide
+                            </button>
+                            <button action="submit" className="btn btn-primary">Save</button>
+                          </form>
+                        </li>
+                      {listing.location.usCity !=='not valid' && <li>State: {listing.location.city}</li>}
+                      {listing.location.usCity ==='not valid' && <li>City: {listing.location.city}</li>}
+                      <li>Country: {listing.location.country}</li>
+                    </ul>
+                    <h3>Listing Details: </h3>
+                    <ul>
+                      <li>Price: ${listing.pricePerNight} / night</li>
+                      <li>Email: {listing.creator.email}</li>
+                      <li>Phone Number: {listing.creator.phoneNumber}</li>
+                    </ul>
+                    <h3>Description: </h3>
                     <ReactMarkdown className='body-spacing' source={listing.description} />
                   </div>
                 </div>

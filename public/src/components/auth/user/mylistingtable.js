@@ -14,8 +14,10 @@ class TableListing extends Component {
         <tr key={result._id} onClick={this.handleClick.bind(result)} className='table-row'>
           <td>{result.title}</td>
           <td>{result.location.country}</td>
-          <td>{result.location.city}</td>
+          {result.location.country === 'united states' && <td>{result.location.city}</td>}
+          {result.location.country !== 'united states' && <td>X</td>}
           {result.location.usCity !== 'not valid' && <td>{result.location.usCity}</td>}
+          {result.location.usCity === 'not valid' && <td>{result.location.city}</td>}
           <td>{result.location.address}</td>
           <td>${result.pricePerNight}</td>
           <td>rating</td>

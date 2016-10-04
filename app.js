@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
+let ejs = require('ejs');
 var routes = require('./routes/index');
 var listings = require('./routes/listings');
 var blogs = require('./routes/blogs');
@@ -30,7 +30,7 @@ app.use('/', routes);
 app.use('/api/listings', listings);
 app.use('/api/blogs', blogs);
 
-app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs');
 app.get('*', (req, res) => {
   var indexPath = path.join(__dirname, 'views/index.html');
   res.sendFile(indexPath);
@@ -50,7 +50,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render(path.join(__dirname, 'views/error.html'), {
+      res.render(path.join('views/error.html'), {
       message: err.message,
       error: err
     });

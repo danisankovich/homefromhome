@@ -5,6 +5,7 @@ import {
   FETCH_MY_LISTINGS,
   NEW_LISTING,
   FETCH_SINGLE_LISTING,
+  EDIT_LISTING,
 } from '../types';
 // const ROOT_URL = 'http://localhost:3000/api';
 
@@ -59,6 +60,23 @@ exports.createListing = function(data, dispatch) {
   }).done((response) => {
     dispatch({
       type: NEW_LISTING,
+      payload: response
+    })
+  })
+}
+exports.edit = function(listing, userId, dispatch) {
+  var token = localStorage.getItem('token')
+  let data = JSON.stringify(listing)
+  $.ajax({
+     url: `/api/listings/editListing`,
+     type: "POST",
+     headers: {
+        "authorization": token
+     },
+     data: {data}
+  }).done((response) => {
+    dispatch({
+      type: EDIT_LISTING,
       payload: response
     })
   })

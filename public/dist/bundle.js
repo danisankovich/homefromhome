@@ -85,75 +85,75 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _signin = __webpack_require__(/*! ./components/auth/signin */ 264);
+	var _signin = __webpack_require__(/*! ./components/auth/signin */ 266);
 	
 	var _signin2 = _interopRequireDefault(_signin);
 	
-	var _signup = __webpack_require__(/*! ./components/auth/signup */ 310);
+	var _signup = __webpack_require__(/*! ./components/auth/signup */ 312);
 	
 	var _signup2 = _interopRequireDefault(_signup);
 	
-	var _signout = __webpack_require__(/*! ./components/auth/signout */ 311);
+	var _signout = __webpack_require__(/*! ./components/auth/signout */ 313);
 	
 	var _signout2 = _interopRequireDefault(_signout);
 	
-	var _information = __webpack_require__(/*! ./components/information */ 312);
+	var _information = __webpack_require__(/*! ./components/information */ 314);
 	
 	var _information2 = _interopRequireDefault(_information);
 	
-	var _profile = __webpack_require__(/*! ./components/auth/user/profile */ 313);
+	var _profile = __webpack_require__(/*! ./components/auth/user/profile */ 315);
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
-	var _settings = __webpack_require__(/*! ./components/auth/user/settings */ 316);
+	var _settings = __webpack_require__(/*! ./components/auth/user/settings */ 319);
 	
 	var _settings2 = _interopRequireDefault(_settings);
 	
-	var _welcome_container = __webpack_require__(/*! ./components/welcome_container */ 317);
+	var _welcome_container = __webpack_require__(/*! ./components/welcome_container */ 320);
 	
 	var _welcome_container2 = _interopRequireDefault(_welcome_container);
 	
-	var _listings_container = __webpack_require__(/*! ./components/listings/listings_container */ 319);
+	var _listings_container = __webpack_require__(/*! ./components/listings/listings_container */ 322);
 	
 	var _listings_container2 = _interopRequireDefault(_listings_container);
 	
-	var _listing = __webpack_require__(/*! ./components/listings/listing */ 328);
+	var _listing = __webpack_require__(/*! ./components/listings/listing */ 331);
 	
 	var _listing2 = _interopRequireDefault(_listing);
 	
-	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 355);
+	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 332);
 	
 	var _newListing2 = _interopRequireDefault(_newListing);
 	
-	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 356);
+	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 359);
 	
 	var _blog_container2 = _interopRequireDefault(_blog_container);
 	
-	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 358);
+	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 361);
 	
 	var _my_blog2 = _interopRequireDefault(_my_blog);
 	
-	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 359);
+	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 362);
 	
 	var _new_blog2 = _interopRequireDefault(_new_blog);
 	
-	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 357);
+	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 360);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
-	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 360);
+	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 363);
 	
 	var _single_blog2 = _interopRequireDefault(_single_blog);
 	
-	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 361);
+	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 364);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 362);
+	var _reducers = __webpack_require__(/*! ./reducers */ 365);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _types = __webpack_require__(/*! ./actions/types */ 262);
+	var _types = __webpack_require__(/*! ./actions/types */ 263);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -29101,15 +29101,16 @@
 	exports.fetchMyListings = fetchMyListings;
 	exports.newListing = newListing;
 	exports.fetchSingleListing = fetchSingleListing;
+	exports.editListing = editListing;
 	exports.newBlog = newBlog;
 	exports.fetchSingleBlog = fetchSingleBlog;
 	exports.fetchAllBlogs = fetchAllBlogs;
 	
-	var _user = __webpack_require__(/*! ./funcs/user */ 263);
+	var _user = __webpack_require__(/*! ./funcs/user */ 261);
 	
-	var _blog = __webpack_require__(/*! ./funcs/blog */ 366);
+	var _blog = __webpack_require__(/*! ./funcs/blog */ 264);
 	
-	var _listing = __webpack_require__(/*! ./funcs/listing */ 367);
+	var _listing = __webpack_require__(/*! ./funcs/listing */ 265);
 	
 	//USER FUNCTIONS
 	function signinUser(_ref) {
@@ -29188,6 +29189,13 @@
 	    (0, _listing.getListing)(id, dispatch);
 	  };
 	}
+	function editListing(_ref4, userId) {
+	  var listing = _ref4.listing;
+	
+	  return function (dispatch) {
+	    (0, _listing.edit)({ listing: listing }, userId, dispatch);
+	  };
+	}
 	
 	//BLOG Functions
 	function newBlog(data) {
@@ -29209,6 +29217,139 @@
 
 /***/ },
 /* 261 */
+/*!******************************************!*\
+  !*** ./public/src/actions/funcs/user.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.authError = authError;
+	
+	var _jquery = __webpack_require__(/*! jquery */ 262);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	var _types = __webpack_require__(/*! ../types */ 263);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// const ROOT_URL = 'http://localhost:3000/api';
+	
+	exports.signIn = function (dispatch, _ref) {
+	  var email = _ref.email;
+	  var password = _ref.password;
+	
+	  _jquery2.default.post('api/signin', { email: email, password: password }).done(function (response) {
+	    dispatch({ type: _types.AUTH_USER });
+	    localStorage.setItem('token', response.token);
+	    _reactRouter.browserHistory.push('/'); // success pushes you to /information.
+	  }).fail(function () {
+	    // catch does not take you to new page
+	    dispatch(authError('EMAIL/PASSWORD combo incorrect'));
+	  });
+	}; // commits info about url to react router, and to make changes to url
+	
+	
+	exports.signUp = function (dispatch, _ref2) {
+	  var email = _ref2.email;
+	  var password = _ref2.password;
+	  var username = _ref2.username;
+	
+	  _jquery2.default.ajax({
+	    url: 'api/signup',
+	    type: "POST",
+	    data: { email: email, password: password, username: username }
+	  }).done(function (response) {
+	    dispatch({ type: _types.AUTH_USER });
+	
+	    localStorage.setItem('token', response.token);
+	
+	    _reactRouter.browserHistory.push('/information'); // success pushes you to /information.
+	  }).fail(function (error) {
+	    console.log(error);
+	    dispatch(authError(error.response.error));
+	  });
+	};
+	
+	exports.userEdit = function (dispatch, _ref3, user) {
+	  var phoneNumber = _ref3.phoneNumber;
+	  var email = _ref3.email;
+	  var lang = _ref3.lang;
+	
+	  dispatch({ type: _types.EDIT_USER });
+	
+	  _jquery2.default.ajax({
+	    url: 'api/editInfo',
+	    type: "POST",
+	    data: { phoneNumber: phoneNumber, email: email, user: user, 'lang': lang }
+	  }).done(function (response) {
+	    dispatch({ type: _types.FETCH_INFO });
+	  }).fail(function (error) {
+	    console.log(error);
+	    dispatch(authError(error.response.error));
+	  });
+	};
+	exports.avatarUpload = function (photo, user, dispatch) {
+	  dispatch({ type: _types.UPLOAD_AVATAR });
+	
+	  _jquery2.default.ajax({
+	    url: 'api/uploadavatar',
+	    type: "POST",
+	    data: { image: photo, user: user }
+	  }).done(function (response) {
+	    dispatch({ type: _types.FETCH_INFO });
+	  }).fail(function (error) {
+	    console.log(error);
+	    dispatch(authError(error.response.error));
+	  });
+	};
+	exports.myPhotoUpload = function (dispatch, photo, user) {
+	  dispatch({ type: _types.UPLOAD_PHOTO });
+	
+	  _jquery2.default.ajax({
+	    url: 'api/uploadmyphoto',
+	    type: "POST",
+	    data: { image: photo.image, location: photo.location, tagline: photo.tagline, user: user }
+	  }).done(function (response) {
+	    dispatch({ type: _types.FETCH_INFO });
+	  }).fail(function (error) {
+	    console.log(error);
+	    dispatch(authError(error.response.error));
+	  });
+	};
+	exports.getUser = function (dispatch) {
+	  var token = localStorage.getItem('token');
+	  _jquery2.default.ajax({
+	    url: '/api/',
+	    type: "GET",
+	    headers: {
+	      "authorization": token
+	    }
+	  }).done(function (response) {
+	    console.log(response);
+	    dispatch({
+	      type: _types.FETCH_INFO,
+	      payload: response
+	    });
+	  }).fail(function (err) {
+	    console.log('error', err);
+	  });
+	};
+	function authError(error) {
+	  return {
+	    type: _types.AUTH_ERROR,
+	    payload: error
+	  };
+	}
+
+/***/ },
+/* 262 */
 /*!*********************************!*\
   !*** ./~/jquery/dist/jquery.js ***!
   \*********************************/
@@ -39031,7 +39172,7 @@
 
 
 /***/ },
-/* 262 */
+/* 263 */
 /*!*************************************!*\
   !*** ./public/src/actions/types.js ***!
   \*************************************/
@@ -39050,6 +39191,7 @@
 	var FETCH_MY_LISTINGS = exports.FETCH_MY_LISTINGS = 'fetch_my_listings';
 	var NEW_LISTING = exports.NEW_LISTING = 'new_listing';
 	var FETCH_SINGLE_LISTING = exports.FETCH_SINGLE_LISTING = 'fetch_single_listing';
+	var EDIT_LISTING = exports.EDIT_LISTING = 'edit_listing';
 	var EDIT_USER = exports.EDIT_USER = 'edit_user';
 	var UPLOAD_PHOTO = exports.UPLOAD_PHOTO = 'upload_photo';
 	var UPLOAD_AVATAR = exports.UPLOAD_AVATAR = 'upload_avatar';
@@ -39059,137 +39201,165 @@
 	var SET_MARKDOWN = exports.SET_MARKDOWN = 'set_markdown';
 
 /***/ },
-/* 263 */
+/* 264 */
 /*!******************************************!*\
-  !*** ./public/src/actions/funcs/user.js ***!
+  !*** ./public/src/actions/funcs/blog.js ***!
   \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.authError = authError;
-	
-	var _jquery = __webpack_require__(/*! jquery */ 261);
+	var _jquery = __webpack_require__(/*! jquery */ 262);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _types = __webpack_require__(/*! ../types */ 262);
+	var _types = __webpack_require__(/*! ../types */ 263);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// const ROOT_URL = 'http://localhost:3000/api';
 	
-	exports.signIn = function (dispatch, _ref) {
-	  var email = _ref.email;
-	  var password = _ref.password;
-	
-	  _jquery2.default.post('api/signin', { email: email, password: password }).done(function (response) {
-	    dispatch({ type: _types.AUTH_USER });
-	    localStorage.setItem('token', response.token);
-	    _reactRouter.browserHistory.push('/'); // success pushes you to /information.
-	  }).fail(function () {
-	    // catch does not take you to new page
-	    dispatch(authError('EMAIL/PASSWORD combo incorrect'));
+	exports.createBlog = function (data, dispatch) {
+	  _jquery2.default.ajax({
+	    url: '/api/blogs/new',
+	    type: "POST",
+	    data: data
+	  }).done(function (response) {
+	    console.log(response);
+	    dispatch({
+	      type: _types.NEW_BLOG,
+	      payload: response
+	    });
+	    _reactRouter.browserHistory.push('/blogs/mine'); // success pushes you to /information.
+	  }).fail(function (err) {
+	    console.log(err);
 	  });
 	}; // commits info about url to react router, and to make changes to url
 	
 	
-	exports.signUp = function (dispatch, _ref2) {
-	  var email = _ref2.email;
-	  var password = _ref2.password;
-	  var username = _ref2.username;
-	
+	exports.getBlog = function (id, dispatch) {
 	  _jquery2.default.ajax({
-	    url: 'api/signup',
-	    type: "POST",
-	    data: { email: email, password: password, username: username }
+	    url: '/api/blogs/' + id,
+	    type: "GET"
 	  }).done(function (response) {
-	    dispatch({ type: _types.AUTH_USER });
-	
-	    localStorage.setItem('token', response.token);
-	
-	    _reactRouter.browserHistory.push('/information'); // success pushes you to /information.
-	  }).fail(function (error) {
-	    console.log(error);
-	    dispatch(authError(error.response.error));
+	    dispatch({
+	      type: _types.FETCH_SINGLE_BLOG,
+	      payload: response
+	    });
 	  });
 	};
 	
-	exports.userEdit = function (dispatch, _ref3, user) {
-	  var phoneNumber = _ref3.phoneNumber;
-	  var email = _ref3.email;
-	  var lang = _ref3.lang;
-	
-	  dispatch({ type: _types.EDIT_USER });
-	
+	exports.getAllBlogs = function (dispatch) {
 	  _jquery2.default.ajax({
-	    url: 'api/editInfo',
-	    type: "POST",
-	    data: { phoneNumber: phoneNumber, email: email, user: user, 'lang': lang }
+	    url: '/api/blogs/',
+	    type: "GET"
 	  }).done(function (response) {
-	    dispatch({ type: _types.FETCH_INFO });
-	  }).fail(function (error) {
-	    console.log(error);
-	    dispatch(authError(error.response.error));
+	    dispatch({
+	      type: _types.FETCH_ALL_BLOGS,
+	      payload: response
+	    });
 	  });
 	};
-	exports.avatarUpload = function (photo, user, dispatch) {
-	  dispatch({ type: _types.UPLOAD_AVATAR });
+
+/***/ },
+/* 265 */
+/*!*********************************************!*\
+  !*** ./public/src/actions/funcs/listing.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	  _jquery2.default.ajax({
-	    url: 'api/uploadavatar',
-	    type: "POST",
-	    data: { image: photo, user: user }
-	  }).done(function (response) {
-	    dispatch({ type: _types.FETCH_INFO });
-	  }).fail(function (error) {
-	    console.log(error);
-	    dispatch(authError(error.response.error));
-	  });
-	};
-	exports.myPhotoUpload = function (dispatch, photo, user) {
-	  dispatch({ type: _types.UPLOAD_PHOTO });
+	var _jquery = __webpack_require__(/*! jquery */ 262);
 	
-	  _jquery2.default.ajax({
-	    url: 'api/uploadmyphoto',
-	    type: "POST",
-	    data: { image: photo.image, location: photo.location, tagline: photo.tagline, user: user }
-	  }).done(function (response) {
-	    dispatch({ type: _types.FETCH_INFO });
-	  }).fail(function (error) {
-	    console.log(error);
-	    dispatch(authError(error.response.error));
-	  });
-	};
-	exports.getUser = function (dispatch) {
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	var _types = __webpack_require__(/*! ../types */ 263);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// const ROOT_URL = 'http://localhost:3000/api';
+	
+	exports.getListing = function (id, dispatch) {
 	  var token = localStorage.getItem('token');
+	
 	  _jquery2.default.ajax({
-	    url: 'api/',
+	    url: '/api/listings/' + id,
 	    type: "GET",
 	    headers: {
 	      "authorization": token
 	    }
 	  }).done(function (response) {
 	    dispatch({
-	      type: _types.FETCH_INFO,
+	      type: _types.FETCH_SINGLE_LISTING,
+	      payload: response
+	    });
+	  });
+	}; // commits info about url to react router, and to make changes to url
+	
+	exports.getAllListings = function (term, dispatch) {
+	  _jquery2.default.ajax({
+	    url: 'api/listings/location/' + term,
+	    type: "GET"
+	  }).done(function (response) {
+	    dispatch({
+	      type: _types.FETCH_LISTINGS,
 	      payload: response
 	    });
 	  });
 	};
-	function authError(error) {
-	  return {
-	    type: _types.AUTH_ERROR,
-	    payload: error
-	  };
-	}
+	exports.getMyListings = function (array, dispatch) {
+	  _jquery2.default.ajax({
+	    url: 'api/listings/mylistings',
+	    type: "POST",
+	    data: { 'data': array }
+	  }).done(function (response) {
+	    dispatch({
+	      type: _types.FETCH_MY_LISTINGS,
+	      payload: response
+	    });
+	  });
+	};
+	exports.createListing = function (data, dispatch) {
+	  var token = localStorage.getItem('token');
+	  _jquery2.default.ajax({
+	    url: 'api/listings/new',
+	    type: "POST",
+	    headers: {
+	      "authorization": token
+	    },
+	    data: data
+	  }).done(function (response) {
+	    dispatch({
+	      type: _types.NEW_LISTING,
+	      payload: response
+	    });
+	  });
+	};
+	exports.edit = function (listing, userId, dispatch) {
+	  var token = localStorage.getItem('token');
+	  var data = JSON.stringify(listing);
+	  _jquery2.default.ajax({
+	    url: '/api/listings/editListing',
+	    type: "POST",
+	    headers: {
+	      "authorization": token
+	    },
+	    data: { data: data }
+	  }).done(function (response) {
+	    dispatch({
+	      type: _types.EDIT_LISTING,
+	      payload: response
+	    });
+	  });
+	};
 
 /***/ },
-/* 264 */
+/* 266 */
 /*!**********************************************!*\
   !*** ./public/src/components/auth/signin.js ***!
   \**********************************************/
@@ -39209,7 +39379,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 265);
+	var _reduxForm = __webpack_require__(/*! redux-form */ 267);
 	
 	var _actions = __webpack_require__(/*! ../../actions */ 260);
 	
@@ -39314,7 +39484,7 @@
 	}, mapStateToProps, actions)(Signin);
 
 /***/ },
-/* 265 */
+/* 267 */
 /*!***********************************!*\
   !*** ./~/redux-form/lib/index.js ***!
   \***********************************/
@@ -39331,7 +39501,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
 	
-	var _createAll2 = __webpack_require__(/*! ./createAll */ 266);
+	var _createAll2 = __webpack_require__(/*! ./createAll */ 268);
 	
 	var _createAll3 = _interopRequireDefault(_createAll2);
 	
@@ -39395,7 +39565,7 @@
 	exports.untouchWithKey = untouchWithKey;
 
 /***/ },
-/* 266 */
+/* 268 */
 /*!***************************************!*\
   !*** ./~/redux-form/lib/createAll.js ***!
   \***************************************/
@@ -39409,35 +39579,35 @@
 	
 	exports.default = createAll;
 	
-	var _reducer = __webpack_require__(/*! ./reducer */ 267);
+	var _reducer = __webpack_require__(/*! ./reducer */ 269);
 	
 	var _reducer2 = _interopRequireDefault(_reducer);
 	
-	var _createReduxForm = __webpack_require__(/*! ./createReduxForm */ 278);
+	var _createReduxForm = __webpack_require__(/*! ./createReduxForm */ 280);
 	
 	var _createReduxForm2 = _interopRequireDefault(_createReduxForm);
 	
-	var _mapValues = __webpack_require__(/*! ./mapValues */ 269);
+	var _mapValues = __webpack_require__(/*! ./mapValues */ 271);
 	
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 	
-	var _bindActionData = __webpack_require__(/*! ./bindActionData */ 285);
+	var _bindActionData = __webpack_require__(/*! ./bindActionData */ 287);
 	
 	var _bindActionData2 = _interopRequireDefault(_bindActionData);
 	
-	var _actions = __webpack_require__(/*! ./actions */ 284);
+	var _actions = __webpack_require__(/*! ./actions */ 286);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _actionTypes = __webpack_require__(/*! ./actionTypes */ 268);
+	var _actionTypes = __webpack_require__(/*! ./actionTypes */ 270);
 	
 	var actionTypes = _interopRequireWildcard(_actionTypes);
 	
-	var _createPropTypes = __webpack_require__(/*! ./createPropTypes */ 309);
+	var _createPropTypes = __webpack_require__(/*! ./createPropTypes */ 311);
 	
 	var _createPropTypes2 = _interopRequireDefault(_createPropTypes);
 	
-	var _getValuesFromState = __webpack_require__(/*! ./getValuesFromState */ 272);
+	var _getValuesFromState = __webpack_require__(/*! ./getValuesFromState */ 274);
 	
 	var _getValuesFromState2 = _interopRequireDefault(_getValuesFromState);
 	
@@ -39554,7 +39724,7 @@
 	}
 
 /***/ },
-/* 267 */
+/* 269 */
 /*!*************************************!*\
   !*** ./~/redux-form/lib/reducer.js ***!
   \*************************************/
@@ -39569,39 +39739,39 @@
 	
 	var _initialState, _behaviors;
 	
-	var _actionTypes = __webpack_require__(/*! ./actionTypes */ 268);
+	var _actionTypes = __webpack_require__(/*! ./actionTypes */ 270);
 	
-	var _mapValues = __webpack_require__(/*! ./mapValues */ 269);
+	var _mapValues = __webpack_require__(/*! ./mapValues */ 271);
 	
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 	
-	var _read = __webpack_require__(/*! ./read */ 270);
+	var _read = __webpack_require__(/*! ./read */ 272);
 	
 	var _read2 = _interopRequireDefault(_read);
 	
-	var _write = __webpack_require__(/*! ./write */ 271);
+	var _write = __webpack_require__(/*! ./write */ 273);
 	
 	var _write2 = _interopRequireDefault(_write);
 	
-	var _getValuesFromState = __webpack_require__(/*! ./getValuesFromState */ 272);
+	var _getValuesFromState = __webpack_require__(/*! ./getValuesFromState */ 274);
 	
 	var _getValuesFromState2 = _interopRequireDefault(_getValuesFromState);
 	
-	var _initializeState = __webpack_require__(/*! ./initializeState */ 274);
+	var _initializeState = __webpack_require__(/*! ./initializeState */ 276);
 	
 	var _initializeState2 = _interopRequireDefault(_initializeState);
 	
-	var _resetState = __webpack_require__(/*! ./resetState */ 275);
+	var _resetState = __webpack_require__(/*! ./resetState */ 277);
 	
 	var _resetState2 = _interopRequireDefault(_resetState);
 	
-	var _setErrors = __webpack_require__(/*! ./setErrors */ 276);
+	var _setErrors = __webpack_require__(/*! ./setErrors */ 278);
 	
 	var _setErrors2 = _interopRequireDefault(_setErrors);
 	
-	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 273);
+	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 275);
 	
-	var _normalizeFields = __webpack_require__(/*! ./normalizeFields */ 277);
+	var _normalizeFields = __webpack_require__(/*! ./normalizeFields */ 279);
 	
 	var _normalizeFields2 = _interopRequireDefault(_normalizeFields);
 	
@@ -39895,7 +40065,7 @@
 	exports.default = decorate(formReducer);
 
 /***/ },
-/* 268 */
+/* 270 */
 /*!*****************************************!*\
   !*** ./~/redux-form/lib/actionTypes.js ***!
   \*****************************************/
@@ -39923,7 +40093,7 @@
 	var UNTOUCH = exports.UNTOUCH = 'redux-form/UNTOUCH';
 
 /***/ },
-/* 269 */
+/* 271 */
 /*!***************************************!*\
   !*** ./~/redux-form/lib/mapValues.js ***!
   \***************************************/
@@ -39948,7 +40118,7 @@
 	}
 
 /***/ },
-/* 270 */
+/* 272 */
 /*!**********************************!*\
   !*** ./~/redux-form/lib/read.js ***!
   \**********************************/
@@ -39997,7 +40167,7 @@
 	exports.default = read;
 
 /***/ },
-/* 271 */
+/* 273 */
 /*!***********************************!*\
   !*** ./~/redux-form/lib/write.js ***!
   \***********************************/
@@ -40106,7 +40276,7 @@
 	exports.default = write;
 
 /***/ },
-/* 272 */
+/* 274 */
 /*!************************************************!*\
   !*** ./~/redux-form/lib/getValuesFromState.js ***!
   \************************************************/
@@ -40116,7 +40286,7 @@
 	
 	exports.__esModule = true;
 	
-	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 273);
+	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 275);
 	
 	/**
 	 * A different version of getValues() that does not need the fields array
@@ -40155,7 +40325,7 @@
 	exports.default = getValuesFromState;
 
 /***/ },
-/* 273 */
+/* 275 */
 /*!****************************************!*\
   !*** ./~/redux-form/lib/fieldValue.js ***!
   \****************************************/
@@ -40190,7 +40360,7 @@
 	}
 
 /***/ },
-/* 274 */
+/* 276 */
 /*!*********************************************!*\
   !*** ./~/redux-form/lib/initializeState.js ***!
   \*********************************************/
@@ -40202,7 +40372,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 273);
+	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 275);
 	
 	var makeEntry = function makeEntry(value, previousValue, overwriteValues) {
 	  if (value === undefined && previousValue === undefined) return (0, _fieldValue.makeFieldValue)({});
@@ -40275,7 +40445,7 @@
 	exports.default = initializeState;
 
 /***/ },
-/* 275 */
+/* 277 */
 /*!****************************************!*\
   !*** ./~/redux-form/lib/resetState.js ***!
   \****************************************/
@@ -40285,7 +40455,7 @@
 	
 	exports.__esModule = true;
 	
-	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 273);
+	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 275);
 	
 	var reset = function reset(value) {
 	  return (0, _fieldValue.makeFieldValue)(value === undefined || value && value.initial === undefined ? {} : { initial: value.initial, value: value.initial });
@@ -40317,7 +40487,7 @@
 	exports.default = resetState;
 
 /***/ },
-/* 276 */
+/* 278 */
 /*!***************************************!*\
   !*** ./~/redux-form/lib/setErrors.js ***!
   \***************************************/
@@ -40329,7 +40499,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 273);
+	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 275);
 	
 	var isMetaKey = function isMetaKey(key) {
 	  return key[0] === '_';
@@ -40414,7 +40584,7 @@
 	exports.default = setErrors;
 
 /***/ },
-/* 277 */
+/* 279 */
 /*!*********************************************!*\
   !*** ./~/redux-form/lib/normalizeFields.js ***!
   \*********************************************/
@@ -40428,7 +40598,7 @@
 	
 	exports.default = normalizeFields;
 	
-	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 273);
+	var _fieldValue = __webpack_require__(/*! ./fieldValue */ 275);
 	
 	function extractKey(field) {
 	  var dotIndex = field.indexOf('.');
@@ -40514,7 +40684,7 @@
 	}
 
 /***/ },
-/* 278 */
+/* 280 */
 /*!*********************************************!*\
   !*** ./~/redux-form/lib/createReduxForm.js ***!
   \*********************************************/
@@ -40526,7 +40696,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _createReduxFormConnector = __webpack_require__(/*! ./createReduxFormConnector */ 279);
+	var _createReduxFormConnector = __webpack_require__(/*! ./createReduxFormConnector */ 281);
 	
 	var _createReduxFormConnector2 = _interopRequireDefault(_createReduxFormConnector);
 	
@@ -40591,7 +40761,7 @@
 	exports.default = createReduxForm;
 
 /***/ },
-/* 279 */
+/* 281 */
 /*!******************************************************!*\
   !*** ./~/redux-form/lib/createReduxFormConnector.js ***!
   \******************************************************/
@@ -40601,15 +40771,15 @@
 	
 	exports.__esModule = true;
 	
-	var _noGetters = __webpack_require__(/*! react-lazy-cache/noGetters */ 280);
+	var _noGetters = __webpack_require__(/*! react-lazy-cache/noGetters */ 282);
 	
 	var _noGetters2 = _interopRequireDefault(_noGetters);
 	
-	var _getDisplayName = __webpack_require__(/*! ./getDisplayName */ 282);
+	var _getDisplayName = __webpack_require__(/*! ./getDisplayName */ 284);
 	
 	var _getDisplayName2 = _interopRequireDefault(_getDisplayName);
 	
-	var _createHigherOrderComponent = __webpack_require__(/*! ./createHigherOrderComponent */ 283);
+	var _createHigherOrderComponent = __webpack_require__(/*! ./createHigherOrderComponent */ 285);
 	
 	var _createHigherOrderComponent2 = _interopRequireDefault(_createHigherOrderComponent);
 	
@@ -40699,17 +40869,17 @@
 	exports.default = createReduxFormConnector;
 
 /***/ },
-/* 280 */
+/* 282 */
 /*!*****************************************!*\
   !*** ./~/react-lazy-cache/noGetters.js ***!
   \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! ./lib/noGetters */ 281);
+	module.exports = __webpack_require__(/*! ./lib/noGetters */ 283);
 
 
 /***/ },
-/* 281 */
+/* 283 */
 /*!*********************************************!*\
   !*** ./~/react-lazy-cache/lib/noGetters.js ***!
   \*********************************************/
@@ -40807,7 +40977,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 282 */
+/* 284 */
 /*!********************************************!*\
   !*** ./~/redux-form/lib/getDisplayName.js ***!
   \********************************************/
@@ -40822,7 +40992,7 @@
 	}
 
 /***/ },
-/* 283 */
+/* 285 */
 /*!********************************************************!*\
   !*** ./~/redux-form/lib/createHigherOrderComponent.js ***!
   \********************************************************/
@@ -40834,57 +41004,57 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _actions = __webpack_require__(/*! ./actions */ 284);
+	var _actions = __webpack_require__(/*! ./actions */ 286);
 	
 	var importedActions = _interopRequireWildcard(_actions);
 	
-	var _getDisplayName = __webpack_require__(/*! ./getDisplayName */ 282);
+	var _getDisplayName = __webpack_require__(/*! ./getDisplayName */ 284);
 	
 	var _getDisplayName2 = _interopRequireDefault(_getDisplayName);
 	
-	var _reducer = __webpack_require__(/*! ./reducer */ 267);
+	var _reducer = __webpack_require__(/*! ./reducer */ 269);
 	
 	var _deepEqual = __webpack_require__(/*! deep-equal */ 207);
 	
 	var _deepEqual2 = _interopRequireDefault(_deepEqual);
 	
-	var _bindActionData = __webpack_require__(/*! ./bindActionData */ 285);
+	var _bindActionData = __webpack_require__(/*! ./bindActionData */ 287);
 	
 	var _bindActionData2 = _interopRequireDefault(_bindActionData);
 	
-	var _getValues = __webpack_require__(/*! ./getValues */ 286);
+	var _getValues = __webpack_require__(/*! ./getValues */ 288);
 	
 	var _getValues2 = _interopRequireDefault(_getValues);
 	
-	var _isValid = __webpack_require__(/*! ./isValid */ 287);
+	var _isValid = __webpack_require__(/*! ./isValid */ 289);
 	
 	var _isValid2 = _interopRequireDefault(_isValid);
 	
-	var _readFields = __webpack_require__(/*! ./readFields */ 288);
+	var _readFields = __webpack_require__(/*! ./readFields */ 290);
 	
 	var _readFields2 = _interopRequireDefault(_readFields);
 	
-	var _handleSubmit2 = __webpack_require__(/*! ./handleSubmit */ 303);
+	var _handleSubmit2 = __webpack_require__(/*! ./handleSubmit */ 305);
 	
 	var _handleSubmit3 = _interopRequireDefault(_handleSubmit2);
 	
-	var _asyncValidation = __webpack_require__(/*! ./asyncValidation */ 304);
+	var _asyncValidation = __webpack_require__(/*! ./asyncValidation */ 306);
 	
 	var _asyncValidation2 = _interopRequireDefault(_asyncValidation);
 	
-	var _silenceEvents = __webpack_require__(/*! ./events/silenceEvents */ 305);
+	var _silenceEvents = __webpack_require__(/*! ./events/silenceEvents */ 307);
 	
 	var _silenceEvents2 = _interopRequireDefault(_silenceEvents);
 	
-	var _silenceEvent = __webpack_require__(/*! ./events/silenceEvent */ 306);
+	var _silenceEvent = __webpack_require__(/*! ./events/silenceEvent */ 308);
 	
 	var _silenceEvent2 = _interopRequireDefault(_silenceEvent);
 	
-	var _wrapMapDispatchToProps = __webpack_require__(/*! ./wrapMapDispatchToProps */ 307);
+	var _wrapMapDispatchToProps = __webpack_require__(/*! ./wrapMapDispatchToProps */ 309);
 	
 	var _wrapMapDispatchToProps2 = _interopRequireDefault(_wrapMapDispatchToProps);
 	
-	var _wrapMapStateToProps = __webpack_require__(/*! ./wrapMapStateToProps */ 308);
+	var _wrapMapStateToProps = __webpack_require__(/*! ./wrapMapStateToProps */ 310);
 	
 	var _wrapMapStateToProps2 = _interopRequireDefault(_wrapMapStateToProps);
 	
@@ -41196,7 +41366,7 @@
 	exports.default = createHigherOrderComponent;
 
 /***/ },
-/* 284 */
+/* 286 */
 /*!*************************************!*\
   !*** ./~/redux-form/lib/actions.js ***!
   \*************************************/
@@ -41207,7 +41377,7 @@
 	exports.__esModule = true;
 	exports.untouch = exports.touch = exports.swapArrayValues = exports.submitFailed = exports.stopSubmit = exports.stopAsyncValidation = exports.startSubmit = exports.startAsyncValidation = exports.reset = exports.removeArrayValue = exports.initialize = exports.focus = exports.destroy = exports.change = exports.blur = exports.autofill = exports.addArrayValue = undefined;
 	
-	var _actionTypes = __webpack_require__(/*! ./actionTypes */ 268);
+	var _actionTypes = __webpack_require__(/*! ./actionTypes */ 270);
 	
 	var addArrayValue = exports.addArrayValue = function addArrayValue(path, value, index, fields) {
 	  return { type: _actionTypes.ADD_ARRAY_VALUE, path: path, value: value, index: index, fields: fields };
@@ -41291,7 +41461,7 @@
 	};
 
 /***/ },
-/* 285 */
+/* 287 */
 /*!********************************************!*\
   !*** ./~/redux-form/lib/bindActionData.js ***!
   \********************************************/
@@ -41305,7 +41475,7 @@
 	
 	exports.default = bindActionData;
 	
-	var _mapValues = __webpack_require__(/*! ./mapValues */ 269);
+	var _mapValues = __webpack_require__(/*! ./mapValues */ 271);
 	
 	var _mapValues2 = _interopRequireDefault(_mapValues);
 	
@@ -41329,7 +41499,7 @@
 	}
 
 /***/ },
-/* 286 */
+/* 288 */
 /*!***************************************!*\
   !*** ./~/redux-form/lib/getValues.js ***!
   \***************************************/
@@ -41402,7 +41572,7 @@
 	exports.default = getValues;
 
 /***/ },
-/* 287 */
+/* 289 */
 /*!*************************************!*\
   !*** ./~/redux-form/lib/isValid.js ***!
   \*************************************/
@@ -41427,7 +41597,7 @@
 	}
 
 /***/ },
-/* 288 */
+/* 290 */
 /*!****************************************!*\
   !*** ./~/redux-form/lib/readFields.js ***!
   \****************************************/
@@ -41439,19 +41609,19 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _readField = __webpack_require__(/*! ./readField */ 289);
+	var _readField = __webpack_require__(/*! ./readField */ 291);
 	
 	var _readField2 = _interopRequireDefault(_readField);
 	
-	var _write = __webpack_require__(/*! ./write */ 271);
+	var _write = __webpack_require__(/*! ./write */ 273);
 	
 	var _write2 = _interopRequireDefault(_write);
 	
-	var _getValues = __webpack_require__(/*! ./getValues */ 286);
+	var _getValues = __webpack_require__(/*! ./getValues */ 288);
 	
 	var _getValues2 = _interopRequireDefault(_getValues);
 	
-	var _removeField = __webpack_require__(/*! ./removeField */ 302);
+	var _removeField = __webpack_require__(/*! ./removeField */ 304);
 	
 	var _removeField2 = _interopRequireDefault(_removeField);
 	
@@ -41501,7 +41671,7 @@
 	exports.default = readFields;
 
 /***/ },
-/* 289 */
+/* 291 */
 /*!***************************************!*\
   !*** ./~/redux-form/lib/readField.js ***!
   \***************************************/
@@ -41513,39 +41683,39 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _createOnBlur = __webpack_require__(/*! ./events/createOnBlur */ 290);
+	var _createOnBlur = __webpack_require__(/*! ./events/createOnBlur */ 292);
 	
 	var _createOnBlur2 = _interopRequireDefault(_createOnBlur);
 	
-	var _createOnChange = __webpack_require__(/*! ./events/createOnChange */ 293);
+	var _createOnChange = __webpack_require__(/*! ./events/createOnChange */ 295);
 	
 	var _createOnChange2 = _interopRequireDefault(_createOnChange);
 	
-	var _createOnDragStart = __webpack_require__(/*! ./events/createOnDragStart */ 294);
+	var _createOnDragStart = __webpack_require__(/*! ./events/createOnDragStart */ 296);
 	
 	var _createOnDragStart2 = _interopRequireDefault(_createOnDragStart);
 	
-	var _createOnDrop = __webpack_require__(/*! ./events/createOnDrop */ 295);
+	var _createOnDrop = __webpack_require__(/*! ./events/createOnDrop */ 297);
 	
 	var _createOnDrop2 = _interopRequireDefault(_createOnDrop);
 	
-	var _createOnFocus = __webpack_require__(/*! ./events/createOnFocus */ 296);
+	var _createOnFocus = __webpack_require__(/*! ./events/createOnFocus */ 298);
 	
 	var _createOnFocus2 = _interopRequireDefault(_createOnFocus);
 	
-	var _silencePromise = __webpack_require__(/*! ./silencePromise */ 297);
+	var _silencePromise = __webpack_require__(/*! ./silencePromise */ 299);
 	
 	var _silencePromise2 = _interopRequireDefault(_silencePromise);
 	
-	var _read = __webpack_require__(/*! ./read */ 270);
+	var _read = __webpack_require__(/*! ./read */ 272);
 	
 	var _read2 = _interopRequireDefault(_read);
 	
-	var _updateField = __webpack_require__(/*! ./updateField */ 299);
+	var _updateField = __webpack_require__(/*! ./updateField */ 301);
 	
 	var _updateField2 = _interopRequireDefault(_updateField);
 	
-	var _isChecked = __webpack_require__(/*! ./isChecked */ 301);
+	var _isChecked = __webpack_require__(/*! ./isChecked */ 303);
 	
 	var _isChecked2 = _interopRequireDefault(_isChecked);
 	
@@ -41738,7 +41908,7 @@
 	exports.default = readField;
 
 /***/ },
-/* 290 */
+/* 292 */
 /*!*************************************************!*\
   !*** ./~/redux-form/lib/events/createOnBlur.js ***!
   \*************************************************/
@@ -41748,7 +41918,7 @@
 	
 	exports.__esModule = true;
 	
-	var _getValue = __webpack_require__(/*! ./getValue */ 291);
+	var _getValue = __webpack_require__(/*! ./getValue */ 293);
 	
 	var _getValue2 = _interopRequireDefault(_getValue);
 	
@@ -41766,7 +41936,7 @@
 	exports.default = createOnBlur;
 
 /***/ },
-/* 291 */
+/* 293 */
 /*!*********************************************!*\
   !*** ./~/redux-form/lib/events/getValue.js ***!
   \*********************************************/
@@ -41776,7 +41946,7 @@
 	
 	exports.__esModule = true;
 	
-	var _isEvent = __webpack_require__(/*! ./isEvent */ 292);
+	var _isEvent = __webpack_require__(/*! ./isEvent */ 294);
 	
 	var _isEvent2 = _interopRequireDefault(_isEvent);
 	
@@ -41832,7 +42002,7 @@
 	exports.default = getValue;
 
 /***/ },
-/* 292 */
+/* 294 */
 /*!********************************************!*\
   !*** ./~/redux-form/lib/events/isEvent.js ***!
   \********************************************/
@@ -41848,7 +42018,7 @@
 	exports.default = isEvent;
 
 /***/ },
-/* 293 */
+/* 295 */
 /*!***************************************************!*\
   !*** ./~/redux-form/lib/events/createOnChange.js ***!
   \***************************************************/
@@ -41858,7 +42028,7 @@
 	
 	exports.__esModule = true;
 	
-	var _getValue = __webpack_require__(/*! ./getValue */ 291);
+	var _getValue = __webpack_require__(/*! ./getValue */ 293);
 	
 	var _getValue2 = _interopRequireDefault(_getValue);
 	
@@ -41872,7 +42042,7 @@
 	exports.default = createOnChange;
 
 /***/ },
-/* 294 */
+/* 296 */
 /*!******************************************************!*\
   !*** ./~/redux-form/lib/events/createOnDragStart.js ***!
   \******************************************************/
@@ -41891,7 +42061,7 @@
 	exports.default = createOnDragStart;
 
 /***/ },
-/* 295 */
+/* 297 */
 /*!*************************************************!*\
   !*** ./~/redux-form/lib/events/createOnDrop.js ***!
   \*************************************************/
@@ -41901,7 +42071,7 @@
 	
 	exports.__esModule = true;
 	
-	var _createOnDragStart = __webpack_require__(/*! ./createOnDragStart */ 294);
+	var _createOnDragStart = __webpack_require__(/*! ./createOnDragStart */ 296);
 	
 	var createOnDrop = function createOnDrop(name, change) {
 	  return function (event) {
@@ -41911,7 +42081,7 @@
 	exports.default = createOnDrop;
 
 /***/ },
-/* 296 */
+/* 298 */
 /*!**************************************************!*\
   !*** ./~/redux-form/lib/events/createOnFocus.js ***!
   \**************************************************/
@@ -41928,7 +42098,7 @@
 	exports.default = createOnFocus;
 
 /***/ },
-/* 297 */
+/* 299 */
 /*!********************************************!*\
   !*** ./~/redux-form/lib/silencePromise.js ***!
   \********************************************/
@@ -41938,7 +42108,7 @@
 	
 	exports.__esModule = true;
 	
-	var _isPromise = __webpack_require__(/*! is-promise */ 298);
+	var _isPromise = __webpack_require__(/*! is-promise */ 300);
 	
 	var _isPromise2 = _interopRequireDefault(_isPromise);
 	
@@ -41955,7 +42125,7 @@
 	exports.default = silencePromise;
 
 /***/ },
-/* 298 */
+/* 300 */
 /*!*******************************!*\
   !*** ./~/is-promise/index.js ***!
   \*******************************/
@@ -41969,7 +42139,7 @@
 
 
 /***/ },
-/* 299 */
+/* 301 */
 /*!*****************************************!*\
   !*** ./~/redux-form/lib/updateField.js ***!
   \*****************************************/
@@ -41981,15 +42151,15 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _isPristine = __webpack_require__(/*! ./isPristine */ 300);
+	var _isPristine = __webpack_require__(/*! ./isPristine */ 302);
 	
 	var _isPristine2 = _interopRequireDefault(_isPristine);
 	
-	var _isValid = __webpack_require__(/*! ./isValid */ 287);
+	var _isValid = __webpack_require__(/*! ./isValid */ 289);
 	
 	var _isValid2 = _interopRequireDefault(_isValid);
 	
-	var _isChecked = __webpack_require__(/*! ./isChecked */ 301);
+	var _isChecked = __webpack_require__(/*! ./isChecked */ 303);
 	
 	var _isChecked2 = _interopRequireDefault(_isChecked);
 	
@@ -42051,7 +42221,7 @@
 	exports.default = updateField;
 
 /***/ },
-/* 300 */
+/* 302 */
 /*!****************************************!*\
   !*** ./~/redux-form/lib/isPristine.js ***!
   \****************************************/
@@ -42092,7 +42262,7 @@
 	}
 
 /***/ },
-/* 301 */
+/* 303 */
 /*!***************************************!*\
   !*** ./~/redux-form/lib/isChecked.js ***!
   \***************************************/
@@ -42120,7 +42290,7 @@
 	exports.default = isChecked;
 
 /***/ },
-/* 302 */
+/* 304 */
 /*!*****************************************!*\
   !*** ./~/redux-form/lib/removeField.js ***!
   \*****************************************/
@@ -42203,7 +42373,7 @@
 	exports.default = removeField;
 
 /***/ },
-/* 303 */
+/* 305 */
 /*!******************************************!*\
   !*** ./~/redux-form/lib/handleSubmit.js ***!
   \******************************************/
@@ -42213,11 +42383,11 @@
 	
 	exports.__esModule = true;
 	
-	var _isPromise = __webpack_require__(/*! is-promise */ 298);
+	var _isPromise = __webpack_require__(/*! is-promise */ 300);
 	
 	var _isPromise2 = _interopRequireDefault(_isPromise);
 	
-	var _isValid = __webpack_require__(/*! ./isValid */ 287);
+	var _isValid = __webpack_require__(/*! ./isValid */ 289);
 	
 	var _isValid2 = _interopRequireDefault(_isValid);
 	
@@ -42288,7 +42458,7 @@
 	exports.default = handleSubmit;
 
 /***/ },
-/* 304 */
+/* 306 */
 /*!*********************************************!*\
   !*** ./~/redux-form/lib/asyncValidation.js ***!
   \*********************************************/
@@ -42298,11 +42468,11 @@
 	
 	exports.__esModule = true;
 	
-	var _isPromise = __webpack_require__(/*! is-promise */ 298);
+	var _isPromise = __webpack_require__(/*! is-promise */ 300);
 	
 	var _isPromise2 = _interopRequireDefault(_isPromise);
 	
-	var _isValid = __webpack_require__(/*! ./isValid */ 287);
+	var _isValid = __webpack_require__(/*! ./isValid */ 289);
 	
 	var _isValid2 = _interopRequireDefault(_isValid);
 	
@@ -42333,7 +42503,7 @@
 	exports.default = asyncValidation;
 
 /***/ },
-/* 305 */
+/* 307 */
 /*!**************************************************!*\
   !*** ./~/redux-form/lib/events/silenceEvents.js ***!
   \**************************************************/
@@ -42343,7 +42513,7 @@
 	
 	exports.__esModule = true;
 	
-	var _silenceEvent = __webpack_require__(/*! ./silenceEvent */ 306);
+	var _silenceEvent = __webpack_require__(/*! ./silenceEvent */ 308);
 	
 	var _silenceEvent2 = _interopRequireDefault(_silenceEvent);
 	
@@ -42362,7 +42532,7 @@
 	exports.default = silenceEvents;
 
 /***/ },
-/* 306 */
+/* 308 */
 /*!*************************************************!*\
   !*** ./~/redux-form/lib/events/silenceEvent.js ***!
   \*************************************************/
@@ -42372,7 +42542,7 @@
 	
 	exports.__esModule = true;
 	
-	var _isEvent = __webpack_require__(/*! ./isEvent */ 292);
+	var _isEvent = __webpack_require__(/*! ./isEvent */ 294);
 	
 	var _isEvent2 = _interopRequireDefault(_isEvent);
 	
@@ -42389,7 +42559,7 @@
 	exports.default = silenceEvent;
 
 /***/ },
-/* 307 */
+/* 309 */
 /*!****************************************************!*\
   !*** ./~/redux-form/lib/wrapMapDispatchToProps.js ***!
   \****************************************************/
@@ -42435,7 +42605,7 @@
 	exports.default = wrapMapDispatchToProps;
 
 /***/ },
-/* 308 */
+/* 310 */
 /*!*************************************************!*\
   !*** ./~/redux-form/lib/wrapMapStateToProps.js ***!
   \*************************************************/
@@ -42475,7 +42645,7 @@
 	exports.default = wrapMapStateToProps;
 
 /***/ },
-/* 309 */
+/* 311 */
 /*!*********************************************!*\
   !*** ./~/redux-form/lib/createPropTypes.js ***!
   \*********************************************/
@@ -42524,7 +42694,7 @@
 	exports.default = createPropTypes;
 
 /***/ },
-/* 310 */
+/* 312 */
 /*!**********************************************!*\
   !*** ./public/src/components/auth/signup.js ***!
   \**********************************************/
@@ -42544,7 +42714,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 265);
+	var _reduxForm = __webpack_require__(/*! redux-form */ 267);
 	
 	var _actions = __webpack_require__(/*! ../../actions */ 260);
 	
@@ -42712,7 +42882,7 @@
 	}, mapStateToProps, actions)(Signup);
 
 /***/ },
-/* 311 */
+/* 313 */
 /*!***********************************************!*\
   !*** ./public/src/components/auth/signout.js ***!
   \***********************************************/
@@ -42777,7 +42947,7 @@
 	exports.default = (0, _reactRedux.connect)(null, actions)(Signout);
 
 /***/ },
-/* 312 */
+/* 314 */
 /*!**********************************************!*\
   !*** ./public/src/components/information.js ***!
   \**********************************************/
@@ -42860,7 +43030,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Information);
 
 /***/ },
-/* 313 */
+/* 315 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/user/profile.js ***!
   \****************************************************/
@@ -42884,11 +43054,11 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _photobook = __webpack_require__(/*! ./photobook */ 314);
+	var _photobook = __webpack_require__(/*! ./photobook */ 316);
 	
 	var _photobook2 = _interopRequireDefault(_photobook);
 	
-	var _myListings = __webpack_require__(/*! ./myListings */ 315);
+	var _myListings = __webpack_require__(/*! ./myListings */ 317);
 	
 	var _myListings2 = _interopRequireDefault(_myListings);
 	
@@ -42936,7 +43106,7 @@
 	
 	      var userInfo = this.props.userInfo;
 	
-	      if (userInfo) {
+	      if (userInfo && userInfo.languages) {
 	        var photos = userInfo.myPhotos;
 	        return _react2.default.createElement(
 	          'div',
@@ -43022,7 +43192,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Profile);
 
 /***/ },
-/* 314 */
+/* 316 */
 /*!******************************************************!*\
   !*** ./public/src/components/auth/user/photobook.js ***!
   \******************************************************/
@@ -43044,7 +43214,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
 	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 265);
+	var _reduxForm = __webpack_require__(/*! redux-form */ 267);
 	
 	var _actions = __webpack_require__(/*! ../../../actions */ 260);
 	
@@ -43238,7 +43408,7 @@
 	}, mapStateToProps, actions)(PhotoBook);
 
 /***/ },
-/* 315 */
+/* 317 */
 /*!*******************************************************!*\
   !*** ./public/src/components/auth/user/myListings.js ***!
   \*******************************************************/
@@ -43263,6 +43433,10 @@
 	var actions = _interopRequireWildcard(_actions);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	var _mylistingtable = __webpack_require__(/*! ./mylistingtable */ 318);
+	
+	var _mylistingtable2 = _interopRequireDefault(_mylistingtable);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -43290,58 +43464,73 @@
 	      this.props.fetchMyListings(listings);
 	    }
 	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/listings/' + clickResult);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.props.mylistings) {
+	      var listings = this.props.mylistings || [];
+	      if (listings) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          this.props.mylistings.map(function (result) {
-	            return _react2.default.createElement(
-	              'div',
-	              { className: 'col-sm-4', key: result._id },
+	          listings && listings.length > 0 && _react2.default.createElement(
+	            'table',
+	            { className: 'table table-hover table-bordered' },
+	            _react2.default.createElement(
+	              'thead',
+	              null,
 	              _react2.default.createElement(
-	                'div',
-	                { className: 'listingBorder' },
+	                'tr',
+	                null,
 	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'thumbnail' },
-	                  _react2.default.createElement('img', { className: 'img-responsive center-block listingListImage',
-	                    src: result.image
-	                  })
+	                  'th',
+	                  null,
+	                  'Listing Name'
 	                ),
-	                _react2.default.createElement('hr', null),
 	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'row' },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'col-sm-10 col-sm-offset-1' },
-	                    _react2.default.createElement(
-	                      'h3',
-	                      null,
-	                      'Country: ',
-	                      result.location.country
-	                    ),
-	                    _react2.default.createElement(
-	                      'h3',
-	                      null,
-	                      'City: ',
-	                      result.location.city
-	                    ),
-	                    _react2.default.createElement(
-	                      'h3',
-	                      null,
-	                      'Price: $',
-	                      result.pricePerNight,
-	                      ' / night'
-	                    )
-	                  )
+	                  'th',
+	                  null,
+	                  'Country'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'State'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'City'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'Address'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'Price Per Night'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'Rating'
 	                )
-	              ),
-	              _react2.default.createElement('br', null)
-	            );
-	          })
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              listings.map(function (result) {
+	                return _react2.default.createElement(_mylistingtable2.default, { result: result, key: result._id });
+	              }.bind(this))
+	            )
+	          )
 	        );
 	      } else {
 	        return _react2.default.createElement(
@@ -43362,7 +43551,118 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyListings);
 
 /***/ },
-/* 316 */
+/* 318 */
+/*!***********************************************************!*\
+  !*** ./public/src/components/auth/user/mylistingtable.js ***!
+  \***********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TableListing = function (_Component) {
+	  _inherits(TableListing, _Component);
+	
+	  function TableListing() {
+	    _classCallCheck(this, TableListing);
+	
+	    return _possibleConstructorReturn(this, (TableListing.__proto__ || Object.getPrototypeOf(TableListing)).apply(this, arguments));
+	  }
+	
+	  _createClass(TableListing, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/listings/' + clickResult);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var result = this.props.result;
+	
+	      return _react2.default.createElement(
+	        'tr',
+	        { key: result._id, onClick: this.handleClick.bind(result), className: 'table-row' },
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          result.title
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.country
+	        ),
+	        result.location.country === 'united states' && _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.city
+	        ),
+	        result.location.country !== 'united states' && _react2.default.createElement(
+	          'td',
+	          null,
+	          'X'
+	        ),
+	        result.location.usCity !== 'not valid' && _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.usCity
+	        ),
+	        result.location.usCity === 'not valid' && _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.city
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          result.location.address
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          '$',
+	          result.pricePerNight
+	        ),
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          'rating'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return TableListing;
+	}(_react.Component);
+	
+	module.exports = TableListing;
+
+/***/ },
+/* 319 */
 /*!*****************************************************!*\
   !*** ./public/src/components/auth/user/settings.js ***!
   \*****************************************************/
@@ -43388,7 +43688,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 265);
+	var _reduxForm = __webpack_require__(/*! redux-form */ 267);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -43770,7 +44070,7 @@
 	}, mapStateToProps, actions)(Settings);
 
 /***/ },
-/* 317 */
+/* 320 */
 /*!****************************************************!*\
   !*** ./public/src/components/welcome_container.js ***!
   \****************************************************/
@@ -43786,7 +44086,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _basic = __webpack_require__(/*! ./info/basic */ 318);
+	var _basic = __webpack_require__(/*! ./info/basic */ 321);
 	
 	var _basic2 = _interopRequireDefault(_basic);
 	
@@ -43824,7 +44124,7 @@
 	};
 
 /***/ },
-/* 318 */
+/* 321 */
 /*!*********************************************!*\
   !*** ./public/src/components/info/basic.js ***!
   \*********************************************/
@@ -43883,17 +44183,13 @@
 	module.exports = BasicInfo;
 
 /***/ },
-/* 319 */
+/* 322 */
 /*!**************************************************************!*\
   !*** ./public/src/components/listings/listings_container.js ***!
   \**************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -43907,7 +44203,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _listings = __webpack_require__(/*! ./listings */ 320);
+	var _listings = __webpack_require__(/*! ./listings */ 323);
 	
 	var _listings2 = _interopRequireDefault(_listings);
 	
@@ -43934,18 +44230,8 @@
 	  }
 	
 	  _createClass(Listings_Container, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	      // this.props.fetchListings();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props = this.props;
-	      var listings = _props.listings;
-	      var userInfo = _props.userInfo;
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container toppush' },
@@ -43984,13 +44270,10 @@
 	  return Listings_Container;
 	}(_react.Component);
 	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listings_Container);
+	module.exports = Listings_Container;
 
 /***/ },
-/* 320 */
+/* 323 */
 /*!****************************************************!*\
   !*** ./public/src/components/listings/listings.js ***!
   \****************************************************/
@@ -44016,27 +44299,27 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 321);
+	var _lodash = __webpack_require__(/*! lodash */ 324);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _cities = __webpack_require__(/*! ../../../cities */ 323);
+	var _cities = __webpack_require__(/*! ../../../cities */ 326);
 	
 	var _cities2 = _interopRequireDefault(_cities);
 	
-	var _states = __webpack_require__(/*! ../../../states */ 324);
+	var _states = __webpack_require__(/*! ../../../states */ 327);
 	
 	var _states2 = _interopRequireDefault(_states);
 	
-	var _countries = __webpack_require__(/*! ../../../countries */ 325);
+	var _countries = __webpack_require__(/*! ../../../countries */ 328);
 	
 	var _countries2 = _interopRequireDefault(_countries);
 	
-	var _tablelisting = __webpack_require__(/*! ./tools/tablelisting */ 326);
+	var _tablelisting = __webpack_require__(/*! ./tools/tablelisting */ 329);
 	
 	var _tablelisting2 = _interopRequireDefault(_tablelisting);
 	
-	var _listing_search = __webpack_require__(/*! ./tools/listing_search */ 327);
+	var _listing_search = __webpack_require__(/*! ./tools/listing_search */ 330);
 	
 	var _listing_search2 = _interopRequireDefault(_listing_search);
 	
@@ -44068,6 +44351,7 @@
 	      var listings = [];
 	      if (this.props.listings) {
 	        listings = this.props.listings;
+	        this.state.country = this.props.listings[0].location.country;
 	      }
 	      return _react2.default.createElement(
 	        'div',
@@ -44096,7 +44380,7 @@
 	                null,
 	                'Country'
 	              ),
-	              this.state.country === 'United States' && _react2.default.createElement(
+	              this.state.country === 'united states' && _react2.default.createElement(
 	                'th',
 	                null,
 	                'State'
@@ -44144,7 +44428,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Listing);
 
 /***/ },
-/* 321 */
+/* 324 */
 /*!***************************!*\
   !*** ./~/lodash/index.js ***!
   \***************************/
@@ -56502,10 +56786,10 @@
 	  }
 	}.call(this));
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 322)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 325)(module), (function() { return this; }())))
 
 /***/ },
-/* 322 */
+/* 325 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -56524,7 +56808,7 @@
 
 
 /***/ },
-/* 323 */
+/* 326 */
 /*!**************************!*\
   !*** ./public/cities.js ***!
   \**************************/
@@ -56761,7 +57045,7 @@
 	var _exports = module.exports = city_states;
 
 /***/ },
-/* 324 */
+/* 327 */
 /*!**************************!*\
   !*** ./public/states.js ***!
   \**************************/
@@ -56773,7 +57057,7 @@
 	module.exports = states;
 
 /***/ },
-/* 325 */
+/* 328 */
 /*!*****************************!*\
   !*** ./public/countries.js ***!
   \*****************************/
@@ -56785,7 +57069,7 @@
 	module.exports = countries;
 
 /***/ },
-/* 326 */
+/* 329 */
 /*!**************************************************************!*\
   !*** ./public/src/components/listings/tools/tablelisting.js ***!
   \**************************************************************/
@@ -56835,12 +57119,11 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props);
 	      var result = this.props.result;
 	
 	      return _react2.default.createElement(
 	        'tr',
-	        { key: result._id, onClick: this.handleClick.bind(result) },
+	        { key: result._id, onClick: this.handleClick.bind(result), className: 'table-row' },
 	        _react2.default.createElement(
 	          'td',
 	          null,
@@ -56887,7 +57170,7 @@
 	module.exports = TableListing;
 
 /***/ },
-/* 327 */
+/* 330 */
 /*!****************************************************************!*\
   !*** ./public/src/components/listings/tools/listing_search.js ***!
   \****************************************************************/
@@ -56913,19 +57196,19 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _lodash = __webpack_require__(/*! lodash */ 321);
+	var _lodash = __webpack_require__(/*! lodash */ 324);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
-	var _cities = __webpack_require__(/*! ../../../../cities */ 323);
+	var _cities = __webpack_require__(/*! ../../../../cities */ 326);
 	
 	var _cities2 = _interopRequireDefault(_cities);
 	
-	var _states = __webpack_require__(/*! ../../../../states */ 324);
+	var _states = __webpack_require__(/*! ../../../../states */ 327);
 	
 	var _states2 = _interopRequireDefault(_states);
 	
-	var _countries = __webpack_require__(/*! ../../../../countries */ 325);
+	var _countries = __webpack_require__(/*! ../../../../countries */ 328);
 	
 	var _countries2 = _interopRequireDefault(_countries);
 	
@@ -57074,7 +57357,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(ListingSearch);
 
 /***/ },
-/* 328 */
+/* 331 */
 /*!***************************************************!*\
   !*** ./public/src/components/listings/listing.js ***!
   \***************************************************/
@@ -57100,7 +57383,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 329);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 333);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
@@ -57126,17 +57409,44 @@
 	  _createClass(SingleListing, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      this.setState({ listing: '', inputValue: '' });
 	      var id = this.props.location.pathname.split('listings/')[1];
 	      this.props.fetchSingleListing(id);
 	    }
 	  }, {
+	    key: 'handleClick',
+	    value: function handleClick(type) {
+	      this.setState(type);
+	    }
+	  }, {
+	    key: 'handleFormSubmit',
+	    value: function handleFormSubmit(e) {
+	      //called with props from submit form
+	      e.preventDefault();
+	      var listing = this.state.listing;
+	      listing.type = this.state.type;
+	      if (['address', 'city', 'usCity', 'country'].indexOf(listing.type) > -1) {
+	        listing.location[listing.type] = this.state.inputValue;
+	      }
+	      this.props.editListing({ listing: listing }, this.props.userInfo._id);
+	      this.setState({ editAddress: false, editusCity: false });
+	    }
+	  }, {
+	    key: 'updateInputValue',
+	    value: function updateInputValue(evt) {
+	      this.setState({
+	        inputValue: evt.target.value
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var listing = this.props.listing;
+	      var _props = this.props;
+	      var listing = _props.listing;
+	      var userInfo = _props.userInfo;
 	
-	
-	      console.log(listing);
-	      if (listing) {
+	      if (listing && listing.location) {
+	        this.state.listing = listing;
 	        return _react2.default.createElement(
 	          'div',
 	          null,
@@ -57164,44 +57474,156 @@
 	                    'div',
 	                    { className: 'col-sm-10 col-sm-offset-1' },
 	                    _react2.default.createElement(
-	                      'h2',
+	                      'h3',
 	                      null,
-	                      listing.location.address,
-	                      ', ',
-	                      listing.location.usCity !== 'not valid' && listing.location.usCity + ',',
-	                      ' ',
-	                      listing.location.city,
-	                      ',  ',
-	                      listing.location.country
+	                      'Listing Location: '
+	                    ),
+	                    _react2.default.createElement(
+	                      'ul',
+	                      null,
+	                      _react2.default.createElement(
+	                        'li',
+	                        {
+	                          className: this.state.editAddress ? 'hidden' : '',
+	                          onClick: function () {
+	                            this.handleClick({ editAddress: true });
+	                          }.bind(this)
+	                        },
+	                        'Address: ',
+	                        listing.location.address
+	                      ),
+	                      _react2.default.createElement(
+	                        'li',
+	                        { className: this.state.editAddress ? '' : 'hidden' },
+	                        _react2.default.createElement(
+	                          'form',
+	                          { onSubmit: this.handleFormSubmit.bind(this) },
+	                          _react2.default.createElement(
+	                            'fieldset',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                              'label',
+	                              null,
+	                              'New Address: '
+	                            ),
+	                            _react2.default.createElement('input', { className: 'form-control',
+	                              onChange: function (evt) {
+	                                this.setState({
+	                                  inputValue: evt.target.value, type: 'address'
+	                                });
+	                              }.bind(this) })
+	                          ),
+	                          _react2.default.createElement(
+	                            'button',
+	                            { type: 'button', className: 'btn btn-danger',
+	                              onClick: function () {
+	                                this.handleClick({ editAddress: false });
+	                              }.bind(this) },
+	                            'hide'
+	                          ),
+	                          _react2.default.createElement(
+	                            'button',
+	                            { action: 'submit', className: 'btn btn-primary' },
+	                            'Save'
+	                          )
+	                        )
+	                      ),
+	                      listing.location.usCity !== 'not valid' && _react2.default.createElement(
+	                        'li',
+	                        {
+	                          className: this.state.editusCity ? 'hidden' : '',
+	                          onClick: function () {
+	                            this.handleClick({ editusCity: true });
+	                          }.bind(this)
+	                        },
+	                        'City: ',
+	                        listing.location.usCity
+	                      ),
+	                      _react2.default.createElement(
+	                        'li',
+	                        { className: this.state.editusCity ? '' : 'hidden' },
+	                        _react2.default.createElement(
+	                          'form',
+	                          { onSubmit: this.handleFormSubmit.bind(this) },
+	                          _react2.default.createElement(
+	                            'fieldset',
+	                            { className: 'form-group' },
+	                            _react2.default.createElement(
+	                              'label',
+	                              null,
+	                              'New City: '
+	                            ),
+	                            _react2.default.createElement('input', { className: 'form-control',
+	                              onChange: function (evt) {
+	                                this.setState({
+	                                  inputValue: evt.target.value, type: 'usCity'
+	                                });
+	                              }.bind(this) })
+	                          ),
+	                          _react2.default.createElement(
+	                            'button',
+	                            { type: 'button', className: 'btn btn-danger',
+	                              onClick: function () {
+	                                this.handleClick({ editusCity: false });
+	                              }.bind(this) },
+	                            'hide'
+	                          ),
+	                          _react2.default.createElement(
+	                            'button',
+	                            { action: 'submit', className: 'btn btn-primary' },
+	                            'Save'
+	                          )
+	                        )
+	                      ),
+	                      listing.location.usCity !== 'not valid' && _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        'State: ',
+	                        listing.location.city
+	                      ),
+	                      listing.location.usCity === 'not valid' && _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        'City: ',
+	                        listing.location.city
+	                      ),
+	                      _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        'Country: ',
+	                        listing.location.country
+	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'h3',
 	                      null,
-	                      'Price: $',
-	                      listing.pricePerNight,
-	                      ' / night'
+	                      'Listing Details: '
 	                    ),
-	                    _react2.default.createElement('hr', null),
+	                    _react2.default.createElement(
+	                      'ul',
+	                      null,
+	                      _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        'Price: $',
+	                        listing.pricePerNight,
+	                        ' / night'
+	                      ),
+	                      _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        'Email: ',
+	                        listing.creator.email
+	                      ),
+	                      _react2.default.createElement(
+	                        'li',
+	                        null,
+	                        'Phone Number: ',
+	                        listing.creator.phoneNumber
+	                      )
+	                    ),
 	                    _react2.default.createElement(
 	                      'h3',
-	                      null,
-	                      'Contact Info: '
-	                    ),
-	                    _react2.default.createElement(
-	                      'h4',
-	                      null,
-	                      'Email: ',
-	                      listing.creator.email
-	                    ),
-	                    _react2.default.createElement(
-	                      'h4',
-	                      null,
-	                      'Phone Number: ',
-	                      listing.creator.phoneNumber
-	                    ),
-	                    _react2.default.createElement('hr', null),
-	                    _react2.default.createElement(
-	                      'h4',
 	                      null,
 	                      'Description: '
 	                    ),
@@ -57231,7 +57653,418 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleListing);
 
 /***/ },
-/* 329 */
+/* 332 */
+/*!******************************************************!*\
+  !*** ./public/src/components/listings/newListing.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 267);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 333);
+	
+	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+	
+	var _cities = __webpack_require__(/*! ../../../cities */ 326);
+	
+	var _cities2 = _interopRequireDefault(_cities);
+	
+	var _states = __webpack_require__(/*! ../../../states */ 327);
+	
+	var _states2 = _interopRequireDefault(_states);
+	
+	var _countries = __webpack_require__(/*! ../../../countries */ 328);
+	
+	var _countries2 = _interopRequireDefault(_countries);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NewListing = function (_Component) {
+	  _inherits(NewListing, _Component);
+	
+	  function NewListing(props) {
+	    _classCallCheck(this, NewListing);
+	
+	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this, props));
+	
+	    _this.state = {
+	      file: '', text: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewListing, [{
+	    key: 'handleFormSubmit',
+	    value: function handleFormSubmit(formProps) {
+	      //called with props from submit form
+	      var data = formProps;
+	      data.city = this.state.city;
+	      data.country = this.state.country;
+	      data.image = this.state.file;
+	      data.username = this.props.userInfo.username;
+	      data.id = this.props.userInfo._id;
+	      data.phoneNumber = this.props.userInfo.phoneNumber;
+	      data.email = this.props.userInfo.email;
+	      if (data.country !== 'United States') {
+	        data.usCity = 'not valid';
+	      }
+	      if (data.image.length === 0) {
+	        alert('Must supply Image');
+	        return;
+	      }
+	      for (var key in data) {
+	        if (!data[key]) {
+	          alert('All Fields Are Required. Please fill in the ' + key + ' field');
+	          return;
+	        }
+	      }
+	      this.props.newListing(data);
+	      _reactRouter.browserHistory.push('/listings');
+	    }
+	  }, {
+	    key: 'changeCountry',
+	    value: function changeCountry(event) {
+	      this.setState({ country: event.target.value });
+	    }
+	  }, {
+	    key: 'changeCity',
+	    value: function changeCity(event) {
+	      this.setState({ city: event.target.value });
+	    }
+	  }, {
+	    key: 'markdown',
+	    value: function markdown() {
+	      this.setState({ text: '' });
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'renderAlert',
+	    value: function renderAlert() {
+	      if (this.props.errorMessage) {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'alert alert-danger' },
+	          _react2.default.createElement(
+	            'strong',
+	            null,
+	            'Error!!! '
+	          ),
+	          ' ',
+	          this.props.errorMessage
+	        );
+	      }
+	    }
+	  }, {
+	    key: 'previewFile',
+	    value: function previewFile() {
+	      var self = this;
+	      var file = document.querySelector('input[type=file]').files[0];
+	      var reader = new FileReader();
+	      var image;
+	      reader.addEventListener("load", function () {
+	        image = reader.result;
+	        self.setState({ file: image });
+	      }, false);
+	
+	      if (file) {
+	        reader.readAsDataURL(file);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var incrementKey = 0;
+	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
+	      var userInfo = _props.userInfo;
+	      var _props$fields = _props.fields;
+	      var address = _props$fields.address;
+	      var usCity = _props$fields.usCity;
+	      var image = _props$fields.image;
+	      var pricePerNight = _props$fields.pricePerNight;
+	      var availableForRent = _props$fields.availableForRent;
+	      var title = _props$fields.title;
+	      var description = _props$fields.description;
+	
+	
+	      var citiesorstates = [];
+	      if (this.state.country) {
+	        if (!_cities2.default[this.state.country]) {
+	          alert('Sorry. We do not provide services in that country');
+	        } else {
+	          citiesorstates = _cities2.default[this.state.country].split('|');
+	        }
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'container' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-10 col-sm-offset-1' },
+	            _react2.default.createElement(
+	              'form',
+	              { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Country: '
+	                ),
+	                _react2.default.createElement(
+	                  'select',
+	                  { className: 'form-control', onChange: this.changeCountry.bind(this) },
+	                  _react2.default.createElement(
+	                    'option',
+	                    { key: 'default' },
+	                    'Pick A Country'
+	                  ),
+	                  _countries2.default.map(function (e) {
+	                    return _react2.default.createElement(
+	                      'option',
+	                      { key: e, value: e },
+	                      e
+	                    );
+	                  })
+	                )
+	              ),
+	              this.state.country && citiesorstates.length > 0 && _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                this.state.country === 'United States' && _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'State: '
+	                ),
+	                this.state.country !== 'United States' && _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'City: '
+	                ),
+	                _react2.default.createElement(
+	                  'select',
+	                  { className: 'form-control', onChange: this.changeCity.bind(this) },
+	                  this.state.country === 'United States' && _react2.default.createElement(
+	                    'option',
+	                    { key: 'default' },
+	                    'Pick A State'
+	                  ),
+	                  this.state.country !== 'United States' && _react2.default.createElement(
+	                    'option',
+	                    { key: 'default' },
+	                    'Pick A City'
+	                  ),
+	                  citiesorstates.map(function (e) {
+	                    if (e.length > 0) return _react2.default.createElement(
+	                      'option',
+	                      { key: incrementKey += 1, value: e },
+	                      e
+	                    );
+	                  })
+	                )
+	              ),
+	              this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' && _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'US City: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, usCity))
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Address: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)),
+	                address.touched && address.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  address.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Price Per Night: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'number', min: '0.01', step: '0.01', max: '5000.00' }, pricePerNight)),
+	                pricePerNight.touched && pricePerNight.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  pricePerNight.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'h3',
+	                  null,
+	                  'Currently Available For Rent?'
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { className: 'radio-inline' },
+	                  _react2.default.createElement('input', {
+	                    type: 'radio',
+	                    name: 'availableForRent',
+	                    onChange: availableForRent.onChange,
+	                    value: 'true' }),
+	                  'Yes:'
+	                ),
+	                _react2.default.createElement(
+	                  'label',
+	                  { className: 'radio-inline' },
+	                  _react2.default.createElement('input', {
+	                    type: 'radio',
+	                    name: 'availableForRent',
+	                    onChange: availableForRent.onChange,
+	                    value: 'false' }),
+	                  'No:'
+	                ),
+	                availableForRent.touched && availableForRent.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  availableForRent.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Listing Title: '
+	                ),
+	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)),
+	                title.touched && title.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  title.error
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'fieldset',
+	                { className: 'form-group' },
+	                _react2.default.createElement(
+	                  'label',
+	                  null,
+	                  'Describe the Listing: '
+	                ),
+	                _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, description, { onInput: this.markdown.bind(this) })),
+	                description.touched && description.error && _react2.default.createElement(
+	                  'div',
+	                  { className: 'error' },
+	                  description.error
+	                )
+	              ),
+	              this.renderAlert(),
+	              _react2.default.createElement(
+	                'button',
+	                { action: 'submit', className: 'btn btn-primary' },
+	                'Add Listing'
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-6 previewMarkdown' },
+	            _react2.default.createElement(_reactMarkdown2.default, { source: description.value })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return NewListing;
+	}(_react.Component);
+	
+	function validate(formProps) {
+	  var errors = {};
+	
+	  if (!formProps.address) {
+	    errors.address = 'Please Enter an Address';
+	  }
+	  if (!formProps.pricePerNight) {
+	    errors.pricePerNight = 'Please Enter Price Per Night';
+	  }
+	  if (formProps.availableForRent !== formProps.availableForRent) {
+	    errors.availableForRent = 'Is the listing currently available for rent?';
+	  }
+	  if (!formProps.availableForRent) {
+	    errors.description = 'Describe the listing';
+	  }
+	  if (!formProps.title) {
+	    errors.title = 'Title the listing';
+	  }
+	  return errors;
+	}
+	
+	function mapStateToProps(state) {
+	  return {
+	    errorMessage: state.auth.error,
+	    userInfo: state.auth.userInfo
+	  };
+	}
+	
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'newListing',
+	  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title', 'usCity'],
+	  validate: validate
+	}, mapStateToProps, actions)(NewListing);
+
+/***/ },
+/* 333 */
 /*!************************************************!*\
   !*** ./~/react-markdown/src/react-markdown.js ***!
   \************************************************/
@@ -57240,8 +58073,8 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 2);
-	var Parser = __webpack_require__(/*! commonmark */ 330).Parser;
-	var ReactRenderer = __webpack_require__(/*! commonmark-react-renderer */ 350);
+	var Parser = __webpack_require__(/*! commonmark */ 334).Parser;
+	var ReactRenderer = __webpack_require__(/*! commonmark-react-renderer */ 354);
 	
 	var parser = new Parser();
 	var propTypes = React.PropTypes;
@@ -57311,7 +58144,7 @@
 
 
 /***/ },
-/* 330 */
+/* 334 */
 /*!***********************************!*\
   !*** ./~/commonmark/lib/index.js ***!
   \***********************************/
@@ -57331,14 +58164,14 @@
 	// console.log(renderer.render(parser.parse('Hello *world*')));
 	
 	module.exports.version = '0.24.0'
-	module.exports.Node = __webpack_require__(/*! ./node */ 331);
-	module.exports.Parser = __webpack_require__(/*! ./blocks */ 332);
-	module.exports.HtmlRenderer = __webpack_require__(/*! ./html */ 348);
-	module.exports.XmlRenderer = __webpack_require__(/*! ./xml */ 349);
+	module.exports.Node = __webpack_require__(/*! ./node */ 335);
+	module.exports.Parser = __webpack_require__(/*! ./blocks */ 336);
+	module.exports.HtmlRenderer = __webpack_require__(/*! ./html */ 352);
+	module.exports.XmlRenderer = __webpack_require__(/*! ./xml */ 353);
 
 
 /***/ },
-/* 331 */
+/* 335 */
 /*!**********************************!*\
   !*** ./~/commonmark/lib/node.js ***!
   \**********************************/
@@ -57618,7 +58451,7 @@
 
 
 /***/ },
-/* 332 */
+/* 336 */
 /*!************************************!*\
   !*** ./~/commonmark/lib/blocks.js ***!
   \************************************/
@@ -57626,10 +58459,10 @@
 
 	"use strict";
 	
-	var Node = __webpack_require__(/*! ./node */ 331);
-	var unescapeString = __webpack_require__(/*! ./common */ 333).unescapeString;
-	var OPENTAG = __webpack_require__(/*! ./common */ 333).OPENTAG;
-	var CLOSETAG = __webpack_require__(/*! ./common */ 333).CLOSETAG;
+	var Node = __webpack_require__(/*! ./node */ 335);
+	var unescapeString = __webpack_require__(/*! ./common */ 337).unescapeString;
+	var OPENTAG = __webpack_require__(/*! ./common */ 337).OPENTAG;
+	var CLOSETAG = __webpack_require__(/*! ./common */ 337).CLOSETAG;
 	
 	var CODE_INDENT = 4;
 	
@@ -57640,7 +58473,7 @@
 	var C_SPACE = 32;
 	var C_OPEN_BRACKET = 91;
 	
-	var InlineParser = __webpack_require__(/*! ./inlines */ 344);
+	var InlineParser = __webpack_require__(/*! ./inlines */ 348);
 	
 	var reHtmlBlockOpen = [
 	   /./, // dummy for 0
@@ -58497,7 +59330,7 @@
 
 
 /***/ },
-/* 333 */
+/* 337 */
 /*!************************************!*\
   !*** ./~/commonmark/lib/common.js ***!
   \************************************/
@@ -58505,12 +59338,12 @@
 
 	"use strict";
 	
-	var encode = __webpack_require__(/*! mdurl/encode */ 334);
-	var decode = __webpack_require__(/*! mdurl/decode */ 335);
+	var encode = __webpack_require__(/*! mdurl/encode */ 338);
+	var decode = __webpack_require__(/*! mdurl/decode */ 339);
 	
 	var C_BACKSLASH = 92;
 	
-	var decodeHTML = __webpack_require__(/*! entities */ 336).decodeHTML;
+	var decodeHTML = __webpack_require__(/*! entities */ 340).decodeHTML;
 	
 	var ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
 	
@@ -58609,7 +59442,7 @@
 
 
 /***/ },
-/* 334 */
+/* 338 */
 /*!***************************!*\
   !*** ./~/mdurl/encode.js ***!
   \***************************/
@@ -58716,7 +59549,7 @@
 
 
 /***/ },
-/* 335 */
+/* 339 */
 /*!***************************!*\
   !*** ./~/mdurl/decode.js ***!
   \***************************/
@@ -58847,14 +59680,14 @@
 
 
 /***/ },
-/* 336 */
+/* 340 */
 /*!*****************************!*\
   !*** ./~/entities/index.js ***!
   \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var encode = __webpack_require__(/*! ./lib/encode.js */ 337),
-	    decode = __webpack_require__(/*! ./lib/decode.js */ 340);
+	var encode = __webpack_require__(/*! ./lib/encode.js */ 341),
+	    decode = __webpack_require__(/*! ./lib/decode.js */ 344);
 	
 	exports.decode = function(data, level){
 		return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
@@ -58889,18 +59722,18 @@
 
 
 /***/ },
-/* 337 */
+/* 341 */
 /*!**********************************!*\
   !*** ./~/entities/lib/encode.js ***!
   \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var inverseXML = getInverseObj(__webpack_require__(/*! ../maps/xml.json */ 338)),
+	var inverseXML = getInverseObj(__webpack_require__(/*! ../maps/xml.json */ 342)),
 	    xmlReplacer = getInverseReplacer(inverseXML);
 	
 	exports.XML = getInverse(inverseXML, xmlReplacer);
 	
-	var inverseHTML = getInverseObj(__webpack_require__(/*! ../maps/entities.json */ 339)),
+	var inverseHTML = getInverseObj(__webpack_require__(/*! ../maps/entities.json */ 343)),
 	    htmlReplacer = getInverseReplacer(inverseHTML);
 	
 	exports.HTML = getInverse(inverseHTML, htmlReplacer);
@@ -58971,7 +59804,7 @@
 
 
 /***/ },
-/* 338 */
+/* 342 */
 /*!**********************************!*\
   !*** ./~/entities/maps/xml.json ***!
   \**********************************/
@@ -58986,7 +59819,7 @@
 	};
 
 /***/ },
-/* 339 */
+/* 343 */
 /*!***************************************!*\
   !*** ./~/entities/maps/entities.json ***!
   \***************************************/
@@ -61121,16 +61954,16 @@
 	};
 
 /***/ },
-/* 340 */
+/* 344 */
 /*!**********************************!*\
   !*** ./~/entities/lib/decode.js ***!
   \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var entityMap = __webpack_require__(/*! ../maps/entities.json */ 339),
-	    legacyMap = __webpack_require__(/*! ../maps/legacy.json */ 341),
-	    xmlMap    = __webpack_require__(/*! ../maps/xml.json */ 338),
-	    decodeCodePoint = __webpack_require__(/*! ./decode_codepoint.js */ 342);
+	var entityMap = __webpack_require__(/*! ../maps/entities.json */ 343),
+	    legacyMap = __webpack_require__(/*! ../maps/legacy.json */ 345),
+	    xmlMap    = __webpack_require__(/*! ../maps/xml.json */ 342),
+	    decodeCodePoint = __webpack_require__(/*! ./decode_codepoint.js */ 346);
 	
 	var decodeXMLStrict  = getStrictDecoder(xmlMap),
 	    decodeHTMLStrict = getStrictDecoder(entityMap);
@@ -61201,7 +62034,7 @@
 	};
 
 /***/ },
-/* 341 */
+/* 345 */
 /*!*************************************!*\
   !*** ./~/entities/maps/legacy.json ***!
   \*************************************/
@@ -61317,13 +62150,13 @@
 	};
 
 /***/ },
-/* 342 */
+/* 346 */
 /*!********************************************!*\
   !*** ./~/entities/lib/decode_codepoint.js ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var decodeMap = __webpack_require__(/*! ../maps/decode.json */ 343);
+	var decodeMap = __webpack_require__(/*! ../maps/decode.json */ 347);
 	
 	module.exports = decodeCodePoint;
 	
@@ -61352,7 +62185,7 @@
 
 
 /***/ },
-/* 343 */
+/* 347 */
 /*!*************************************!*\
   !*** ./~/entities/maps/decode.json ***!
   \*************************************/
@@ -61390,7 +62223,7 @@
 	};
 
 /***/ },
-/* 344 */
+/* 348 */
 /*!*************************************!*\
   !*** ./~/commonmark/lib/inlines.js ***!
   \*************************************/
@@ -61398,15 +62231,15 @@
 
 	"use strict";
 	
-	var Node = __webpack_require__(/*! ./node */ 331);
-	var common = __webpack_require__(/*! ./common */ 333);
-	var normalizeReference = __webpack_require__(/*! ./normalize-reference */ 345);
+	var Node = __webpack_require__(/*! ./node */ 335);
+	var common = __webpack_require__(/*! ./common */ 337);
+	var normalizeReference = __webpack_require__(/*! ./normalize-reference */ 349);
 	
 	var normalizeURI = common.normalizeURI;
 	var unescapeString = common.unescapeString;
-	var fromCodePoint = __webpack_require__(/*! ./from-code-point.js */ 346);
-	var decodeHTML = __webpack_require__(/*! entities */ 336).decodeHTML;
-	__webpack_require__(/*! string.prototype.repeat */ 347); // Polyfill for String.prototype.repeat
+	var fromCodePoint = __webpack_require__(/*! ./from-code-point.js */ 350);
+	var decodeHTML = __webpack_require__(/*! entities */ 340).decodeHTML;
+	__webpack_require__(/*! string.prototype.repeat */ 351); // Polyfill for String.prototype.repeat
 	
 	// Constants for character codes:
 	
@@ -62330,7 +63163,7 @@
 
 
 /***/ },
-/* 345 */
+/* 349 */
 /*!*************************************************!*\
   !*** ./~/commonmark/lib/normalize-reference.js ***!
   \*************************************************/
@@ -62381,7 +63214,7 @@
 
 
 /***/ },
-/* 346 */
+/* 350 */
 /*!*********************************************!*\
   !*** ./~/commonmark/lib/from-code-point.js ***!
   \*********************************************/
@@ -62449,7 +63282,7 @@
 
 
 /***/ },
-/* 347 */
+/* 351 */
 /*!*********************************************!*\
   !*** ./~/string.prototype.repeat/repeat.js ***!
   \*********************************************/
@@ -62508,7 +63341,7 @@
 
 
 /***/ },
-/* 348 */
+/* 352 */
 /*!**********************************!*\
   !*** ./~/commonmark/lib/html.js ***!
   \**********************************/
@@ -62516,7 +63349,7 @@
 
 	"use strict";
 	
-	var escapeXml = __webpack_require__(/*! ./common */ 333).escapeXml;
+	var escapeXml = __webpack_require__(/*! ./common */ 337).escapeXml;
 	
 	// Helper function to produce an HTML tag.
 	var tag = function(name, attrs, selfclosing) {
@@ -62803,7 +63636,7 @@
 
 
 /***/ },
-/* 349 */
+/* 353 */
 /*!*********************************!*\
   !*** ./~/commonmark/lib/xml.js ***!
   \*********************************/
@@ -62811,7 +63644,7 @@
 
 	"use strict";
 	
-	var escapeXml = __webpack_require__(/*! ./common */ 333).escapeXml;
+	var escapeXml = __webpack_require__(/*! ./common */ 337).escapeXml;
 	
 	// Helper function to produce an XML tag.
 	var tag = function(name, attrs, selfclosing) {
@@ -62989,7 +63822,7 @@
 
 
 /***/ },
-/* 350 */
+/* 354 */
 /*!**********************************************************************!*\
   !*** ./~/commonmark-react-renderer/src/commonmark-react-renderer.js ***!
   \**********************************************************************/
@@ -62998,10 +63831,10 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 2);
-	var assign = __webpack_require__(/*! lodash.assign */ 351);
-	var isPlainObject = __webpack_require__(/*! lodash.isplainobject */ 352);
-	var xssFilters = __webpack_require__(/*! xss-filters */ 353);
-	var pascalCase = __webpack_require__(/*! pascalcase */ 354);
+	var assign = __webpack_require__(/*! lodash.assign */ 355);
+	var isPlainObject = __webpack_require__(/*! lodash.isplainobject */ 356);
+	var xssFilters = __webpack_require__(/*! xss-filters */ 357);
+	var pascalCase = __webpack_require__(/*! pascalcase */ 358);
 	
 	var typeAliases = {
 	    blockquote: 'block_quote',
@@ -63397,7 +64230,7 @@
 
 
 /***/ },
-/* 351 */
+/* 355 */
 /*!**********************************!*\
   !*** ./~/lodash.assign/index.js ***!
   \**********************************/
@@ -64043,7 +64876,7 @@
 
 
 /***/ },
-/* 352 */
+/* 356 */
 /*!*********************************************************************!*\
   !*** ./~/commonmark-react-renderer/~/lodash.isplainobject/index.js ***!
   \*********************************************************************/
@@ -64191,7 +65024,7 @@
 
 
 /***/ },
-/* 353 */
+/* 357 */
 /*!******************************************!*\
   !*** ./~/xss-filters/src/xss-filters.js ***!
   \******************************************/
@@ -65299,7 +66132,7 @@
 
 
 /***/ },
-/* 354 */
+/* 358 */
 /*!*******************************!*\
   !*** ./~/pascalcase/index.js ***!
   \*******************************/
@@ -65329,418 +66162,7 @@
 
 
 /***/ },
-/* 355 */
-/*!******************************************************!*\
-  !*** ./public/src/components/listings/newListing.js ***!
-  \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 265);
-	
-	var _actions = __webpack_require__(/*! ../../actions */ 260);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 189);
-	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 329);
-	
-	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
-	
-	var _cities = __webpack_require__(/*! ../../../cities */ 323);
-	
-	var _cities2 = _interopRequireDefault(_cities);
-	
-	var _states = __webpack_require__(/*! ../../../states */ 324);
-	
-	var _states2 = _interopRequireDefault(_states);
-	
-	var _countries = __webpack_require__(/*! ../../../countries */ 325);
-	
-	var _countries2 = _interopRequireDefault(_countries);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewListing = function (_Component) {
-	  _inherits(NewListing, _Component);
-	
-	  function NewListing(props) {
-	    _classCallCheck(this, NewListing);
-	
-	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this, props));
-	
-	    _this.state = {
-	      file: '', text: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewListing, [{
-	    key: 'handleFormSubmit',
-	    value: function handleFormSubmit(formProps) {
-	      //called with props from submit form
-	      var data = formProps;
-	      data.city = this.state.city;
-	      data.country = this.state.country;
-	      data.image = this.state.file;
-	      data.username = this.props.userInfo.username;
-	      data.id = this.props.userInfo._id;
-	      data.phoneNumber = this.props.userInfo.phoneNumber;
-	      data.email = this.props.userInfo.email;
-	      if (data.country !== 'United States') {
-	        data.usCity = 'not valid';
-	      }
-	      if (data.image.length === 0) {
-	        alert('Must supply Image');
-	        return;
-	      }
-	      for (var key in data) {
-	        if (!data[key]) {
-	          alert('All Fields Are Required. Please fill in the ' + key + ' field');
-	          return;
-	        }
-	      }
-	      this.props.newListing(data);
-	      _reactRouter.browserHistory.push('/listings');
-	    }
-	  }, {
-	    key: 'changeCountry',
-	    value: function changeCountry(event) {
-	      this.setState({ country: event.target.value });
-	    }
-	  }, {
-	    key: 'changeCity',
-	    value: function changeCity(event) {
-	      this.setState({ city: event.target.value });
-	    }
-	  }, {
-	    key: 'markdown',
-	    value: function markdown() {
-	      this.setState({ text: '' });
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	    }
-	  }, {
-	    key: 'renderAlert',
-	    value: function renderAlert() {
-	      if (this.props.errorMessage) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'alert alert-danger' },
-	          _react2.default.createElement(
-	            'strong',
-	            null,
-	            'Error!!! '
-	          ),
-	          ' ',
-	          this.props.errorMessage
-	        );
-	      }
-	    }
-	  }, {
-	    key: 'previewFile',
-	    value: function previewFile() {
-	      var self = this;
-	      var file = document.querySelector('input[type=file]').files[0];
-	      var reader = new FileReader();
-	      var image;
-	      reader.addEventListener("load", function () {
-	        image = reader.result;
-	        self.setState({ file: image });
-	      }, false);
-	
-	      if (file) {
-	        reader.readAsDataURL(file);
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var incrementKey = 0;
-	      var _props = this.props;
-	      var handleSubmit = _props.handleSubmit;
-	      var userInfo = _props.userInfo;
-	      var _props$fields = _props.fields;
-	      var address = _props$fields.address;
-	      var usCity = _props$fields.usCity;
-	      var image = _props$fields.image;
-	      var pricePerNight = _props$fields.pricePerNight;
-	      var availableForRent = _props$fields.availableForRent;
-	      var title = _props$fields.title;
-	      var description = _props$fields.description;
-	
-	
-	      var citiesorstates = [];
-	      if (this.state.country) {
-	        if (!_cities2.default[this.state.country]) {
-	          alert('Sorry. We do not provide services in that country');
-	        } else {
-	          citiesorstates = _cities2.default[this.state.country].split('|');
-	        }
-	      }
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'container' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-10 col-sm-offset-1' },
-	            _react2.default.createElement(
-	              'form',
-	              { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Country: '
-	                ),
-	                _react2.default.createElement(
-	                  'select',
-	                  { className: 'form-control', onChange: this.changeCountry.bind(this) },
-	                  _react2.default.createElement(
-	                    'option',
-	                    { key: 'default' },
-	                    'Pick A Country'
-	                  ),
-	                  _countries2.default.map(function (e) {
-	                    return _react2.default.createElement(
-	                      'option',
-	                      { key: e, value: e },
-	                      e
-	                    );
-	                  })
-	                )
-	              ),
-	              this.state.country && citiesorstates.length > 0 && _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                this.state.country === 'United States' && _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'State: '
-	                ),
-	                this.state.country !== 'United States' && _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'City: '
-	                ),
-	                _react2.default.createElement(
-	                  'select',
-	                  { className: 'form-control', onChange: this.changeCity.bind(this) },
-	                  this.state.country === 'United States' && _react2.default.createElement(
-	                    'option',
-	                    { key: 'default' },
-	                    'Pick A State'
-	                  ),
-	                  this.state.country !== 'United States' && _react2.default.createElement(
-	                    'option',
-	                    { key: 'default' },
-	                    'Pick A City'
-	                  ),
-	                  citiesorstates.map(function (e) {
-	                    if (e.length > 0) return _react2.default.createElement(
-	                      'option',
-	                      { key: incrementKey += 1, value: e },
-	                      e
-	                    );
-	                  })
-	                )
-	              ),
-	              this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' && _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'US City: '
-	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, usCity))
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Address: '
-	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)),
-	                address.touched && address.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  address.error
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Price Per Night: '
-	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'number', min: '0.01', step: '0.01', max: '5000.00' }, pricePerNight)),
-	                pricePerNight.touched && pricePerNight.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  pricePerNight.error
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'h3',
-	                  null,
-	                  'Currently Available For Rent?'
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { className: 'radio-inline' },
-	                  _react2.default.createElement('input', {
-	                    type: 'radio',
-	                    name: 'availableForRent',
-	                    onChange: availableForRent.onChange,
-	                    value: 'true' }),
-	                  'Yes:'
-	                ),
-	                _react2.default.createElement(
-	                  'label',
-	                  { className: 'radio-inline' },
-	                  _react2.default.createElement('input', {
-	                    type: 'radio',
-	                    name: 'availableForRent',
-	                    onChange: availableForRent.onChange,
-	                    value: 'false' }),
-	                  'No:'
-	                ),
-	                availableForRent.touched && availableForRent.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  availableForRent.error
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Listing Title: '
-	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)),
-	                title.touched && title.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  title.error
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
-	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Describe the Listing: '
-	                ),
-	                _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, description, { onInput: this.markdown.bind(this) })),
-	                description.touched && description.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  description.error
-	                )
-	              ),
-	              this.renderAlert(),
-	              _react2.default.createElement(
-	                'button',
-	                { action: 'submit', className: 'btn btn-primary' },
-	                'Add Listing'
-	              )
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-6 previewMarkdown' },
-	            _react2.default.createElement(_reactMarkdown2.default, { source: description.value })
-	          )
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return NewListing;
-	}(_react.Component);
-	
-	function validate(formProps) {
-	  var errors = {};
-	
-	  if (!formProps.address) {
-	    errors.address = 'Please Enter an Address';
-	  }
-	  if (!formProps.pricePerNight) {
-	    errors.pricePerNight = 'Please Enter Price Per Night';
-	  }
-	  if (formProps.availableForRent !== formProps.availableForRent) {
-	    errors.availableForRent = 'Is the listing currently available for rent?';
-	  }
-	  if (!formProps.availableForRent) {
-	    errors.description = 'Describe the listing';
-	  }
-	  if (!formProps.title) {
-	    errors.title = 'Title the listing';
-	  }
-	  return errors;
-	}
-	
-	function mapStateToProps(state) {
-	  return {
-	    errorMessage: state.auth.error,
-	    userInfo: state.auth.userInfo
-	  };
-	}
-	
-	exports.default = (0, _reduxForm.reduxForm)({
-	  form: 'newListing',
-	  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title', 'usCity'],
-	  validate: validate
-	}, mapStateToProps, actions)(NewListing);
-
-/***/ },
-/* 356 */
+/* 359 */
 /*!******************************************************!*\
   !*** ./public/src/components/blog/blog_container.js ***!
   \******************************************************/
@@ -65760,7 +66182,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _blog_list = __webpack_require__(/*! ./blog_list */ 357);
+	var _blog_list = __webpack_require__(/*! ./blog_list */ 360);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
@@ -65815,7 +66237,7 @@
 	module.exports = Blog_Container;
 
 /***/ },
-/* 357 */
+/* 360 */
 /*!*************************************************!*\
   !*** ./public/src/components/blog/blog_list.js ***!
   \*************************************************/
@@ -65868,9 +66290,10 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var blogs = this.props.blogs;
+	      var _props = this.props;
+	      var userInfo = _props.userInfo;
+	      var blogs = _props.blogs;
 	
-	      console.log(blogs);
 	      if (blogs && blogs.length) {
 	        return _react2.default.createElement(
 	          'div',
@@ -65929,7 +66352,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BlogList);
 
 /***/ },
-/* 358 */
+/* 361 */
 /*!****************************************************!*\
   !*** ./public/src/components/blog/mine/my_blog.js ***!
   \****************************************************/
@@ -65975,18 +66398,13 @@
 	  }
 	
 	  _createClass(MyBlog, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var userInfo = this.props.userInfo;
 	
-	      console.log(userInfo);
 	      var blogs = [];
-	      if (this.props.userInfo) {
+	      if (this.props.userInfo && Array.isArray(this.props.userInfo.blogs)) {
+	        console.log(userInfo);
 	        blogs = this.props.userInfo.blogs;
 	      }
 	      return _react2.default.createElement(
@@ -66045,7 +66463,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyBlog);
 
 /***/ },
-/* 359 */
+/* 362 */
 /*!*****************************************************!*\
   !*** ./public/src/components/blog/mine/new_blog.js ***!
   \*****************************************************/
@@ -66059,19 +66477,21 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 2);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 265);
+	var _reduxForm = __webpack_require__(/*! redux-form */ 267);
 	
 	var _actions = __webpack_require__(/*! ../../../actions */ 260);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 329);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 333);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
@@ -66091,13 +66511,7 @@
 	  function NewBlog() {
 	    _classCallCheck(this, NewBlog);
 	
-	    var _this = _possibleConstructorReturn(this, (NewBlog.__proto__ || Object.getPrototypeOf(NewBlog)).call(this));
-	
-	    _this.state = {
-	      file: '',
-	      text: ''
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (NewBlog.__proto__ || Object.getPrototypeOf(NewBlog)).apply(this, arguments));
 	  }
 	
 	  _createClass(NewBlog, [{
@@ -66109,11 +66523,6 @@
 	      data.id = this.props.userInfo._id;
 	      data.image = [];
 	      this.props.newBlog(data);
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
 	    }
 	  }, {
 	    key: 'renderAlert',
@@ -66149,79 +66558,89 @@
 	      var body = _props$fields.body;
 	
 	      var input = '# This is a header\n\nAnd this is a paragraph';
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'toppush' },
-	        _react2.default.createElement(
+	      if (_typeof(this.props.userInfo) !== 'object') {
+	        this.props.fetchInfo();
+	      }
+	      if (this.props.userInfo) {
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-12' },
+	          { className: 'toppush' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-sm-6' },
+	            { className: 'col-sm-12' },
 	            _react2.default.createElement(
-	              'form',
-	              { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
+	              'div',
+	              { className: 'col-sm-6' },
 	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
+	                'form',
+	                { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) },
 	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Title: '
+	                  'fieldset',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    null,
+	                    'Title: '
+	                  ),
+	                  _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)),
+	                  title.touched && title.error && _react2.default.createElement(
+	                    'div',
+	                    { className: 'error' },
+	                    title.error
+	                  )
 	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)),
-	                title.touched && title.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  title.error
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
 	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Tagline: '
+	                  'fieldset',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    null,
+	                    'Tagline: '
+	                  ),
+	                  _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
+	                  tagline.touched && tagline.error && _react2.default.createElement(
+	                    'div',
+	                    { className: 'error' },
+	                    tagline.error
+	                  )
 	                ),
-	                _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)),
-	                tagline.touched && tagline.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  tagline.error
-	                )
-	              ),
-	              _react2.default.createElement(
-	                'fieldset',
-	                { className: 'form-group' },
 	                _react2.default.createElement(
-	                  'label',
-	                  null,
-	                  'Body: '
+	                  'fieldset',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement(
+	                    'label',
+	                    null,
+	                    'Body: '
+	                  ),
+	                  _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, body, { onInput: this.markdown.bind(this) })),
+	                  body.touched && body.error && _react2.default.createElement(
+	                    'div',
+	                    { className: 'error' },
+	                    body.error
+	                  )
 	                ),
-	                _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, body, { onInput: this.markdown.bind(this) })),
-	                body.touched && body.error && _react2.default.createElement(
-	                  'div',
-	                  { className: 'error' },
-	                  body.error
+	                this.renderAlert(),
+	                _react2.default.createElement(
+	                  'button',
+	                  { action: 'submit', className: 'btn btn-primary' },
+	                  'Post Blog'
 	                )
-	              ),
-	              this.renderAlert(),
-	              _react2.default.createElement(
-	                'button',
-	                { action: 'submit', className: 'btn btn-primary' },
-	                'Post Blog'
 	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'col-sm-6 previewMarkdown' },
+	              _react2.default.createElement(_reactMarkdown2.default, { source: body.value })
 	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'col-sm-6 previewMarkdown' },
-	            _react2.default.createElement(_reactMarkdown2.default, { source: body.value })
 	          )
-	        )
-	      );
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Loading....'
+	        );
+	      }
 	    }
 	  }]);
 	
@@ -66261,7 +66680,7 @@
 	}, mapStateToProps, actions)(NewBlog);
 
 /***/ },
-/* 360 */
+/* 363 */
 /*!***************************************************!*\
   !*** ./public/src/components/blog/single_blog.js ***!
   \***************************************************/
@@ -66287,7 +66706,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 329);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 333);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
@@ -66368,7 +66787,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleBlog);
 
 /***/ },
-/* 361 */
+/* 364 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
   \****************************************************/
@@ -66445,7 +66864,7 @@
 	//wraps other components to add this feature to it: feature => kicks out unauthed users
 
 /***/ },
-/* 362 */
+/* 365 */
 /*!**************************************!*\
   !*** ./public/src/reducers/index.js ***!
   \**************************************/
@@ -66459,17 +66878,17 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 167);
 	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 265);
+	var _reduxForm = __webpack_require__(/*! redux-form */ 267);
 	
-	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 363);
+	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 366);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
-	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 364);
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 367);
 	
 	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
 	
-	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 365);
+	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 368);
 	
 	var _blog_reducer2 = _interopRequireDefault(_blog_reducer);
 	
@@ -66485,7 +66904,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 363 */
+/* 366 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/auth_reducer.js ***!
   \*********************************************/
@@ -66522,10 +66941,10 @@
 	  return state;
 	};
 	
-	var _types = __webpack_require__(/*! ../actions/types */ 262);
+	var _types = __webpack_require__(/*! ../actions/types */ 263);
 
 /***/ },
-/* 364 */
+/* 367 */
 /*!************************************************!*\
   !*** ./public/src/reducers/listing_reducer.js ***!
   \************************************************/
@@ -66552,14 +66971,16 @@
 	      return _extends({}, state, { listing: action.payload });
 	    case _types.NEW_LISTING:
 	      return _extends({}, state, { listing: action.payload });
+	    case _types.EDIT_LISTING:
+	      return _extends({}, state, { listing: action.payload });
 	  }
 	  return state;
 	};
 	
-	var _types = __webpack_require__(/*! ../actions/types */ 262);
+	var _types = __webpack_require__(/*! ../actions/types */ 263);
 
 /***/ },
-/* 365 */
+/* 368 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/blog_reducer.js ***!
   \*********************************************/
@@ -66590,148 +67011,7 @@
 	  return state;
 	};
 	
-	var _types = __webpack_require__(/*! ../actions/types */ 262);
-
-/***/ },
-/* 366 */
-/*!******************************************!*\
-  !*** ./public/src/actions/funcs/blog.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _jquery = __webpack_require__(/*! jquery */ 261);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 189);
-	
-	var _types = __webpack_require__(/*! ../types */ 262);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// const ROOT_URL = 'http://localhost:3000/api';
-	
-	exports.createBlog = function (data, dispatch) {
-	  _jquery2.default.ajax({
-	    url: 'api/blogs/new',
-	    type: "POST",
-	    data: data
-	  }).done(function (response) {
-	    console.log(response);
-	    dispatch({
-	      type: _types.NEW_BLOG,
-	      payload: response
-	    });
-	    _reactRouter.browserHistory.push('/blogs/mine'); // success pushes you to /information.
-	  }).fail(function (err) {
-	    console.log(err);
-	  });
-	}; // commits info about url to react router, and to make changes to url
-	
-	
-	exports.getBlog = function (id, dispatch) {
-	  _jquery2.default.ajax({
-	    url: '/api/blogs/' + id,
-	    type: "GET"
-	  }).done(function (response) {
-	    dispatch({
-	      type: _types.FETCH_SINGLE_BLOG,
-	      payload: response
-	    });
-	  });
-	};
-	
-	exports.getAllBlogs = function (dispatch) {
-	  _jquery2.default.ajax({
-	    url: '/api/blogs/',
-	    type: "GET"
-	  }).done(function (response) {
-	    dispatch({
-	      type: _types.FETCH_ALL_BLOGS,
-	      payload: response
-	    });
-	  });
-	};
-
-/***/ },
-/* 367 */
-/*!*********************************************!*\
-  !*** ./public/src/actions/funcs/listing.js ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _jquery = __webpack_require__(/*! jquery */ 261);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 189);
-	
-	var _types = __webpack_require__(/*! ../types */ 262);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// const ROOT_URL = 'http://localhost:3000/api';
-	
-	exports.getListing = function (id, dispatch) {
-	  var token = localStorage.getItem('token');
-	
-	  _jquery2.default.ajax({
-	    url: '/api/listings/' + id,
-	    type: "GET",
-	    headers: {
-	      "authorization": token
-	    }
-	  }).done(function (response) {
-	    dispatch({
-	      type: _types.FETCH_SINGLE_LISTING,
-	      payload: response
-	    });
-	  });
-	}; // commits info about url to react router, and to make changes to url
-	
-	exports.getAllListings = function (term, dispatch) {
-	  _jquery2.default.ajax({
-	    url: 'api/listings/location/' + term,
-	    type: "GET"
-	  }).done(function (response) {
-	    dispatch({
-	      type: _types.FETCH_LISTINGS,
-	      payload: response
-	    });
-	  });
-	};
-	exports.getMyListings = function (array, dispatch) {
-	  _jquery2.default.ajax({
-	    url: 'api/listings/mylistings',
-	    type: "POST",
-	    data: { 'data': array }
-	  }).done(function (response) {
-	    dispatch({
-	      type: _types.FETCH_MY_LISTINGS,
-	      payload: response
-	    });
-	  });
-	};
-	exports.createListing = function (data, dispatch) {
-	  var token = localStorage.getItem('token');
-	  _jquery2.default.ajax({
-	    url: 'api/listings/new',
-	    type: "POST",
-	    headers: {
-	      "authorization": token
-	    },
-	    data: data
-	  }).done(function (response) {
-	    dispatch({
-	      type: _types.NEW_LISTING,
-	      payload: response
-	    });
-	  });
-	};
+	var _types = __webpack_require__(/*! ../actions/types */ 263);
 
 /***/ }
 /******/ ]);

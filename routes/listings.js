@@ -14,5 +14,6 @@ router.get('/:id', ListingController.findOneListing);
 router.post('/mylistings', ListingController.findMyListings);
 router.get('/location/:location', ListingController.findByLocation);
 router.post('/new', ListingController.newListing);
+router.post('/editListing', ListingController.editListing);
 
 module.exports = router;

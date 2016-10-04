@@ -5,22 +5,12 @@ import ReactMarkdown from 'react-markdown';
 
 
 class NewBlog extends Component {
-  constructor() {
-    super()
-    this.state = {
-      file: '',
-      text: ''
-    }
-  }
   handleFormSubmit(formProps) { //called with props from submit form
     var data = formProps
     data.username = this.props.userInfo.username;
     data.id = this.props.userInfo._id;
     data.image = []
     this.props.newBlog(data);
-  }
-  componentWillMount() {
-    this.props.fetchInfo();
   }
   renderAlert() {
     if(this.props.errorMessage) {
@@ -38,37 +28,44 @@ class NewBlog extends Component {
 
     const { handleSubmit, userInfo, fields: { tagline, title, body }} = this.props;
     var input = '# This is a header\n\nAnd this is a paragraph';
-
-    return (
-      <div className='toppush'>
-        <div className='col-sm-12'>
-          <div className='col-sm-6'>
-            <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-              <fieldset className="form-group">
-                <label>Title: </label>
-                <input className="form-control" type="text" {...title} />
-                {title.touched && title.error && <div className="error">{title.error}</div>}
-              </fieldset>
-              <fieldset className="form-group">
-                <label>Tagline: </label>
-                <input className="form-control" type="text" {...tagline} />
-                {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
-              </fieldset>
-              <fieldset className="form-group">
-                <label>Body: </label>
-                <textarea className="form-control" type="text" {...body} onInput={this.markdown.bind(this)}></textarea>
-                {body.touched && body.error && <div className="error">{body.error}</div>}
-              </fieldset>
-              {this.renderAlert()}
-              <button action="submit" className="btn btn-primary">Post Blog</button>
-            </form>
-          </div>
-          <div className='col-sm-6 previewMarkdown'>
-            <ReactMarkdown source={body.value} />
+    if(typeof this.props.userInfo !== 'object') {
+      this.props.fetchInfo();
+    }
+    if(this.props.userInfo) {
+      return (
+        <div className='toppush'>
+          <div className='col-sm-12'>
+            <div className='col-sm-6'>
+              <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+                <fieldset className="form-group">
+                  <label>Title: </label>
+                  <input className="form-control" type="text" {...title} />
+                  {title.touched && title.error && <div className="error">{title.error}</div>}
+                </fieldset>
+                <fieldset className="form-group">
+                  <label>Tagline: </label>
+                  <input className="form-control" type="text" {...tagline} />
+                  {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
+                </fieldset>
+                <fieldset className="form-group">
+                  <label>Body: </label>
+                  <textarea className="form-control" type="text" {...body} onInput={this.markdown.bind(this)}></textarea>
+                  {body.touched && body.error && <div className="error">{body.error}</div>}
+                </fieldset>
+                {this.renderAlert()}
+                <button action="submit" className="btn btn-primary">Post Blog</button>
+              </form>
+            </div>
+            <div className='col-sm-6 previewMarkdown'>
+              <ReactMarkdown source={body.value} />
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return <div>Loading....</div>
+    }
+
   }
 }
 

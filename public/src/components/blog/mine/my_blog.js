@@ -6,14 +6,11 @@ import {Link} from 'react-router';
 
 
 class MyBlog extends Component {
-  componentWillMount() {
-    this.props.fetchInfo();
-  }
   render() {
     let {userInfo} = this.props;
-    console.log(userInfo)
     let blogs = [];
-    if(this.props.userInfo) {
+    if(this.props.userInfo && Array.isArray(this.props.userInfo.blogs)) {
+      console.log(userInfo)
       blogs = this.props.userInfo.blogs
     }
     return (

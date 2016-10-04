@@ -27,6 +27,7 @@ exports.newBlog = (req, res, next) => {
   Blog.create(newBlog, (err, blog) => {
     if (err) res.send(err)
     User.findById(req.body.id, (err, user)=> {
+      console.log(req.body.id, user)
       if(err) res.send(err);
       user.blogs.push(blog);
       user.save();

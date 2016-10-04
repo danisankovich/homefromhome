@@ -91,16 +91,19 @@ exports.myPhotoUpload = function(dispatch, photo, user) {
 exports.getUser = function(dispatch) {
   var token = localStorage.getItem('token')
   $.ajax({
-     url: 'api/',
+     url: '/api/',
      type: "GET",
      headers: {
         "authorization": token
      }
   }).done((response) => {
+    console.log(response)
     dispatch({
       type: FETCH_INFO,
       payload: response
     })
+  }).fail((err) => {
+    console.log('error', err)
   });
 }
 export function authError(error) {

@@ -36,6 +36,32 @@ exports.findByLocation = (req, res) => {
     })
   }
 }
+exports.editListing = (req, res) => {
+  const updatedListing =JSON.parse(req.body.data).listing;
+  var token = req.headers.authorization;
+
+  var decoded = jwt.decode(token, config.secret);
+  let userId;
+  User.findById(decoded.sub, (err, user) => {
+    userId = user._id
+    Listing.findById(updatedListing._id, (err, listing) => {
+      if (err) {
+        res.send(err)
+      };
+      if (listing.creator.id != userId) {
+        res.send('You do not have these permissions');
+      }
+      else {
+        if(['address', 'city', 'usCity', 'country'].indexOf(updatedListing.type) > -1) {
+          listing.location[updatedListing.type] = updatedListing.location[updatedListing.type]
+        }
+        listing.save()
+        res.send(listing);
+      }
+    })
+  })
+
+}
 
 exports.newListing = (req, res) => {
   var data = {};

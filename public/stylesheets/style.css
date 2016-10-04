@@ -113,3 +113,7 @@ a {
 .init-hidden {
   display: none;
 }
+
+.table-row:hover {
+  cursor: pointer;
+}

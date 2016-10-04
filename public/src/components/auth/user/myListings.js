@@ -2,38 +2,41 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions';
 import { browserHistory } from 'react-router'
-
+import MyListingTable from './mylistingtable'
 class MyListings extends Component {
   componentWillMount() {
     let listings = this.props.userInfo.myListings
     this.props.fetchMyListings(listings)
   }
+  handleClick() {
+    let clickResult = this._id;
+    browserHistory.push(`/listings/${clickResult}`);
+  }
   render() {
-    if(this.props.mylistings) {
+    let listings = this.props.mylistings || []
+    if(listings) {
       return (
         <div>
-          {this.props.mylistings.map((result) => {
-            return (
-              <div className="col-sm-4" key={result._id}>
-                <div className="listingBorder">
-                  <div className="thumbnail">
-                    <img className="img-responsive center-block listingListImage"
-                      src={result.image}
-                      />
-                  </div>
-                  <hr />
-                  <div className="row">
-                    <div className="col-sm-10 col-sm-offset-1">
-                      <h3>Country: {result.location.country}</h3>
-                      <h3>City: {result.location.city}</h3>
-                      <h3>Price: ${result.pricePerNight} / night</h3>
-                    </div>
-                  </div>
-                </div>
-                <br />
-              </div>
-            );
-          })}
+          {listings && listings.length > 0 && <table className="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>Listing Name</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Price Per Night</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+              {listings.map(function(result) {
+                return (
+                  <MyListingTable result={result} key={result._id} />
+                )
+              }.bind(this))}
+            </tbody>
+          </table>}
         </div>
       )
     } else {

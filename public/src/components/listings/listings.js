@@ -19,6 +19,7 @@ class Listing extends Component {
     let listings = [];
     if(this.props.listings) {
       listings = this.props.listings
+      this.state.country = this.props.listings[0].location.country
     }
     return (
       <div>
@@ -30,7 +31,7 @@ class Listing extends Component {
             <tr>
               <th>Listing Name</th>
               <th>Country</th>
-              {this.state.country === 'United States' && <th>State</th>}
+              {this.state.country === 'united states' && <th>State</th>}
               <th>City</th>
               <th>Address</th>
               <th>Price Per Night</th>

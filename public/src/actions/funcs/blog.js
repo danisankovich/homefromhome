@@ -10,7 +10,7 @@ import {
 
 exports.createBlog = function(data, dispatch) {
   $.ajax({
-     url: `api/blogs/new`,
+     url: `/api/blogs/new`,
      type: "POST",
      data: data
   }).done((response) => {
