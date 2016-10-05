@@ -44355,6 +44355,7 @@
 	      var listings = [];
 	      if (this.props.listings) {
 	        listings = this.props.listings;
+	        console.log(listings);
 	        this.state.country = this.props.listings[0].location.country;
 	      }
 	      return _react2.default.createElement(
@@ -57031,7 +57032,7 @@
 	city_states["Caribbean"] = "";
 	city_states["Greenland"] = "|Nuuk (Godthab)||Avannaa (Nordgronland)|Tunu (Ostgronland)|Kitaa (Vestgronland)";
 	city_states["Mexico"] = "|Mexico (Distrito Federal)||Aguascalientes|Baja California|Baja California Sur|Campeche|Chiapas|Chihuahua|Coahuila de Zaragoza|Colima|Durango|Guanajuato|Guerrero|Hidalgo|Jalisco|Michoacan de Ocampo|Morelos|Nayarit|Nuevo Leon|Oaxaca|Puebla|Queretaro de Arteaga|Quintana Roo|San Luis Potosi|Sinaloa|Sonora|Tabasco|Tamaulipas|Tlaxcala|Veracruz-Llave|Yucatan|Zacatecas";
-	city_states["United States"] = "|Washington DC||Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Georgia|Kentucky|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusets|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming";
+	city_states["United States"] = "|District of Columbia||Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Georgia|Kentucky|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusets|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming";
 	
 	city_states["Argentina"] = "|Buenos Aires||Catamarca|Chaco|Chubut|Cordoba|Corrientes|Entre Rios|Formosa|Jujuy|La Pampa|La Rioja|Mendoza|Misiones|Neuquen|Rio Negro|Salta|San Juan|San Luis|Santa Cruz|Santa Fe|Santiago del Estero|Tucuman";
 	city_states["Bolivia"] = "|La Paz|Sucre||Chuquisaca|Cochabamba|Beni|Oruro|Pando|Potosi|Santa Cruz|Tarija";
@@ -57247,17 +57248,22 @@
 	    key: 'changeCountry',
 	    value: function changeCountry(event) {
 	      this.setState({ country: event.target.value });
-	      this.setState({ city: '' });
+	      this.setState({ city: '', usCity: '' });
 	    }
 	  }, {
 	    key: 'changeCity',
 	    value: function changeCity(event) {
-	      this.setState({ city: event.target.value });
+	      this.setState({ city: event.target.value, usCity: '' });
+	    }
+	  }, {
+	    key: 'changeUsCity',
+	    value: function changeUsCity(event) {
+	      this.setState({ usCity: event.target.value });
 	    }
 	  }, {
 	    key: 'cityCountrySearch',
 	    value: function cityCountrySearch() {
-	      this.props.fetchListings(this.state.country + '_' + this.state.city);
+	      this.props.fetchListings(this.state.country + '_' + this.state.city + '_' + this.state.usCity);
 	    }
 	  }, {
 	    key: 'render',
@@ -57273,6 +57279,11 @@
 	          citiesorstates = _cities2.default[this.state.country].split('|');
 	        }
 	      }
+	      var usCities = void 0;
+	      if (this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0) {
+	        var usState = this.state.city.toUpperCase();
+	        usCities = _us_cities2.default[usState];
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-sm-12' },
@@ -57287,7 +57298,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-4' },
+	          { className: 'col-sm-3' },
 	          _react2.default.createElement(
 	            'select',
 	            { className: 'form-control', onChange: this.changeCountry.bind(this) },
@@ -57321,7 +57332,7 @@
 	        ),
 	        this.state.country && _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-4' },
+	          { className: 'col-sm-3' },
 	          _react2.default.createElement(
 	            'select',
 	            { className: 'form-control', onChange: this.changeCity.bind(this) },
@@ -57344,24 +57355,41 @@
 	            })
 	          )
 	        ),
-	        this.state.country && this.state.country === 'United States' && this.state.city.length > 0 && _react2.default.createElement(
+	        this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0 && _react2.default.createElement(
 	          'div',
-	          { className: 'col-sm-4' },
+	          null,
 	          _react2.default.createElement(
-	            'select',
-	            { className: 'form-control', onChange: this.changeCity.bind(this) },
+	            'div',
+	            { className: 'col-sm-1' },
 	            _react2.default.createElement(
-	              'option',
-	              { key: 'default' },
-	              'Pick A City'
-	            ),
-	            _us_cities2.default.map(function (e) {
-	              if (e.length > 0) return _react2.default.createElement(
-	                'option',
-	                { key: incrementKey += 1, value: e },
-	                e
-	              );
-	            })
+	              'label',
+	              { className: 'searchLabel' },
+	              'Country: '
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-3' },
+	            _react2.default.createElement(
+	              'fieldset',
+	              { className: 'form-group' },
+	              _react2.default.createElement(
+	                'select',
+	                { className: 'form-control', onChange: this.changeUsCity.bind(this) },
+	                _react2.default.createElement(
+	                  'option',
+	                  { key: 'default' },
+	                  'Pick A City'
+	                ),
+	                usCities.map(function (e) {
+	                  if (usCities.length > 0) return _react2.default.createElement(
+	                    'option',
+	                    { key: incrementKey += 1, value: e },
+	                    e
+	                  );
+	                })
+	              )
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(

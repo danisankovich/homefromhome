@@ -19,6 +19,7 @@ class Listing extends Component {
     let listings = [];
     if(this.props.listings) {
       listings = this.props.listings
+      console.log(listings)
       this.state.country = this.props.listings[0].location.country
     }
     return (

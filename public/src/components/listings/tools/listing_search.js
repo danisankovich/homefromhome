@@ -14,13 +14,16 @@ class ListingSearch extends Component {
   }
   changeCountry(event) {
     this.setState({country: event.target.value});
-    this.setState({city: ''})
+    this.setState({city: '', usCity: ''})
   }
   changeCity(event) {
-    this.setState({city: event.target.value});
+    this.setState({city: event.target.value, usCity: ''});
+  }
+  changeUsCity(event) {
+    this.setState({usCity: event.target.value});
   }
   cityCountrySearch() {
-    this.props.fetchListings(`${this.state.country}_${this.state.city}`)
+    this.props.fetchListings(`${this.state.country}_${this.state.city}_${this.state.usCity}`)
   }
   render() {
     let incrementKey = 0
@@ -34,10 +37,15 @@ class ListingSearch extends Component {
         citiesorstates = city_states[this.state.country].split('|');
       }
     }
+    let usCities;
+    if(this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0) {
+      let usState = this.state.city.toUpperCase();
+      usCities = us_cities_by_state[usState]
+    }
     return (
       <div className='col-sm-12'>
         <div className='col-sm-1'><label className='searchLabel'>Country: </label></div>
-        <div className='col-sm-4'>
+        <div className='col-sm-3'>
           <select className="form-control" onChange={this.changeCountry.bind(this)}>
             <option key="default">Pick A Country</option>
             {countries.map((e) => {
@@ -49,7 +57,7 @@ class ListingSearch extends Component {
           {this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' && <label className='searchLabel'>State: </label>}
           {this.state.country && citiesorstates.length > 0 && this.state.country !== 'United States' && <label className='searchLabel'>City: </label>}
         </div>
-        {this.state.country && <div className='col-sm-4'>
+        {this.state.country && <div className='col-sm-3'>
           <select className="form-control" onChange={this.changeCity.bind(this)}>
             {this.state.country === 'United States' && <option key="default">Pick A State</option>}
             {this.state.country !== 'United States' && <option key="default">Pick A City</option>}
@@ -58,14 +66,25 @@ class ListingSearch extends Component {
             })}
           </select>
         </div>}
-        {this.state.country && this.state.country === 'United States' && this.state.city.length > 0 && <div className='col-sm-4'>
-          <select className="form-control" onChange={this.changeCity.bind(this)}>
-            <option key="default">Pick A City</option>
-            {us_cities_by_state.map((e) => {
-              if(e.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
-            })}
-          </select>
-        </div>}
+        {this.state.country &&
+          this.state.country === 'United States' &&
+          this.state.city &&
+          (this.state.city.length > 0) && <div>
+            <div className='col-sm-1'>
+              <label className='searchLabel'>Country: </label>
+            </div>
+            <div className='col-sm-3'>
+              <fieldset className="form-group">
+                <select className="form-control" onChange={this.changeUsCity.bind(this)}>
+                  <option key="default">Pick A City</option>
+                  {usCities.map((e) => {
+                    if(usCities.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
+                  })}
+                </select>
+              </fieldset>
+            </div>
+          </div>
+        }
         <div className='col-sm-2'>
           <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City</button>
         </div>
