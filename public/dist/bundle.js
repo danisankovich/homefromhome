@@ -57444,6 +57444,22 @@
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
+	var _cities = __webpack_require__(/*! ../../../locations/cities */ 326);
+	
+	var _cities2 = _interopRequireDefault(_cities);
+	
+	var _states = __webpack_require__(/*! ../../../locations/states */ 327);
+	
+	var _states2 = _interopRequireDefault(_states);
+	
+	var _countries = __webpack_require__(/*! ../../../locations/countries */ 328);
+	
+	var _countries2 = _interopRequireDefault(_countries);
+	
+	var _us_cities = __webpack_require__(/*! ../../../locations/us_cities */ 370);
+	
+	var _us_cities2 = _interopRequireDefault(_us_cities);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -57476,14 +57492,22 @@
 	      this.setState(type);
 	    }
 	  }, {
+	    key: 'changeUsCity',
+	    value: function changeUsCity(event) {
+	      this.setState({ usCity: event.target.value, type: 'usCity' });
+	      console.log(this.state);
+	    }
+	  }, {
 	    key: 'handleFormSubmit',
 	    value: function handleFormSubmit(e) {
 	      //called with props from submit form
 	      e.preventDefault();
 	      var listing = this.state.listing;
 	      listing.type = this.state.type;
-	      if (['address', 'city', 'usCity', 'country'].indexOf(listing.type) > -1) {
+	      if (listing.type === 'address') {
 	        listing.location[listing.type] = this.state.inputValue;
+	      } else if (listing.type === 'usCity') {
+	        listing.location[listing.type] = this.state.usCity;
 	      } else {
 	        listing[listing.type] = this.state.inputValue;
 	        if (listing.type === 'pricePerNight' && isNaN(listing[listing.type])) {
@@ -57508,6 +57532,12 @@
 	      var listing = _props.listing;
 	      var userInfo = _props.userInfo;
 	
+	      var usCities = [];
+	      if (listing && listing.location.country === 'united states') {
+	        var usState = listing.location.city.toUpperCase();
+	        usCities = _us_cities2.default[usState];
+	      }
+	      var incrementKey = 0;
 	      if (listing && listing.location) {
 	        this.state.listing = listing;
 	        return _react2.default.createElement(
@@ -57614,14 +57644,24 @@
 	                            _react2.default.createElement(
 	                              'label',
 	                              null,
-	                              'New City: '
+	                              'City: '
 	                            ),
-	                            _react2.default.createElement('input', { className: 'form-control',
-	                              onChange: function (evt) {
-	                                this.setState({
-	                                  inputValue: evt.target.value, type: 'usCity'
-	                                });
-	                              }.bind(this) })
+	                            _react2.default.createElement(
+	                              'select',
+	                              { className: 'form-control', onChange: this.changeUsCity.bind(this) },
+	                              _react2.default.createElement(
+	                                'option',
+	                                { key: 'default' },
+	                                'Pick A City'
+	                              ),
+	                              usCities.map(function (e) {
+	                                if (usCities.length > 0) return _react2.default.createElement(
+	                                  'option',
+	                                  { key: incrementKey += 1, value: e },
+	                                  e
+	                                );
+	                              })
+	                            )
 	                          ),
 	                          _react2.default.createElement(
 	                            'button',

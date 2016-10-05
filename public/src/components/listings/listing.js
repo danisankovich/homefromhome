@@ -3,7 +3,10 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
 import ReactMarkdown from 'react-markdown';
-
+import city_states from '../../../locations/cities';
+import states from '../../../locations/states';
+import countries from '../../../locations/countries';
+import us_cities_by_state from '../../../locations/us_cities';
 
 class SingleListing extends Component {
   componentWillMount() {
@@ -14,13 +17,21 @@ class SingleListing extends Component {
   handleClick(type) {
      this.setState(type);
   }
+  changeUsCity(event) {
+    this.setState({usCity: event.target.value, type:'usCity'});
+    console.log(this.state)
+  }
   handleFormSubmit(e) { //called with props from submit form
     e.preventDefault();
     let listing = this.state.listing
     listing.type = this.state.type
-    if(['address', 'city', 'usCity', 'country'].indexOf(listing.type) > -1) {
+    if(listing.type === 'address') {
       listing.location[listing.type] = this.state.inputValue
-    } else {
+    }
+    else if(listing.type === 'usCity') {
+      listing.location[listing.type] = this.state.usCity
+    }
+    else {
       listing[listing.type] = this.state.inputValue
       if(listing.type === 'pricePerNight' && isNaN(listing[listing.type])) {
         alert('Must supply a valid number');
@@ -37,6 +48,12 @@ class SingleListing extends Component {
   }
   render() {
     let {listing, userInfo} = this.props;
+    let usCities = []
+    if(listing && listing.location.country === 'united states') {
+      let usState = listing.location.city.toUpperCase();
+      usCities = us_cities_by_state[usState]
+    }
+    let incrementKey = 0
     if(listing && listing.location) {
       this.state.listing = listing
       return (
@@ -94,13 +111,13 @@ class SingleListing extends Component {
                         <li className={this.state.editusCity ? '' : 'hidden'}>
                           <form onSubmit={this.handleFormSubmit.bind(this)}>
                             <fieldset className="form-group">
-                              <label>New City: </label>
-                              <input className="form-control"
-                                onChange={function(evt) {
-                                  this.setState({
-                                    inputValue: evt.target.value, type: 'usCity'
-                                  });
-                                }.bind(this)}/>
+                              <label>City: </label>
+                              <select className="form-control" onChange={this.changeUsCity.bind(this)}>
+                                <option key="default">Pick A City</option>
+                                {usCities.map((e) => {
+                                  if(usCities.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
+                                })}
+                              </select>
                             </fieldset>
                             <button type='button' className="btn btn-danger"
                               onClick={function(){

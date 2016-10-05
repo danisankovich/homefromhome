@@ -61,7 +61,9 @@ exports.editListing = (req, res) => {
         res.send('You do not have these permissions');
       }
       else {
+        console.log(updatedListing.type)
         if(['address', 'city', 'usCity', 'country'].indexOf(updatedListing.type) > -1) {
+          console.log(updatedListing.location)
           listing.location[updatedListing.type] = updatedListing.location[updatedListing.type]
         } else {
           listing[updatedListing.type] = updatedListing[updatedListing.type]
