@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
-import city_states from '../../../cities';
-import states from '../../../states';
-import countries from '../../../countries';
-
+import city_states from '../../../locations/cities';
+import states from '../../../locations/states';
+import countries from '../../../locations/countries';
+import us_cities_by_state from '../../../locations/us_cities';
 import TableListing from './tools/tablelisting';
 import ListingSearch from './tools/listing_search';
 

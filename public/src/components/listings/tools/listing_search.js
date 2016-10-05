@@ -3,10 +3,10 @@ import {connect} from 'react-redux';
 import * as actions from '../../../actions';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
-import city_states from '../../../../cities';
-import states from '../../../../states';
-import countries from '../../../../countries';
-
+import city_states from '../../../../locations/cities';
+import states from '../../../../locations/states';
+import countries from '../../../../locations/countries';
+import us_cities_by_state from '../../../../locations/us_cities';
 class ListingSearch extends Component {
   constructor(props) {
     super(props)
@@ -54,6 +54,14 @@ class ListingSearch extends Component {
             {this.state.country === 'United States' && <option key="default">Pick A State</option>}
             {this.state.country !== 'United States' && <option key="default">Pick A City</option>}
             {citiesorstates.map((e) => {
+              if(e.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
+            })}
+          </select>
+        </div>}
+        {this.state.country && this.state.country === 'United States' && this.state.city.length > 0 && <div className='col-sm-4'>
+          <select className="form-control" onChange={this.changeCity.bind(this)}>
+            <option key="default">Pick A City</option>
+            {us_cities_by_state.map((e) => {
               if(e.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
             })}
           </select>

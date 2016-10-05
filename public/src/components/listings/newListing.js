@@ -3,9 +3,10 @@ import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router';
 import ReactMarkdown from 'react-markdown';
-import city_states from '../../../cities';
-import states from '../../../states';
-import countries from '../../../countries';
+import city_states from '../../../locations/cities';
+import states from '../../../locations/states';
+import countries from '../../../locations/countries';
+import us_cities_by_state from '../../../locations/us_cities';
 
 class NewListing extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class NewListing extends Component {
   }
   handleFormSubmit(formProps) { //called with props from submit form
     var data = formProps
+    data.usCity = this.state.usCity
+    console.log(data)
     data.city = this.state.city
     data.country = this.state.country
     data.image = this.state.file
@@ -44,6 +47,10 @@ class NewListing extends Component {
   }
   changeCity(event) {
     this.setState({city: event.target.value});
+  }
+  changeUsCity(event) {
+    this.setState({usCity: event.target.value});
+    console.log(this.state)
   }
   markdown() {
     this.setState({text: ''})
@@ -87,6 +94,11 @@ class NewListing extends Component {
         citiesorstates = city_states[this.state.country].split('|');
       }
     }
+    let usCities;
+    if(this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0) {
+      let usState = this.state.city.toUpperCase();
+      usCities = us_cities_by_state[usState]
+    }
     return (
       <div className="container">
         <div className="row">
@@ -114,10 +126,18 @@ class NewListing extends Component {
                   </select>
                 </fieldset>
               }
-              {this.state.country && citiesorstates.length > 0 && this.state.country === 'United States' &&
+              {this.state.country &&
+                this.state.country === 'United States' &&
+                this.state.city &&
+                (this.state.city.length > 0) &&
                 <fieldset className="form-group">
-                  <label>US City: </label>
-                  <input className='form-control' type='text' {...usCity}/>
+                  <label>City: </label>
+                  <select className="form-control" onChange={this.changeUsCity.bind(this)}>
+                    <option key="default">Pick A City</option>
+                    {usCities.map((e) => {
+                      if(usCities.length > 0) return <option key={incrementKey+=1} value={e}>{e}</option>
+                    })}
+                  </select>
                 </fieldset>
               }
               <fieldset className="form-group">

@@ -45,7 +45,6 @@ exports.signup = function(req, res, next) {
 }
 
 exports.signin = function(req, res, next) {
-  console.log(req.user)
   res.send({token: tokenForUser(req.user)});
 }
 exports.getUser = (req, res) => {
@@ -56,7 +55,6 @@ exports.getUser = (req, res) => {
       var decoded = jwt.decode(token, config.secret);
       User.findById(decoded.sub, (err, user) => {
         user = user
-        console.log(user)
         res.send(user)
       })
      }
@@ -72,7 +70,6 @@ exports.editInfo = function(req, res, next) {
   var newPhone = req.body.phoneNumber
   var newEmail = req.body.email
   var newLang = req.body['lang[]']
-  console.log(newLang)
   User.findById(req.body.user, (err, user) => {
     user.phoneNumber = newPhone || user.phoneNumber;
     user.email = newEmail || user.email;
