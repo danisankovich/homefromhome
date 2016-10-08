@@ -19,7 +19,6 @@ class SingleListing extends Component {
   }
   changeUsCity(event) {
     this.setState({usCity: event.target.value, type:'usCity'});
-    console.log(this.state)
   }
   handleFormSubmit(e) { //called with props from submit form
     e.preventDefault();

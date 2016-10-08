@@ -18,6 +18,11 @@ module.exports = {
     {
       test: /\.json$/,
       loader: 'json'
+    },
+    {
+      test: /\.js$/, loader: 'babel', query: {
+        compact: false
+      }
     }]
   },
   resolve: {

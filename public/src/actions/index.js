@@ -1,7 +1,10 @@
-import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser} from './funcs/user';
+import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser, deleteListing} from './funcs/user';
 import {createBlog, getBlog, getAllBlogs} from './funcs/blog';
 import {getListing, getAllListings, getMyListings, createListing, edit} from './funcs/listing';
-
+import {
+  AUTH_USER,
+  UNAUTH_USER,
+} from './types';
 //USER FUNCTIONS
 export function signinUser({email, password}) {
   return function(dispatch) {
@@ -16,6 +19,12 @@ export function signupUser({email, password, username}) {
 export function editUser({phoneNumber, email, lang}, user) {
   return function(dispatch) {
     userEdit(dispatch, {phoneNumber, email, lang}, user)
+  }
+}
+export function removeListing(id) {
+  console.log(id)
+  return function(dispatch) {
+    deleteListing(id, dispatch)
   }
 }
 export function uploadMyPhoto(photo, user) {

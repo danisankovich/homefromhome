@@ -97,7 +97,6 @@ exports.getUser = function(dispatch) {
         "authorization": token
      }
   }).done((response) => {
-    console.log(response)
     dispatch({
       type: FETCH_INFO,
       payload: response
@@ -111,4 +110,22 @@ export function authError(error) {
     type: AUTH_ERROR,
     payload: error
   }
+}
+
+exports.deleteListing = function(id, dispatch) {
+  var token = localStorage.getItem('token')
+  $.ajax({
+     url: `/api/listings/deleteListing/${id}`,
+     type: "DELETE",
+     headers: {
+       "authorization": token
+     }
+  }).done((response) => {
+    dispatch({
+      type: FETCH_INFO,
+      payload: response
+    })
+  }).fail((err) => {
+    console.log('error', err)
+  });
 }

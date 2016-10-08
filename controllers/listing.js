@@ -106,3 +106,24 @@ exports.newListing = (req, res) => {
     });
   });
 };
+
+exports.deleteListing = (req, res) => {
+  var listing = req.params.id;
+  var token = req.headers.authorization;
+  var decoded = jwt.decode(token, config.secret);
+  User.findById(decoded.sub, (err, user) => {
+    if(err) res.send(err)
+    var index = user.myListings.indexOf(listing);
+    Listing.findByIdAndRemove(listing, (err, listingToRemove) => {
+      if(err) {
+        res.send(err)
+      }
+      console.log('passed the errors')
+      if (index > -1) {
+        user.myListings.splice(index, 1);
+        user.save(user)
+        res.send(user);
+      }
+    })
+  });
+}

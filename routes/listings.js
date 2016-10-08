@@ -15,5 +15,5 @@ router.post('/mylistings', ListingController.findMyListings);
 router.get('/location/:location', ListingController.findByLocation);
 router.post('/new', ListingController.newListing);
 router.post('/editListing', ListingController.editListing);
-
+router.delete('/deleteListing/:id', ListingController.deleteListing);
 module.exports = router;

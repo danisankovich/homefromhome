@@ -16,7 +16,7 @@ mongoose.connect('mongodb://localhost:auth/auth');
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -61,7 +61,8 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render(path.join(__dirname, 'views/error.html'), {
+  console.log(path.join(__dirname, 'views/error.ejs'));
+  res.render(path.join(__dirname, 'views/error.ejs'), {
     message: err.message,
     error: {}
   });
