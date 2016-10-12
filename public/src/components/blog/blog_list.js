@@ -30,7 +30,7 @@ class BlogList extends Component {
         </div>
       );
     } else {
-      return <div className="toppush"><h1>LOADING........</h1></div>
+      return <div className="toppush"><h1>No Blogs Found</h1></div>
     }
 
   }

@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 class NewBlog extends Component {
   handleFormSubmit(formProps) { //called with props from submit form
     var data = formProps
+    console.log(data)
     data.username = this.props.userInfo.username;
     if (data.tagline.length > 25) {
       alert('Tagline must be 25 characters or fewer');
@@ -30,7 +31,7 @@ class NewBlog extends Component {
   }
   render() {
 
-    const { handleSubmit, userInfo, fields: { tagline, title, body }} = this.props;
+    const { handleSubmit, userInfo, fields: { tagline, title, body, keywords }} = this.props;
     var input = '# This is a header\n\nAnd this is a paragraph';
     if(typeof this.props.userInfo !== 'object') {
       this.props.fetchInfo();
@@ -50,6 +51,11 @@ class NewBlog extends Component {
                   <label>Tagline: </label>
                   <input className="form-control" type="text" {...tagline} />
                   {tagline.touched && tagline.error && <div className="error">{tagline.error}</div>}
+                </fieldset>
+                <fieldset className="form-group">
+                  <label>Keywords: </label>
+                  <input className="form-control" type="text" {...keywords} placeholder="separate keywords by a space" />
+                  {keywords.touched && keywords.error && <div className="error">{keywords.error}</div>}
                 </fieldset>
                 <fieldset className="form-group">
                   <label>Body: </label>
@@ -82,6 +88,15 @@ function validate(formProps) {
   if (!formProps.tagline) {
     errors.tagline = 'Please Enter a Tagline';
   }
+  if (!formProps.keywords) {
+    errors.keywords = 'Please Enter at least one keyword';
+  }
+  if (formProps.keywords && formProps.keywords.length > 100) {
+    errors.keywords = '100 Character maximum';
+  }
+  if (formProps.keywords && formProps.keywords.split(' ').length > 7) {
+    errors.keywords = '7 keyword maximum';
+  }
   if (!formProps.body) {
     errors.body = 'Please Enter a Body for your Blog';
   }
@@ -101,6 +116,6 @@ function mapStateToProps(state) {
 
 export default reduxForm({
   form: 'newBlog',
-  fields: ['image', 'body', 'title', 'tagline'],
+  fields: ['image', 'body', 'title', 'tagline', 'keywords'],
   validate,
 }, mapStateToProps, actions)(NewBlog);

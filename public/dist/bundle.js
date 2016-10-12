@@ -65756,7 +65756,7 @@
 	            } }, _react2.default.createElement('ul', { className: 'blogListingBorder' }, _react2.default.createElement('li', null, e.title), _react2.default.createElement('li', null, e.tagline)));
 	        }))));
 	      } else {
-	        return _react2.default.createElement('div', { className: 'toppush' }, _react2.default.createElement('h1', null, 'LOADING........'));
+	        return _react2.default.createElement('div', { className: 'toppush' }, _react2.default.createElement('h1', null, 'No Blogs Found'));
 	      }
 	    }
 	  }]);
@@ -65978,6 +65978,7 @@
 	    value: function handleFormSubmit(formProps) {
 	      //called with props from submit form
 	      var data = formProps;
+	      console.log(data);
 	      data.username = this.props.userInfo.username;
 	      if (data.tagline.length > 25) {
 	        alert('Tagline must be 25 characters or fewer');
@@ -66009,13 +66010,14 @@
 	      var tagline = _props$fields.tagline;
 	      var title = _props$fields.title;
 	      var body = _props$fields.body;
+	      var keywords = _props$fields.keywords;
 	
 	      var input = '# This is a header\n\nAnd this is a paragraph';
 	      if (_typeof(this.props.userInfo) !== 'object') {
 	        this.props.fetchInfo();
 	      }
 	      if (this.props.userInfo) {
-	        return _react2.default.createElement('div', { className: 'toppush' }, _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Title: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)), title.touched && title.error && _react2.default.createElement('div', { className: 'error' }, title.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Tagline: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)), tagline.touched && tagline.error && _react2.default.createElement('div', { className: 'error' }, tagline.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Body: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, body, { onInput: this.markdown.bind(this) })), body.touched && body.error && _react2.default.createElement('div', { className: 'error' }, body.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Post Blog'))), _react2.default.createElement('div', { className: 'col-sm-6 previewMarkdown' }, _react2.default.createElement(_reactMarkdown2.default, { source: body.value }))));
+	        return _react2.default.createElement('div', { className: 'toppush' }, _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Title: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)), title.touched && title.error && _react2.default.createElement('div', { className: 'error' }, title.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Tagline: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)), tagline.touched && tagline.error && _react2.default.createElement('div', { className: 'error' }, tagline.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Keywords: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, keywords, { placeholder: 'separate keywords by a space' })), keywords.touched && keywords.error && _react2.default.createElement('div', { className: 'error' }, keywords.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Body: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, body, { onInput: this.markdown.bind(this) })), body.touched && body.error && _react2.default.createElement('div', { className: 'error' }, body.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Post Blog'))), _react2.default.createElement('div', { className: 'col-sm-6 previewMarkdown' }, _react2.default.createElement(_reactMarkdown2.default, { source: body.value }))));
 	      } else {
 	        return _react2.default.createElement('div', null, 'Loading....');
 	      }
@@ -66033,6 +66035,15 @@
 	  }
 	  if (!formProps.tagline) {
 	    errors.tagline = 'Please Enter a Tagline';
+	  }
+	  if (!formProps.keywords) {
+	    errors.keywords = 'Please Enter at least one keyword';
+	  }
+	  if (formProps.keywords && formProps.keywords.length > 100) {
+	    errors.keywords = '100 Character maximum';
+	  }
+	  if (formProps.keywords && formProps.keywords.split(' ').length > 7) {
+	    errors.keywords = '7 keyword maximum';
 	  }
 	  if (!formProps.body) {
 	    errors.body = 'Please Enter a Body for your Blog';
@@ -66053,7 +66064,7 @@
 	
 	exports.default = (0, _reduxForm.reduxForm)({
 	  form: 'newBlog',
-	  fields: ['image', 'body', 'title', 'tagline'],
+	  fields: ['image', 'body', 'title', 'tagline', 'keywords'],
 	  validate: validate
 	}, mapStateToProps, actions)(NewBlog);
 

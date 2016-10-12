@@ -21,6 +21,7 @@ exports.newBlog = (req, res, next) => {
     images: req.body.images,
     tagline: req.body.tagline,
     title: req.body.title,
+    keywords: req.body.keywords.split(' '),
     body: req.body.body,
     comments: req.body.comments
   };

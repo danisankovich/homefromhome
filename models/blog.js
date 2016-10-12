@@ -11,6 +11,7 @@ const blogSchema = new Schema({
   lastModified: {type: Date},
   tagline: String,
   title: String,
+  keywords: [],
   body: String,
   previewImage: String,
   comments: []
