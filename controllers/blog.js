@@ -40,7 +40,9 @@ exports.newBlog = (req, res, next) => {
 exports.findOneBlog = (req, res) => {
   Blog.findById(req.params.id, (err, blog) => {
     if (err) res.send(err)
-    console.log(blog)
-    res.send(blog)
+    User.findById(blog.creator.id, (err, user) => {
+      console.log(user.blogs);
+      res.send({blog, blogList: user.blogs})
+    })
   })
 }

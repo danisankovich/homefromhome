@@ -86,6 +86,9 @@ a {
 .background-down {
   margin-top: 150px;
 }
+.borderBottom {
+  border-bottom: 1px solid black;
+}
 
 .toppush {
   margin-top: 75px;
@@ -94,6 +97,9 @@ a {
   border: 1px black solid;
   padding: 5px 5px 5px 5px;
   list-style: none;
+}
+.removeListBullet {
+  list-style-type: none;
 }
 .photoBookBorder {
   border: 1px black solid;

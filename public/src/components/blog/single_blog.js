@@ -9,16 +9,34 @@ class SingleBlog extends Component {
     let id = this.props.location.pathname.split('blogs/')[1]
     this.props.fetchSingleBlog(id);
   }
+  toBlog() {
+    browserHistory.push(`/${this[1]}`)
+    this[0].props.fetchSingleBlog(this[1]);
+  }
   render() {
     let {blog, userInfo} = this.props;
-    if(blog) {
+    if(blog && blog.blog) {
       return (
         <div className='toppush container'>
           <div className='row'>
             <div className='col-sm-8 col-sm-offset-2'>
-              <h1>{blog.title}   --    by {blog.creator.username}</h1>
-              <h3>{blog.tagline}</h3>
-              <ReactMarkdown className='body-spacing' source={blog.body} />
+              <h1>{blog.blog.title}   --    by {blog.blog.creator.username}</h1>
+              <h3>{blog.blog.tagline}</h3>
+              <ReactMarkdown className='body-spacing' source={blog.blog.body} />
+            </div>
+            <div className='col-sm-2'>
+              <ul>
+                {blog.blogList.map((blogEntry) => {
+                  return (
+                    <li key={blogEntry._id}>
+                      <ul className='borderBottom'>
+                        <li className="removeListBullet">{blogEntry.dateCreated.split('T')[0]}</li>
+                        <li className="removeListBullet" onClick={this.toBlog.bind([this, blogEntry._id])}>{blogEntry.title}</li>
+                      </ul>
+                    </li>
+                  )
+                })}
+              </ul>
             </div>
           </div>
 
