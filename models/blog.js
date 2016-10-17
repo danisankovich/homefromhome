@@ -14,7 +14,13 @@ const blogSchema = new Schema({
   keywords: [],
   body: String,
   previewImage: String,
-  comments: []
+  comments: [{
+    userId: String,
+    dateCreated: {type: Date, default: Date.now},
+    username: String,
+    comment: String,
+    comments: {type: Array, default: []}
+  }]
 });
 const BLOG = mongoose.model('blog', blogSchema);
 module.exports = BLOG;

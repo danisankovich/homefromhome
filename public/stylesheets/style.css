@@ -89,7 +89,13 @@ a {
 .borderBottom {
   border-bottom: 1px solid black;
 }
-
+.commentBlock {
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 20px;
+  margin-top: 10px;
+  padding: 0px 5px 5px 40px;
+}
 .toppush {
   margin-top: 75px;
 }

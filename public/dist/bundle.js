@@ -66082,6 +66082,16 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }return target;
+	};
+	
 	var _createClass = function () {
 	  function defineProperties(target, props) {
 	    for (var i = 0; i < props.length; i++) {
@@ -66107,6 +66117,12 @@
 	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 333);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 268);
+	
+	var _jquery = __webpack_require__(/*! jquery */ 262);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
 	
 	function _interopRequireWildcard(obj) {
 	  if (obj && obj.__esModule) {
@@ -66158,24 +66174,66 @@
 	      this.props.fetchSingleBlog(id);
 	    }
 	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var id = this.props.location.pathname.split('blogs/')[1];
+	      if (this.props.blog && id && id !== this.props.blog.blog._id) {
+	        this.props.fetchSingleBlog(id);
+	      }
+	    }
+	  }, {
 	    key: 'toBlog',
 	    value: function toBlog() {
-	      _reactRouter.browserHistory.push('/' + this[1]);
+	      _reactRouter.browserHistory.push('/blogs/' + this[1]);
 	      this[0].props.fetchSingleBlog(this[1]);
+	    }
+	  }, {
+	    key: 'handleFormSubmit',
+	    value: function handleFormSubmit(formProps) {
+	      var _this2 = this;
+	
+	      //called with props from submit form
+	      var data = formProps;
+	      var id = this.props.location.pathname.split('blogs/')[1];
+	      data.username = this.props.userInfo.username;
+	      data.userId = this.props.userInfo._id;
+	      data.comments = [];
+	      console.log(data);
+	      _jquery2.default.ajax({
+	        url: '/api/blogs/newComment/' + id,
+	        type: "POST",
+	        data: data
+	      }).done(function (response) {
+	        _this2.props.fetchSingleBlog(id);
+	      }).fail(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'renderAlert',
+	    value: function renderAlert() {
+	      if (this.props.errorMessage) {
+	        return _react2.default.createElement('div', { className: 'alert alert-danger' }, _react2.default.createElement('strong', null, 'Error!!! '), ' ', this.props.errorMessage);
+	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
 	      var blog = _props.blog;
 	      var userInfo = _props.userInfo;
+	      var comment = _props.fields.comment;
+	      // let {blog, userInfo} = this.props;
 	
 	      if (blog && blog.blog) {
 	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, blog.blog.title, '   --    by ', blog.blog.creator.username), _react2.default.createElement('h3', null, blog.blog.tagline), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: blog.blog.body })), _react2.default.createElement('div', { className: 'col-sm-2' }, _react2.default.createElement('ul', null, blog.blogList.map(function (blogEntry) {
-	          return _react2.default.createElement('li', { key: blogEntry._id }, _react2.default.createElement('ul', { className: 'borderBottom' }, _react2.default.createElement('li', { className: 'removeListBullet' }, blogEntry.dateCreated.split('T')[0]), _react2.default.createElement('li', { className: 'removeListBullet', onClick: _this2.toBlog.bind([_this2, blogEntry._id]) }, blogEntry.title)));
-	        })))));
+	          return _react2.default.createElement('li', { key: blogEntry._id }, _react2.default.createElement('ul', { className: 'borderBottom' }, _react2.default.createElement('li', { className: 'removeListBullet' }, blogEntry.dateCreated.split('T')[0]), _react2.default.createElement('li', { className: 'removeListBullet', onClick: _this3.toBlog.bind([_this3, blogEntry._id]) }, blogEntry.title)));
+	        })))), _react2.default.createElement('hr', null), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('p', null, 'Comments: '), this.props.userInfo && _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('label', null, 'New Comment: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, comment)), comment.touched && comment.error && _react2.default.createElement('div', { className: 'error' }, comment.error), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Post Blog')), _react2.default.createElement('div', { id: 'Comment-Section' }, _react2.default.createElement('ul', null, blog.blog.comments.map(function (comment) {
+	          return _react2.default.createElement('li', { className: 'commentBlock', key: comment._id }, _react2.default.createElement('h4', null, comment.username, ' at ', comment.dateCreated), _react2.default.createElement('hr', null), _react2.default.createElement('p', null, comment.comment));
+	        }))))));
 	      } else {
 	        return _react2.default.createElement('div', { className: 'toppush' }, 'LOADING ....... ');
 	      }
@@ -66185,10 +66243,28 @@
 	  return SingleBlog;
 	}(_react.Component);
 	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo, blog: state.blogs.blog };
+	function validate(formProps) {
+	  var errors = {};
+	
+	  if (!formProps.comment) {
+	    errors.comment = 'Do Not Submit Without Supplying a Comment First';
+	  }
+	  return errors;
 	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(SingleBlog);
+	
+	function mapStateToProps(state) {
+	  return {
+	    errorMessage: state.auth.error,
+	    blog: state.blogs.blog,
+	    userInfo: state.auth.userInfo
+	  };
+	}
+	
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'newBlog',
+	  fields: ['comment'],
+	  validate: validate
+	}, mapStateToProps, actions)(SingleBlog);
 
 /***/ },
 /* 365 */

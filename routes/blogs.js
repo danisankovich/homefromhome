@@ -12,5 +12,6 @@ const BlogController = require('../controllers/blog');
 router.get('/', BlogController.findAllBlogs);
 router.post('/new', BlogController.newBlog);
 router.get('/:id', BlogController.findOneBlog);
+router.post('/newComment/:id', BlogController.newBlogComment);
 
 module.exports = router;

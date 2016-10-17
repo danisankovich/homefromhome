@@ -38,6 +38,7 @@ exports.newBlog = (req, res, next) => {
 }
 
 exports.findOneBlog = (req, res) => {
+  console.log(req.params.id)
   Blog.findById(req.params.id, (err, blog) => {
     if (err) res.send(err)
     User.findById(blog.creator.id, (err, user) => {
@@ -45,4 +46,24 @@ exports.findOneBlog = (req, res) => {
       res.send({blog, blogList: user.blogs})
     })
   })
+}
+
+exports.newBlogComment = (req, res) => {
+  // console.log(req.body)
+  // console.log(req.params.id)
+  // Blog.findById(req.params.id, (err, blog) => {
+  //   blog.comments.push(req.body);
+  //   console.log(blog);
+  //   res.send();
+  // });
+  Blog.findByIdAndUpdate(
+    req.params.id,
+    {$push: {"comments": req.body}},
+    {safe: true, upsert: true},
+    function(err, blog) {
+        console.log(err);
+        console.log(blog);
+        res.send(blog);
+    }
+);
 }
