@@ -95,8 +95,8 @@ export function fetchSingleBlog(id) {
     getBlog(id, dispatch)
   }
 }
-export function fetchAllBlogs() {
+export function fetchAllBlogs(queryString, type) {
   return function(dispatch) {
-    getAllBlogs(dispatch)
+    getAllBlogs(dispatch, queryString, type)
   }
 }

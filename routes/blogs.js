@@ -9,9 +9,10 @@ const Blog = require('../models/blog');
 
 const BlogController = require('../controllers/blog');
 
-router.get('/', BlogController.findAllBlogs);
+router.get('/:id', BlogController.findAllBlogs);
 router.post('/new', BlogController.newBlog);
 router.get('/:id', BlogController.findOneBlog);
 router.post('/newComment/:id', BlogController.newBlogComment);
+router.get('/searchkeyword', BlogController.searchBlogKeyword);
 
 module.exports = router;

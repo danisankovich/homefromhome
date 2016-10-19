@@ -27,13 +27,12 @@ class SingleBlog extends Component {
     data.username = this.props.userInfo.username;
     data.userId = this.props.userInfo._id;
     data.comments = [];
-    console.log(data);
     $.ajax({
        url: `/api/blogs/newComment/${id}`,
        type: "POST",
        data: data
     }).done((response) => {
-      this.props.fetchSingleBlog(id)
+      this.props.fetchSingleBlog(id);
     }).fail((err) => {
       console.log(err)
     });
@@ -81,10 +80,10 @@ class SingleBlog extends Component {
               {this.props.userInfo &&
                 <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                   <label>New Comment: </label>
-                  <textarea className="form-control" type="text" {...comment}></textarea>
+                  <textarea id="commentBlog" className="form-control" type="text" {...comment}></textarea>
                   {comment.touched && comment.error && <div className="error">{comment.error}</div>}
                   {this.renderAlert()}
-                  <button action="submit" className="btn btn-primary">Post Blog</button>
+                  <button action="submit" className="btn btn-primary">Submit</button>
                 </form>
               }
               <div id='Comment-Section'>

@@ -37,9 +37,9 @@ exports.getBlog = function(id, dispatch) {
   });
 }
 
-exports.getAllBlogs = function(dispatch) {
+exports.getAllBlogs = function(dispatch, queryString, type) {
   $.ajax({
-     url: `/api/blogs/`,
+     url: `/api/blogs/${queryString}?type=${type}`,
      type: "GET",
   }).done((response) => {
     dispatch({

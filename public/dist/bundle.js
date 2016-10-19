@@ -29506,9 +29506,9 @@
 	    (0, _blog.getBlog)(id, dispatch);
 	  };
 	}
-	function fetchAllBlogs() {
+	function fetchAllBlogs(queryString, type) {
 	  return function (dispatch) {
-	    (0, _blog.getAllBlogs)(dispatch);
+	    (0, _blog.getAllBlogs)(dispatch, queryString, type);
 	  };
 	}
 
@@ -39181,9 +39181,9 @@
 	  });
 	};
 	
-	exports.getAllBlogs = function (dispatch) {
+	exports.getAllBlogs = function (dispatch, queryString, type) {
 	  _jquery2.default.ajax({
-	    url: '/api/blogs/',
+	    url: '/api/blogs/' + queryString + '?type=' + type,
 	    type: "GET"
 	  }).done(function (response) {
 	    dispatch({
@@ -65693,6 +65693,10 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 189);
 	
+	var _jquery = __webpack_require__(/*! jquery */ 262);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	function _interopRequireWildcard(obj) {
 	  if (obj && obj.__esModule) {
 	    return obj;
@@ -65742,21 +65746,48 @@
 	      this.props.fetchAllBlogs();
 	    }
 	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      this.setState({ 'searchField': e.target.value });
+	    }
+	  }, {
+	    key: 'searchHandler',
+	    value: function searchHandler(e) {
+	      e.preventDefault();
+	      if (!this.state || !this.state.searchField) {
+	        alert('Search Term Required');
+	        return;
+	      }
+	      var searchString = this.state.searchField;
+	      var searchQuery = searchString.replace(' ', '_');
+	      if (!this.state || !this.state.type) {
+	        this.state.type = 'inclusive';
+	      }
+	      console.log(this.state);
+	      this.props.fetchAllBlogs(searchQuery, this.state.type);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var _props = this.props;
 	      var userInfo = _props.userInfo;
 	      var blogs = _props.blogs;
+	      // if(blogs && blogs.length) {
 	
-	      if (blogs && blogs.length) {
-	        return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('div', { className: 'col-sm-12' }, blogs.map(function (e) {
-	          return _react2.default.createElement('div', { className: 'col-sm-3', key: e._id, onClick: function onClick() {
-	              _reactRouter.browserHistory.push('/blogs/' + e._id);
-	            } }, _react2.default.createElement('ul', { className: 'blogListingBorder' }, _react2.default.createElement('li', null, e.title), _react2.default.createElement('li', null, e.tagline)));
-	        }))));
-	      } else {
-	        return _react2.default.createElement('div', { className: 'toppush' }, _react2.default.createElement('h1', null, 'No Blogs Found'));
-	      }
+	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('div', null, _react2.default.createElement('form', { onSubmit: this.searchHandler.bind(this) }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Search Keywords: '), _react2.default.createElement('input', { placeholder: 'Separate keywords by a space', onChange: this.handleChange.bind(this) })), _react2.default.createElement('fieldset', null, _react2.default.createElement('input', { type: 'radio', onChange: function onChange() {
+	          _this2.setState({ type: 'inclusive' });
+	        } }), ' Inclusive', _react2.default.createElement('input', { type: 'radio', onChange: function onChange() {
+	          _this2.setState({ type: 'exclusive' });
+	        } }), ' Exclusive'), _react2.default.createElement('button', { type: 'submit', className: 'btn btn-default' }, 'Search'))), _react2.default.createElement('div', { className: 'col-sm-12' }, blogs && blogs.length > 0 && blogs.map(function (e) {
+	        return _react2.default.createElement('div', { className: 'col-sm-3', key: e._id, onClick: function onClick() {
+	            _reactRouter.browserHistory.push('/blogs/' + e._id);
+	          } }, _react2.default.createElement('ul', { className: 'blogListingBorder' }, _react2.default.createElement('li', null, 'Title: ', e.title), _react2.default.createElement('li', null, 'Tag: ', e.tagline), _react2.default.createElement('li', null, 'by: ', e.creator.username)));
+	      }), blogs && blogs.length === 0 && _react2.default.createElement('h2', null, 'No Results Found'))));
+	      // } else {
+	      //   return <div className="toppush"><h1>No Blogs Found</h1></div>
+	      // }
 	    }
 	  }]);
 	
@@ -66198,7 +66229,6 @@
 	      data.username = this.props.userInfo.username;
 	      data.userId = this.props.userInfo._id;
 	      data.comments = [];
-	      console.log(data);
 	      _jquery2.default.ajax({
 	        url: '/api/blogs/newComment/' + id,
 	        type: "POST",
@@ -66231,7 +66261,7 @@
 	      if (blog && blog.blog) {
 	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, blog.blog.title, '   --    by ', blog.blog.creator.username), _react2.default.createElement('h3', null, blog.blog.tagline), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: blog.blog.body })), _react2.default.createElement('div', { className: 'col-sm-2' }, _react2.default.createElement('ul', null, blog.blogList.map(function (blogEntry) {
 	          return _react2.default.createElement('li', { key: blogEntry._id }, _react2.default.createElement('ul', { className: 'borderBottom' }, _react2.default.createElement('li', { className: 'removeListBullet' }, blogEntry.dateCreated.split('T')[0]), _react2.default.createElement('li', { className: 'removeListBullet', onClick: _this3.toBlog.bind([_this3, blogEntry._id]) }, blogEntry.title)));
-	        })))), _react2.default.createElement('hr', null), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('p', null, 'Comments: '), this.props.userInfo && _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('label', null, 'New Comment: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, comment)), comment.touched && comment.error && _react2.default.createElement('div', { className: 'error' }, comment.error), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Post Blog')), _react2.default.createElement('div', { id: 'Comment-Section' }, _react2.default.createElement('ul', null, blog.blog.comments.map(function (comment) {
+	        })))), _react2.default.createElement('hr', null), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('p', null, 'Comments: '), this.props.userInfo && _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('label', null, 'New Comment: '), _react2.default.createElement('textarea', _extends({ id: 'commentBlog', className: 'form-control', type: 'text' }, comment)), comment.touched && comment.error && _react2.default.createElement('div', { className: 'error' }, comment.error), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Submit')), _react2.default.createElement('div', { id: 'Comment-Section' }, _react2.default.createElement('ul', null, blog.blog.comments.map(function (comment) {
 	          return _react2.default.createElement('li', { className: 'commentBlock', key: comment._id }, _react2.default.createElement('h4', null, comment.username, ' at ', comment.dateCreated), _react2.default.createElement('hr', null), _react2.default.createElement('p', null, comment.comment));
 	        }))))));
 	      } else {

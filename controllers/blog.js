@@ -6,10 +6,27 @@ const User = require('../models/user');
 const Blog = require('../models/blog');
 
 exports.findAllBlogs = (req, res, next) => {
-  Blog.find({}, (err, blogs) => {
-    if (err) res.send(err);
-    res.send(blogs);
-  })
+  let keywords = req.params.id.split('_');
+  if (!keywords || keywords.length === 0 || req.params.id === 'undefined') {
+    Blog.find({}, (err, blogs) => {
+      if (err) res.send(err);
+      res.send(blogs);
+    })
+  } else if (req.params.id !== 'undefined' && req.query.type === 'inclusive'){
+    Blog.find({keywords: {
+      $in : keywords
+    }}, (err, blogs) => {
+      if (err) res.send(err);
+      res.send(blogs);
+    })
+  } else {
+    Blog.find({keywords: {
+      $all : keywords
+    }}, (err, blogs) => {
+      if (err) res.send(err);
+      res.send(blogs);
+    })
+  }
 }
 
 exports.newBlog = (req, res, next) => {
@@ -28,7 +45,6 @@ exports.newBlog = (req, res, next) => {
   Blog.create(newBlog, (err, blog) => {
     if (err) res.send(err)
     User.findById(req.body.id, (err, user)=> {
-      console.log(req.body.id, user)
       if(err) res.send(err);
       user.blogs.push(blog);
       user.save();
@@ -38,32 +54,34 @@ exports.newBlog = (req, res, next) => {
 }
 
 exports.findOneBlog = (req, res) => {
-  console.log(req.params.id)
   Blog.findById(req.params.id, (err, blog) => {
     if (err) res.send(err)
-    User.findById(blog.creator.id, (err, user) => {
-      console.log(user.blogs);
-      res.send({blog, blogList: user.blogs})
-    })
+    else if (!err && blog && blog.creator) {
+      User.findById(blog.creator.id, (err, user) => {
+        res.send({blog, blogList: user.blogs})
+      })
+    } else {
+      res.send("NOTHING FETCHED")
+    }
   })
 }
 
 exports.newBlogComment = (req, res) => {
-  // console.log(req.body)
-  // console.log(req.params.id)
-  // Blog.findById(req.params.id, (err, blog) => {
-  //   blog.comments.push(req.body);
-  //   console.log(blog);
-  //   res.send();
-  // });
   Blog.findByIdAndUpdate(
     req.params.id,
     {$push: {"comments": req.body}},
     {safe: true, upsert: true},
     function(err, blog) {
-        console.log(err);
-        console.log(blog);
         res.send(blog);
     }
-);
+  );
+}
+exports.searchBlogKeyword = (req, res) => {
+  let keywords = req.params.id.split('_');
+  Blog.find({keywords: {
+    $in : keywords
+  }}, (err, blogs) => {
+    if (err) res.send(err);
+    res.send(blogs);
+  })
 }
