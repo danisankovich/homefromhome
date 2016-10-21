@@ -18,7 +18,8 @@ const userSchema = new Schema({
   reviewsOfMe: Array,
   myReviews: Array,
   followers: Array,
-  following: {type: Array, unique: true}
+  following: {type: Array, unique: true},
+  applications: []
 });
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {

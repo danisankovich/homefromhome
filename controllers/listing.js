@@ -127,3 +127,26 @@ exports.deleteListing = (req, res) => {
     })
   });
 }
+
+exports.applyForBooking = (req, res) => {
+  console.log(req.body)
+  var token = req.headers.authorization;
+  var userId = jwt.decode(token, config.secret).sub;
+  req.body.userId = userId
+  req.body.listingId = req.params.id
+  User.findByIdAndUpdate(userId,
+    {$push: {'applications': req.body}},
+    {safe: true, upsert: true},
+    function(err, user) {
+      if (err) res.send(err)
+      Listing.findByIdAndUpdate(req.params.id,
+        {$push: {'applications': req.body}},
+        {safe: true, upsert: true},
+        function(err, listing) {
+          if (err) res.send(err)
+          res.send(listing)
+        }
+      )
+    }
+  )
+}

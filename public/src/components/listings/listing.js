@@ -7,10 +7,11 @@ import city_states from '../../../locations/cities';
 import states from '../../../locations/states';
 import countries from '../../../locations/countries';
 import us_cities_by_state from '../../../locations/us_cities';
+import $ from 'jquery';
 
 class SingleListing extends Component {
   componentWillMount() {
-    this.setState({listing: '', inputValue: ''})
+    this.setState({listing: '', inputValue: '', application: {}})
     let id = this.props.location.pathname.split('listings/')[1]
     this.props.fetchSingleListing(id);
   }
@@ -45,6 +46,24 @@ class SingleListing extends Component {
       inputValue: evt.target.value
     });
   }
+  applyForBooking(e) {
+    e.preventDefault();
+    var token = localStorage.getItem('token');
+    const application = this.state.application;
+    application.username = this.props.userInfo.username;
+    $.ajax({
+      url: `/api/listings/apply/${this.props.listing._id}`,
+      type: 'PUT',
+      data: application,
+      headers: {
+        "authorization": token
+      }
+    }).done(response => {
+      alert('Application made. The owner of the listing should be back with you within a few days')
+    }).fail(err => {
+      alert(err)
+    })
+  }
   render() {
     let {listing, userInfo} = this.props;
     let usCities = []
@@ -67,7 +86,7 @@ class SingleListing extends Component {
               <hr />
               <div className="row">
                 <div className="col-sm-12">
-                  <div className="col-sm-10 col-sm-offset-1">
+                  <div className="col-sm-5 col-sm-offset-1">
                     <h3>Listing Location: </h3>
                     <ul>
                       <li
@@ -166,6 +185,63 @@ class SingleListing extends Component {
                     </ul>
                     <h3>Description: </h3>
                     <ReactMarkdown className='body-spacing' source={listing.description} />
+                  </div>
+                  <div className="col-sm-5 col-sm-offset-1">
+                    <form onSubmit={this.applyForBooking.bind(this)}>
+                      <fieldset className='form-group'>
+                        <div className='col-sm-11 col-sm-offset-1'>
+                          <h3>Book This Listing: </h3>
+                        </div>
+                        <div className='col-sm-12'>
+                          <div className='col-sm-6'>
+                            <label>First Name: </label>
+                            <input
+                              className='form-control'
+                              onChange={(e) => this.state.application.firstName = e.target.value}
+                            />
+                          </div>
+                          <div className='col-sm-6'>
+                            <label>Last Name: </label>
+                            <input
+                              className='form-control'
+                              onChange={(e) => this.state.application.lastName = e.target.value}
+                            />
+                          </div>
+                        </div>
+                      </fieldset>
+                      <fieldset className='form-group'>
+                        <div className='col-sm-12'>
+                          <div className='col-sm-6'>
+                            <label>Arrival Date: </label>
+                            <input
+                              type='date'
+                              className='form-control'
+                              onChange={(e) => this.state.application.arrivalDate = e.target.value}
+                            />
+                          </div>
+                          <div className='col-sm-6'>
+                            <label>Departure Date: </label>
+                            <input
+                              type='date'
+                              className='form-control'
+                              onChange={(e) => this.state.application.departureDate = e.target.value}
+                            />
+                          </div>
+                        </div>
+                      </fieldset>
+                      <fieldset className='form-group'>
+                        <div className='col-sm-12'>
+                          <div className='col-sm-12'>
+                            <label>Send a Note to the Owner: </label>
+                            <textarea
+                              className='form-control'
+                              onChange={(e) => this.state.application.message = e.target.value}
+                            ></textarea>
+                          </div>
+                        </div>
+                      </fieldset>
+                      <button type='submit'>Submit Application</button>
+                    </form>
                   </div>
                 </div>
               </div>
