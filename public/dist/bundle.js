@@ -66719,6 +66719,24 @@
 	      });
 	    }
 	  }, {
+	    key: 'unfollowUser',
+	    value: function unfollowUser() {
+	      alert('unfollow will go here');
+	      // var token = localStorage.getItem('token')
+	      // $.ajax({
+	      //    url: '/api/addfollower',
+	      //    type: "PUT",
+	      //    data: {user: this.props.userProfile._id},
+	      //    headers: {
+	      //       "authorization": token
+	      //    }
+	      // }).done((response) => {
+	      //   alert(this.props.userProfile.username + ' has been added to your follower list')
+	      // }).fail((err) => {
+	      //   console.log('error', err)
+	      // });
+	    }
+	  }, {
 	    key: 'showAlbums',
 	    value: function showAlbums() {
 	      this.state.showListings = false;
@@ -66735,16 +66753,18 @@
 	    value: function render() {
 	      var _this3 = this;
 	
-	      var userProfile = this.props.userProfile;
+	      var _props = this.props;
+	      var userProfile = _props.userProfile;
+	      var userInfo = _props.userInfo;
 	
 	      if (userProfile && userProfile.languages) {
 	        var photos = userProfile.myPhotos;
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.followUser.bind(this) }, 'Follow +')), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.followUser.bind(this) }, 'Follow +')), userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.unfollowUser.bind(this) }, 'Unfollow -')), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
 	          if (i === _this3.props.userProfile.languages.length - 1) {
 	            return lang;
 	          }
 	          return lang + ', ';
-	        })), _react2.default.createElement('img', { src: this.props.userProfile.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { onClick: this.showListings.bind(this) }, 'Show Listings')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userProfile: this.props.userProfile }), this.state.showListings && _react2.default.createElement(_profilelistings2.default, { userProfile: this.props.userProfile }))));
+	        })), _react2.default.createElement('img', { src: this.props.userProfile.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { onClick: this.showListings.bind(this) }, 'Show Listings')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userProfile: this.props.userProfile }), this.state.showListings && _react2.default.createElement(_profilelistings2.default, { userProfile: this.props.userProfile, userInfo: this.props.userInfo }))));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading........ ');
 	    }
@@ -66754,7 +66774,7 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userProfile: state.auth.userProfile };
+	  return { userProfile: state.auth.userProfile, userInfo: state.auth.userInfo };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(UserProfile);
 

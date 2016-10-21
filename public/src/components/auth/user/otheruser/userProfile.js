@@ -27,6 +27,22 @@ class UserProfile extends Component {
       console.log('error', err)
     });
   }
+  unfollowUser() {
+    alert('unfollow will go here')
+    // var token = localStorage.getItem('token')
+    // $.ajax({
+    //    url: '/api/addfollower',
+    //    type: "PUT",
+    //    data: {user: this.props.userProfile._id},
+    //    headers: {
+    //       "authorization": token
+    //    }
+    // }).done((response) => {
+    //   alert(this.props.userProfile.username + ' has been added to your follower list')
+    // }).fail((err) => {
+    //   console.log('error', err)
+    // });
+  }
   showAlbums() {
     this.state.showListings = false
     this.state.showPhotos ? this.setState({showPhotos: false}) : this.setState({showPhotos: true})
@@ -36,7 +52,7 @@ class UserProfile extends Component {
     this.state.showListings ? this.setState({showListings: false}) : this.setState({showListings: true})
   }
   render() {
-    let {userProfile} = this.props;
+    let {userProfile, userInfo} = this.props;
     if(userProfile && userProfile.languages) {
       let photos = userProfile.myPhotos;
       return (
@@ -44,7 +60,8 @@ class UserProfile extends Component {
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
               <h2>{userProfile.username + "'s"} Profile</h2>
-              <h3><button className='btn btn-primary' onClick={this.followUser.bind(this)}>Follow +</button></h3>
+              {userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && <h3><button className='btn btn-primary' onClick={this.followUser.bind(this)}>Follow +</button></h3>}
+              {userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && <h3><button className='btn btn-danger' onClick={this.unfollowUser.bind(this)}>Unfollow -</button></h3>}
               <h3>Email: {userProfile.email}</h3>
               <h3>Phone Number: {userProfile.phoneNumber}</h3>
               <h4>
@@ -67,7 +84,7 @@ class UserProfile extends Component {
             </div>
             <div className="col-sm-10 col-sm-offset-1">
               {this.state.showPhotos && <PhotoBook userProfile={this.props.userProfile}></PhotoBook>}
-              {this.state.showListings && <ProfileListings userProfile={this.props.userProfile}></ProfileListings>}
+              {this.state.showListings && <ProfileListings userProfile={this.props.userProfile} userInfo={this.props.userInfo}></ProfileListings>}
             </div>
           </div>
         </div>
@@ -79,6 +96,6 @@ class UserProfile extends Component {
   };
 }
 function mapStateToProps(state) {
-  return {userProfile: state.auth.userProfile};
+  return {userProfile: state.auth.userProfile, userInfo: state.auth.userInfo};
 }
 export default connect(mapStateToProps, actions)(UserProfile);
