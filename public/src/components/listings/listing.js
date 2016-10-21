@@ -47,9 +47,17 @@ class SingleListing extends Component {
     });
   }
   applyForBooking(e) {
-    e.preventDefault();
     var token = localStorage.getItem('token');
     const application = this.state.application;
+    if(!application.firstName ||
+      !application.lastName ||
+      !application.arrivalDate ||
+      !application.departureDate ||
+      !application.message) {
+      e.preventDefault();
+      alert('All Fields Are Required');
+      return;
+    }
     application.username = this.props.userInfo.username;
     $.ajax({
       url: `/api/listings/apply/${this.props.listing._id}`,
@@ -58,10 +66,11 @@ class SingleListing extends Component {
       headers: {
         "authorization": token
       }
-    }).done(response => {
+    }).done((response) => {
       alert('Application made. The owner of the listing should be back with you within a few days')
-    }).fail(err => {
-      alert(err)
+      this.state.application = {};
+    }).fail((err) => {
+      console.log(err)
     })
   }
   render() {

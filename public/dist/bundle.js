@@ -57208,9 +57208,15 @@
 	  }, {
 	    key: 'applyForBooking',
 	    value: function applyForBooking(e) {
-	      e.preventDefault();
+	      var _this2 = this;
+	
 	      var token = localStorage.getItem('token');
 	      var application = this.state.application;
+	      if (!application.firstName || !application.lastName || !application.arrivalDate || !application.departureDate || !application.message) {
+	        e.preventDefault();
+	        alert('All Fields Are Required');
+	        return;
+	      }
 	      application.username = this.props.userInfo.username;
 	      _jquery2.default.ajax({
 	        url: '/api/listings/apply/' + this.props.listing._id,
@@ -57221,14 +57227,15 @@
 	        }
 	      }).done(function (response) {
 	        alert('Application made. The owner of the listing should be back with you within a few days');
+	        _this2.state.application = {};
 	      }).fail(function (err) {
-	        alert(err);
+	        console.log(err);
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var _props = this.props;
 	      var listing = _props.listing;
@@ -57283,29 +57290,29 @@
 	          }.bind(this) }, 'hide'), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', null, 'Email: ', listing.creator.email), _react2.default.createElement('li', null, 'Phone Number: ', listing.creator.phoneNumber)), _react2.default.createElement('h3', null, 'Description: '), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: listing.description })), _react2.default.createElement('div', { className: 'col-sm-5 col-sm-offset-1' }, _react2.default.createElement('form', { onSubmit: this.applyForBooking.bind(this) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('div', { className: 'col-sm-11 col-sm-offset-1' }, _react2.default.createElement('h3', null, 'Book This Listing: ')), _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('label', null, 'First Name: '), _react2.default.createElement('input', {
 	          className: 'form-control',
 	          onChange: function onChange(e) {
-	            return _this2.state.application.firstName = e.target.value;
+	            return _this3.state.application.firstName = e.target.value;
 	          }
 	        })), _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('label', null, 'Last Name: '), _react2.default.createElement('input', {
 	          className: 'form-control',
 	          onChange: function onChange(e) {
-	            return _this2.state.application.lastName = e.target.value;
+	            return _this3.state.application.lastName = e.target.value;
 	          }
 	        })))), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('label', null, 'Arrival Date: '), _react2.default.createElement('input', {
 	          type: 'date',
 	          className: 'form-control',
 	          onChange: function onChange(e) {
-	            return _this2.state.application.arrivalDate = e.target.value;
+	            return _this3.state.application.arrivalDate = e.target.value;
 	          }
 	        })), _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('label', null, 'Departure Date: '), _react2.default.createElement('input', {
 	          type: 'date',
 	          className: 'form-control',
 	          onChange: function onChange(e) {
-	            return _this2.state.application.departureDate = e.target.value;
+	            return _this3.state.application.departureDate = e.target.value;
 	          }
 	        })))), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('label', null, 'Send a Note to the Owner: '), _react2.default.createElement('textarea', {
 	          className: 'form-control',
 	          onChange: function onChange(e) {
-	            return _this2.state.application.message = e.target.value;
+	            return _this3.state.application.message = e.target.value;
 	          }
 	        })))), _react2.default.createElement('button', { type: 'submit' }, 'Submit Application')))))), _react2.default.createElement('br', null)));
 	      }
