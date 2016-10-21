@@ -44283,7 +44283,6 @@
 	      var listings = [];
 	      if (this.props.listings) {
 	        listings = this.props.listings;
-	        console.log(listings);
 	        this.state.country = this.props.listings[0].location.country;
 	      }
 	      return _react2.default.createElement('div', null, _react2.default.createElement('div', null, _react2.default.createElement(_listing_search2.default, null)), listings && listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), this.state.country === 'united states' && _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'))), _react2.default.createElement('tbody', null, listings.map(function (result) {
@@ -56994,7 +56993,7 @@
 	
 	    var _this = _possibleConstructorReturn(this, (ListingSearch.__proto__ || Object.getPrototypeOf(ListingSearch)).call(this, props));
 	
-	    _this.state = { country: '', city: '' };
+	    _this.state = { country: '', city: '', searchParameters: {} };
 	    return _this;
 	  }
 	
@@ -57017,11 +57016,14 @@
 	  }, {
 	    key: 'cityCountrySearch',
 	    value: function cityCountrySearch() {
+	      console.log(this.state.searchParameters);
 	      this.props.fetchListings(this.state.country + '_' + this.state.city + '_' + this.state.usCity);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var incrementKey = 0;
 	
 	      var cityCountrySearch = this.cityCountrySearch;
@@ -57044,6 +57046,33 @@
 	        if (e.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
 	      }))), this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0 && _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'col-sm-1' }, _react2.default.createElement('label', { className: 'searchLabel' }, 'Country: ')), _react2.default.createElement('div', { className: 'col-sm-3' }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('select', { className: 'form-control', onChange: this.changeUsCity.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A City'), usCities.map(function (e) {
 	        if (usCities.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
+	      }))))), _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('form', null, _react2.default.createElement('div', { className: 'col-sm-4' }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Min Price: '), _react2.default.createElement('input', {
+	        className: 'form-control',
+	        type: 'number',
+	        min: '0.01',
+	        step: '0.01',
+	        max: '4999.99',
+	        onChange: function onChange(e) {
+	          _this2.state.searchParameters.minPrice = e.target.value;
+	        }
+	      }))), _react2.default.createElement('div', { className: 'col-sm-4' }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Max Price: '), _react2.default.createElement('input', {
+	        className: 'form-control',
+	        type: 'number',
+	        min: '0.02',
+	        step: '0.01',
+	        max: '5000.00',
+	        onChange: function onChange(e) {
+	          _this2.state.searchParameters.maxPrice = e.target.value;
+	        }
+	      }))), _react2.default.createElement('div', { className: 'col-sm-4' }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Min Rating: '), _react2.default.createElement('input', {
+	        className: 'form-control',
+	        type: 'number',
+	        min: '0',
+	        step: '.5',
+	        max: '5',
+	        onChange: function onChange(e) {
+	          _this2.state.searchParameters.minRating = e.target.value;
+	        }
 	      }))))), _react2.default.createElement('div', { className: 'col-sm-2' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.cityCountrySearch.bind(this) }, 'Search City')));
 	    }
 	  }]);

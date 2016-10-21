@@ -10,7 +10,7 @@ import us_cities_by_state from '../../../../locations/us_cities';
 class ListingSearch extends Component {
   constructor(props) {
     super(props)
-    this.state = {country: '', city: ''}
+    this.state = {country: '', city: '', searchParameters: {}}
   }
   changeCountry(event) {
     this.setState({country: event.target.value});
@@ -23,6 +23,7 @@ class ListingSearch extends Component {
     this.setState({usCity: event.target.value});
   }
   cityCountrySearch() {
+    console.log(this.state.searchParameters)
     this.props.fetchListings(`${this.state.country}_${this.state.city}_${this.state.usCity}`)
   }
   render() {
@@ -85,6 +86,50 @@ class ListingSearch extends Component {
             </div>
           </div>
         }
+        <div className='col-sm-12'>
+          <form>
+            <div className='col-sm-4'>
+              <fieldset>
+
+                <label>Min Price: </label>
+                <input
+                  className="form-control"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  max="4999.99"
+                  onChange={(e) => {this.state.searchParameters.minPrice = e.target.value}}
+                />
+              </fieldset>
+            </div>
+            <div className='col-sm-4'>
+              <fieldset>
+                <label>Max Price: </label>
+                <input
+                  className="form-control"
+                  type="number"
+                  min="0.02"
+                  step="0.01"
+                  max="5000.00"
+                  onChange={(e) => {this.state.searchParameters.maxPrice = e.target.value}}
+                />
+              </fieldset>
+            </div>
+            <div className='col-sm-4'>
+              <fieldset>
+                <label>Min Rating: </label>
+                <input
+                  className="form-control"
+                  type="number"
+                  min="0"
+                  step=".5"
+                  max="5"
+                  onChange={(e) => {this.state.searchParameters.minRating = e.target.value}}
+                />
+              </fieldset>
+            </div>
+          </form>
+        </div>
         <div className='col-sm-2'>
           <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City</button>
         </div>
