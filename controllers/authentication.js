@@ -109,13 +109,33 @@ exports.uploadAvatar = (req, res) => {
 }
 
 exports.addFollower = (req, res) => {
-  console.log(req.body)
   var token = req.headers.authorization;
   if(token) {
     try {
       var decoded = jwt.decode(token, config.secret);
       User.findByIdAndUpdate(
         decoded.sub, {$addToSet: {"followers": req.body.user}}, {safe: true, upsert: true},
+        function(err, user) {
+          if (err) res.send(err);
+          res.send(user);
+        }
+      )
+     }
+     catch (e) {
+       return res.status(401).send('authorization required');
+     }
+  }
+  else {
+    res.send({user: "NO_USER"})
+  }
+}
+exports.removeFollower = (req, res) => {
+  var token = req.headers.authorization;
+  if(token) {
+    try {
+      var decoded = jwt.decode(token, config.secret);
+      User.findByIdAndUpdate(
+        decoded.sub, {$pull: {"followers": req.body.user}}, { multi: true },
         function(err, user) {
           if (err) res.send(err);
           res.send(user);

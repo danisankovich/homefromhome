@@ -12,36 +12,23 @@ class UserProfile extends Component {
     this.props.fetchProfileInfo(id);
     this.setState({showPhotos: false, showListings: false})
   }
-  followUser() {
-    var token = localStorage.getItem('token')
+  unfollowOrFollowUser() {
+    var token = localStorage.getItem('token');
+    var url = this[1];
     $.ajax({
-       url: '/api/addfollower',
+       url,
        type: "PUT",
-       data: {user: this.props.userProfile._id},
+       data: {user: this[0].props.userProfile._id},
        headers: {
           "authorization": token
        }
     }).done((response) => {
-      alert(this.props.userProfile.username + ' has been added to your follower list')
+      if (url === '/api/addfollower') alert(this[0].props.userProfile.username + ' has been added to your follower list')
+      if (url === '/api/removefollower') alert(this[0].props.userProfile.username + ' has been removed from your follower list')
+      this[0].props.fetchInfo();
     }).fail((err) => {
       console.log('error', err)
     });
-  }
-  unfollowUser() {
-    alert('unfollow will go here')
-    // var token = localStorage.getItem('token')
-    // $.ajax({
-    //    url: '/api/addfollower',
-    //    type: "PUT",
-    //    data: {user: this.props.userProfile._id},
-    //    headers: {
-    //       "authorization": token
-    //    }
-    // }).done((response) => {
-    //   alert(this.props.userProfile.username + ' has been added to your follower list')
-    // }).fail((err) => {
-    //   console.log('error', err)
-    // });
   }
   showAlbums() {
     this.state.showListings = false
@@ -60,8 +47,10 @@ class UserProfile extends Component {
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
               <h2>{userProfile.username + "'s"} Profile</h2>
-              {userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && <h3><button className='btn btn-primary' onClick={this.followUser.bind(this)}>Follow +</button></h3>}
-              {userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && <h3><button className='btn btn-danger' onClick={this.unfollowUser.bind(this)}>Unfollow -</button></h3>}
+              {userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && <h3>
+                <button className='btn btn-primary' onClick={this.unfollowOrFollowUser.bind([this, '/api/addfollower'])}>Follow +</button></h3>}
+              {userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && <h3>
+                <button className='btn btn-danger' onClick={this.unfollowOrFollowUser.bind([this, '/api/removefollower'])}>Unfollow -</button></h3>}
               <h3>Email: {userProfile.email}</h3>
               <h3>Phone Number: {userProfile.phoneNumber}</h3>
               <h4>

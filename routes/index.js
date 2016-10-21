@@ -16,6 +16,7 @@ const User = require('../models/user');
 
 router.get('/api', requireAuth, Authentication.getUser);
 router.put('/api/addfollower', requireAuth, Authentication.addFollower);
+router.put('/api/removefollower', requireAuth, Authentication.removeFollower);
 router.get('/api/user/:id', Authentication.getUserProfile);
 router.post('/api/signup', Authentication.signup);
 router.post('/api/signin', requireSignin, Authentication.signin);

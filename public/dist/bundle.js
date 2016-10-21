@@ -66700,41 +66700,26 @@
 	      this.setState({ showPhotos: false, showListings: false });
 	    }
 	  }, {
-	    key: 'followUser',
-	    value: function followUser() {
+	    key: 'unfollowOrFollowUser',
+	    value: function unfollowOrFollowUser() {
 	      var _this2 = this;
 	
 	      var token = localStorage.getItem('token');
+	      var url = this[1];
 	      _jquery2.default.ajax({
-	        url: '/api/addfollower',
+	        url: url,
 	        type: "PUT",
-	        data: { user: this.props.userProfile._id },
+	        data: { user: this[0].props.userProfile._id },
 	        headers: {
 	          "authorization": token
 	        }
 	      }).done(function (response) {
-	        alert(_this2.props.userProfile.username + ' has been added to your follower list');
+	        if (url === '/api/addfollower') alert(_this2[0].props.userProfile.username + ' has been added to your follower list');
+	        if (url === '/api/removefollower') alert(_this2[0].props.userProfile.username + ' has been removed from your follower list');
+	        _this2[0].props.fetchInfo();
 	      }).fail(function (err) {
 	        console.log('error', err);
 	      });
-	    }
-	  }, {
-	    key: 'unfollowUser',
-	    value: function unfollowUser() {
-	      alert('unfollow will go here');
-	      // var token = localStorage.getItem('token')
-	      // $.ajax({
-	      //    url: '/api/addfollower',
-	      //    type: "PUT",
-	      //    data: {user: this.props.userProfile._id},
-	      //    headers: {
-	      //       "authorization": token
-	      //    }
-	      // }).done((response) => {
-	      //   alert(this.props.userProfile.username + ' has been added to your follower list')
-	      // }).fail((err) => {
-	      //   console.log('error', err)
-	      // });
 	    }
 	  }, {
 	    key: 'showAlbums',
@@ -66759,7 +66744,7 @@
 	
 	      if (userProfile && userProfile.languages) {
 	        var photos = userProfile.myPhotos;
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.followUser.bind(this) }, 'Follow +')), userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.unfollowUser.bind(this) }, 'Unfollow -')), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.unfollowOrFollowUser.bind([this, '/api/addfollower']) }, 'Follow +')), userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.unfollowOrFollowUser.bind([this, '/api/removefollower']) }, 'Unfollow -')), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
 	          if (i === _this3.props.userProfile.languages.length - 1) {
 	            return lang;
 	          }
