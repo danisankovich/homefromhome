@@ -1,5 +1,5 @@
 import {
-  AUTH_USER, UNAUTH_USER, AUTH_ERROR, FETCH_INFO, EDIT_USER, UPLOAD_PHOTO, UPLOAD_AVATAR
+  AUTH_USER, UNAUTH_USER, AUTH_ERROR, FETCH_INFO, EDIT_USER, UPLOAD_PHOTO, UPLOAD_AVATAR, FETCH_PROFILE
 } from '../actions/types';
 export default function(state = {}, action) {
   switch(action.type) {
@@ -11,6 +11,8 @@ export default function(state = {}, action) {
       return { ...state, error: action.payload};
     case FETCH_INFO:
       return {...state, userInfo: action.payload};
+    case FETCH_PROFILE:
+      return {...state, userProfile: action.payload};
     case EDIT_USER:
       return {...state, userInfo: action.payload};
     case UPLOAD_PHOTO:

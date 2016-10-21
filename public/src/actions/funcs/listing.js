@@ -27,7 +27,7 @@ exports.getListing = function(id, dispatch) {
 }
 exports.getAllListings = function(term, dispatch) {
   $.ajax({
-     url: `api/listings/location/${term}`,
+     url: `/api/listings/location/${term}`,
      type: "GET",
   }).done((response) => {
     dispatch({
@@ -38,7 +38,7 @@ exports.getAllListings = function(term, dispatch) {
 }
 exports.getMyListings = function(array, dispatch) {
   $.ajax({
-     url: 'api/listings/mylistings',
+     url: '/api/listings/mylistings',
      type: "POST",
      data: {'data': array}
   }).done((response) => {
@@ -51,7 +51,7 @@ exports.getMyListings = function(array, dispatch) {
 exports.createListing = function(data, dispatch) {
   var token = localStorage.getItem('token')
   $.ajax({
-     url: `api/listings/new`,
+     url: `/api/listings/new`,
      type: "POST",
      headers: {
         "authorization": token

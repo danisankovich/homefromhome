@@ -1,4 +1,4 @@
-import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser, deleteListing} from './funcs/user';
+import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser, getUserProfile, deleteListing} from './funcs/user';
 import {createBlog, getBlog, getAllBlogs} from './funcs/blog';
 import {getListing, getAllListings, getMyListings, createListing, edit} from './funcs/listing';
 import {
@@ -51,6 +51,11 @@ export function authError(error) {
 export function fetchInfo() {
   return function(dispatch) {
     getUser(dispatch);
+  }
+}
+export function fetchProfileInfo(userId) {
+  return function(dispatch) {
+    getUserProfile(dispatch, userId);
   }
 }
 //Listing FUNCTIONS

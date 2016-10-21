@@ -27,7 +27,7 @@ exports.createBlog = function(data, dispatch) {
 
 exports.getBlog = function(id, dispatch) {
   $.ajax({
-     url: `/api/blogs/${id}`,
+     url: `/api/blogs/blog/${id}`,
      type: "GET",
   }).done((response) => {
     dispatch({

@@ -32,16 +32,16 @@ class BlogList extends Component {
         <div className="col-sm-12">
           <div className="col-sm-10 col-sm-offset-1">
             <div>
-              <form onSubmit={this.searchHandler.bind(this)}>
+              <form onSubmit={this.searchHandler.bind(this)} className='form-group'>
                 <fieldset>
                   <label>Search Keywords: </label>
-                  <input placeholder='Separate keywords by a space' onChange={this.handleChange.bind(this)}/>
+                  <input className='form-control' placeholder='Separate keywords by a space' onChange={this.handleChange.bind(this)}/>
                 </fieldset>
                 <fieldset>
                   <input type='radio' onChange={() => {this.setState({type: 'inclusive'})}} /> Inclusive
                   <input type='radio' onChange={() => {this.setState({type: 'exclusive'})}}/> Exclusive
                 </fieldset>
-                <button type='submit' className="btn btn-default">Search</button>
+                <button type='submit' className="btn btn-primary">Search</button>
               </form>
             </div>
             <div className="col-sm-12">

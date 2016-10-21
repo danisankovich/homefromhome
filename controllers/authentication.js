@@ -66,6 +66,13 @@ exports.getUser = (req, res) => {
     res.send({user: "NO_USER"})
   }
 }
+exports.getUserProfile = (req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    console.log(user)
+    if (err) res.send(err);
+    res.send(user)
+  })
+}
 exports.editInfo = function(req, res, next) {
   var newPhone = req.body.phoneNumber
   var newEmail = req.body.email

@@ -11,7 +11,7 @@ const BlogController = require('../controllers/blog');
 
 router.get('/:id', BlogController.findAllBlogs);
 router.post('/new', BlogController.newBlog);
-router.get('/:id', BlogController.findOneBlog);
+router.get('/blog/:id', BlogController.findOneBlog);
 router.post('/newComment/:id', BlogController.newBlogComment);
 router.get('/searchkeyword', BlogController.searchBlogKeyword);
 

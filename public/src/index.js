@@ -15,6 +15,7 @@ import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
 import Information from './components/information';
 import Profile from './components/auth/user/profile';
+import UserProfile from './components/auth/user/otheruser/userProfile';
 import Settings from './components/auth/user/settings';
 import Welcome_Container from './components/welcome_container';
 
@@ -56,6 +57,7 @@ ReactDOM.render(
           <Route path='information' component={Information}></Route>
           <Route path='profile' component={RequireAuth(Profile)}></Route>
           <Route path='settings' component={RequireAuth(Settings)}></Route>
+          <Route path='userprofile/:id' component={UserProfile}></Route>
         </Route>
         <Route path='/listings' component={App}>
           <IndexRoute component={Listings_Container} />

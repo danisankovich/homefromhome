@@ -8,12 +8,13 @@ import {
   UPLOAD_AVATAR,
   UNAUTH_USER,
   FETCH_INFO,
+  FETCH_PROFILE
 } from '../types';
 
 // const ROOT_URL = 'http://localhost:3000/api';
 
 exports.signIn = function(dispatch, {email, password}) {
-  $.post(`api/signin`, { email, password })
+  $.post(`/api/signin`, { email, password })
     .done(response => {
       dispatch({type: AUTH_USER});
       localStorage.setItem('token', response.token);
@@ -27,7 +28,7 @@ exports.signIn = function(dispatch, {email, password}) {
 
 exports.signUp = function(dispatch, {email, password, username}) {
   $.ajax({
-    url: `api/signup`,
+    url: `/api/signup`,
     type: "POST",
     data: {email, password, username},
   })
@@ -47,7 +48,7 @@ exports.userEdit = function(dispatch, {phoneNumber, email, lang}, user) {
   dispatch({type: EDIT_USER});
 
   $.ajax({
-    url: `api/editInfo`,
+    url: `/api/editInfo`,
     type: "POST",
     data: {phoneNumber, email, user, 'lang': lang },
   })
@@ -62,7 +63,7 @@ exports.avatarUpload = function(photo, user, dispatch) {
   dispatch({type: UPLOAD_AVATAR});
 
   $.ajax({
-    url: `api/uploadavatar`,
+    url: `/api/uploadavatar`,
     type: "POST",
     data: {image: photo, user},
   })
@@ -77,7 +78,7 @@ exports.myPhotoUpload = function(dispatch, photo, user) {
   dispatch({type: UPLOAD_PHOTO});
 
   $.ajax({
-    url: `api/uploadmyphoto`,
+    url: `/api/uploadmyphoto`,
     type: "POST",
     data: {image: photo.image, location: photo.location, tagline: photo.tagline, user},
   })
@@ -99,6 +100,19 @@ exports.getUser = function(dispatch) {
   }).done((response) => {
     dispatch({
       type: FETCH_INFO,
+      payload: response
+    })
+  }).fail((err) => {
+    console.log('error', err)
+  });
+}
+exports.getUserProfile = function(dispatch, userId) {
+  $.ajax({
+     url: `/api/user/${userId}`,
+     type: "GET"
+  }).done((response) => {
+    dispatch({
+      type: FETCH_PROFILE,
       payload: response
     })
   }).fail((err) => {

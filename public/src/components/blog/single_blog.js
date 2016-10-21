@@ -54,7 +54,7 @@ class SingleBlog extends Component {
         <div className='toppush container'>
           <div className='row'>
             <div className='col-sm-8 col-sm-offset-2'>
-              <h1>{blog.blog.title}   --    by {blog.blog.creator.username}</h1>
+              <h1>{blog.blog.title}   --    by <a onClick={() => {browserHistory.push(`/userprofile/${blog.blog.creator.id}`)}}>{blog.blog.creator.username}</a></h1>
               <h3>{blog.blog.tagline}</h3>
               <ReactMarkdown className='body-spacing' source={blog.blog.body} />
             </div>

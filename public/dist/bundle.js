@@ -105,6 +105,10 @@
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
+	var _userProfile = __webpack_require__(/*! ./components/auth/user/otheruser/userProfile */ 370);
+	
+	var _userProfile2 = _interopRequireDefault(_userProfile);
+	
 	var _settings = __webpack_require__(/*! ./components/auth/user/settings */ 319);
 	
 	var _settings2 = _interopRequireDefault(_settings);
@@ -160,12 +164,12 @@
 	}
 	
 	// blog Routes
-	
-	
-	// Main Routes
 	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxPromise2.default)(_redux.createStore);
 	
 	// Listings Routes
+	
+	
+	// Main Routes
 	
 	var store = createStoreWithMiddleware(_reducers2.default);
 	
@@ -175,7 +179,7 @@
 	  store.dispatch({ type: _types.AUTH_USER }); //any action in here is sent off to all reducers in the application, just as with other dispatch
 	}
 	
-	_reactDom2.default.render(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: _information2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/listings', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/new', component: (0, _require_auth2.default)(_newListing2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/blogs', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: (0, _require_auth2.default)(_my_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: (0, _require_auth2.default)(_new_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })))), document.querySelector('.thing'));
+	_reactDom2.default.render(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: _information2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'userprofile/:id', component: _userProfile2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/listings', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/new', component: (0, _require_auth2.default)(_newListing2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/blogs', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: (0, _require_auth2.default)(_my_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: (0, _require_auth2.default)(_new_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })))), document.querySelector('.thing'));
 
 /***/ },
 /* 2 */
@@ -29386,6 +29390,7 @@
 	exports.signoutUser = signoutUser;
 	exports.authError = authError;
 	exports.fetchInfo = fetchInfo;
+	exports.fetchProfileInfo = fetchProfileInfo;
 	exports.fetchListings = fetchListings;
 	exports.fetchMyListings = fetchMyListings;
 	exports.newListing = newListing;
@@ -29460,6 +29465,11 @@
 	function fetchInfo() {
 	  return function (dispatch) {
 	    (0, _user.getUser)(dispatch);
+	  };
+	}
+	function fetchProfileInfo(userId) {
+	  return function (dispatch) {
+	    (0, _user.getUserProfile)(dispatch, userId);
 	  };
 	}
 	//Listing FUNCTIONS
@@ -29544,7 +29554,7 @@
 	  var email = _ref.email;
 	  var password = _ref.password;
 	
-	  _jquery2.default.post('api/signin', { email: email, password: password }).done(function (response) {
+	  _jquery2.default.post('/api/signin', { email: email, password: password }).done(function (response) {
 	    dispatch({ type: _types.AUTH_USER });
 	    localStorage.setItem('token', response.token);
 	    _reactRouter.browserHistory.push('/'); // success pushes you to /information.
@@ -29561,7 +29571,7 @@
 	  var username = _ref2.username;
 	
 	  _jquery2.default.ajax({
-	    url: 'api/signup',
+	    url: '/api/signup',
 	    type: "POST",
 	    data: { email: email, password: password, username: username }
 	  }).done(function (response) {
@@ -29584,7 +29594,7 @@
 	  dispatch({ type: _types.EDIT_USER });
 	
 	  _jquery2.default.ajax({
-	    url: 'api/editInfo',
+	    url: '/api/editInfo',
 	    type: "POST",
 	    data: { phoneNumber: phoneNumber, email: email, user: user, 'lang': lang }
 	  }).done(function (response) {
@@ -29598,7 +29608,7 @@
 	  dispatch({ type: _types.UPLOAD_AVATAR });
 	
 	  _jquery2.default.ajax({
-	    url: 'api/uploadavatar',
+	    url: '/api/uploadavatar',
 	    type: "POST",
 	    data: { image: photo, user: user }
 	  }).done(function (response) {
@@ -29612,7 +29622,7 @@
 	  dispatch({ type: _types.UPLOAD_PHOTO });
 	
 	  _jquery2.default.ajax({
-	    url: 'api/uploadmyphoto',
+	    url: '/api/uploadmyphoto',
 	    type: "POST",
 	    data: { image: photo.image, location: photo.location, tagline: photo.tagline, user: user }
 	  }).done(function (response) {
@@ -29633,6 +29643,19 @@
 	  }).done(function (response) {
 	    dispatch({
 	      type: _types.FETCH_INFO,
+	      payload: response
+	    });
+	  }).fail(function (err) {
+	    console.log('error', err);
+	  });
+	};
+	exports.getUserProfile = function (dispatch, userId) {
+	  _jquery2.default.ajax({
+	    url: '/api/user/' + userId,
+	    type: "GET"
+	  }).done(function (response) {
+	    dispatch({
+	      type: _types.FETCH_PROFILE,
 	      payload: response
 	    });
 	  }).fail(function (err) {
@@ -39115,6 +39138,7 @@
 	var UNAUTH_USER = exports.UNAUTH_USER = 'unauth_user';
 	var AUTH_ERROR = exports.AUTH_ERROR = 'auth_error';
 	var FETCH_INFO = exports.FETCH_INFO = 'fetch_info';
+	var FETCH_PROFILE = exports.FETCH_PROFILE = 'fetch_profile';
 	var FETCH_LISTINGS = exports.FETCH_LISTINGS = 'fetch_listings';
 	var FETCH_MY_LISTINGS = exports.FETCH_MY_LISTINGS = 'fetch_my_listings';
 	var NEW_LISTING = exports.NEW_LISTING = 'new_listing';
@@ -39171,7 +39195,7 @@
 	
 	exports.getBlog = function (id, dispatch) {
 	  _jquery2.default.ajax({
-	    url: '/api/blogs/' + id,
+	    url: '/api/blogs/blog/' + id,
 	    type: "GET"
 	  }).done(function (response) {
 	    dispatch({
@@ -39235,7 +39259,7 @@
 	
 	exports.getAllListings = function (term, dispatch) {
 	  _jquery2.default.ajax({
-	    url: 'api/listings/location/' + term,
+	    url: '/api/listings/location/' + term,
 	    type: "GET"
 	  }).done(function (response) {
 	    dispatch({
@@ -39246,7 +39270,7 @@
 	};
 	exports.getMyListings = function (array, dispatch) {
 	  _jquery2.default.ajax({
-	    url: 'api/listings/mylistings',
+	    url: '/api/listings/mylistings',
 	    type: "POST",
 	    data: { 'data': array }
 	  }).done(function (response) {
@@ -39259,7 +39283,7 @@
 	exports.createListing = function (data, dispatch) {
 	  var token = localStorage.getItem('token');
 	  _jquery2.default.ajax({
-	    url: 'api/listings/new',
+	    url: '/api/listings/new',
 	    type: "POST",
 	    headers: {
 	      "authorization": token
@@ -65776,11 +65800,11 @@
 	      var blogs = _props.blogs;
 	      // if(blogs && blogs.length) {
 	
-	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('div', null, _react2.default.createElement('form', { onSubmit: this.searchHandler.bind(this) }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Search Keywords: '), _react2.default.createElement('input', { placeholder: 'Separate keywords by a space', onChange: this.handleChange.bind(this) })), _react2.default.createElement('fieldset', null, _react2.default.createElement('input', { type: 'radio', onChange: function onChange() {
+	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('div', null, _react2.default.createElement('form', { onSubmit: this.searchHandler.bind(this), className: 'form-group' }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Search Keywords: '), _react2.default.createElement('input', { className: 'form-control', placeholder: 'Separate keywords by a space', onChange: this.handleChange.bind(this) })), _react2.default.createElement('fieldset', null, _react2.default.createElement('input', { type: 'radio', onChange: function onChange() {
 	          _this2.setState({ type: 'inclusive' });
 	        } }), ' Inclusive', _react2.default.createElement('input', { type: 'radio', onChange: function onChange() {
 	          _this2.setState({ type: 'exclusive' });
-	        } }), ' Exclusive'), _react2.default.createElement('button', { type: 'submit', className: 'btn btn-default' }, 'Search'))), _react2.default.createElement('div', { className: 'col-sm-12' }, blogs && blogs.length > 0 && blogs.map(function (e) {
+	        } }), ' Exclusive'), _react2.default.createElement('button', { type: 'submit', className: 'btn btn-primary' }, 'Search'))), _react2.default.createElement('div', { className: 'col-sm-12' }, blogs && blogs.length > 0 && blogs.map(function (e) {
 	        return _react2.default.createElement('div', { className: 'col-sm-3', key: e._id, onClick: function onClick() {
 	            _reactRouter.browserHistory.push('/blogs/' + e._id);
 	          } }, _react2.default.createElement('ul', { className: 'blogListingBorder' }, _react2.default.createElement('li', null, 'Title: ', e.title), _react2.default.createElement('li', null, 'Tag: ', e.tagline), _react2.default.createElement('li', null, 'by: ', e.creator.username)));
@@ -66259,7 +66283,9 @@
 	      // let {blog, userInfo} = this.props;
 	
 	      if (blog && blog.blog) {
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, blog.blog.title, '   --    by ', blog.blog.creator.username), _react2.default.createElement('h3', null, blog.blog.tagline), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: blog.blog.body })), _react2.default.createElement('div', { className: 'col-sm-2' }, _react2.default.createElement('ul', null, blog.blogList.map(function (blogEntry) {
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, blog.blog.title, '   --    by ', _react2.default.createElement('a', { onClick: function onClick() {
+	            _reactRouter.browserHistory.push('/userprofile/' + blog.blog.creator.id);
+	          } }, blog.blog.creator.username)), _react2.default.createElement('h3', null, blog.blog.tagline), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: blog.blog.body })), _react2.default.createElement('div', { className: 'col-sm-2' }, _react2.default.createElement('ul', null, blog.blogList.map(function (blogEntry) {
 	          return _react2.default.createElement('li', { key: blogEntry._id }, _react2.default.createElement('ul', { className: 'borderBottom' }, _react2.default.createElement('li', { className: 'removeListBullet' }, blogEntry.dateCreated.split('T')[0]), _react2.default.createElement('li', { className: 'removeListBullet', onClick: _this3.toBlog.bind([_this3, blogEntry._id]) }, blogEntry.title)));
 	        })))), _react2.default.createElement('hr', null), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('p', null, 'Comments: '), this.props.userInfo && _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('label', null, 'New Comment: '), _react2.default.createElement('textarea', _extends({ id: 'commentBlog', className: 'form-control', type: 'text' }, comment)), comment.touched && comment.error && _react2.default.createElement('div', { className: 'error' }, comment.error), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Submit')), _react2.default.createElement('div', { id: 'Comment-Section' }, _react2.default.createElement('ul', null, blog.blog.comments.map(function (comment) {
 	          return _react2.default.createElement('li', { className: 'commentBlock', key: comment._id }, _react2.default.createElement('h4', null, comment.username, ' at ', comment.dateCreated), _react2.default.createElement('hr', null), _react2.default.createElement('p', null, comment.comment));
@@ -66475,6 +66501,8 @@
 	      return _extends({}, state, { error: action.payload });
 	    case _types.FETCH_INFO:
 	      return _extends({}, state, { userInfo: action.payload });
+	    case _types.FETCH_PROFILE:
+	      return _extends({}, state, { userProfile: action.payload });
 	    case _types.EDIT_USER:
 	      return _extends({}, state, { userInfo: action.payload });
 	    case _types.UPLOAD_PHOTO:
@@ -66572,6 +66600,377 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 264);
+
+/***/ },
+/* 370 */
+/*!******************************************************************!*\
+  !*** ./public/src/components/auth/user/otheruser/userProfile.js ***!
+  \******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _photobook = __webpack_require__(/*! ./photobook */ 371);
+	
+	var _photobook2 = _interopRequireDefault(_photobook);
+	
+	var _profilelistings = __webpack_require__(/*! ./profilelistings */ 372);
+	
+	var _profilelistings2 = _interopRequireDefault(_profilelistings);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var UserProfile = function (_Component) {
+	  _inherits(UserProfile, _Component);
+	
+	  function UserProfile() {
+	    _classCallCheck(this, UserProfile);
+	
+	    return _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).apply(this, arguments));
+	  }
+	
+	  _createClass(UserProfile, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	      var id = this.props.location.pathname.split('userprofile/')[1];
+	      this.props.fetchProfileInfo(id);
+	      this.setState({ showPhotos: false, showListings: false });
+	    }
+	  }, {
+	    key: 'showAlbums',
+	    value: function showAlbums() {
+	      this.state.showListings = false;
+	      this.state.showPhotos ? this.setState({ showPhotos: false }) : this.setState({ showPhotos: true });
+	    }
+	  }, {
+	    key: 'showListings',
+	    value: function showListings() {
+	      this.state.showPhotos = false;
+	      this.state.showListings ? this.setState({ showListings: false }) : this.setState({ showListings: true });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var _props = this.props;
+	      var userProfile = _props.userProfile;
+	      var userInfo = _props.userInfo;
+	
+	      if (userProfile && userProfile.languages) {
+	        var photos = userProfile.myPhotos;
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
+	          if (i === _this2.props.userProfile.languages.length - 1) {
+	            return lang;
+	          }
+	          return lang + ', ';
+	        })), _react2.default.createElement('img', { src: this.props.userProfile.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { onClick: this.showListings.bind(this) }, 'Show Listings')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userProfile: this.props.userProfile }), this.state.showListings && _react2.default.createElement(_profilelistings2.default, { userProfile: this.props.userProfile }))));
+	      }
+	      return _react2.default.createElement('div', null, 'Loading........ ');
+	    }
+	  }]);
+	
+	  return UserProfile;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo, userProfile: state.auth.userProfile };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(UserProfile);
+
+/***/ },
+/* 371 */
+/*!****************************************************************!*\
+  !*** ./public/src/components/auth/user/otheruser/photobook.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 268);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var PhotoBook = function (_Component) {
+	  _inherits(PhotoBook, _Component);
+	
+	  function PhotoBook() {
+	    _classCallCheck(this, PhotoBook);
+	
+	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).apply(this, arguments));
+	  }
+	
+	  _createClass(PhotoBook, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ file: '' });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userProfile = this.props.userProfile;
+	
+	      var photos = userProfile.myPhotos || [];
+	      var notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden';
+	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, photos.map(function (e) {
+	        return _react2.default.createElement('div', { className: 'col-sm-4', key: e._id, onClick: function onClick() {
+	            _reactRouter.browserHistory.push('/myphotos/' + e._id);
+	          } }, _react2.default.createElement('ul', { className: 'photoBookBorder' }, _react2.default.createElement('li', null, e.location), _react2.default.createElement('li', null, e.tagline), _react2.default.createElement('li', null, _react2.default.createElement('img', { className: 'photoBookImage', src: e.image }))));
+	      })));
+	    }
+	  }]);
+	
+	  return PhotoBook;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userProfile: state.auth.userProfile };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(PhotoBook);
+
+/***/ },
+/* 372 */
+/*!**********************************************************************!*\
+  !*** ./public/src/components/auth/user/otheruser/profilelistings.js ***!
+  \**********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 260);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 189);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var MyListings = function (_Component) {
+	  _inherits(MyListings, _Component);
+	
+	  function MyListings() {
+	    _classCallCheck(this, MyListings);
+	
+	    return _possibleConstructorReturn(this, (MyListings.__proto__ || Object.getPrototypeOf(MyListings)).apply(this, arguments));
+	  }
+	
+	  _createClass(MyListings, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var listings = this.props.userProfile.myListings;
+	      this.props.fetchMyListings(listings);
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/listings/' + clickResult);
+	    }
+	  }, {
+	    key: 'deleteClickHandle',
+	    value: function deleteClickHandle(e) {
+	      e.preventDefault();
+	      var clickResult = this[1]._id;
+	      var array = this[0].userProfile.myListings;
+	      var index = this[0].userProfile.myListings.indexOf(clickResult);
+	      array.splice(index, 1);
+	      this[0].removeListing(clickResult);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var listings = this.props.mylistings || [];
+	      if (listings) {
+	        return _react2.default.createElement('div', null, listings && listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, listings.map(function (result) {
+	          console.log(result);
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'rating'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result]) }, _react2.default.createElement('button', null, 'X')));
+	        }.bind(this)))));
+	      } else {
+	        return _react2.default.createElement('div', null, 'LOADING...');
+	      }
+	    }
+	  }]);
+	
+	  return MyListings;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userProfile: state.auth.userProfile, mylistings: state.listing.mylistings, userStuff: state.auth };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyListings);
 
 /***/ }
 /******/ ]);
