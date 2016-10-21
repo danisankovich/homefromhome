@@ -11,13 +11,13 @@ class MyListings extends Component {
     let clickResult = this._id;
     browserHistory.push(`/listings/${clickResult}`);
   }
-  deleteClickHandle(e) {
+  saveClickHandle(e) {
     e.preventDefault();
     let clickResult = this[1]._id;
     let array = this[0].userProfile.myListings;
     let index = this[0].userProfile.myListings.indexOf(clickResult)
     array.splice(index, 1)
-    this[0].removeListing(clickResult);
+    console.log('this will save listing to favorites')
   }
   render() {
     let listings = this.props.mylistings || []
@@ -34,7 +34,7 @@ class MyListings extends Component {
                 <th>Address</th>
                 <th>Price Per Night</th>
                 <th>Rating</th>
-                <th>Delete</th>
+                <th>Save Listing</th>
               </tr>
             </thead>
             <tbody>
@@ -51,8 +51,8 @@ class MyListings extends Component {
                     <td onClick={this.handleClick.bind(result)}>{result.location.address}</td>
                     <td onClick={this.handleClick.bind(result)}>${result.pricePerNight}</td>
                     <td onClick={this.handleClick.bind(result)}>rating</td>
-                    <td onClick={this.deleteClickHandle.bind([this.props, result])}><button>X</button></td>
-                  </tr>                )
+                    <td onClick={this.saveClickHandle.bind([this.props, result])}><button>X</button></td>
+                  </tr>)
               }.bind(this))}
             </tbody>
           </table>}
@@ -66,6 +66,6 @@ class MyListings extends Component {
 }
 
 function mapStateToProps(state) {
-  return {userProfile: state.auth.userProfile, mylistings: state.listing.mylistings, userStuff: state.auth};
+  return {userProfile: state.auth.userProfile, mylistings: state.listing.mylistings};
 }
 export default connect(mapStateToProps, actions)(MyListings);

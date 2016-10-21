@@ -66644,6 +66644,10 @@
 	
 	var _profilelistings2 = _interopRequireDefault(_profilelistings);
 	
+	var _jquery = __webpack_require__(/*! jquery */ 262);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
 	function _interopRequireWildcard(obj) {
 	  if (obj && obj.__esModule) {
 	    return obj;
@@ -66696,6 +66700,25 @@
 	      this.setState({ showPhotos: false, showListings: false });
 	    }
 	  }, {
+	    key: 'followUser',
+	    value: function followUser() {
+	      var _this2 = this;
+	
+	      var token = localStorage.getItem('token');
+	      _jquery2.default.ajax({
+	        url: '/api/addfollower',
+	        type: "PUT",
+	        data: { user: this.props.userProfile._id },
+	        headers: {
+	          "authorization": token
+	        }
+	      }).done(function (response) {
+	        alert(_this2.props.userProfile.username + ' has been added to your follower list');
+	      }).fail(function (err) {
+	        console.log('error', err);
+	      });
+	    }
+	  }, {
 	    key: 'showAlbums',
 	    value: function showAlbums() {
 	      this.state.showListings = false;
@@ -66710,16 +66733,14 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
-	      var _props = this.props;
-	      var userProfile = _props.userProfile;
-	      var userInfo = _props.userInfo;
+	      var userProfile = this.props.userProfile;
 	
 	      if (userProfile && userProfile.languages) {
 	        var photos = userProfile.myPhotos;
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
-	          if (i === _this2.props.userProfile.languages.length - 1) {
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.followUser.bind(this) }, 'Follow +')), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
+	          if (i === _this3.props.userProfile.languages.length - 1) {
 	            return lang;
 	          }
 	          return lang + ', ';
@@ -66733,7 +66754,7 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo, userProfile: state.auth.userProfile };
+	  return { userProfile: state.auth.userProfile };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(UserProfile);
 
@@ -66940,23 +66961,23 @@
 	      _reactRouter.browserHistory.push('/listings/' + clickResult);
 	    }
 	  }, {
-	    key: 'deleteClickHandle',
-	    value: function deleteClickHandle(e) {
+	    key: 'saveClickHandle',
+	    value: function saveClickHandle(e) {
 	      e.preventDefault();
 	      var clickResult = this[1]._id;
 	      var array = this[0].userProfile.myListings;
 	      var index = this[0].userProfile.myListings.indexOf(clickResult);
 	      array.splice(index, 1);
-	      this[0].removeListing(clickResult);
+	      console.log('this will save listing to favorites');
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var listings = this.props.mylistings || [];
 	      if (listings) {
-	        return _react2.default.createElement('div', null, listings && listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, listings.map(function (result) {
+	        return _react2.default.createElement('div', null, listings && listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Save Listing'))), _react2.default.createElement('tbody', null, listings.map(function (result) {
 	          console.log(result);
-	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'rating'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result]) }, _react2.default.createElement('button', null, 'X')));
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'rating'), _react2.default.createElement('td', { onClick: this.saveClickHandle.bind([this.props, result]) }, _react2.default.createElement('button', null, 'X')));
 	        }.bind(this)))));
 	      } else {
 	        return _react2.default.createElement('div', null, 'LOADING...');
@@ -66968,7 +66989,7 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { userProfile: state.auth.userProfile, mylistings: state.listing.mylistings, userStuff: state.auth };
+	  return { userProfile: state.auth.userProfile, mylistings: state.listing.mylistings };
 	}
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyListings);
 

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../../../actions';
 import PhotoBook from './photobook';
 import ProfileListings from './profilelistings';
+import $ from 'jquery';
 
 class UserProfile extends Component {
   componentWillMount() {
@@ -10,6 +11,21 @@ class UserProfile extends Component {
     let id = this.props.location.pathname.split('userprofile/')[1]
     this.props.fetchProfileInfo(id);
     this.setState({showPhotos: false, showListings: false})
+  }
+  followUser() {
+    var token = localStorage.getItem('token')
+    $.ajax({
+       url: '/api/addfollower',
+       type: "PUT",
+       data: {user: this.props.userProfile._id},
+       headers: {
+          "authorization": token
+       }
+    }).done((response) => {
+      alert(this.props.userProfile.username + ' has been added to your follower list')
+    }).fail((err) => {
+      console.log('error', err)
+    });
   }
   showAlbums() {
     this.state.showListings = false
@@ -20,7 +36,7 @@ class UserProfile extends Component {
     this.state.showListings ? this.setState({showListings: false}) : this.setState({showListings: true})
   }
   render() {
-    let {userProfile, userInfo} = this.props;
+    let {userProfile} = this.props;
     if(userProfile && userProfile.languages) {
       let photos = userProfile.myPhotos;
       return (
@@ -28,6 +44,7 @@ class UserProfile extends Component {
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
               <h2>{userProfile.username + "'s"} Profile</h2>
+              <h3><button className='btn btn-primary' onClick={this.followUser.bind(this)}>Follow +</button></h3>
               <h3>Email: {userProfile.email}</h3>
               <h3>Phone Number: {userProfile.phoneNumber}</h3>
               <h4>
@@ -62,6 +79,6 @@ class UserProfile extends Component {
   };
 }
 function mapStateToProps(state) {
-  return {userInfo: state.auth.userInfo, userProfile: state.auth.userProfile};
+  return {userProfile: state.auth.userProfile};
 }
 export default connect(mapStateToProps, actions)(UserProfile);
