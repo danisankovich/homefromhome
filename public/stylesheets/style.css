@@ -7,6 +7,22 @@ a {
   color: #00B7FF;
 }
 
+#titleHeader {
+  font-size: 60px;
+}
+.photoOne {
+  height:383px;
+}
+
+.photoBlock {
+  height: 300px;
+}
+.top-buffer {
+  margin-top:40px;
+}
+.textSegment {
+  font-size: 32px;
+}
 .error {
   color: red;
 }
