@@ -12,7 +12,8 @@ var blogs = require('./routes/blogs');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:auth/auth');
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:auth/auth');
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
