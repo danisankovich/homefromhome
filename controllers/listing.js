@@ -26,7 +26,6 @@ exports.findByLocation = (req, res) => {
   const minPrice = req.query.minPrice || 0;
   const maxPrice = req.query.maxPrice || 5001.00;
   const minRating = req.query.minRating || 0;
-  console.log(maxPrice, minPrice, minRating)
   let loc = req.params.location.replace(/undefined/g, '');
   let usCity = loc.split('_')[2].toLowerCase().replace(/_/g, '');
   let city = loc.split('_')[1].toLowerCase().replace(/_/g, '');

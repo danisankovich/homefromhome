@@ -44055,10 +44055,13 @@
 	var BasicInfo = function (_Component) {
 	  _inherits(BasicInfo, _Component);
 	
-	  function BasicInfo() {
+	  function BasicInfo(props) {
 	    _classCallCheck(this, BasicInfo);
 	
-	    return _possibleConstructorReturn(this, (BasicInfo.__proto__ || Object.getPrototypeOf(BasicInfo)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (BasicInfo.__proto__ || Object.getPrototypeOf(BasicInfo)).call(this, props));
+	
+	    alert('Pardon The Mess. This is a Work In Progress');
+	    return _this;
 	  }
 	
 	  _createClass(BasicInfo, [{
