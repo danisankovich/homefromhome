@@ -25,10 +25,11 @@ exports.getListing = function(id, dispatch) {
     })
   });
 }
-exports.getAllListings = function(term, dispatch) {
+exports.getAllListings = function(term, otherParams, dispatch) {
   $.ajax({
      url: `/api/listings/location/${term}`,
      type: "GET",
+     data: otherParams
   }).done((response) => {
     dispatch({
       type: FETCH_LISTINGS,

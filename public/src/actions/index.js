@@ -59,10 +59,10 @@ export function fetchProfileInfo(userId) {
   }
 }
 //Listing FUNCTIONS
-export function fetchListings(term) {
+export function fetchListings(term, otherParams) {
   if (term) {
     return function(dispatch) {
-      getAllListings(term, dispatch)
+      getAllListings(term, otherParams, dispatch)
     }
   }
 }

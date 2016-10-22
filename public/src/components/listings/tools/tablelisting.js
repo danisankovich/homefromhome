@@ -18,7 +18,7 @@ class TableListing extends Component {
           {result.location.usCity !== 'not valid' && <td>{result.location.usCity}</td>}
           <td>{result.location.address}</td>
           <td>${result.pricePerNight}</td>
-          <td>rating</td>
+          <td>{result.rating === 0 ? 'No Rating' : result.rating}</td>
         </tr>
     )
   };

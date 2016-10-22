@@ -22,24 +22,43 @@ exports.findMyListings = (req, res) => {
 }
 
 exports.findByLocation = (req, res) => {
+  console.log(req.body)
+  const minPrice = req.query.minPrice || 0;
+  const maxPrice = req.query.maxPrice || 5001.00;
+  const minRating = req.query.minRating || 0;
+  console.log(maxPrice, minPrice, minRating)
   let loc = req.params.location.replace(/undefined/g, '');
   let usCity = loc.split('_')[2].toLowerCase().replace(/_/g, '');
   let city = loc.split('_')[1].toLowerCase().replace(/_/g, '');
   let country = loc.split('_')[0].toLowerCase().replace(/_/g, '');
-  console.log(usCity.length)
   if (city.length > 0 && country.length > 0 && usCity.length > 0) {
-    Listing.find({'location.city': city, 'location.country': country, 'location.usCity': usCity}, (err, listings) => {
+    Listing.find({
+      'location.city': city,
+      'location.country': country,
+      'location.usCity': usCity,
+      'pricePerNight': { $gte :  minPrice, $lte : maxPrice},
+      'rating': {$gte: minRating}
+    }, (err, listings) => {
       if (err) res.send(err);
       res.send(listings)
     })
   }
   else if (city.length > 0 && country.length > 0) {
-    Listing.find({'location.city': city, 'location.country': country}, (err, listings) => {
+    Listing.find({
+      'location.city': city,
+      'location.country': country,
+      'pricePerNight': { $gte :  minPrice, $lte : maxPrice},
+      'rating': {$gte: minRating}
+    }, (err, listings) => {
       if (err) res.send(err);
       res.send(listings)
     })
   } else if (country.length > 0) {
-    Listing.find({'location.country': country}, (err, listings) => {
+    Listing.find({
+      'location.country': country,
+      'pricePerNight': { $gte :  minPrice, $lte : maxPrice},
+      'rating': {$gte: minRating}
+    }, (err, listings) => {
       if (err) res.send(err);
       res.send(listings)
     })

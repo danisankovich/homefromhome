@@ -29473,10 +29473,10 @@
 	  };
 	}
 	//Listing FUNCTIONS
-	function fetchListings(term) {
+	function fetchListings(term, otherParams) {
 	  if (term) {
 	    return function (dispatch) {
-	      (0, _listing.getAllListings)(term, dispatch);
+	      (0, _listing.getAllListings)(term, otherParams, dispatch);
 	    };
 	  }
 	}
@@ -39257,10 +39257,11 @@
 	  });
 	}; // commits info about url to react router, and to make changes to url
 	
-	exports.getAllListings = function (term, dispatch) {
+	exports.getAllListings = function (term, otherParams, dispatch) {
 	  _jquery2.default.ajax({
 	    url: '/api/listings/location/' + term,
-	    type: "GET"
+	    type: "GET",
+	    data: otherParams
 	  }).done(function (response) {
 	    dispatch({
 	      type: _types.FETCH_LISTINGS,
@@ -56885,7 +56886,7 @@
 	    value: function render() {
 	      var result = this.props.result;
 	
-	      return _react2.default.createElement('tr', { key: result._id, onClick: this.handleClick.bind(result), className: 'table-row' }, _react2.default.createElement('td', null, result.title), _react2.default.createElement('td', null, result.location.country), _react2.default.createElement('td', null, result.location.city), result.location.usCity !== 'not valid' && _react2.default.createElement('td', null, result.location.usCity), _react2.default.createElement('td', null, result.location.address), _react2.default.createElement('td', null, '$', result.pricePerNight), _react2.default.createElement('td', null, 'rating'));
+	      return _react2.default.createElement('tr', { key: result._id, onClick: this.handleClick.bind(result), className: 'table-row' }, _react2.default.createElement('td', null, result.title), _react2.default.createElement('td', null, result.location.country), _react2.default.createElement('td', null, result.location.city), result.location.usCity !== 'not valid' && _react2.default.createElement('td', null, result.location.usCity), _react2.default.createElement('td', null, result.location.address), _react2.default.createElement('td', null, '$', result.pricePerNight), _react2.default.createElement('td', null, result.rating === 0 ? 'No Rating' : result.rating));
 	    }
 	  }]);
 	
@@ -57016,8 +57017,7 @@
 	  }, {
 	    key: 'cityCountrySearch',
 	    value: function cityCountrySearch() {
-	      console.log(this.state.searchParameters);
-	      this.props.fetchListings(this.state.country + '_' + this.state.city + '_' + this.state.usCity);
+	      this.props.fetchListings(this.state.country + '_' + this.state.city + '_' + this.state.usCity, this.state.searchParameters);
 	    }
 	  }, {
 	    key: 'render',
@@ -57046,12 +57046,13 @@
 	        if (e.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
 	      }))), this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0 && _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'col-sm-1' }, _react2.default.createElement('label', { className: 'searchLabel' }, 'Country: ')), _react2.default.createElement('div', { className: 'col-sm-3' }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('select', { className: 'form-control', onChange: this.changeUsCity.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A City'), usCities.map(function (e) {
 	        if (usCities.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
-	      }))))), _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('form', null, _react2.default.createElement('div', { className: 'col-sm-4' }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Min Price: '), _react2.default.createElement('input', {
+	      }))))), this.state.country && _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('form', null, _react2.default.createElement('div', { className: 'col-sm-4' }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'Min Price: '), _react2.default.createElement('input', {
 	        className: 'form-control',
 	        type: 'number',
 	        min: '0.01',
 	        step: '0.01',
 	        max: '4999.99',
+	        placeholder: 'Minimum Price',
 	        onChange: function onChange(e) {
 	          _this2.state.searchParameters.minPrice = e.target.value;
 	        }
@@ -57061,6 +57062,7 @@
 	        min: '0.02',
 	        step: '0.01',
 	        max: '5000.00',
+	        placeholder: 'Maximum Price',
 	        onChange: function onChange(e) {
 	          _this2.state.searchParameters.maxPrice = e.target.value;
 	        }
@@ -57070,6 +57072,7 @@
 	        min: '0',
 	        step: '.5',
 	        max: '5',
+	        placeholder: 'Minimum Rating',
 	        onChange: function onChange(e) {
 	          _this2.state.searchParameters.minRating = e.target.value;
 	        }

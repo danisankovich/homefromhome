@@ -27,7 +27,8 @@ const listingSchema = new Schema({
   review: {
     rating: String,
     review: String
-  }
+  },
+  rating: {type: Number, default: 0}
 });
 const LISTING = mongoose.model('listing', listingSchema);
 module.exports = LISTING;

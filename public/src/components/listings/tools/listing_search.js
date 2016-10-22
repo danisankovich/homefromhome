@@ -23,8 +23,7 @@ class ListingSearch extends Component {
     this.setState({usCity: event.target.value});
   }
   cityCountrySearch() {
-    console.log(this.state.searchParameters)
-    this.props.fetchListings(`${this.state.country}_${this.state.city}_${this.state.usCity}`)
+    this.props.fetchListings(`${this.state.country}_${this.state.city}_${this.state.usCity}`, this.state.searchParameters)
   }
   render() {
     let incrementKey = 0
@@ -86,7 +85,7 @@ class ListingSearch extends Component {
             </div>
           </div>
         }
-        <div className='col-sm-12'>
+        {this.state.country && <div className='col-sm-12'>
           <form>
             <div className='col-sm-4'>
               <fieldset>
@@ -98,6 +97,7 @@ class ListingSearch extends Component {
                   min="0.01"
                   step="0.01"
                   max="4999.99"
+                  placeholder="Minimum Price"
                   onChange={(e) => {this.state.searchParameters.minPrice = e.target.value}}
                 />
               </fieldset>
@@ -111,6 +111,7 @@ class ListingSearch extends Component {
                   min="0.02"
                   step="0.01"
                   max="5000.00"
+                  placeholder="Maximum Price"
                   onChange={(e) => {this.state.searchParameters.maxPrice = e.target.value}}
                 />
               </fieldset>
@@ -124,12 +125,13 @@ class ListingSearch extends Component {
                   min="0"
                   step=".5"
                   max="5"
+                  placeholder="Minimum Rating"
                   onChange={(e) => {this.state.searchParameters.minRating = e.target.value}}
                 />
               </fieldset>
             </div>
           </form>
-        </div>
+        </div>}
         <div className='col-sm-2'>
           <button className='btn btn-primary' onClick={this.cityCountrySearch.bind(this)}>Search City</button>
         </div>
