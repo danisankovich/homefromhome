@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-const listingSchema = new Schema({
+var listingSchema = new Schema({
   creator: {
     username: String,
     id: String,
@@ -30,5 +30,5 @@ const listingSchema = new Schema({
   },
   rating: {type: Number, default: 0}
 });
-const LISTING = mongoose.model('listing', listingSchema);
+var LISTING = mongoose.model('listing', listingSchema);
 module.exports = LISTING;

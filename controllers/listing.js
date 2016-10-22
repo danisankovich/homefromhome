@@ -4,8 +4,8 @@ var expressJwt = require('express-jwt');
 var config = require('../config');
 var jwt = require('jwt-simple');
 
-const Listing = require('../models/listing');
-const User = require('../models/user');
+var Listing = require('../models/listing');
+var User = require('../models/user');
 
 exports.findOneListing = (req, res) => {
   Listing.findById(req.params.id, (err, listing) => {
@@ -23,13 +23,13 @@ exports.findMyListings = (req, res) => {
 
 exports.findByLocation = (req, res) => {
   console.log(req.body)
-  const minPrice = req.query.minPrice || 0;
-  const maxPrice = req.query.maxPrice || 5001.00;
-  const minRating = req.query.minRating || 0;
-  let loc = req.params.location.replace(/undefined/g, '');
-  let usCity = loc.split('_')[2].toLowerCase().replace(/_/g, '');
-  let city = loc.split('_')[1].toLowerCase().replace(/_/g, '');
-  let country = loc.split('_')[0].toLowerCase().replace(/_/g, '');
+  var minPrice = req.query.minPrice || 0;
+  var maxPrice = req.query.maxPrice || 5001.00;
+  var minRating = req.query.minRating || 0;
+  var loc = req.params.location.replace(/undefined/g, '');
+  var usCity = loc.split('_')[2].toLowerCase().replace(/_/g, '');
+  var city = loc.split('_')[1].toLowerCase().replace(/_/g, '');
+  var country = loc.split('_')[0].toLowerCase().replace(/_/g, '');
   if (city.length > 0 && country.length > 0 && usCity.length > 0) {
     Listing.find({
       'location.city': city,
@@ -64,11 +64,11 @@ exports.findByLocation = (req, res) => {
   }
 }
 exports.editListing = (req, res) => {
-  const updatedListing =JSON.parse(req.body.data).listing;
+  var updatedListing =JSON.parse(req.body.data).listing;
   var token = req.headers.authorization;
 
   var decoded = jwt.decode(token, config.secret);
-  let userId;
+  var userId;
   User.findById(decoded.sub, (err, user) => {
     userId = user._id
     Listing.findById(updatedListing._id, (err, listing) => {

@@ -1,18 +1,18 @@
-const User = require('../models/user');
-const jwt = require('jwt-simple');
-const config = require('../config');
-const bcrypt = require('bcrypt-nodejs');
+var User = require('../models/user');
+var jwt = require('jwt-simple');
+var config = require('../config');
+var bcrypt = require('bcrypt-nodejs');
 
 tokenForUser = (user) => {
-  const timestamp = new Date().getTime();
+  var timestamp = new Date().getTime();
   //iat = issued at time
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 }
 
 exports.signup = function(req, res, next) {
-  const email = req.body.email;
-  const username = req.body.username;
-  const password = req.body.password;
+  var email = req.body.email;
+  var username = req.body.username;
+  var password = req.body.password;
   if (!email || !password) {
     return res.status(422).send({error: 'Email and Password Must Be Provided'});
   }
@@ -23,7 +23,7 @@ exports.signup = function(req, res, next) {
     if (user) {
       return res.status(422).send({error: 'Email Already In Use'});
     }
-    const newUser = new User({
+    var newUser = new User({
       email: email,
       password: password,
       username: username
@@ -87,7 +87,7 @@ exports.editInfo = function(req, res, next) {
 }
 exports.uploadMyPhoto = (req, res) => {
   User.findById(req.body.user, (err, user) => {
-    let _id = user.myPhotos.length;
+    var _id = user.myPhotos.length;
     user.myPhotos.push({
       image: req.body.image,
       tagline: req.body.tagline,
@@ -101,7 +101,7 @@ exports.uploadMyPhoto = (req, res) => {
 }
 exports.uploadAvatar = (req, res) => {
   User.findById(req.body.user, (err, user) => {
-    let _id = user.myPhotos.length;
+    var _id = user.myPhotos.length;
     user.avatar = req.body.image
     user.save();
     res.send(user);

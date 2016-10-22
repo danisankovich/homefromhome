@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-const blogSchema = new Schema({
+var blogSchema = new Schema({
   creator: {
     username: String,
     id: String,
@@ -22,5 +22,5 @@ const blogSchema = new Schema({
     comments: {type: Array, default: []}
   }]
 });
-const BLOG = mongoose.model('blog', blogSchema);
+var BLOG = mongoose.model('blog', blogSchema);
 module.exports = BLOG;

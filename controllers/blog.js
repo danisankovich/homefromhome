@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config');
 var jwt = require('jwt-simple');
-const User = require('../models/user');
-const Blog = require('../models/blog');
+var User = require('../models/user');
+var Blog = require('../models/blog');
 
 exports.findAllBlogs = (req, res, next) => {
-  let keywords = req.params.id.split('_');
+  var keywords = req.params.id.split('_');
   if (!keywords || keywords.length === 0 || req.params.id === 'undefined') {
     Blog.find({}, (err, blogs) => {
       if (err) res.send(err);
@@ -30,7 +30,7 @@ exports.findAllBlogs = (req, res, next) => {
 }
 
 exports.newBlog = (req, res, next) => {
-  const newBlog = {
+  var newBlog = {
     creator: {
       username: req.body.username,
       id: req.body.id,
@@ -77,7 +77,7 @@ exports.newBlogComment = (req, res) => {
   );
 }
 exports.searchBlogKeyword = (req, res) => {
-  let keywords = req.params.id.split('_');
+  var keywords = req.params.id.split('_');
   Blog.find({keywords: {
     $in : keywords
   }}, (err, blogs) => {
