@@ -43613,6 +43613,7 @@
 	    value: function componentWillMount() {
 	      var listings = this.props.userInfo.myListings;
 	      this.props.fetchMyListings(listings);
+	      this.setState({ listings: [] });
 	    }
 	  }, {
 	    key: 'handleClick',
@@ -43625,19 +43626,18 @@
 	    value: function deleteClickHandle(e) {
 	      e.preventDefault();
 	      var clickResult = this[1]._id;
-	      var array = this[0].userInfo.myListings;
-	      var index = this[0].userInfo.myListings.indexOf(clickResult);
-	      array.splice(index, 1);
+	      var array = this[2].state.listings;
+	      var index = this[2].state.listings.indexOf(clickResult);
+	      this[2].state.listings.splice(index, 1);
 	      this[0].removeListing(clickResult);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var listings = this.props.mylistings || [];
-	      if (listings) {
-	        return _react2.default.createElement('div', null, listings && listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, listings.map(function (result) {
-	          console.log(result);
-	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'rating'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result]) }, _react2.default.createElement('button', null, 'X')));
+	      this.state.listings = this.props.mylistings || [];
+	      if (this.state.listings) {
+	        return _react2.default.createElement('div', null, this.state.listings && this.state.listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.listings.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'rating'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', null, 'X')));
 	        }.bind(this)))));
 	      } else {
 	        return _react2.default.createElement('div', null, 'LOADING...');

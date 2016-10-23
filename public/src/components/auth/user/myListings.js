@@ -6,6 +6,7 @@ class MyListings extends Component {
   componentWillMount() {
     let listings = this.props.userInfo.myListings
     this.props.fetchMyListings(listings)
+    this.setState({listings: []})
   }
   handleClick() {
     let clickResult = this._id;
@@ -14,17 +15,17 @@ class MyListings extends Component {
   deleteClickHandle(e) {
     e.preventDefault();
     let clickResult = this[1]._id;
-    let array = this[0].userInfo.myListings;
-    let index = this[0].userInfo.myListings.indexOf(clickResult)
-    array.splice(index, 1)
+    let array = this[2].state.listings;
+    let index = this[2].state.listings.indexOf(clickResult)
+    this[2].state.listings.splice(index, 1)
     this[0].removeListing(clickResult);
   }
   render() {
-    let listings = this.props.mylistings || []
-    if(listings) {
+    this.state.listings = this.props.mylistings || []
+    if(this.state.listings) {
       return (
         <div>
-          {listings && listings.length > 0 && <table className="table table-hover table-bordered">
+          {this.state.listings && this.state.listings.length > 0 && <table className="table table-hover table-bordered">
             <thead>
               <tr>
                 <th>Listing Name</th>
@@ -38,8 +39,7 @@ class MyListings extends Component {
               </tr>
             </thead>
             <tbody>
-              {listings.map(function(result) {
-                console.log(result)
+              {this.state.listings.map(function(result) {
                 return (
                   <tr key={result._id} className='table-row'>
                     <td onClick={this.handleClick.bind(result)}>{result.title}</td>
@@ -51,7 +51,7 @@ class MyListings extends Component {
                     <td onClick={this.handleClick.bind(result)}>{result.location.address}</td>
                     <td onClick={this.handleClick.bind(result)}>${result.pricePerNight}</td>
                     <td onClick={this.handleClick.bind(result)}>rating</td>
-                    <td onClick={this.deleteClickHandle.bind([this.props, result])}><button>X</button></td>
+                    <td onClick={this.deleteClickHandle.bind([this.props, result, this])}><button>X</button></td>
                   </tr>                )
               }.bind(this))}
             </tbody>
