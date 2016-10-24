@@ -72,7 +72,7 @@ class MyListings extends Component {
         </div>
       )
     } else {
-      return <div>LOADING...</div>
+      return <div>No Listings Found</div>
     }
 
   }

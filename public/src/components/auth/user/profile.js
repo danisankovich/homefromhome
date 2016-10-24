@@ -44,7 +44,7 @@ class Profile extends Component {
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
               <button onClick={this.showAlbums.bind(this)}>Show Albums</button>
-              <button onClick={this.showListings.bind(this)}>Show Listings</button>
+              <button onClick={this.showListings.bind(this)}>Show Listings ({this.props.userInfo.myListings.length})</button>
             </div>
             <div className="col-sm-10 col-sm-offset-1">
               {this.state.showPhotos && <PhotoBook userInfo={this.props.userInfo}></PhotoBook>}

@@ -6,7 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
-
+.onephotoviewing {
+  width: 55%;
+}
+.imageHolderCenter {
+  text-align: center;
+}
 #titleHeader {
   font-size: 60px;
 }

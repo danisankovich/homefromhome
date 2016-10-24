@@ -6,7 +6,7 @@ import $ from 'jquery';
 //WELCOMING PAGE
 class Agreement_Container extends Component {
   componentWillMount() {
-    this.setState({agreed: false})
+    this.setState({agreed: false});
   }
   submitAgreement(e) {
     e.preventDefault();
