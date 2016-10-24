@@ -12,6 +12,9 @@ class MyListings extends Component {
     let clickResult = this._id;
     browserHistory.push(`/listings/${clickResult}`);
   }
+  viewApplications() {
+    console.log(this);
+  }
   deleteClickHandle(e) {
     e.preventDefault();
     let clickResult = this[1]._id;
@@ -35,6 +38,7 @@ class MyListings extends Component {
                 <th>Address</th>
                 <th>Price Per Night</th>
                 <th>Rating</th>
+                <th>Open Applications</th>
                 <th>Delete</th>
               </tr>
             </thead>
@@ -50,9 +54,18 @@ class MyListings extends Component {
                     {result.location.usCity === 'not valid' && <td onClick={this.handleClick.bind(result)}>{result.location.city}</td>}
                     <td onClick={this.handleClick.bind(result)}>{result.location.address}</td>
                     <td onClick={this.handleClick.bind(result)}>${result.pricePerNight}</td>
-                    <td onClick={this.handleClick.bind(result)}>rating</td>
-                    <td onClick={this.deleteClickHandle.bind([this.props, result, this])}><button>X</button></td>
-                  </tr>                )
+                    <td onClick={this.handleClick.bind(result)}>{result.rating === 0 ? 'Not Rated' : result.rating}</td>
+                    <td onClick={this.viewApplications.bind(result)}>{result.applications.length}</td>
+                    <td onClick={this.deleteClickHandle.bind([this.props, result, this])}>
+                      <button type="button" className="btn btn-default">
+                         Remove <span
+                          className="glyphicon glyphicon-remove-circle" aria-hidden="true"
+                          onClick={this.deleteClickHandle.bind([this.props, result, this])}
+                        ></span>
+                      </button>
+                    </td>
+                  </tr>
+                )
               }.bind(this))}
             </tbody>
           </table>}

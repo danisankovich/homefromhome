@@ -13,7 +13,7 @@ import App from './components/app';
 import Signin from './components/auth/signin';
 import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
-import Information from './components/information';
+import Information from './components/infoPage/information';
 import Profile from './components/auth/user/profile';
 import UserProfile from './components/auth/user/otheruser/userProfile';
 import Settings from './components/auth/user/settings';

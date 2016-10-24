@@ -97,7 +97,7 @@
 	
 	var _signout2 = _interopRequireDefault(_signout);
 	
-	var _information = __webpack_require__(/*! ./components/information */ 313);
+	var _information = __webpack_require__(/*! ./components/infoPage/information */ 313);
 	
 	var _information2 = _interopRequireDefault(_information);
 	
@@ -42971,7 +42971,11 @@
 	    key: 'handleFormSubmit',
 	    value: function handleFormSubmit(formProps) {
 	      //called with props from submit form
-	      this.props.signupUser(formProps);
+	      if (formProps.username.length <= 12) {
+	        this.props.signupUser(formProps);
+	      } else {
+	        alert('username must be 12 or fewer characters long');
+	      }
 	    }
 	  }, {
 	    key: 'renderAlert',
@@ -42991,7 +42995,7 @@
 	      var password = _props$fields.password;
 	      var passwordConfirm = _props$fields.passwordConfirm;
 	
-	      return _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Email: '), _react2.default.createElement('input', _extends({ className: 'form-control' }, email)), email.touched && email.error && _react2.default.createElement('div', { className: 'error' }, email.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Username: '), _react2.default.createElement('input', _extends({ className: 'form-control' }, username)), username.touched && username.error && _react2.default.createElement('div', { className: 'error' }, username.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Password: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'password' }, password)), password.touched && password.error && _react2.default.createElement('div', { className: 'error' }, password.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Confirm Password: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'password' }, passwordConfirm)), passwordConfirm.touched && passwordConfirm.error && _react2.default.createElement('div', { className: 'error' }, passwordConfirm.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Sign Up'));
+	      return _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Email: '), _react2.default.createElement('input', _extends({ className: 'form-control' }, email)), email.touched && email.error && _react2.default.createElement('div', { className: 'error' }, email.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Username: '), _react2.default.createElement('input', _extends({ className: 'form-control', maxlength: '12' }, username)), username.touched && username.error && _react2.default.createElement('div', { className: 'error' }, username.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Password: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'password' }, password)), password.touched && password.error && _react2.default.createElement('div', { className: 'error' }, password.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Confirm Password: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'password' }, passwordConfirm)), passwordConfirm.touched && passwordConfirm.error && _react2.default.createElement('div', { className: 'error' }, passwordConfirm.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Sign Up'));
 	    }
 	  }]);
 	
@@ -43127,9 +43131,9 @@
 
 /***/ },
 /* 313 */
-/*!**********************************************!*\
-  !*** ./public/src/components/information.js ***!
-  \**********************************************/
+/*!*******************************************************!*\
+  !*** ./public/src/components/infoPage/information.js ***!
+  \*******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43156,7 +43160,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
 	
-	var _actions = __webpack_require__(/*! ../actions */ 259);
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -43214,7 +43218,7 @@
 	      var userInfo = this.props.userInfo;
 	
 	      if (userInfo) {
-	        return _react2.default.createElement('div', { className: 'container toppush' }, _react2.default.createElement('h3', null, 'Information'), 'aaa: ', this.props.userInfo.username);
+	        return _react2.default.createElement('div', { className: 'container toppush' }, _react2.default.createElement('h1', null, 'Information'), _react2.default.createElement('p', { className: 'infoPara' }, 'Are you ready to find your home away from home? Then you\'ve come to the right place. Whether you are looking for a place to stay for a night or two, or if you are looking for a homestay experience, reach out to your fellow users and see what they have to offer.'), _react2.default.createElement('p', { className: 'infoPara' }, 'Don\'t know where to begin? Not sure if you are quite ready to travel? Head on over to our blog sections to read up on the experiences and lessons of your fellow users. Still not finding what you are looking for? Feel free to contact users directly. But make sure to be curteous. We are a community of travel-hungry beings.'), _react2.default.createElement('p', { className: 'infoPara' }, 'So don\'t be shy. There is a whole community of people just like you, eagerly awaiting their next journey. And a network of people willing to open up their doors to weary travellers.'), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h2', null, 'F.A.Q'), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'How much does this service cost?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'Not a thing. The only cost you will pay is booking fees. We make money by taking a very small cut from booking fees.')), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'How old do I have to be to book a place?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'You must be at least 18 years old to book a location. However, depending on the policies of the location\'s owner, younger guests may be allowed, so long as a parent or legal guardian okays the purchase.')), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'What if I want to be a host?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'You will have to agree to our ', _react2.default.createElement('a', null, 'Hosting Terms and Conditions'), ', at which point you will be able to post a listing. This lays out guidelines for basic rules of cleanliness, responsibilities, etc.')));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading...... ');
 	    }
@@ -43622,6 +43626,11 @@
 	      _reactRouter.browserHistory.push('/listings/' + clickResult);
 	    }
 	  }, {
+	    key: 'viewApplications',
+	    value: function viewApplications() {
+	      console.log(this);
+	    }
+	  }, {
 	    key: 'deleteClickHandle',
 	    value: function deleteClickHandle(e) {
 	      e.preventDefault();
@@ -43636,8 +43645,11 @@
 	    value: function render() {
 	      this.state.listings = this.props.mylistings || [];
 	      if (this.state.listings) {
-	        return _react2.default.createElement('div', null, this.state.listings && this.state.listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.listings.map(function (result) {
-	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'rating'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', null, 'X')));
+	        return _react2.default.createElement('div', null, this.state.listings && this.state.listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Open Applications'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.listings.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.rating === 0 ? 'Not Rated' : result.rating), _react2.default.createElement('td', { onClick: this.viewApplications.bind(result) }, result.applications.length), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
+	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
+	            onClick: this.deleteClickHandle.bind([this.props, result, this])
+	          }))));
 	        }.bind(this)))));
 	      } else {
 	        return _react2.default.createElement('div', null, 'LOADING...');

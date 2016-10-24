@@ -4,7 +4,11 @@ import * as actions from '../../actions';
 
 class Signup extends Component {
   handleFormSubmit(formProps) { //called with props from submit form
-    this.props.signupUser(formProps);
+    if(formProps.username.length <= 12) {
+      this.props.signupUser(formProps);
+    } else {
+      alert('username must be 12 or fewer characters long')
+    }
   }
 
   renderAlert() {
@@ -27,7 +31,7 @@ class Signup extends Component {
         </fieldset>
         <fieldset className="form-group">
           <label>Username: </label>
-          <input className="form-control" {...username} />
+          <input className="form-control" maxlength="12" {...username} />
           {username.touched && username.error && <div className="error">{username.error}</div>}
         </fieldset>
         <fieldset className="form-group">
