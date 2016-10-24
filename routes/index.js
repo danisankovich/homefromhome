@@ -23,4 +23,5 @@ router.post('/api/signin', requireSignin, Authentication.signin);
 router.post('/api/editInfo', Authentication.editInfo);
 router.post('/api/uploadmyphoto', Authentication.uploadMyPhoto);
 router.post('/api/uploadavatar', Authentication.uploadAvatar);
+router.put('/api/agree', requireAuth, Authentication.agree)
 module.exports = router;

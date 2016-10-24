@@ -149,11 +149,15 @@
 	
 	var _single_blog2 = _interopRequireDefault(_single_blog);
 	
-	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 366);
+	var _agreement_container = __webpack_require__(/*! ./components/agreements/agreement_container */ 366);
+	
+	var _agreement_container2 = _interopRequireDefault(_agreement_container);
+	
+	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 368);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 367);
+	var _reducers = __webpack_require__(/*! ./reducers */ 369);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -163,13 +167,13 @@
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 	
-	// blog Routes
-	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxPromise2.default)(_redux.createStore);
-	
 	// Listings Routes
 	
 	
 	// Main Routes
+	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxPromise2.default)(_redux.createStore);
+	
+	// blog Routes
 	
 	var store = createStoreWithMiddleware(_reducers2.default);
 	
@@ -179,7 +183,7 @@
 	  store.dispatch({ type: _types.AUTH_USER }); //any action in here is sent off to all reducers in the application, just as with other dispatch
 	}
 	
-	_reactDom2.default.render(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: _information2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'userprofile/:id', component: _userProfile2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/listings', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/new', component: (0, _require_auth2.default)(_newListing2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/blogs', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: (0, _require_auth2.default)(_my_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: (0, _require_auth2.default)(_new_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })))), document.querySelector('.thing'));
+	_reactDom2.default.render(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: _information2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'userprofile/:id', component: _userProfile2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/listings', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/new', component: (0, _require_auth2.default)(_newListing2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/blogs', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: (0, _require_auth2.default)(_my_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: (0, _require_auth2.default)(_new_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/useragreements', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _agreement_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/useragreements/host', component: (0, _require_auth2.default)(_agreement_container2.default) })))), document.querySelector('.thing'));
 
 /***/ },
 /* 2 */
@@ -29311,7 +29315,7 @@
 	      var userInfo = this.props.userInfo;
 	
 	      if (this.props.authenticated && this.props.userInfo) {
-	        return [_react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/information' }, 'Information')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'dropdown', key: 4 }, _react2.default.createElement('a', { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, this.props.userInfo.username, _react2.default.createElement('span', { className: 'caret' })), _react2.default.createElement('ul', { className: 'dropdown-menu' }, _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/profile' }, 'Profile')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs/mine' }, 'My Blog')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/settings' }, 'Settings')), _react2.default.createElement('li', { role: 'separator', className: 'divider' }), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signout' }, 'Sign Out'))))];
+	        return [_react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/information' }, 'Information')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 4 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'Become A Host')), _react2.default.createElement('li', { className: 'dropdown', key: 5 }, _react2.default.createElement('a', { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, this.props.userInfo.username, _react2.default.createElement('span', { className: 'caret' })), _react2.default.createElement('ul', { className: 'dropdown-menu' }, _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/profile' }, 'Profile')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs/mine' }, 'My Blog')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/settings' }, 'Settings')), _react2.default.createElement('li', { role: 'separator', className: 'divider' }), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signout' }, 'Sign Out'))))];
 	      } else {
 	        return [_react2.default.createElement('li', { className: 'nav-item', key: 0 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signin' }, 'Sign In')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signup' }, 'Sign Up'))];
 	      }
@@ -65981,7 +65985,7 @@
 	        var usState = this.state.city.toUpperCase();
 	        usCities = _us_cities2.default[usState];
 	      }
-	      return _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Country: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeCountry.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A Country'), _countries2.default.map(function (e) {
+	      return _react2.default.createElement('div', null, userInfo && userInfo.hostUserAgreementSigned && _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Country: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeCountry.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A Country'), _countries2.default.map(function (e) {
 	        return _react2.default.createElement('option', { key: e, value: e }, e);
 	      }))), this.state.country && citiesorstates.length > 0 && _react2.default.createElement('fieldset', { className: 'form-group' }, this.state.country === 'United States' && _react2.default.createElement('label', null, 'State: '), this.state.country !== 'United States' && _react2.default.createElement('label', null, 'City: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeCity.bind(this) }, this.state.country === 'United States' && _react2.default.createElement('option', { key: 'default' }, 'Pick A State'), this.state.country !== 'United States' && _react2.default.createElement('option', { key: 'default' }, 'Pick A City'), citiesorstates.map(function (e) {
 	        if (e.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
@@ -65995,7 +65999,7 @@
 	        type: 'radio',
 	        name: 'availableForRent',
 	        onChange: availableForRent.onChange,
-	        value: 'false' }), 'No:'), availableForRent.touched && availableForRent.error && _react2.default.createElement('div', { className: 'error' }, availableForRent.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Listing Title: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)), title.touched && title.error && _react2.default.createElement('div', { className: 'error' }, title.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Describe the Listing: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, description, { onInput: this.markdown.bind(this) })), description.touched && description.error && _react2.default.createElement('div', { className: 'error' }, description.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Add Listing'))), _react2.default.createElement('div', { className: 'col-sm-6 previewMarkdown' }, _react2.default.createElement(_reactMarkdown2.default, { source: description.value }))));
+	        value: 'false' }), 'No:'), availableForRent.touched && availableForRent.error && _react2.default.createElement('div', { className: 'error' }, availableForRent.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Listing Title: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)), title.touched && title.error && _react2.default.createElement('div', { className: 'error' }, title.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Describe the Listing: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, description, { onInput: this.markdown.bind(this) })), description.touched && description.error && _react2.default.createElement('div', { className: 'error' }, description.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Add Listing'))), _react2.default.createElement('div', { className: 'col-sm-6 previewMarkdown' }, _react2.default.createElement(_reactMarkdown2.default, { source: description.value })))), _react2.default.createElement('div', null, !userInfo && _react2.default.createElement('h1', null, 'Loading....')), _react2.default.createElement('div', null, userInfo && !userInfo.hostUserAgreementSigned && _react2.default.createElement('h1', null, 'You must first sign the host user agreement', _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'To Host Agreement'))));
 	    }
 	  }]);
 	
@@ -66771,6 +66775,233 @@
 
 /***/ },
 /* 366 */
+/*!*****************************************************************!*\
+  !*** ./public/src/components/agreements/agreement_container.js ***!
+  \*****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _host_agreement = __webpack_require__(/*! ./host_agreement */ 367);
+	
+	var _host_agreement2 = _interopRequireDefault(_host_agreement);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	//WELCOMING PAGE
+	var Agreement_Container = function (_Component) {
+	  _inherits(Agreement_Container, _Component);
+	
+	  function Agreement_Container() {
+	    _classCallCheck(this, Agreement_Container);
+	
+	    return _possibleConstructorReturn(this, (Agreement_Container.__proto__ || Object.getPrototypeOf(Agreement_Container)).apply(this, arguments));
+	  }
+	
+	  _createClass(Agreement_Container, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      console.log();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var agreementToRender = this.props.location.pathname.split('/')[2];
+	      return _react2.default.createElement('div', { className: 'container toppush' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('h1', { className: 'text-center' }, 'User Agreement: ', agreementToRender.toUpperCase(), ' Agreement'), _react2.default.createElement('h2', null, 'Please read this document carefully and check "I Agree" at the bottom'), agreementToRender === 'host' && _react2.default.createElement(_host_agreement2.default, null))), _react2.default.createElement('br', null));
+	    }
+	  }]);
+	
+	  return Agreement_Container;
+	}(_react.Component);
+	
+	module.exports = Agreement_Container;
+
+/***/ },
+/* 367 */
+/*!************************************************************!*\
+  !*** ./public/src/components/agreements/host_agreement.js ***!
+  \************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _jquery = __webpack_require__(/*! jquery */ 261);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	//WELCOMING PAGE
+	var Agreement_Container = function (_Component) {
+	  _inherits(Agreement_Container, _Component);
+	
+	  function Agreement_Container() {
+	    _classCallCheck(this, Agreement_Container);
+	
+	    return _possibleConstructorReturn(this, (Agreement_Container.__proto__ || Object.getPrototypeOf(Agreement_Container)).apply(this, arguments));
+	  }
+	
+	  _createClass(Agreement_Container, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ agreed: false });
+	    }
+	  }, {
+	    key: 'submitAgreement',
+	    value: function submitAgreement(e) {
+	      e.preventDefault();
+	      var token = localStorage.getItem('token');
+	      if (this.state.agreed) {
+	        _jquery2.default.ajax({
+	          url: '/api/agree',
+	          type: "PUT",
+	          headers: {
+	            "authorization": token
+	          },
+	          data: { agreeType: 'host', agreed: true }
+	        }).success(function (e) {
+	          alert('Form Successfully Signed. Thank You');
+	        }).fail(function (e) {
+	          alert('something went wrong', e);
+	        });
+	      } else {
+	        alert('You must agree to the terms and conditions');
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _react2.default.createElement('div', null, _react2.default.createElement('p', null, 'The following document lays out the terms and conditions for becoming a host for Home Away From Home. Agreeing to these terms grants the privelage of becoming a Host, but understand that these terms can change at any time, and that it will be at the discretion of the Home Away From Home moderators should action be taken against those who break the terms of this agreement.'), _react2.default.createElement('h3', null, 'Health and Safety Standards: '), _react2.default.createElement('ol', null, _react2.default.createElement('li', null, 'All residences listed for booking must follow all safety and health codes for the country in which they are located.'), _react2.default.createElement('li', null, 'All residences listed for booking must be free of pests.'), _react2.default.createElement('li', null, 'All residences listed must make note of any pets, allergens, or allergy restrictions. Should any of such be unmentioned, the guest will be payed back in full, and you will be charged a convenience fee of 5% of the full booking price.'), _react2.default.createElement('li', null, 'You are required to provide proper and clean accomodations for your guests, which should be described within your listing. You are not required to provide a private room for your guests, nor are you required to give them a pick of rooms, so long as the rooms mentioned in your listing are still available. should they attempt to break this rule, the user will be responsible should you choose to cancel the agreement.')), _react2.default.createElement('h3', null, 'Payment: '), _react2.default.createElement('ol', null, _react2.default.createElement('li', null, 'You may not charge guests more than what the property was listed for'), _react2.default.createElement('li', null, 'You will pay 2% of the total price of the stay to Home Away From Home'), _react2.default.createElement('li', null, 'You are not required to supply food for guests.')), _react2.default.createElement('h3', null, 'Misconduct: '), _react2.default.createElement('ol', null, _react2.default.createElement('li', null, 'You will not engage in an unwarranted sexual activity or conversation with the guests.'), _react2.default.createElement('li', null, 'Should your guests be below the legal age of consumption, you will not provide them with:', _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Alcohol'), _react2.default.createElement('li', null, 'Tobacco'), _react2.default.createElement('li', null, 'Other recreational substances'), _react2.default.createElement('li', null, 'Any other as of yet unmentioned substance or article with an age restriction of which they do not meet in the host country')))), _react2.default.createElement('p', null, 'Failure to follow the preceding agreements can result in fines, suspensions, removal of account, or, under certain legal circumstances, a filing of a report to the local authorities.'), _react2.default.createElement('p', null, 'Agreeing to these terms consitutes a binding legal contract, and an agreement that you, the user and host, have read and understand the provisions layed out within this document.'), _react2.default.createElement('div', null, _react2.default.createElement('form', { className: 'form-group', onSubmit: this.submitAgreement.bind(this) }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'I agree to these terms and conditions:', _react2.default.createElement('input', { type: 'checkbox', onChange: function onChange() {
+	          _this2.state.agreed === true ? _this2.state.agreed = false : _this2.state.agreed = true;
+	          console.log(_this2.state.agreed);
+	        } })), _react2.default.createElement('button', { type: 'submit' }, 'Submit')))));
+	    }
+	  }]);
+	
+	  return Agreement_Container;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Agreement_Container);
+
+/***/ },
+/* 368 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
   \****************************************************/
@@ -66871,7 +67102,7 @@
 	//wraps other components to add this feature to it: feature => kicks out unauthed users
 
 /***/ },
-/* 367 */
+/* 369 */
 /*!**************************************!*\
   !*** ./public/src/reducers/index.js ***!
   \**************************************/
@@ -66887,15 +67118,15 @@
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 266);
 	
-	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 368);
+	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 370);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
-	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 369);
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 371);
 	
 	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
 	
-	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 370);
+	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 372);
 	
 	var _blog_reducer2 = _interopRequireDefault(_blog_reducer);
 	
@@ -66913,7 +67144,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 368 */
+/* 370 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/auth_reducer.js ***!
   \*********************************************/
@@ -66963,7 +67194,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 369 */
+/* 371 */
 /*!************************************************!*\
   !*** ./public/src/reducers/listing_reducer.js ***!
   \************************************************/
@@ -67007,7 +67238,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 370 */
+/* 372 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/blog_reducer.js ***!
   \*********************************************/

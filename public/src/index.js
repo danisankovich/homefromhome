@@ -31,6 +31,8 @@ import New_Blog from './components/blog/mine/new_blog';
 import Blog_List from './components/blog/blog_list';
 import Single_Blog from './components/blog/single_blog';
 
+import Agreement_Container from './components/agreements/agreement_container';
+
 import RequireAuth from './components/auth/require_auth';
 
 import reducers from './reducers';
@@ -73,6 +75,10 @@ ReactDOM.render(
           <Route path='/blogs/mine' component={RequireAuth(My_Blog)}></Route>
           <Route path='/blogs/mine/new' component={RequireAuth(New_Blog)}></Route>
           <Route path='/blogs/:id' component={Single_Blog}></Route>
+        </Route>
+        <Route path ='/useragreements' component={App}>
+          <IndexRoute component={Agreement_Container} />
+          <Route path='/useragreements/host' component={RequireAuth(Agreement_Container)}></Route>
         </Route>
     </Router>
   </Provider>

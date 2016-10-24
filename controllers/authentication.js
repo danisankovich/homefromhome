@@ -150,3 +150,29 @@ exports.removeFollower = (req, res) => {
     res.send({user: "NO_USER"})
   }
 }
+
+exports.agree = (req, res) => {
+  var token = req.headers.authorization;
+  if(token) {
+    try {
+      var decoded = jwt.decode(token, config.secret);
+      if(req.body.agreeType === 'host') {
+        User.findByIdAndUpdate(
+          decoded.sub, {"hostUserAgreementSigned": true},
+          function(err, user) {
+            if (err) res.send(err);
+            res.send(user);
+          }
+        )
+      } else {
+        res.send()
+      }
+     }
+     catch (e) {
+       return res.status(401).send('authorization required');
+     }
+  }
+  else {
+    res.send({user: "NO_USER"})
+  }
+}

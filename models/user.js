@@ -19,7 +19,9 @@ var userSchema = new Schema({
   myReviews: Array,
   followers: Array,
   following: {type: Array, unique: true},
-  applications: []
+  applications: [],
+  confirmedStays: [],
+  hostUserAgreementSigned: {type: Boolean, default: false}
 });
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
