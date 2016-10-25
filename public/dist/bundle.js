@@ -44001,6 +44001,10 @@
 	
 	var _profilelistings2 = _interopRequireDefault(_profilelistings);
 	
+	var _bloglist = __webpack_require__(/*! ./bloglist */ 375);
+	
+	var _bloglist2 = _interopRequireDefault(_bloglist);
+	
 	var _jquery = __webpack_require__(/*! jquery */ 261);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -44091,6 +44095,13 @@
 	      this.state.showListings ? this.setState({ showListings: false }) : this.setState({ showListings: true });
 	    }
 	  }, {
+	    key: 'showBlogs',
+	    value: function showBlogs() {
+	      this.state.showPhotos = false;
+	      this.state.showListings = false;
+	      this.state.showBlogs ? this.setState({ showBlogs: false }) : this.setState({ showBlogs: true });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
@@ -44106,7 +44117,7 @@
 	            return lang;
 	          }
 	          return lang + ', ';
-	        })), _react2.default.createElement('img', { src: this.props.userProfile.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { onClick: this.showListings.bind(this) }, 'Show Listings')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userProfile: this.props.userProfile }), this.state.showListings && _react2.default.createElement(_profilelistings2.default, { userProfile: this.props.userProfile, userInfo: this.props.userInfo }))));
+	        })), _react2.default.createElement('img', { src: this.props.userProfile.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { onClick: this.showListings.bind(this) }, 'Show Listings'), _react2.default.createElement('button', { onClick: this.showBlogs.bind(this) }, 'Show Blogs')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userProfile: this.props.userProfile }), this.state.showListings && _react2.default.createElement(_profilelistings2.default, { userProfile: this.props.userProfile, userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userProfile }))));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading........ ');
 	    }
@@ -67567,6 +67578,123 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
+
+/***/ },
+/* 375 */
+/*!***************************************************************!*\
+  !*** ./public/src/components/auth/user/otheruser/bloglist.js ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 266);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var UserBlogs = function (_Component) {
+	  _inherits(UserBlogs, _Component);
+	
+	  function UserBlogs() {
+	    _classCallCheck(this, UserBlogs);
+	
+	    return _possibleConstructorReturn(this, (UserBlogs.__proto__ || Object.getPrototypeOf(UserBlogs)).apply(this, arguments));
+	  }
+	
+	  _createClass(UserBlogs, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ blogs: [] });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/blogs/' + clickResult);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      this.state.blogs = userInfo.blogs || [];
+	      if (this.state.blogs) {
+	        return _react2.default.createElement('div', null, this.state.blogs && this.state.blogs.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Title'), _react2.default.createElement('th', null, 'keywords'), _react2.default.createElement('th', null, '# of Comments'))), _react2.default.createElement('tbody', null, this.state.blogs.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.keywords.join(', ')), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '(', result.comments.length, ')'));
+	        }.bind(this)))));
+	      } else {
+	        return _react2.default.createElement('div', null, 'No Blogs Found');
+	      }
+	    }
+	  }]);
+	
+	  return UserBlogs;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userProfile: state.auth.userProfile };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(UserBlogs);
 
 /***/ }
 /******/ ]);

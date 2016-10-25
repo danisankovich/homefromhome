@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../../../actions';
 import PhotoBook from './photobook';
 import ProfileListings from './profilelistings';
+import BlogList from './bloglist';
 import $ from 'jquery';
 
 class UserProfile extends Component {
@@ -38,6 +39,11 @@ class UserProfile extends Component {
     this.state.showPhotos = false
     this.state.showListings ? this.setState({showListings: false}) : this.setState({showListings: true})
   }
+  showBlogs() {
+    this.state.showPhotos = false;
+    this.state.showListings = false;
+    this.state.showBlogs ? this.setState({showBlogs: false}) : this.setState({showBlogs: true})
+  }
   render() {
     let {userProfile, userInfo} = this.props;
     if(userProfile && userProfile.languages) {
@@ -70,10 +76,12 @@ class UserProfile extends Component {
             <div className="col-sm-10 col-sm-offset-1">
               <button onClick={this.showAlbums.bind(this)}>Show Albums</button>
               <button onClick={this.showListings.bind(this)}>Show Listings</button>
+              <button onClick={this.showBlogs.bind(this)}>Show Blogs</button>
             </div>
             <div className="col-sm-10 col-sm-offset-1">
               {this.state.showPhotos && <PhotoBook userProfile={this.props.userProfile}></PhotoBook>}
               {this.state.showListings && <ProfileListings userProfile={this.props.userProfile} userInfo={this.props.userInfo}></ProfileListings>}
+              {this.state.showBlogs && <BlogList userInfo={this.props.userProfile}></BlogList>}
             </div>
           </div>
         </div>
