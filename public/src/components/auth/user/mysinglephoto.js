@@ -18,11 +18,9 @@ class MySinglePhoto extends Component {
         if (e._id == photoId) {
           this.state.photo = e;
         }
-      }); // { name: 'cherries', quantity: 5 }
+      });
     }
     if (userInfo) {
-      console.log(this.state)
-
       return (
         <div className="col-sm-12">
           <div className='imageHolderCenter'>

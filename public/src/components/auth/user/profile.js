@@ -3,19 +3,27 @@ import {connect} from 'react-redux';
 import * as actions from '../../../actions';
 import PhotoBook from './photobook';
 import MyListings from './myListings';
+import MyBlogs from './bloglist';
 
 class Profile extends Component {
   componentWillMount() {
     this.props.fetchInfo();
-    this.setState({showPhotos: false, showListings: false})
+    this.setState({showPhotos: false, showListings: false, showBlogs: false})
   }
   showAlbums() {
-    this.state.showListings = false
+    this.state.showListings = false;
+    this.state.showBlogs = false;
     this.state.showPhotos ? this.setState({showPhotos: false}) : this.setState({showPhotos: true})
   }
   showListings() {
-    this.state.showPhotos = false
+    this.state.showPhotos = false;
+    this.state.showBlogs = false;
     this.state.showListings ? this.setState({showListings: false}) : this.setState({showListings: true})
+  }
+  showBlogs() {
+    this.state.showPhotos = false;
+    this.state.showListings = false;
+    this.state.showBlogs ? this.setState({showBlogs: false}) : this.setState({showBlogs: true})
   }
   render() {
     let {userInfo} = this.props;
@@ -45,10 +53,12 @@ class Profile extends Component {
             <div className="col-sm-10 col-sm-offset-1">
               <button onClick={this.showAlbums.bind(this)}>Show Albums</button>
               <button onClick={this.showListings.bind(this)}>Show Listings ({this.props.userInfo.myListings.length})</button>
+              <button onClick={this.showBlogs.bind(this)}>Show Blogs ({this.props.userInfo.blogs.length})</button>
             </div>
             <div className="col-sm-10 col-sm-offset-1">
               {this.state.showPhotos && <PhotoBook userInfo={this.props.userInfo}></PhotoBook>}
               {this.state.showListings && <MyListings userInfo={this.props.userInfo}></MyListings>}
+              {this.state.showBlogs && <MyBlogs userInfo={this.props.userInfo}></MyBlogs>}
             </div>
           </div>
         </div>

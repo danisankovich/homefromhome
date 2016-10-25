@@ -14,5 +14,6 @@ router.post('/new', BlogController.newBlog);
 router.get('/blog/:id', BlogController.findOneBlog);
 router.post('/newComment/:id', BlogController.newBlogComment);
 router.get('/searchkeyword', BlogController.searchBlogKeyword);
+router.delete('/deleteBlog/:id', BlogController.deleteBlog);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser, getUserProfile, deleteListing} from './funcs/user';
+import {signIn, signUp, userEdit, avatarUpload, myPhotoUpload, getUser, getUserProfile, deleteBlog, deleteListing} from './funcs/user';
 import {createBlog, getBlog, getAllBlogs} from './funcs/blog';
 import {getListing, getAllListings, getMyListings, createListing, edit} from './funcs/listing';
 import {
@@ -25,6 +25,12 @@ export function removeListing(id) {
   console.log(id)
   return function(dispatch) {
     deleteListing(id, dispatch)
+  }
+}
+export function removeBlog(id) {
+  console.log(id)
+  return function(dispatch) {
+    deleteBlog(id, dispatch)
   }
 }
 export function uploadMyPhoto(photo, user) {

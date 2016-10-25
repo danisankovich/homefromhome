@@ -85,3 +85,27 @@ exports.searchBlogKeyword = (req, res) => {
     res.send(blogs);
   })
 }
+exports.deleteBlog = (req, res) => {
+  var blog = req.params.id;
+  var token = req.headers.authorization;
+  var decoded = jwt.decode(token, config.secret);
+  User.findById(decoded.sub, (err, user) => {
+    if(err) res.send(err)
+    var index;
+    user.blogs.forEach((e, i) => {
+      if (e._id == blog) {
+        index = i;
+      };
+    })
+    Blog.findByIdAndRemove(blog, (err, blogToRemove) => {
+      if(err) {
+        res.send(err)
+      }
+      if (index > -1) {
+        user.blogs.splice(index, 1);
+        user.save(user)
+        res.send(user);
+      }
+    })
+  });
+}

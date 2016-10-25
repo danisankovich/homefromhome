@@ -19,7 +19,11 @@ class Listing extends Component {
     let listings = [];
     if(this.props.listings) {
       listings = this.props.listings
-      this.state.country = this.props.listings[0].location.country
+      if (this.props.listings && this.props.listings[0]) {
+        this.state.country = this.props.listings[0].location.country
+      } else {
+        this.state.country = 'No-Listings-Found'
+      }
     }
     return (
       <div>
@@ -44,6 +48,7 @@ class Listing extends Component {
             }.bind(this))}
           </tbody>
         </table>}
+        {this.state.country === 'No-Listings-Found' && <h3>No Listings Found</h3>}
       </div>
     );
   };

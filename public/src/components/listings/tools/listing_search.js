@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions';
 import { browserHistory } from 'react-router';
-import _ from 'lodash';
 import city_states from '../../../../locations/cities';
 import states from '../../../../locations/states';
 import countries from '../../../../locations/countries';
@@ -90,7 +89,7 @@ class ListingSearch extends Component {
             <div className='col-sm-4'>
               <fieldset>
 
-                <label>Min Price: </label>
+                <label className='searchLabel'>Min Price: </label>
                 <input
                   className="form-control"
                   type="number"
@@ -104,7 +103,7 @@ class ListingSearch extends Component {
             </div>
             <div className='col-sm-4'>
               <fieldset>
-                <label>Max Price: </label>
+                <label className='searchLabel'>Max Price: </label>
                 <input
                   className="form-control"
                   type="number"
@@ -118,7 +117,7 @@ class ListingSearch extends Component {
             </div>
             <div className='col-sm-4'>
               <fieldset>
-                <label>Min Rating: </label>
+                <label className='searchLabel'>Min Rating: </label>
                 <input
                   className="form-control"
                   type="number"
