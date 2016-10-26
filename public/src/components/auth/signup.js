@@ -31,7 +31,7 @@ class Signup extends Component {
         </fieldset>
         <fieldset className="form-group">
           <label>Username: </label>
-          <input className="form-control" maxlength="12" {...username} />
+          <input className="form-control" maxLength="12" {...username} />
           {username.touched && username.error && <div className="error">{username.error}</div>}
         </fieldset>
         <fieldset className="form-group">
