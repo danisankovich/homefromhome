@@ -6,7 +6,7 @@ var jwt = require('jwt-simple');
 
 var Listing = require('../models/listing');
 var User = require('../models/user');
-
+var randomKeyGen = require('../services/randomkeygen');
 exports.findOneListing = (req, res) => {
   Listing.findById(req.params.id, (err, listing) => {
     if (err) res.send(err);
@@ -147,11 +147,11 @@ exports.deleteListing = (req, res) => {
 }
 
 exports.applyForBooking = (req, res) => {
-  console.log(req.body)
   var token = req.headers.authorization;
   var userId = jwt.decode(token, config.secret).sub;
-  req.body.userId = userId
-  req.body.listingId = req.params.id
+  req.body.userId = userId;
+  req.body.listingId = req.params.id;
+  req.body.applicationId = randomKeyGen();
   User.findByIdAndUpdate(userId,
     {$push: {'applications': req.body}},
     {safe: true, upsert: true},

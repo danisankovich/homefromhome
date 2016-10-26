@@ -88,6 +88,7 @@ class Settings extends Component {
             <li>
               Username: {this.props.userInfo.username}
             </li>
+            <li>Click On the Properties Below to Edit</li>
             <li
               className={this.state.editPhone ? 'hidden' : ''}
               onClick={function(){

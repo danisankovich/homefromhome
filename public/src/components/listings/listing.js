@@ -49,6 +49,10 @@ class SingleListing extends Component {
   applyForBooking(e) {
     var token = localStorage.getItem('token');
     const application = this.state.application;
+    application.listerId = this.state.listing.creator.id;
+    application.listingTitle = this.state.listing.title;
+    application.listingLocation = this.state.listing.location;
+
     if(!application.firstName ||
       !application.lastName ||
       !application.arrivalDate ||
