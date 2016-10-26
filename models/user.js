@@ -18,7 +18,7 @@ var userSchema = new Schema({
   reviewsOfMe: Array,
   myReviews: Array,
   followers: Array,
-  following: {type: Array, unique: true},
+  following: {type: Array},
   applications: [],
   confirmedStays: [],
   hostUserAgreementSigned: {type: Boolean, default: false}

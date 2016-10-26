@@ -29563,7 +29563,7 @@
 	    _reactRouter.browserHistory.push('/information'); // success pushes you to /information.
 	  }).fail(function (error) {
 	    console.log(error.responseText);
-	    dispatch(authError(error.response.error));
+	    dispatch(authError(error.responseText));
 	  });
 	};
 	

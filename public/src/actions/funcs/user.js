@@ -41,7 +41,7 @@ exports.signUp = function(dispatch, {email, password, username}) {
       browserHistory.push('/information'); // success pushes you to /information.
     }).fail((error) => {
       console.log(error.responseText)
-      dispatch(authError(error.response.error));
+      dispatch(authError(error.responseText));
     });
 }
 
