@@ -29550,6 +29550,7 @@
 	  var password = _ref2.password;
 	  var username = _ref2.username;
 	
+	  console.log(email);
 	  _jquery2.default.ajax({
 	    url: '/api/signup',
 	    type: "POST",
@@ -29561,7 +29562,7 @@
 	
 	    _reactRouter.browserHistory.push('/information'); // success pushes you to /information.
 	  }).fail(function (error) {
-	    console.log(error);
+	    console.log(error.responseText);
 	    dispatch(authError(error.response.error));
 	  });
 	};

@@ -13,13 +13,11 @@ exports.signup = function(req, res, next) {
   var email = req.body.email;
   var username = req.body.username;
   var password = req.body.password;
+  console.log(email);
   if (!email || !password) {
     return res.status(422).send({error: 'Email and Password Must Be Provided'});
   }
   User.findOne({email: email}, (err, user) => {
-    if (err) {
-      return next(err);
-    }
     if (user) {
       return res.status(422).send({error: 'Email Already In Use'});
     }
