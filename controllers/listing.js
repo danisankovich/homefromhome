@@ -152,6 +152,8 @@ exports.applyForBooking = (req, res) => {
   req.body.userId = userId;
   req.body.listingId = req.params.id;
   req.body.applicationId = randomKeyGen();
+  var locs = JSON.parse(req.body.listingLocation);
+  req.body.listingLocation = locs
   User.findByIdAndUpdate(userId,
     {$push: {'applications': req.body}},
     {safe: true, upsert: true},

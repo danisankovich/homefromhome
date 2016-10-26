@@ -47,11 +47,13 @@ class SingleListing extends Component {
     });
   }
   applyForBooking(e) {
+    // e.preventDefault();
     var token = localStorage.getItem('token');
     const application = this.state.application;
     application.listerId = this.state.listing.creator.id;
     application.listingTitle = this.state.listing.title;
-    application.listingLocation = this.state.listing.location;
+    const locations = this.state.listing.location;
+    application.listingLocation = JSON.stringify(locations);
 
     if(!application.firstName ||
       !application.lastName ||

@@ -28,21 +28,25 @@ class MyApplications extends Component {
           {this.state.applications && this.state.applications.length > 0 && <table className="table table-hover table-bordered">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>keywords</th>
-                <th># of Comments</th>
-                <th>Edit</th>
+                <th>Listing Title</th>
+                <th>Listing Country</th>
+                <th>Planned Date of Arrival</th>
+                <th>Planned Date of Departure</th>
+                <th>Reviewed</th>
+                <th>Approved</th>
                 <th>Delete</th>
               </tr>
             </thead>
             <tbody>
               {this.state.applications.map(function(result) {
                 return (
-                  <tr key={result._id} className='table-row'>
-                    <td onClick={this.handleClick.bind(result)}>{result.title}</td>
-                    <td onClick={this.handleClick.bind(result)}>{result.keywords}</td>
-                    <td onClick={this.handleClick.bind(result)}>({result.comments.length})</td>
-                    <td onClick={this.handleClick.bind(result)}>Edit</td>
+                  <tr key={result.applicationId} className='table-row'>
+                    <td onClick={this.handleClick.bind(result)}>{result.listingTitle}</td>
+                    <td onClick={this.handleClick.bind(result)}>{result.listingLocation.country}</td>
+                    <td onClick={this.handleClick.bind(result)}>{result.arrivalDate}</td>
+                    <td onClick={this.handleClick.bind(result)}>{result.departureDate}</td>
+                    <td onClick={this.handleClick.bind(result)}>{result.reviewed ? 'Yes' : 'No'}</td>
+                    <td onClick={this.handleClick.bind(result)}>{result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'}</td>
                     <td onClick={this.deleteClickHandle.bind([this.props, result, this])}>
                       <button type="button" className="btn btn-default">
                          Remove <span

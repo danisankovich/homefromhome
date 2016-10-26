@@ -58033,11 +58033,13 @@
 	    value: function applyForBooking(e) {
 	      var _this2 = this;
 	
+	      // e.preventDefault();
 	      var token = localStorage.getItem('token');
 	      var application = this.state.application;
 	      application.listerId = this.state.listing.creator.id;
 	      application.listingTitle = this.state.listing.title;
-	      application.listingLocation = this.state.listing.location;
+	      var locations = this.state.listing.location;
+	      application.listingLocation = JSON.stringify(locations);
 	
 	      if (!application.firstName || !application.lastName || !application.arrivalDate || !application.departureDate || !application.message) {
 	        e.preventDefault();
@@ -67824,8 +67826,8 @@
 	
 	      this.state.applications = userInfo.applications || [];
 	      if (this.state.applications) {
-	        return _react2.default.createElement('div', null, this.state.applications && this.state.applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Title'), _react2.default.createElement('th', null, 'keywords'), _react2.default.createElement('th', null, '# of Comments'), _react2.default.createElement('th', null, 'Edit'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.applications.map(function (result) {
-	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.keywords), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '(', result.comments.length, ')'), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'Edit'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
+	        return _react2.default.createElement('div', null, this.state.applications && this.state.applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Title'), _react2.default.createElement('th', null, 'Listing Country'), _react2.default.createElement('th', null, 'Planned Date of Arrival'), _react2.default.createElement('th', null, 'Planned Date of Departure'), _react2.default.createElement('th', null, 'Reviewed'), _react2.default.createElement('th', null, 'Approved'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.applications.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
 	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
 	            onClick: this.deleteClickHandle.bind([this.props, result, this])
 	          }))));
