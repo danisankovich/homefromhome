@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 
 
 class MyBlog extends Component {
+
   render() {
     let {userInfo} = this.props;
     let blogs = [];

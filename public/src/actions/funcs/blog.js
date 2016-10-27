@@ -4,6 +4,7 @@ import {
   NEW_BLOG,
   FETCH_SINGLE_BLOG,
   FETCH_ALL_BLOGS,
+  FETCH_INFO
 } from '../types';
 
 // const ROOT_URL = 'http://localhost:3000/api';
@@ -16,7 +17,7 @@ exports.createBlog = function(data, dispatch) {
   }).done((response) => {
     console.log(response)
     dispatch({
-      type: NEW_BLOG,
+      type: FETCH_INFO,
       payload: response
     })
     browserHistory.push('/blogs/mine'); // success pushes you to /information.
