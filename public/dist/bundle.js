@@ -39405,7 +39405,7 @@
 	      var email = _props$fields.email;
 	      var password = _props$fields.password;
 	
-	      return _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Email: '), _react2.default.createElement('input', _extends({}, email, { className: 'form-control' }))), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Password: '), _react2.default.createElement('input', _extends({}, password, { className: 'form-control' }))), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Sign In'));
+	      return _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Email: '), _react2.default.createElement('input', _extends({}, email, { className: 'form-control' }))), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Password: '), _react2.default.createElement('input', _extends({}, password, { className: 'form-control', type: 'password' }))), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Sign In'));
 	    }
 	  }]);
 	
