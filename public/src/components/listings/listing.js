@@ -16,7 +16,9 @@ class SingleListing extends Component {
     this.props.fetchSingleListing(id);
   }
   handleClick(type) {
-     this.setState(type);
+    if(this.props.userInfo._id = this.props.listing.creator.id) {
+      this.setState(type);
+    }
   }
   changeUsCity(event) {
     this.setState({usCity: event.target.value, type:'usCity'});
@@ -105,14 +107,16 @@ class SingleListing extends Component {
                     <h3>Listing Location: </h3>
                     <ul>
                       <li
-                        className={this.state.editAddress ? 'hidden' : ''}
+                        className={ this.state.editAddress ? 'hidden' : ''}
                         onClick={function(){
-                          this.handleClick({editAddress: true})
+                           if (this.props.userInfo._id === this.props.listing.creator.id) {
+                             this.handleClick({editAddress: true})
+                           }
                         }.bind(this)}
                       >
                         Address: {listing.location.address}
                       </li>
-                      <li className={this.state.editAddress ? '' : 'hidden'}>
+                      {this.props.userInfo._id === this.props.listing.creator.id && <li className={this.state.editAddress ? '' : 'hidden'}>
                         <form onSubmit={this.handleFormSubmit.bind(this)}>
                           <fieldset className="form-group">
                             <label>New Address: </label>
@@ -125,23 +129,27 @@ class SingleListing extends Component {
                           </fieldset>
                           <button type='button' className="btn btn-danger"
                             onClick={function(){
-                              this.handleClick({editAddress: false})
+                              if (this.props.userInfo._id === this.props.listing.creator.id) {
+                                this.handleClick({editAddress: false})
+                              }
                             }.bind(this)}>
                             hide
                           </button>
                           <button action="submit" className="btn btn-primary">Save</button>
                         </form>
-                      </li>
+                      </li>}
                       {listing.location.usCity !=='not valid' &&
                         <li
                           className={this.state.editusCity ? 'hidden' : ''}
                           onClick={function(){
-                            this.handleClick({editusCity: true})
+                            if (this.props.userInfo._id === this.props.listing.creator.id) {
+                              this.handleClick({editusCity: true})
+                            }
                           }.bind(this)}
                         >
                           City: {listing.location.usCity}
                         </li>}
-                        <li className={this.state.editusCity ? '' : 'hidden'}>
+                        {this.props.userInfo._id === this.props.listing.creator.id && <li className={this.state.editusCity ? '' : 'hidden'}>
                           <form onSubmit={this.handleFormSubmit.bind(this)}>
                             <fieldset className="form-group">
                               <label>City: </label>
@@ -154,13 +162,15 @@ class SingleListing extends Component {
                             </fieldset>
                             <button type='button' className="btn btn-danger"
                               onClick={function(){
-                                this.handleClick({editusCity: false})
+                                if (this.props.userInfo._id === this.props.listing.creator.id) {
+                                  this.handleClick({editusCity: false})
+                                }
                               }.bind(this)}>
                               hide
                             </button>
                             <button action="submit" className="btn btn-primary">Save</button>
                           </form>
-                        </li>
+                        </li>}
                       {listing.location.usCity !=='not valid' && <li>State: {listing.location.city}</li>}
                       {listing.location.usCity ==='not valid' && <li>City: {listing.location.city}</li>}
                       <li>Country: {listing.location.country}</li>
@@ -170,12 +180,14 @@ class SingleListing extends Component {
                       <li
                         className={this.state.editPrice ? 'hidden' : ''}
                         onClick={function(){
-                          this.handleClick({editPrice: true})
+                          if (this.props.userInfo._id === this.props.listing.creator.id) {
+                            this.handleClick({editPrice: true})
+                          }
                         }.bind(this)}
                       >
                         Price: ${listing.pricePerNight} / night
                       </li>
-                      <li className={this.state.editPrice ? '' : 'hidden'}>
+                      {this.props.userInfo._id === this.props.listing.creator.id && <li className={this.state.editPrice ? '' : 'hidden'}>
                         <form onSubmit={this.handleFormSubmit.bind(this)}>
                           <fieldset className="form-group">
                             <label>New Price: </label>
@@ -188,13 +200,15 @@ class SingleListing extends Component {
                           </fieldset>
                           <button type='button' className="btn btn-danger"
                             onClick={function(){
-                              this.handleClick({editPrice: false})
+                              if (this.props.userInfo._id === this.props.listing.creator.id) {
+                                this.handleClick({editPrice: false})
+                              }
                             }.bind(this)}>
                             hide
                           </button>
                           <button action="submit" className="btn btn-primary">Save</button>
                         </form>
-                      </li>
+                      </li>}
                       <li>Email: {listing.creator.email}</li>
                       <li>Phone Number: {listing.creator.phoneNumber}</li>
                     </ul>

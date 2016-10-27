@@ -12,9 +12,6 @@ class MyListings extends Component {
     let clickResult = this._id;
     browserHistory.push(`/listings/${clickResult}`);
   }
-  viewApplications() {
-    console.log(this);
-  }
   deleteClickHandle(e) {
     e.preventDefault();
     let clickResult = this[1]._id;
@@ -55,7 +52,7 @@ class MyListings extends Component {
                     <td onClick={this.handleClick.bind(result)}>{result.location.address}</td>
                     <td onClick={this.handleClick.bind(result)}>${result.pricePerNight}</td>
                     <td onClick={this.handleClick.bind(result)}>{result.rating === 0 ? 'Not Rated' : result.rating}</td>
-                    <td onClick={this.viewApplications.bind(result)}>{result.applications.length}</td>
+                    <td onClick={this.handleClick.bind(result)}>{result.applications.length}</td>
                     <td onClick={this.deleteClickHandle.bind([this.props, result, this])}>
                       <button type="button" className="btn btn-default">
                          Remove <span
