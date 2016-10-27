@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import { browserHistory } from 'react-router'
 import ReactMarkdown from 'react-markdown';
+import BookingApplications from './booking_applications';
 import city_states from '../../../locations/cities';
 import states from '../../../locations/states';
 import countries from '../../../locations/countries';
@@ -89,7 +90,7 @@ class SingleListing extends Component {
       usCities = us_cities_by_state[usState]
     }
     let incrementKey = 0
-    if(listing && listing.location) {
+    if(listing && listing.location && userInfo) {
       this.state.listing = listing
       return (
         <div>
@@ -215,8 +216,8 @@ class SingleListing extends Component {
                     <h3>Description: </h3>
                     <ReactMarkdown className='body-spacing' source={listing.description} />
                   </div>
-                  <div className="col-sm-5 col-sm-offset-1">
-                    <form onSubmit={this.applyForBooking.bind(this)}>
+                  <div className="col-sm-6">
+                    {this.props.userInfo._id !== this.props.listing.creator.id && <form onSubmit={this.applyForBooking.bind(this)}>
                       <fieldset className='form-group'>
                         <div className='col-sm-11 col-sm-offset-1'>
                           <h3>Book This Listing: </h3>
@@ -270,7 +271,8 @@ class SingleListing extends Component {
                         </div>
                       </fieldset>
                       <button type='submit'>Submit Application</button>
-                    </form>
+                    </form>}
+                    {this.props.userInfo._id === this.props.listing.creator.id && <BookingApplications applications={listing.applications}/>}
                   </div>
                 </div>
               </div>

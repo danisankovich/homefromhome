@@ -58045,6 +58045,10 @@
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
+	var _booking_applications = __webpack_require__(/*! ./booking_applications */ 377);
+	
+	var _booking_applications2 = _interopRequireDefault(_booking_applications);
+	
 	var _cities = __webpack_require__(/*! ../../../locations/cities */ 331);
 	
 	var _cities2 = _interopRequireDefault(_cities);
@@ -58203,7 +58207,7 @@
 	        usCities = _us_cities2.default[usState];
 	      }
 	      var incrementKey = 0;
-	      if (listing && listing.location) {
+	      if (listing && listing.location && userInfo) {
 	        this.state.listing = listing;
 	        return _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('div', { className: '' }, _react2.default.createElement('div', { className: 'thumbnail' }, _react2.default.createElement('img', { className: 'img-responsive center-block',
 	          src: listing.image
@@ -58255,7 +58259,7 @@
 	            if (this.props.userInfo._id === this.props.listing.creator.id) {
 	              this.handleClick({ editPrice: false });
 	            }
-	          }.bind(this) }, 'hide'), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', null, 'Email: ', listing.creator.email), _react2.default.createElement('li', null, 'Phone Number: ', listing.creator.phoneNumber)), _react2.default.createElement('h3', null, 'Description: '), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: listing.description })), _react2.default.createElement('div', { className: 'col-sm-5 col-sm-offset-1' }, _react2.default.createElement('form', { onSubmit: this.applyForBooking.bind(this) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('div', { className: 'col-sm-11 col-sm-offset-1' }, _react2.default.createElement('h3', null, 'Book This Listing: ')), _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('label', null, 'First Name: '), _react2.default.createElement('input', {
+	          }.bind(this) }, 'hide'), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', null, 'Email: ', listing.creator.email), _react2.default.createElement('li', null, 'Phone Number: ', listing.creator.phoneNumber)), _react2.default.createElement('h3', null, 'Description: '), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: listing.description })), _react2.default.createElement('div', { className: 'col-sm-6' }, this.props.userInfo._id !== this.props.listing.creator.id && _react2.default.createElement('form', { onSubmit: this.applyForBooking.bind(this) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('div', { className: 'col-sm-11 col-sm-offset-1' }, _react2.default.createElement('h3', null, 'Book This Listing: ')), _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-6' }, _react2.default.createElement('label', null, 'First Name: '), _react2.default.createElement('input', {
 	          className: 'form-control',
 	          onChange: function onChange(e) {
 	            return _this3.state.application.firstName = e.target.value;
@@ -58282,7 +58286,7 @@
 	          onChange: function onChange(e) {
 	            return _this3.state.application.message = e.target.value;
 	          }
-	        })))), _react2.default.createElement('button', { type: 'submit' }, 'Submit Application')))))), _react2.default.createElement('br', null)));
+	        })))), _react2.default.createElement('button', { type: 'submit' }, 'Submit Application')), this.props.userInfo._id === this.props.listing.creator.id && _react2.default.createElement(_booking_applications2.default, { applications: listing.applications }))))), _react2.default.createElement('br', null)));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading...... ');
 	    }
@@ -67855,6 +67859,114 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
+
+/***/ },
+/* 377 */
+/*!****************************************************************!*\
+  !*** ./public/src/components/listings/booking_applications.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var BookingApplications = function (_Component) {
+	  _inherits(BookingApplications, _Component);
+	
+	  function BookingApplications() {
+	    _classCallCheck(this, BookingApplications);
+	
+	    return _possibleConstructorReturn(this, (BookingApplications.__proto__ || Object.getPrototypeOf(BookingApplications)).apply(this, arguments));
+	  }
+	
+	  _createClass(BookingApplications, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ shownAppId: '' });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this[0].state.shownAppId === this[1].applicationId ? this[0].setState({ shownAppId: '', shownApp: '' }) : this[0].setState({ shownAppId: this[1].applicationId, shownApp: this[1] });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var applications = this.props.applications;
+	      return _react2.default.createElement('div', null, this.state.shownAppId === '' && applications && applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Title'), _react2.default.createElement('th', null, 'Listing Country'), _react2.default.createElement('th', null, 'Planned Date of Arrival'), _react2.default.createElement('th', null, 'Planned Date of Departure'), _react2.default.createElement('th', null, 'Reviewed'), _react2.default.createElement('th', null, 'Approved'))), _react2.default.createElement('tbody', null, applications.map(function (result) {
+	        return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'));
+	      }.bind(this)))), this.state.shownAppId.length > 0 && _react2.default.createElement('div', null, _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Applicant\'s Name: ', this.state.shownApp.firstName, ' ', this.state.shownApp.lastName), _react2.default.createElement('li', null, 'Username: ', this.state.shownApp.username), _react2.default.createElement('li', null, 'Country: ', this.state.shownApp.listingLocation.country), this.state.shownApp.listingLocation.country === 'united states' && _react2.default.createElement('div', null, _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.usCity), _react2.default.createElement('li', null, 'State: ', this.state.shownApp.listingLocation.city)), this.state.shownApp.listingLocation.country !== 'united states' && _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.city), _react2.default.createElement('li', null, 'Address: ', this.state.shownApp.listingLocation.address), _react2.default.createElement('li', null, 'Arrival Date: this.state.shownApp.arrivalDate'), _react2.default.createElement('li', null, 'Departure Date: this.state.shownApp.departureDate'), _react2.default.createElement('li', null, _react2.default.createElement('h4', null, 'Message: '), _react2.default.createElement('p', null, this.state.shownApp.message))), _react2.default.createElement('button', { onClick: this.handleClick.bind([this, this.state.shownApp]) }, ' Return')));
+	    }
+	  }]);
+	
+	  return BookingApplications;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BookingApplications);
 
 /***/ }
 /******/ ]);
