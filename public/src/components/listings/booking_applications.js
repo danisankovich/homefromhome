@@ -5,18 +5,17 @@ import { browserHistory } from 'react-router';
 
 class BookingApplications extends Component {
   componentWillMount() {
-    this.setState({shownAppId: ''})
+    this.setState({shownAppId: '', approveReject: ''})
   }
   handleClick() {
     this[0].state.shownAppId === this[1].applicationId
       ? this[0].setState({shownAppId: '', shownApp: ''})
       : this[0].setState({shownAppId: this[1].applicationId, shownApp: this[1]})
     if (!this[1].reviewed) {
-      console.log(this[1])
       const application = this[1];
       $.ajax({
         url: `/api/listings/reviewedapplication`,
-        type: 'POST',
+        type: 'PUT',
         data: application
       }).done((response) => {
         console.log(response)
@@ -24,6 +23,22 @@ class BookingApplications extends Component {
         console.log(err)
       })
     }
+  }
+  approve() {
+    this[0].state.shownAppId === this[1].applicationId
+      ? this[0].setState({shownAppId: '', shownApp: ''})
+      : this[0].setState({shownAppId: this[1].applicationId, shownApp: this[1]})
+    const application = this[1];
+    application.approved = this[2];
+    $.ajax({
+      url: `/api/listings/approverejectapplication`,
+      type: 'PUT',
+      data: application
+    }).done((response) => {
+      console.log(response)
+    }).fail((err) => {
+      console.log(err)
+    })
   }
   render() {
     const applications = this.props.applications
@@ -49,7 +64,7 @@ class BookingApplications extends Component {
                   <td onClick={this.handleClick.bind([this, result])}>{result.arrivalDate}</td>
                   <td onClick={this.handleClick.bind([this, result])}>{result.departureDate}</td>
                   <td onClick={this.handleClick.bind([this, result])}>{result.reviewed ? 'Yes' : 'No'}</td>
-                  <td onClick={this.handleClick.bind([this, result])}>{result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'}</td>
+                  <td onClick={this.handleClick.bind([this, result])}>{result.approved==='approved' ? 'Approved' : result.approved === 'rejected' ? 'Rejected' : 'No'}</td>
               </tr>
               )
             }.bind(this))}
@@ -63,7 +78,7 @@ class BookingApplications extends Component {
             {this.state.shownApp.listingLocation.country === 'united states' && <div>
               <li>City: {this.state.shownApp.listingLocation.usCity}</li>
               <li>State: {this.state.shownApp.listingLocation.city}</li>
-              </div>
+            </div>
             }
             {this.state.shownApp.listingLocation.country !== 'united states' &&
               <li>City: {this.state.shownApp.listingLocation.city}</li>
@@ -75,6 +90,8 @@ class BookingApplications extends Component {
               <h4>Message: </h4>
               <p>{this.state.shownApp.message}</p>
             </li>
+            <button onClick={this.approve.bind([this, this.state.shownApp, 'approved'])}>Approve</button>
+            <button onClick={this.approve.bind([this, this.state.shownApp, 'rejected'])}>Reject</button>
           </ul>
           <button onClick={this.handleClick.bind([this, this.state.shownApp])}> Return</button>
         </div>}

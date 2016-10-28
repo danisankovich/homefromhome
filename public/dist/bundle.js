@@ -66503,18 +66503,17 @@
 	  _createClass(BookingApplications, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.setState({ shownAppId: '' });
+	      this.setState({ shownAppId: '', approveReject: '' });
 	    }
 	  }, {
 	    key: 'handleClick',
 	    value: function handleClick() {
 	      this[0].state.shownAppId === this[1].applicationId ? this[0].setState({ shownAppId: '', shownApp: '' }) : this[0].setState({ shownAppId: this[1].applicationId, shownApp: this[1] });
 	      if (!this[1].reviewed) {
-	        console.log(this[1]);
 	        var application = this[1];
 	        $.ajax({
 	          url: '/api/listings/reviewedapplication',
-	          type: 'POST',
+	          type: 'PUT',
 	          data: application
 	        }).done(function (response) {
 	          console.log(response);
@@ -66524,12 +66523,28 @@
 	      }
 	    }
 	  }, {
+	    key: 'approve',
+	    value: function approve() {
+	      this[0].state.shownAppId === this[1].applicationId ? this[0].setState({ shownAppId: '', shownApp: '' }) : this[0].setState({ shownAppId: this[1].applicationId, shownApp: this[1] });
+	      var application = this[1];
+	      application.approved = this[2];
+	      $.ajax({
+	        url: '/api/listings/approverejectapplication',
+	        type: 'PUT',
+	        data: application
+	      }).done(function (response) {
+	        console.log(response);
+	      }).fail(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var applications = this.props.applications;
 	      return _react2.default.createElement('div', null, this.state.shownAppId === '' && applications && applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Title'), _react2.default.createElement('th', null, 'Listing Country'), _react2.default.createElement('th', null, 'Planned Date of Arrival'), _react2.default.createElement('th', null, 'Planned Date of Departure'), _react2.default.createElement('th', null, 'Reviewed'), _react2.default.createElement('th', null, 'Approved'))), _react2.default.createElement('tbody', null, applications.map(function (result) {
-	        return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'));
-	      }.bind(this)))), this.state.shownAppId.length > 0 && _react2.default.createElement('div', null, _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Applicant\'s Name: ', this.state.shownApp.firstName, ' ', this.state.shownApp.lastName), _react2.default.createElement('li', null, 'Username: ', this.state.shownApp.username), _react2.default.createElement('li', null, 'Country: ', this.state.shownApp.listingLocation.country), this.state.shownApp.listingLocation.country === 'united states' && _react2.default.createElement('div', null, _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.usCity), _react2.default.createElement('li', null, 'State: ', this.state.shownApp.listingLocation.city)), this.state.shownApp.listingLocation.country !== 'united states' && _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.city), _react2.default.createElement('li', null, 'Address: ', this.state.shownApp.listingLocation.address), _react2.default.createElement('li', null, 'Arrival Date: this.state.shownApp.arrivalDate'), _react2.default.createElement('li', null, 'Departure Date: this.state.shownApp.departureDate'), _react2.default.createElement('li', null, _react2.default.createElement('h4', null, 'Message: '), _react2.default.createElement('p', null, this.state.shownApp.message))), _react2.default.createElement('button', { onClick: this.handleClick.bind([this, this.state.shownApp]) }, ' Return')));
+	        return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.approved === 'approved' ? 'Approved' : result.approved === 'rejected' ? 'Rejected' : 'No'));
+	      }.bind(this)))), this.state.shownAppId.length > 0 && _react2.default.createElement('div', null, _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Applicant\'s Name: ', this.state.shownApp.firstName, ' ', this.state.shownApp.lastName), _react2.default.createElement('li', null, 'Username: ', this.state.shownApp.username), _react2.default.createElement('li', null, 'Country: ', this.state.shownApp.listingLocation.country), this.state.shownApp.listingLocation.country === 'united states' && _react2.default.createElement('div', null, _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.usCity), _react2.default.createElement('li', null, 'State: ', this.state.shownApp.listingLocation.city)), this.state.shownApp.listingLocation.country !== 'united states' && _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.city), _react2.default.createElement('li', null, 'Address: ', this.state.shownApp.listingLocation.address), _react2.default.createElement('li', null, 'Arrival Date: this.state.shownApp.arrivalDate'), _react2.default.createElement('li', null, 'Departure Date: this.state.shownApp.departureDate'), _react2.default.createElement('li', null, _react2.default.createElement('h4', null, 'Message: '), _react2.default.createElement('p', null, this.state.shownApp.message)), _react2.default.createElement('button', { onClick: this.approve.bind([this, this.state.shownApp, 'approved']) }, 'Approve'), _react2.default.createElement('button', { onClick: this.approve.bind([this, this.state.shownApp, 'rejected']) }, 'Reject')), _react2.default.createElement('button', { onClick: this.handleClick.bind([this, this.state.shownApp]) }, ' Return')));
 	    }
 	  }]);
 	

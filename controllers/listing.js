@@ -186,3 +186,19 @@ exports.reviewApplication = (req, res) => {
     })
   })
 }
+exports.approverejectApplication = (req, res) => {
+  console.log(req.body)
+  Listing.update({
+    '_id' : req.body.listingId, 'applications.applicationId': req.body.applicationId
+  },
+  { $set: { "applications.$.approved" : req.body.approved } },
+  function(err, listing) {
+    User.update({
+      '_id' : req.body.userId, 'applications.applicationId': req.body.applicationId
+    },
+    { $set: { "applications.$.approved" : req.body.approved } },
+    function(err, user) {
+      res.send(listing)
+    })
+  })
+}
