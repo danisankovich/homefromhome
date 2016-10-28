@@ -170,3 +170,19 @@ exports.applyForBooking = (req, res) => {
     }
   )
 }
+exports.reviewApplication = (req, res) => {
+  console.log(req.body)
+  Listing.update({
+    '_id' : req.body.listingId, 'applications.applicationId': req.body.applicationId
+  },
+  { $set: { "applications.$.reviewed" : true } },
+  function(err, listing) {
+    User.update({
+      '_id' : req.body.userId, 'applications.applicationId': req.body.applicationId
+    },
+    { $set: { "applications.$.reviewed" : true } },
+    function(err, user) {
+      res.send(listing)
+    })
+  })
+}

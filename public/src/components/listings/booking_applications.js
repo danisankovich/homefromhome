@@ -11,6 +11,19 @@ class BookingApplications extends Component {
     this[0].state.shownAppId === this[1].applicationId
       ? this[0].setState({shownAppId: '', shownApp: ''})
       : this[0].setState({shownAppId: this[1].applicationId, shownApp: this[1]})
+    if (!this[1].reviewed) {
+      console.log(this[1])
+      const application = this[1];
+      $.ajax({
+        url: `/api/listings/reviewedapplication`,
+        type: 'POST',
+        data: application
+      }).done((response) => {
+        console.log(response)
+      }).fail((err) => {
+        console.log(err)
+      })
+    }
   }
   render() {
     const applications = this.props.applications

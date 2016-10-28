@@ -129,39 +129,39 @@
 	
 	var _listing2 = _interopRequireDefault(_listing);
 	
-	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 338);
+	var _newListing = __webpack_require__(/*! ./components/listings/newListing */ 365);
 	
 	var _newListing2 = _interopRequireDefault(_newListing);
 	
-	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 365);
+	var _blog_container = __webpack_require__(/*! ./components/blog/blog_container */ 366);
 	
 	var _blog_container2 = _interopRequireDefault(_blog_container);
 	
-	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 367);
+	var _my_blog = __webpack_require__(/*! ./components/blog/mine/my_blog */ 368);
 	
 	var _my_blog2 = _interopRequireDefault(_my_blog);
 	
-	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 368);
+	var _new_blog = __webpack_require__(/*! ./components/blog/mine/new_blog */ 369);
 	
 	var _new_blog2 = _interopRequireDefault(_new_blog);
 	
-	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 366);
+	var _blog_list = __webpack_require__(/*! ./components/blog/blog_list */ 367);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
-	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 369);
+	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 370);
 	
 	var _single_blog2 = _interopRequireDefault(_single_blog);
 	
-	var _agreement_container = __webpack_require__(/*! ./components/agreements/agreement_container */ 370);
+	var _agreement_container = __webpack_require__(/*! ./components/agreements/agreement_container */ 371);
 	
 	var _agreement_container2 = _interopRequireDefault(_agreement_container);
 	
-	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 372);
+	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 373);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 373);
+	var _reducers = __webpack_require__(/*! ./reducers */ 374);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -58118,11 +58118,11 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 188);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 339);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 338);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
-	var _booking_applications = __webpack_require__(/*! ./booking_applications */ 377);
+	var _booking_applications = __webpack_require__(/*! ./booking_applications */ 364);
 	
 	var _booking_applications2 = _interopRequireDefault(_booking_applications);
 	
@@ -58379,284 +58379,6 @@
 
 /***/ },
 /* 338 */
-/*!******************************************************!*\
-  !*** ./public/src/components/listings/newListing.js ***!
-  \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }return target;
-	};
-	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 266);
-	
-	var _actions = __webpack_require__(/*! ../../actions */ 259);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 188);
-	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 339);
-	
-	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
-	
-	var _cities = __webpack_require__(/*! ../../../locations/cities */ 331);
-	
-	var _cities2 = _interopRequireDefault(_cities);
-	
-	var _states = __webpack_require__(/*! ../../../locations/states */ 332);
-	
-	var _states2 = _interopRequireDefault(_states);
-	
-	var _countries = __webpack_require__(/*! ../../../locations/countries */ 333);
-	
-	var _countries2 = _interopRequireDefault(_countries);
-	
-	var _us_cities = __webpack_require__(/*! ../../../locations/us_cities */ 334);
-	
-	var _us_cities2 = _interopRequireDefault(_us_cities);
-	
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj.default = obj;return newObj;
-	  }
-	}
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var NewListing = function (_Component) {
-	  _inherits(NewListing, _Component);
-	
-	  function NewListing(props) {
-	    _classCallCheck(this, NewListing);
-	
-	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this, props));
-	
-	    _this.state = {
-	      file: '', text: ''
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(NewListing, [{
-	    key: 'handleFormSubmit',
-	    value: function handleFormSubmit(formProps) {
-	      //called with props from submit form
-	      var data = formProps;
-	      data.usCity = this.state.usCity;
-	      console.log(data);
-	      data.city = this.state.city;
-	      data.country = this.state.country;
-	      data.image = this.state.file;
-	      data.username = this.props.userInfo.username;
-	      data.id = this.props.userInfo._id;
-	      data.phoneNumber = this.props.userInfo.phoneNumber;
-	      data.email = this.props.userInfo.email;
-	      if (data.country !== 'United States') {
-	        data.usCity = 'not valid';
-	      }
-	      if (data.image.length === 0) {
-	        alert('Must supply Image');
-	        return;
-	      }
-	      for (var key in data) {
-	        if (!data[key]) {
-	          alert('All Fields Are Required. Please fill in the ' + key + ' field');
-	          return;
-	        }
-	      }
-	      this.props.newListing(data);
-	      _reactRouter.browserHistory.push('/listings');
-	    }
-	  }, {
-	    key: 'changeCountry',
-	    value: function changeCountry(event) {
-	      this.setState({ country: event.target.value });
-	    }
-	  }, {
-	    key: 'changeCity',
-	    value: function changeCity(event) {
-	      this.setState({ city: event.target.value });
-	    }
-	  }, {
-	    key: 'changeUsCity',
-	    value: function changeUsCity(event) {
-	      this.setState({ usCity: event.target.value });
-	      console.log(this.state);
-	    }
-	  }, {
-	    key: 'markdown',
-	    value: function markdown() {
-	      this.setState({ text: '' });
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.fetchInfo();
-	    }
-	  }, {
-	    key: 'renderAlert',
-	    value: function renderAlert() {
-	      if (this.props.errorMessage) {
-	        return _react2.default.createElement('div', { className: 'alert alert-danger' }, _react2.default.createElement('strong', null, 'Error!!! '), ' ', this.props.errorMessage);
-	      }
-	    }
-	  }, {
-	    key: 'previewFile',
-	    value: function previewFile() {
-	      var self = this;
-	      var file = document.querySelector('input[type=file]').files[0];
-	      var reader = new FileReader();
-	      var image;
-	      reader.addEventListener("load", function () {
-	        image = reader.result;
-	        self.setState({ file: image });
-	      }, false);
-	
-	      if (file) {
-	        reader.readAsDataURL(file);
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var incrementKey = 0;
-	      var _props = this.props;
-	      var handleSubmit = _props.handleSubmit;
-	      var userInfo = _props.userInfo;
-	      var _props$fields = _props.fields;
-	      var address = _props$fields.address;
-	      var usCity = _props$fields.usCity;
-	      var image = _props$fields.image;
-	      var pricePerNight = _props$fields.pricePerNight;
-	      var availableForRent = _props$fields.availableForRent;
-	      var title = _props$fields.title;
-	      var description = _props$fields.description;
-	
-	      var citiesorstates = [];
-	      if (this.state.country) {
-	        if (!_cities2.default[this.state.country]) {
-	          alert('Sorry. We do not provide services in that country');
-	        } else {
-	          citiesorstates = _cities2.default[this.state.country].split('|');
-	        }
-	      }
-	      var usCities = void 0;
-	      if (this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0) {
-	        var usState = this.state.city.toUpperCase();
-	        usCities = _us_cities2.default[usState];
-	      }
-	      return _react2.default.createElement('div', null, userInfo && userInfo.hostUserAgreementSigned && _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Country: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeCountry.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A Country'), _countries2.default.map(function (e) {
-	        return _react2.default.createElement('option', { key: e, value: e }, e);
-	      }))), this.state.country && citiesorstates.length > 0 && _react2.default.createElement('fieldset', { className: 'form-group' }, this.state.country === 'United States' && _react2.default.createElement('label', null, 'State: '), this.state.country !== 'United States' && _react2.default.createElement('label', null, 'City: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeCity.bind(this) }, this.state.country === 'United States' && _react2.default.createElement('option', { key: 'default' }, 'Pick A State'), this.state.country !== 'United States' && _react2.default.createElement('option', { key: 'default' }, 'Pick A City'), citiesorstates.map(function (e) {
-	        if (e.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
-	      }))), this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0 && _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'City: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeUsCity.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A City'), usCities.map(function (e) {
-	        if (usCities.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
-	      }))), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Address: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)), address.touched && address.error && _react2.default.createElement('div', { className: 'error' }, address.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Price Per Night: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'number', min: '0.01', step: '0.01', max: '5000.00' }, pricePerNight)), pricePerNight.touched && pricePerNight.error && _react2.default.createElement('div', { className: 'error' }, pricePerNight.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('h3', null, 'Currently Available For Rent?'), _react2.default.createElement('label', { className: 'radio-inline' }, _react2.default.createElement('input', {
-	        type: 'radio',
-	        name: 'availableForRent',
-	        onChange: availableForRent.onChange,
-	        value: 'true' }), 'Yes:'), _react2.default.createElement('label', { className: 'radio-inline' }, _react2.default.createElement('input', {
-	        type: 'radio',
-	        name: 'availableForRent',
-	        onChange: availableForRent.onChange,
-	        value: 'false' }), 'No:'), availableForRent.touched && availableForRent.error && _react2.default.createElement('div', { className: 'error' }, availableForRent.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Listing Title: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)), title.touched && title.error && _react2.default.createElement('div', { className: 'error' }, title.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Describe the Listing: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, description, { onInput: this.markdown.bind(this) })), description.touched && description.error && _react2.default.createElement('div', { className: 'error' }, description.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Add Listing'))), _react2.default.createElement('div', { className: 'col-sm-6 previewMarkdown' }, _react2.default.createElement(_reactMarkdown2.default, { source: description.value })))), _react2.default.createElement('div', null, !userInfo && _react2.default.createElement('h1', null, 'Loading....')), _react2.default.createElement('div', null, userInfo && !userInfo.hostUserAgreementSigned && _react2.default.createElement('h1', null, 'You must first sign the host user agreement', _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'To Host Agreement'))));
-	    }
-	  }]);
-	
-	  return NewListing;
-	}(_react.Component);
-	
-	function validate(formProps) {
-	  var errors = {};
-	
-	  if (!formProps.address) {
-	    errors.address = 'Please Enter an Address';
-	  }
-	  if (!formProps.pricePerNight) {
-	    errors.pricePerNight = 'Please Enter Price Per Night';
-	  }
-	  if (formProps.availableForRent !== formProps.availableForRent) {
-	    errors.availableForRent = 'Is the listing currently available for rent?';
-	  }
-	  if (!formProps.availableForRent) {
-	    errors.description = 'Describe the listing';
-	  }
-	  if (!formProps.title) {
-	    errors.title = 'Title the listing';
-	  }
-	  return errors;
-	}
-	
-	function mapStateToProps(state) {
-	  return {
-	    errorMessage: state.auth.error,
-	    userInfo: state.auth.userInfo
-	  };
-	}
-	
-	exports.default = (0, _reduxForm.reduxForm)({
-	  form: 'newListing',
-	  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title', 'usCity'],
-	  validate: validate
-	}, mapStateToProps, actions)(NewListing);
-
-/***/ },
-/* 339 */
 /*!************************************************!*\
   !*** ./~/react-markdown/src/react-markdown.js ***!
   \************************************************/
@@ -58665,8 +58387,8 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 2);
-	var Parser = __webpack_require__(/*! commonmark */ 340).Parser;
-	var ReactRenderer = __webpack_require__(/*! commonmark-react-renderer */ 360);
+	var Parser = __webpack_require__(/*! commonmark */ 339).Parser;
+	var ReactRenderer = __webpack_require__(/*! commonmark-react-renderer */ 359);
 	
 	var parser = new Parser();
 	var propTypes = React.PropTypes;
@@ -58730,7 +58452,7 @@
 	module.exports = ReactMarkdown;
 
 /***/ },
-/* 340 */
+/* 339 */
 /*!***********************************!*\
   !*** ./~/commonmark/lib/index.js ***!
   \***********************************/
@@ -58750,13 +58472,13 @@
 	// console.log(renderer.render(parser.parse('Hello *world*')));
 	
 	module.exports.version = '0.24.0';
-	module.exports.Node = __webpack_require__(/*! ./node */ 341);
-	module.exports.Parser = __webpack_require__(/*! ./blocks */ 342);
-	module.exports.HtmlRenderer = __webpack_require__(/*! ./html */ 358);
-	module.exports.XmlRenderer = __webpack_require__(/*! ./xml */ 359);
+	module.exports.Node = __webpack_require__(/*! ./node */ 340);
+	module.exports.Parser = __webpack_require__(/*! ./blocks */ 341);
+	module.exports.HtmlRenderer = __webpack_require__(/*! ./html */ 357);
+	module.exports.XmlRenderer = __webpack_require__(/*! ./xml */ 358);
 
 /***/ },
-/* 341 */
+/* 340 */
 /*!**********************************!*\
   !*** ./~/commonmark/lib/node.js ***!
   \**********************************/
@@ -59091,7 +58813,7 @@
 	 */
 
 /***/ },
-/* 342 */
+/* 341 */
 /*!************************************!*\
   !*** ./~/commonmark/lib/blocks.js ***!
   \************************************/
@@ -59099,10 +58821,10 @@
 
 	"use strict";
 	
-	var Node = __webpack_require__(/*! ./node */ 341);
-	var unescapeString = __webpack_require__(/*! ./common */ 343).unescapeString;
-	var OPENTAG = __webpack_require__(/*! ./common */ 343).OPENTAG;
-	var CLOSETAG = __webpack_require__(/*! ./common */ 343).CLOSETAG;
+	var Node = __webpack_require__(/*! ./node */ 340);
+	var unescapeString = __webpack_require__(/*! ./common */ 342).unescapeString;
+	var OPENTAG = __webpack_require__(/*! ./common */ 342).OPENTAG;
+	var CLOSETAG = __webpack_require__(/*! ./common */ 342).CLOSETAG;
 	
 	var CODE_INDENT = 4;
 	
@@ -59113,7 +58835,7 @@
 	var C_SPACE = 32;
 	var C_OPEN_BRACKET = 91;
 	
-	var InlineParser = __webpack_require__(/*! ./inlines */ 354);
+	var InlineParser = __webpack_require__(/*! ./inlines */ 353);
 	
 	var reHtmlBlockOpen = [/./, // dummy for 0
 	/^<(?:script|pre|style)(?:\s|>|$)/i, /^<!--/, /^<[?]/, /^<![A-Z]/, /^<!\[CDATA\[/, /^<[/]?(?:address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h1|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|section|source|title|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul)(?:\s|[/]?[>]|$)/i, new RegExp('^(?:' + OPENTAG + '|' + CLOSETAG + ')\s*$', 'i')];
@@ -59958,7 +59680,7 @@
 	module.exports = Parser;
 
 /***/ },
-/* 343 */
+/* 342 */
 /*!************************************!*\
   !*** ./~/commonmark/lib/common.js ***!
   \************************************/
@@ -59966,12 +59688,12 @@
 
 	"use strict";
 	
-	var encode = __webpack_require__(/*! mdurl/encode */ 344);
-	var decode = __webpack_require__(/*! mdurl/decode */ 345);
+	var encode = __webpack_require__(/*! mdurl/encode */ 343);
+	var decode = __webpack_require__(/*! mdurl/decode */ 344);
 	
 	var C_BACKSLASH = 92;
 	
-	var decodeHTML = __webpack_require__(/*! entities */ 346).decodeHTML;
+	var decodeHTML = __webpack_require__(/*! entities */ 345).decodeHTML;
 	
 	var ENTITY = "&(?:#x[a-f0-9]{1,8}|#[0-9]{1,8}|[a-z][a-z0-9]{1,31});";
 	
@@ -60067,7 +59789,7 @@
 	};
 
 /***/ },
-/* 344 */
+/* 343 */
 /*!***************************!*\
   !*** ./~/mdurl/encode.js ***!
   \***************************/
@@ -60177,7 +59899,7 @@
 	module.exports = encode;
 
 /***/ },
-/* 345 */
+/* 344 */
 /*!***************************!*\
   !*** ./~/mdurl/decode.js ***!
   \***************************/
@@ -60313,7 +60035,7 @@
 	module.exports = decode;
 
 /***/ },
-/* 346 */
+/* 345 */
 /*!*****************************!*\
   !*** ./~/entities/index.js ***!
   \*****************************/
@@ -60321,8 +60043,8 @@
 
 	"use strict";
 	
-	var encode = __webpack_require__(/*! ./lib/encode.js */ 347),
-	    decode = __webpack_require__(/*! ./lib/decode.js */ 350);
+	var encode = __webpack_require__(/*! ./lib/encode.js */ 346),
+	    decode = __webpack_require__(/*! ./lib/decode.js */ 349);
 	
 	exports.decode = function (data, level) {
 		return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
@@ -60349,7 +60071,7 @@
 	exports.escape = encode.escape;
 
 /***/ },
-/* 347 */
+/* 346 */
 /*!**********************************!*\
   !*** ./~/entities/lib/encode.js ***!
   \**********************************/
@@ -60357,12 +60079,12 @@
 
 	"use strict";
 	
-	var inverseXML = getInverseObj(__webpack_require__(/*! ../maps/xml.json */ 348)),
+	var inverseXML = getInverseObj(__webpack_require__(/*! ../maps/xml.json */ 347)),
 	    xmlReplacer = getInverseReplacer(inverseXML);
 	
 	exports.XML = getInverse(inverseXML, xmlReplacer);
 	
-	var inverseHTML = getInverseObj(__webpack_require__(/*! ../maps/entities.json */ 349)),
+	var inverseHTML = getInverseObj(__webpack_require__(/*! ../maps/entities.json */ 348)),
 	    htmlReplacer = getInverseReplacer(inverseHTML);
 	
 	exports.HTML = getInverse(inverseHTML, htmlReplacer);
@@ -60426,7 +60148,7 @@
 	exports.escape = escapeXML;
 
 /***/ },
-/* 348 */
+/* 347 */
 /*!**********************************!*\
   !*** ./~/entities/maps/xml.json ***!
   \**********************************/
@@ -60441,7 +60163,7 @@
 	};
 
 /***/ },
-/* 349 */
+/* 348 */
 /*!***************************************!*\
   !*** ./~/entities/maps/entities.json ***!
   \***************************************/
@@ -62576,7 +62298,7 @@
 	};
 
 /***/ },
-/* 350 */
+/* 349 */
 /*!**********************************!*\
   !*** ./~/entities/lib/decode.js ***!
   \**********************************/
@@ -62584,10 +62306,10 @@
 
 	"use strict";
 	
-	var entityMap = __webpack_require__(/*! ../maps/entities.json */ 349),
-	    legacyMap = __webpack_require__(/*! ../maps/legacy.json */ 351),
-	    xmlMap = __webpack_require__(/*! ../maps/xml.json */ 348),
-	    decodeCodePoint = __webpack_require__(/*! ./decode_codepoint.js */ 352);
+	var entityMap = __webpack_require__(/*! ../maps/entities.json */ 348),
+	    legacyMap = __webpack_require__(/*! ../maps/legacy.json */ 350),
+	    xmlMap = __webpack_require__(/*! ../maps/xml.json */ 347),
+	    decodeCodePoint = __webpack_require__(/*! ./decode_codepoint.js */ 351);
 	
 	var decodeXMLStrict = getStrictDecoder(xmlMap),
 	    decodeHTMLStrict = getStrictDecoder(entityMap);
@@ -62656,7 +62378,7 @@
 	};
 
 /***/ },
-/* 351 */
+/* 350 */
 /*!*************************************!*\
   !*** ./~/entities/maps/legacy.json ***!
   \*************************************/
@@ -62772,7 +62494,7 @@
 	};
 
 /***/ },
-/* 352 */
+/* 351 */
 /*!********************************************!*\
   !*** ./~/entities/lib/decode_codepoint.js ***!
   \********************************************/
@@ -62780,7 +62502,7 @@
 
 	"use strict";
 	
-	var decodeMap = __webpack_require__(/*! ../maps/decode.json */ 353);
+	var decodeMap = __webpack_require__(/*! ../maps/decode.json */ 352);
 	
 	module.exports = decodeCodePoint;
 	
@@ -62808,7 +62530,7 @@
 	}
 
 /***/ },
-/* 353 */
+/* 352 */
 /*!*************************************!*\
   !*** ./~/entities/maps/decode.json ***!
   \*************************************/
@@ -62846,7 +62568,7 @@
 	};
 
 /***/ },
-/* 354 */
+/* 353 */
 /*!*************************************!*\
   !*** ./~/commonmark/lib/inlines.js ***!
   \*************************************/
@@ -62854,15 +62576,15 @@
 
 	"use strict";
 	
-	var Node = __webpack_require__(/*! ./node */ 341);
-	var common = __webpack_require__(/*! ./common */ 343);
-	var normalizeReference = __webpack_require__(/*! ./normalize-reference */ 355);
+	var Node = __webpack_require__(/*! ./node */ 340);
+	var common = __webpack_require__(/*! ./common */ 342);
+	var normalizeReference = __webpack_require__(/*! ./normalize-reference */ 354);
 	
 	var normalizeURI = common.normalizeURI;
 	var unescapeString = common.unescapeString;
-	var fromCodePoint = __webpack_require__(/*! ./from-code-point.js */ 356);
-	var decodeHTML = __webpack_require__(/*! entities */ 346).decodeHTML;
-	__webpack_require__(/*! string.prototype.repeat */ 357); // Polyfill for String.prototype.repeat
+	var fromCodePoint = __webpack_require__(/*! ./from-code-point.js */ 355);
+	var decodeHTML = __webpack_require__(/*! entities */ 345).decodeHTML;
+	__webpack_require__(/*! string.prototype.repeat */ 356); // Polyfill for String.prototype.repeat
 	
 	// Constants for character codes:
 	
@@ -63751,7 +63473,7 @@
 	module.exports = InlineParser;
 
 /***/ },
-/* 355 */
+/* 354 */
 /*!*************************************************!*\
   !*** ./~/commonmark/lib/normalize-reference.js ***!
   \*************************************************/
@@ -63801,7 +63523,7 @@
 	};
 
 /***/ },
-/* 356 */
+/* 355 */
 /*!*********************************************!*\
   !*** ./~/commonmark/lib/from-code-point.js ***!
   \*********************************************/
@@ -63869,7 +63591,7 @@
 	}
 
 /***/ },
-/* 357 */
+/* 356 */
 /*!*********************************************!*\
   !*** ./~/string.prototype.repeat/repeat.js ***!
   \*********************************************/
@@ -63931,7 +63653,7 @@
 	}
 
 /***/ },
-/* 358 */
+/* 357 */
 /*!**********************************!*\
   !*** ./~/commonmark/lib/html.js ***!
   \**********************************/
@@ -63939,7 +63661,7 @@
 
 	"use strict";
 	
-	var escapeXml = __webpack_require__(/*! ./common */ 343).escapeXml;
+	var escapeXml = __webpack_require__(/*! ./common */ 342).escapeXml;
 	
 	// Helper function to produce an HTML tag.
 	var tag = function tag(name, attrs, selfclosing) {
@@ -64222,7 +63944,7 @@
 	module.exports = HtmlRenderer;
 
 /***/ },
-/* 359 */
+/* 358 */
 /*!*********************************!*\
   !*** ./~/commonmark/lib/xml.js ***!
   \*********************************/
@@ -64230,7 +63952,7 @@
 
 	"use strict";
 	
-	var escapeXml = __webpack_require__(/*! ./common */ 343).escapeXml;
+	var escapeXml = __webpack_require__(/*! ./common */ 342).escapeXml;
 	
 	// Helper function to produce an XML tag.
 	var tag = function tag(name, attrs, selfclosing) {
@@ -64406,7 +64128,7 @@
 	module.exports = XmlRenderer;
 
 /***/ },
-/* 360 */
+/* 359 */
 /*!**********************************************************************!*\
   !*** ./~/commonmark-react-renderer/src/commonmark-react-renderer.js ***!
   \**********************************************************************/
@@ -64415,10 +64137,10 @@
 	'use strict';
 	
 	var React = __webpack_require__(/*! react */ 2);
-	var assign = __webpack_require__(/*! lodash.assign */ 361);
-	var isPlainObject = __webpack_require__(/*! lodash.isplainobject */ 362);
-	var xssFilters = __webpack_require__(/*! xss-filters */ 363);
-	var pascalCase = __webpack_require__(/*! pascalcase */ 364);
+	var assign = __webpack_require__(/*! lodash.assign */ 360);
+	var isPlainObject = __webpack_require__(/*! lodash.isplainobject */ 361);
+	var xssFilters = __webpack_require__(/*! xss-filters */ 362);
+	var pascalCase = __webpack_require__(/*! pascalcase */ 363);
 	
 	var typeAliases = {
 	    blockquote: 'block_quote',
@@ -64809,7 +64531,7 @@
 	module.exports = ReactRenderer;
 
 /***/ },
-/* 361 */
+/* 360 */
 /*!**********************************!*\
   !*** ./~/lodash.assign/index.js ***!
   \**********************************/
@@ -65447,7 +65169,7 @@
 	module.exports = assign;
 
 /***/ },
-/* 362 */
+/* 361 */
 /*!*****************************************!*\
   !*** ./~/lodash.isplainobject/index.js ***!
   \*****************************************/
@@ -65596,7 +65318,7 @@
 	module.exports = isPlainObject;
 
 /***/ },
-/* 363 */
+/* 362 */
 /*!******************************************!*\
   !*** ./~/xss-filters/src/xss-filters.js ***!
   \******************************************/
@@ -66666,7 +66388,7 @@
 	exports.uriFragmentInHTMLComment = exports.uriComponentInHTMLComment;
 
 /***/ },
-/* 364 */
+/* 363 */
 /*!*******************************!*\
   !*** ./~/pascalcase/index.js ***!
   \*******************************/
@@ -66699,7 +66421,406 @@
 	module.exports = pascalcase;
 
 /***/ },
+/* 364 */
+/*!****************************************************************!*\
+  !*** ./public/src/components/listings/booking_applications.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var BookingApplications = function (_Component) {
+	  _inherits(BookingApplications, _Component);
+	
+	  function BookingApplications() {
+	    _classCallCheck(this, BookingApplications);
+	
+	    return _possibleConstructorReturn(this, (BookingApplications.__proto__ || Object.getPrototypeOf(BookingApplications)).apply(this, arguments));
+	  }
+	
+	  _createClass(BookingApplications, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ shownAppId: '' });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this[0].state.shownAppId === this[1].applicationId ? this[0].setState({ shownAppId: '', shownApp: '' }) : this[0].setState({ shownAppId: this[1].applicationId, shownApp: this[1] });
+	      if (!this[1].reviewed) {
+	        console.log(this[1]);
+	        var application = this[1];
+	        $.ajax({
+	          url: '/api/listings/reviewedapplication',
+	          type: 'POST',
+	          data: application
+	        }).done(function (response) {
+	          console.log(response);
+	        }).fail(function (err) {
+	          console.log(err);
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var applications = this.props.applications;
+	      return _react2.default.createElement('div', null, this.state.shownAppId === '' && applications && applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Title'), _react2.default.createElement('th', null, 'Listing Country'), _react2.default.createElement('th', null, 'Planned Date of Arrival'), _react2.default.createElement('th', null, 'Planned Date of Departure'), _react2.default.createElement('th', null, 'Reviewed'), _react2.default.createElement('th', null, 'Approved'))), _react2.default.createElement('tbody', null, applications.map(function (result) {
+	        return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'));
+	      }.bind(this)))), this.state.shownAppId.length > 0 && _react2.default.createElement('div', null, _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Applicant\'s Name: ', this.state.shownApp.firstName, ' ', this.state.shownApp.lastName), _react2.default.createElement('li', null, 'Username: ', this.state.shownApp.username), _react2.default.createElement('li', null, 'Country: ', this.state.shownApp.listingLocation.country), this.state.shownApp.listingLocation.country === 'united states' && _react2.default.createElement('div', null, _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.usCity), _react2.default.createElement('li', null, 'State: ', this.state.shownApp.listingLocation.city)), this.state.shownApp.listingLocation.country !== 'united states' && _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.city), _react2.default.createElement('li', null, 'Address: ', this.state.shownApp.listingLocation.address), _react2.default.createElement('li', null, 'Arrival Date: this.state.shownApp.arrivalDate'), _react2.default.createElement('li', null, 'Departure Date: this.state.shownApp.departureDate'), _react2.default.createElement('li', null, _react2.default.createElement('h4', null, 'Message: '), _react2.default.createElement('p', null, this.state.shownApp.message))), _react2.default.createElement('button', { onClick: this.handleClick.bind([this, this.state.shownApp]) }, ' Return')));
+	    }
+	  }]);
+	
+	  return BookingApplications;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BookingApplications);
+
+/***/ },
 /* 365 */
+/*!******************************************************!*\
+  !*** ./public/src/components/listings/newListing.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }return target;
+	};
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 266);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 338);
+	
+	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
+	
+	var _cities = __webpack_require__(/*! ../../../locations/cities */ 331);
+	
+	var _cities2 = _interopRequireDefault(_cities);
+	
+	var _states = __webpack_require__(/*! ../../../locations/states */ 332);
+	
+	var _states2 = _interopRequireDefault(_states);
+	
+	var _countries = __webpack_require__(/*! ../../../locations/countries */ 333);
+	
+	var _countries2 = _interopRequireDefault(_countries);
+	
+	var _us_cities = __webpack_require__(/*! ../../../locations/us_cities */ 334);
+	
+	var _us_cities2 = _interopRequireDefault(_us_cities);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var NewListing = function (_Component) {
+	  _inherits(NewListing, _Component);
+	
+	  function NewListing(props) {
+	    _classCallCheck(this, NewListing);
+	
+	    var _this = _possibleConstructorReturn(this, (NewListing.__proto__ || Object.getPrototypeOf(NewListing)).call(this, props));
+	
+	    _this.state = {
+	      file: '', text: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(NewListing, [{
+	    key: 'handleFormSubmit',
+	    value: function handleFormSubmit(formProps) {
+	      //called with props from submit form
+	      var data = formProps;
+	      data.usCity = this.state.usCity;
+	      console.log(data);
+	      data.city = this.state.city;
+	      data.country = this.state.country;
+	      data.image = this.state.file;
+	      data.username = this.props.userInfo.username;
+	      data.id = this.props.userInfo._id;
+	      data.phoneNumber = this.props.userInfo.phoneNumber;
+	      data.email = this.props.userInfo.email;
+	      if (data.country !== 'United States') {
+	        data.usCity = 'not valid';
+	      }
+	      if (data.image.length === 0) {
+	        alert('Must supply Image');
+	        return;
+	      }
+	      for (var key in data) {
+	        if (!data[key]) {
+	          alert('All Fields Are Required. Please fill in the ' + key + ' field');
+	          return;
+	        }
+	      }
+	      this.props.newListing(data);
+	      _reactRouter.browserHistory.push('/listings');
+	    }
+	  }, {
+	    key: 'changeCountry',
+	    value: function changeCountry(event) {
+	      this.setState({ country: event.target.value });
+	    }
+	  }, {
+	    key: 'changeCity',
+	    value: function changeCity(event) {
+	      this.setState({ city: event.target.value });
+	    }
+	  }, {
+	    key: 'changeUsCity',
+	    value: function changeUsCity(event) {
+	      this.setState({ usCity: event.target.value });
+	      console.log(this.state);
+	    }
+	  }, {
+	    key: 'markdown',
+	    value: function markdown() {
+	      this.setState({ text: '' });
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'renderAlert',
+	    value: function renderAlert() {
+	      if (this.props.errorMessage) {
+	        return _react2.default.createElement('div', { className: 'alert alert-danger' }, _react2.default.createElement('strong', null, 'Error!!! '), ' ', this.props.errorMessage);
+	      }
+	    }
+	  }, {
+	    key: 'previewFile',
+	    value: function previewFile() {
+	      var self = this;
+	      var file = document.querySelector('input[type=file]').files[0];
+	      var reader = new FileReader();
+	      var image;
+	      reader.addEventListener("load", function () {
+	        image = reader.result;
+	        self.setState({ file: image });
+	      }, false);
+	
+	      if (file) {
+	        reader.readAsDataURL(file);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var incrementKey = 0;
+	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
+	      var userInfo = _props.userInfo;
+	      var _props$fields = _props.fields;
+	      var address = _props$fields.address;
+	      var usCity = _props$fields.usCity;
+	      var image = _props$fields.image;
+	      var pricePerNight = _props$fields.pricePerNight;
+	      var availableForRent = _props$fields.availableForRent;
+	      var title = _props$fields.title;
+	      var description = _props$fields.description;
+	
+	      var citiesorstates = [];
+	      if (this.state.country) {
+	        if (!_cities2.default[this.state.country]) {
+	          alert('Sorry. We do not provide services in that country');
+	        } else {
+	          citiesorstates = _cities2.default[this.state.country].split('|');
+	        }
+	      }
+	      var usCities = void 0;
+	      if (this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0) {
+	        var usState = this.state.city.toUpperCase();
+	        usCities = _us_cities2.default[usState];
+	      }
+	      return _react2.default.createElement('div', null, userInfo && userInfo.hostUserAgreementSigned && _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Country: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeCountry.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A Country'), _countries2.default.map(function (e) {
+	        return _react2.default.createElement('option', { key: e, value: e }, e);
+	      }))), this.state.country && citiesorstates.length > 0 && _react2.default.createElement('fieldset', { className: 'form-group' }, this.state.country === 'United States' && _react2.default.createElement('label', null, 'State: '), this.state.country !== 'United States' && _react2.default.createElement('label', null, 'City: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeCity.bind(this) }, this.state.country === 'United States' && _react2.default.createElement('option', { key: 'default' }, 'Pick A State'), this.state.country !== 'United States' && _react2.default.createElement('option', { key: 'default' }, 'Pick A City'), citiesorstates.map(function (e) {
+	        if (e.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
+	      }))), this.state.country && this.state.country === 'United States' && this.state.city && this.state.city.length > 0 && _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'City: '), _react2.default.createElement('select', { className: 'form-control', onChange: this.changeUsCity.bind(this) }, _react2.default.createElement('option', { key: 'default' }, 'Pick A City'), usCities.map(function (e) {
+	        if (usCities.length > 0) return _react2.default.createElement('option', { key: incrementKey += 1, value: e }, e);
+	      }))), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Address: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, address)), address.touched && address.error && _react2.default.createElement('div', { className: 'error' }, address.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Price Per Night: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'number', min: '0.01', step: '0.01', max: '5000.00' }, pricePerNight)), pricePerNight.touched && pricePerNight.error && _react2.default.createElement('div', { className: 'error' }, pricePerNight.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('h3', null, 'Currently Available For Rent?'), _react2.default.createElement('label', { className: 'radio-inline' }, _react2.default.createElement('input', {
+	        type: 'radio',
+	        name: 'availableForRent',
+	        onChange: availableForRent.onChange,
+	        value: 'true' }), 'Yes:'), _react2.default.createElement('label', { className: 'radio-inline' }, _react2.default.createElement('input', {
+	        type: 'radio',
+	        name: 'availableForRent',
+	        onChange: availableForRent.onChange,
+	        value: 'false' }), 'No:'), availableForRent.touched && availableForRent.error && _react2.default.createElement('div', { className: 'error' }, availableForRent.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Listing Title: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, title)), title.touched && title.error && _react2.default.createElement('div', { className: 'error' }, title.error)), _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Describe the Listing: '), _react2.default.createElement('textarea', _extends({ className: 'form-control', type: 'text' }, description, { onInput: this.markdown.bind(this) })), description.touched && description.error && _react2.default.createElement('div', { className: 'error' }, description.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Add Listing'))), _react2.default.createElement('div', { className: 'col-sm-6 previewMarkdown' }, _react2.default.createElement(_reactMarkdown2.default, { source: description.value })))), _react2.default.createElement('div', null, !userInfo && _react2.default.createElement('h1', null, 'Loading....')), _react2.default.createElement('div', null, userInfo && !userInfo.hostUserAgreementSigned && _react2.default.createElement('h1', null, 'You must first sign the host user agreement', _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'To Host Agreement'))));
+	    }
+	  }]);
+	
+	  return NewListing;
+	}(_react.Component);
+	
+	function validate(formProps) {
+	  var errors = {};
+	
+	  if (!formProps.address) {
+	    errors.address = 'Please Enter an Address';
+	  }
+	  if (!formProps.pricePerNight) {
+	    errors.pricePerNight = 'Please Enter Price Per Night';
+	  }
+	  if (formProps.availableForRent !== formProps.availableForRent) {
+	    errors.availableForRent = 'Is the listing currently available for rent?';
+	  }
+	  if (!formProps.availableForRent) {
+	    errors.description = 'Describe the listing';
+	  }
+	  if (!formProps.title) {
+	    errors.title = 'Title the listing';
+	  }
+	  return errors;
+	}
+	
+	function mapStateToProps(state) {
+	  return {
+	    errorMessage: state.auth.error,
+	    userInfo: state.auth.userInfo
+	  };
+	}
+	
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'newListing',
+	  fields: ['image', 'pricePerNight', 'availableForRent', 'address', 'description', 'title', 'usCity'],
+	  validate: validate
+	}, mapStateToProps, actions)(NewListing);
+
+/***/ },
+/* 366 */
 /*!******************************************************!*\
   !*** ./public/src/components/blog/blog_container.js ***!
   \******************************************************/
@@ -66729,7 +66850,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _blog_list = __webpack_require__(/*! ./blog_list */ 366);
+	var _blog_list = __webpack_require__(/*! ./blog_list */ 367);
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
@@ -66790,7 +66911,7 @@
 	module.exports = Blog_Container;
 
 /***/ },
-/* 366 */
+/* 367 */
 /*!*************************************************!*\
   !*** ./public/src/components/blog/blog_list.js ***!
   \*************************************************/
@@ -66933,7 +67054,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BlogList);
 
 /***/ },
-/* 367 */
+/* 368 */
 /*!****************************************************!*\
   !*** ./public/src/components/blog/mine/my_blog.js ***!
   \****************************************************/
@@ -67039,7 +67160,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyBlog);
 
 /***/ },
-/* 368 */
+/* 369 */
 /*!*****************************************************!*\
   !*** ./public/src/components/blog/mine/new_blog.js ***!
   \*****************************************************/
@@ -67089,7 +67210,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 339);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 338);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
@@ -67232,7 +67353,7 @@
 	}, mapStateToProps, actions)(NewBlog);
 
 /***/ },
-/* 369 */
+/* 370 */
 /*!***************************************************!*\
   !*** ./public/src/components/blog/single_blog.js ***!
   \***************************************************/
@@ -67278,7 +67399,7 @@
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 188);
 	
-	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 339);
+	var _reactMarkdown = __webpack_require__(/*! react-markdown */ 338);
 	
 	var _reactMarkdown2 = _interopRequireDefault(_reactMarkdown);
 	
@@ -67432,7 +67553,7 @@
 	}, mapStateToProps, actions)(SingleBlog);
 
 /***/ },
-/* 370 */
+/* 371 */
 /*!*****************************************************************!*\
   !*** ./public/src/components/agreements/agreement_container.js ***!
   \*****************************************************************/
@@ -67462,7 +67583,7 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _host_agreement = __webpack_require__(/*! ./host_agreement */ 371);
+	var _host_agreement = __webpack_require__(/*! ./host_agreement */ 372);
 	
 	var _host_agreement2 = _interopRequireDefault(_host_agreement);
 	
@@ -67529,7 +67650,7 @@
 	module.exports = Agreement_Container;
 
 /***/ },
-/* 371 */
+/* 372 */
 /*!************************************************************!*\
   !*** ./public/src/components/agreements/host_agreement.js ***!
   \************************************************************/
@@ -67659,7 +67780,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Agreement_Container);
 
 /***/ },
-/* 372 */
+/* 373 */
 /*!****************************************************!*\
   !*** ./public/src/components/auth/require_auth.js ***!
   \****************************************************/
@@ -67760,7 +67881,7 @@
 	//wraps other components to add this feature to it: feature => kicks out unauthed users
 
 /***/ },
-/* 373 */
+/* 374 */
 /*!**************************************!*\
   !*** ./public/src/reducers/index.js ***!
   \**************************************/
@@ -67776,15 +67897,15 @@
 	
 	var _reduxForm = __webpack_require__(/*! redux-form */ 266);
 	
-	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 374);
+	var _auth_reducer = __webpack_require__(/*! ./auth_reducer */ 375);
 	
 	var _auth_reducer2 = _interopRequireDefault(_auth_reducer);
 	
-	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 375);
+	var _listing_reducer = __webpack_require__(/*! ./listing_reducer */ 376);
 	
 	var _listing_reducer2 = _interopRequireDefault(_listing_reducer);
 	
-	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 376);
+	var _blog_reducer = __webpack_require__(/*! ./blog_reducer */ 377);
 	
 	var _blog_reducer2 = _interopRequireDefault(_blog_reducer);
 	
@@ -67802,7 +67923,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 374 */
+/* 375 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/auth_reducer.js ***!
   \*********************************************/
@@ -67852,7 +67973,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 375 */
+/* 376 */
 /*!************************************************!*\
   !*** ./public/src/reducers/listing_reducer.js ***!
   \************************************************/
@@ -67896,7 +68017,7 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 376 */
+/* 377 */
 /*!*********************************************!*\
   !*** ./public/src/reducers/blog_reducer.js ***!
   \*********************************************/
@@ -67936,114 +68057,6 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
-
-/***/ },
-/* 377 */
-/*!****************************************************************!*\
-  !*** ./public/src/components/listings/booking_applications.js ***!
-  \****************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _actions = __webpack_require__(/*! ../../actions */ 259);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 188);
-	
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj.default = obj;return newObj;
-	  }
-	}
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var BookingApplications = function (_Component) {
-	  _inherits(BookingApplications, _Component);
-	
-	  function BookingApplications() {
-	    _classCallCheck(this, BookingApplications);
-	
-	    return _possibleConstructorReturn(this, (BookingApplications.__proto__ || Object.getPrototypeOf(BookingApplications)).apply(this, arguments));
-	  }
-	
-	  _createClass(BookingApplications, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.setState({ shownAppId: '' });
-	    }
-	  }, {
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      this[0].state.shownAppId === this[1].applicationId ? this[0].setState({ shownAppId: '', shownApp: '' }) : this[0].setState({ shownAppId: this[1].applicationId, shownApp: this[1] });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var applications = this.props.applications;
-	      return _react2.default.createElement('div', null, this.state.shownAppId === '' && applications && applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Title'), _react2.default.createElement('th', null, 'Listing Country'), _react2.default.createElement('th', null, 'Planned Date of Arrival'), _react2.default.createElement('th', null, 'Planned Date of Departure'), _react2.default.createElement('th', null, 'Reviewed'), _react2.default.createElement('th', null, 'Approved'))), _react2.default.createElement('tbody', null, applications.map(function (result) {
-	        return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind([this, result]) }, result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'));
-	      }.bind(this)))), this.state.shownAppId.length > 0 && _react2.default.createElement('div', null, _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Applicant\'s Name: ', this.state.shownApp.firstName, ' ', this.state.shownApp.lastName), _react2.default.createElement('li', null, 'Username: ', this.state.shownApp.username), _react2.default.createElement('li', null, 'Country: ', this.state.shownApp.listingLocation.country), this.state.shownApp.listingLocation.country === 'united states' && _react2.default.createElement('div', null, _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.usCity), _react2.default.createElement('li', null, 'State: ', this.state.shownApp.listingLocation.city)), this.state.shownApp.listingLocation.country !== 'united states' && _react2.default.createElement('li', null, 'City: ', this.state.shownApp.listingLocation.city), _react2.default.createElement('li', null, 'Address: ', this.state.shownApp.listingLocation.address), _react2.default.createElement('li', null, 'Arrival Date: this.state.shownApp.arrivalDate'), _react2.default.createElement('li', null, 'Departure Date: this.state.shownApp.departureDate'), _react2.default.createElement('li', null, _react2.default.createElement('h4', null, 'Message: '), _react2.default.createElement('p', null, this.state.shownApp.message))), _react2.default.createElement('button', { onClick: this.handleClick.bind([this, this.state.shownApp]) }, ' Return')));
-	    }
-	  }]);
-	
-	  return BookingApplications;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(BookingApplications);
 
 /***/ }
 /******/ ]);

@@ -17,4 +17,5 @@ router.post('/new', ListingController.newListing);
 router.post('/editListing', ListingController.editListing);
 router.delete('/deleteListing/:id', ListingController.deleteListing);
 router.put('/apply/:id', ListingController.applyForBooking)
+router.post('/reviewedapplication', ListingController.reviewApplication)
 module.exports = router;
