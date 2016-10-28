@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
+import {Link} from 'react-router';
 
 class Information extends Component {
   componentWillMount() {
@@ -35,8 +36,9 @@ class Information extends Component {
           </span></h3>
         <div className="borderBottom"></div>
           <h3>Q: <span>What if I want to be a host?</span></h3>
-          <h3>A: <span>You will have to agree to our <a>Hosting Terms and Conditions</a>, at which point
-            you will be able to post a listing. This lays out guidelines for basic rules of cleanliness,
+          <h3>A: <span>You will have to agree to our <Link className="nav-link" to="/useragreements/host">
+            Hosting Terms and Conditions
+          </Link>, at which point you will be able to post a listing. This lays out guidelines for basic rules of cleanliness,
             responsibilities, etc.
           </span></h3>
         </div>

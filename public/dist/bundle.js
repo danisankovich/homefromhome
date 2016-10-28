@@ -29319,7 +29319,7 @@
 	      var userInfo = this.props.userInfo;
 	
 	      if (this.props.authenticated && this.props.userInfo) {
-	        return [_react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/information' }, 'Information')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 4 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'Become A Host')), _react2.default.createElement('li', { className: 'dropdown', key: 5 }, _react2.default.createElement('a', { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, this.props.userInfo.username, _react2.default.createElement('span', { className: 'caret' })), _react2.default.createElement('ul', { className: 'dropdown-menu' }, _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/profile' }, 'Profile')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs/mine' }, 'My Blog')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/settings' }, 'Settings')), _react2.default.createElement('li', { role: 'separator', className: 'divider' }), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signout' }, 'Sign Out'))))];
+	        return [_react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/information' }, 'Information')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 4 }, !this.props.userInfo.hostUserAgreementSigned && _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'Become A Host')), _react2.default.createElement('li', { className: 'dropdown', key: 5 }, _react2.default.createElement('a', { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, this.props.userInfo.username, _react2.default.createElement('span', { className: 'caret' })), _react2.default.createElement('ul', { className: 'dropdown-menu' }, _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/profile' }, 'Profile')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs/mine' }, 'My Blog')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/settings' }, 'Settings')), _react2.default.createElement('li', { role: 'separator', className: 'divider' }), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signout' }, 'Sign Out'))))];
 	      } else {
 	        return [_react2.default.createElement('li', { className: 'nav-item', key: 0 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signin' }, 'Sign In')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signup' }, 'Sign Up'))];
 	      }
@@ -43197,6 +43197,8 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
 	function _interopRequireWildcard(obj) {
 	  if (obj && obj.__esModule) {
 	    return obj;
@@ -43251,7 +43253,7 @@
 	      var userInfo = this.props.userInfo;
 	
 	      if (userInfo) {
-	        return _react2.default.createElement('div', { className: 'container toppush' }, _react2.default.createElement('h1', null, 'Information'), _react2.default.createElement('p', { className: 'infoPara' }, 'Are you ready to find your home away from home? Then you\'ve come to the right place. Whether you are looking for a place to stay for a night or two, or if you are looking for a homestay experience, reach out to your fellow users and see what they have to offer.'), _react2.default.createElement('p', { className: 'infoPara' }, 'Don\'t know where to begin? Not sure if you are quite ready to travel? Head on over to our blog sections to read up on the experiences and lessons of your fellow users. Still not finding what you are looking for? Feel free to contact users directly. But make sure to be curteous. We are a community of travel-hungry beings.'), _react2.default.createElement('p', { className: 'infoPara' }, 'So don\'t be shy. There is a whole community of people just like you, eagerly awaiting their next journey. And a network of people willing to open up their doors to weary travellers.'), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h2', null, 'F.A.Q'), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'How much does this service cost?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'Not a thing. The only cost you will pay is booking fees. We make money by taking a very small cut from booking fees.')), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'How old do I have to be to book a place?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'You must be at least 18 years old to book a location. However, depending on the policies of the location\'s owner, younger guests may be allowed, so long as a parent or legal guardian okays the purchase.')), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'What if I want to be a host?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'You will have to agree to our ', _react2.default.createElement('a', null, 'Hosting Terms and Conditions'), ', at which point you will be able to post a listing. This lays out guidelines for basic rules of cleanliness, responsibilities, etc.')));
+	        return _react2.default.createElement('div', { className: 'container toppush' }, _react2.default.createElement('h1', null, 'Information'), _react2.default.createElement('p', { className: 'infoPara' }, 'Are you ready to find your home away from home? Then you\'ve come to the right place. Whether you are looking for a place to stay for a night or two, or if you are looking for a homestay experience, reach out to your fellow users and see what they have to offer.'), _react2.default.createElement('p', { className: 'infoPara' }, 'Don\'t know where to begin? Not sure if you are quite ready to travel? Head on over to our blog sections to read up on the experiences and lessons of your fellow users. Still not finding what you are looking for? Feel free to contact users directly. But make sure to be curteous. We are a community of travel-hungry beings.'), _react2.default.createElement('p', { className: 'infoPara' }, 'So don\'t be shy. There is a whole community of people just like you, eagerly awaiting their next journey. And a network of people willing to open up their doors to weary travellers.'), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h2', null, 'F.A.Q'), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'How much does this service cost?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'Not a thing. The only cost you will pay is booking fees. We make money by taking a very small cut from booking fees.')), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'How old do I have to be to book a place?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'You must be at least 18 years old to book a location. However, depending on the policies of the location\'s owner, younger guests may be allowed, so long as a parent or legal guardian okays the purchase.')), _react2.default.createElement('div', { className: 'borderBottom' }), _react2.default.createElement('h3', null, 'Q: ', _react2.default.createElement('span', null, 'What if I want to be a host?')), _react2.default.createElement('h3', null, 'A: ', _react2.default.createElement('span', null, 'You will have to agree to our ', _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'Hosting Terms and Conditions'), ', at which point you will be able to post a listing. This lays out guidelines for basic rules of cleanliness, responsibilities, etc.')));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading...... ');
 	    }
@@ -67676,6 +67678,8 @@
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
 	function _interopRequireWildcard(obj) {
 	  if (obj && obj.__esModule) {
 	    return obj;
@@ -67710,6 +67714,8 @@
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
+	// commits info about url to react router, and to make changes to url
+	
 	//WELCOMING PAGE
 	var Agreement_Container = function (_Component) {
 	  _inherits(Agreement_Container, _Component);
@@ -67723,11 +67729,16 @@
 	  _createClass(Agreement_Container, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      if (this.props.userInfo && this.props.userInfo.hostUserAgreementSigned) {
+	        _reactRouter.browserHistory.push('/listings');
+	      }
 	      this.setState({ agreed: false });
 	    }
 	  }, {
 	    key: 'submitAgreement',
 	    value: function submitAgreement(e) {
+	      var _this2 = this;
+	
 	      e.preventDefault();
 	      var token = localStorage.getItem('token');
 	      if (this.state.agreed) {
@@ -67740,6 +67751,8 @@
 	          data: { agreeType: 'host', agreed: true }
 	        }).success(function (e) {
 	          alert('Form Successfully Signed. Thank You');
+	          _reactRouter.browserHistory.push('/listings');
+	          _this2.props.fetchInfo();
 	        }).fail(function (e) {
 	          alert('something went wrong', e);
 	        });
@@ -67750,11 +67763,11 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      return _react2.default.createElement('div', null, _react2.default.createElement('p', null, 'The following document lays out the terms and conditions for becoming a host for Home Away From Home. Agreeing to these terms grants the privelage of becoming a Host, but understand that these terms can change at any time, and that it will be at the discretion of the Home Away From Home moderators should action be taken against those who break the terms of this agreement.'), _react2.default.createElement('h3', null, 'Health and Safety Standards: '), _react2.default.createElement('ol', null, _react2.default.createElement('li', null, 'All residences listed for booking must follow all safety and health codes for the country in which they are located.'), _react2.default.createElement('li', null, 'All residences listed for booking must be free of pests.'), _react2.default.createElement('li', null, 'All residences listed must make note of any pets, allergens, or allergy restrictions. Should any of such be unmentioned, the guest will be payed back in full, and you will be charged a convenience fee of 5% of the full booking price.'), _react2.default.createElement('li', null, 'You are required to provide proper and clean accomodations for your guests, which should be described within your listing. You are not required to provide a private room for your guests, nor are you required to give them a pick of rooms, so long as the rooms mentioned in your listing are still available. should they attempt to break this rule, the user will be responsible should you choose to cancel the agreement.')), _react2.default.createElement('h3', null, 'Payment: '), _react2.default.createElement('ol', null, _react2.default.createElement('li', null, 'You may not charge guests more than what the property was listed for'), _react2.default.createElement('li', null, 'You will pay 2% of the total price of the stay to Home Away From Home'), _react2.default.createElement('li', null, 'You are not required to supply food for guests.')), _react2.default.createElement('h3', null, 'Misconduct: '), _react2.default.createElement('ol', null, _react2.default.createElement('li', null, 'You will not engage in an unwarranted sexual activity or conversation with the guests.'), _react2.default.createElement('li', null, 'Should your guests be below the legal age of consumption, you will not provide them with:', _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Alcohol'), _react2.default.createElement('li', null, 'Tobacco'), _react2.default.createElement('li', null, 'Other recreational substances'), _react2.default.createElement('li', null, 'Any other as of yet unmentioned substance or article with an age restriction of which they do not meet in the host country')))), _react2.default.createElement('p', null, 'Failure to follow the preceding agreements can result in fines, suspensions, removal of account, or, under certain legal circumstances, a filing of a report to the local authorities.'), _react2.default.createElement('p', null, 'Agreeing to these terms consitutes a binding legal contract, and an agreement that you, the user and host, have read and understand the provisions layed out within this document.'), _react2.default.createElement('div', null, _react2.default.createElement('form', { className: 'form-group', onSubmit: this.submitAgreement.bind(this) }, _react2.default.createElement('fieldset', null, _react2.default.createElement('label', null, 'I agree to these terms and conditions:', _react2.default.createElement('input', { type: 'checkbox', onChange: function onChange() {
-	          _this2.state.agreed === true ? _this2.state.agreed = false : _this2.state.agreed = true;
-	          console.log(_this2.state.agreed);
+	          _this3.state.agreed === true ? _this3.state.agreed = false : _this3.state.agreed = true;
+	          console.log(_this3.state.agreed);
 	        } })), _react2.default.createElement('button', { type: 'submit' }, 'Submit')))));
 	    }
 	  }]);

@@ -21,7 +21,7 @@ class Header extends Component {
           <Link className="nav-link" to="/blogs">Blogs</Link>
         </li>,
         <li className="nav-item" key={4}>
-          <Link className="nav-link" to="/useragreements/host">Become A Host</Link>
+          {!this.props.userInfo.hostUserAgreementSigned && <Link className="nav-link" to="/useragreements/host">Become A Host</Link>}
         </li>,
          <li className="dropdown" key={5}>
            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

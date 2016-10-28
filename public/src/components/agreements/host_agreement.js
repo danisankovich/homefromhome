@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import $ from 'jquery';
+import { browserHistory } from 'react-router'; // commits info about url to react router, and to make changes to url
 
 //WELCOMING PAGE
 class Agreement_Container extends Component {
   componentWillMount() {
+    if (this.props.userInfo && this.props.userInfo.hostUserAgreementSigned) {
+      browserHistory.push('/listings')
+    }
     this.setState({agreed: false});
   }
   submitAgreement(e) {
@@ -20,7 +24,9 @@ class Agreement_Container extends Component {
         },
         data: {agreeType: 'host', agreed: true}
       }).success((e) => {
-        alert('Form Successfully Signed. Thank You')
+        alert('Form Successfully Signed. Thank You');
+        browserHistory.push('/listings')
+        this.props.fetchInfo()
       }).fail((e) => {
         alert('something went wrong', e)
       })
