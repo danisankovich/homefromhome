@@ -149,7 +149,7 @@
 	
 	var _blog_list2 = _interopRequireDefault(_blog_list);
 	
-	var _single_blog = __webpack_require__(/*! ./components/blog/single_blog */ 370);
+	var _single_blog = __webpack_require__(/*! ./components/blog/singleBlog/single_blog */ 370);
 	
 	var _single_blog2 = _interopRequireDefault(_single_blog);
 	
@@ -67344,9 +67344,9 @@
 
 /***/ },
 /* 370 */
-/*!***************************************************!*\
-  !*** ./public/src/components/blog/single_blog.js ***!
-  \***************************************************/
+/*!**************************************************************!*\
+  !*** ./public/src/components/blog/singleBlog/single_blog.js ***!
+  \**************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67383,7 +67383,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
 	
-	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	var _actions = __webpack_require__(/*! ../../../actions */ 259);
 	
 	var actions = _interopRequireWildcard(_actions);
 	
@@ -67413,6 +67413,14 @@
 	
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _defineProperty(obj, key, value) {
+	  if (key in obj) {
+	    Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });
+	  } else {
+	    obj[key] = value;
+	  }return obj;
 	}
 	
 	function _classCallCheck(instance, Constructor) {
@@ -67445,6 +67453,7 @@
 	  _createClass(SingleBlog, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      this.setState({ editTitle: false, editBody: false });
 	      var id = this.props.location.pathname.split('blogs/')[1];
 	      this.props.fetchSingleBlog(id);
 	    }
@@ -67484,6 +67493,53 @@
 	      });
 	    }
 	  }, {
+	    key: 'startEdit',
+	    value: function startEdit() {
+	      if (this[0].props.userInfo._id === this[0].props.blog.blog.creator.id) {
+	        var setTo = !this[0].state[this[1]] ? true : false;
+	        this[0].setState(_defineProperty({}, this[1], setTo));
+	      }
+	    }
+	  }, {
+	    key: 'handleTextAreaChange',
+	    value: function handleTextAreaChange(e) {
+	      this.setState({ newBody: e.target.value });
+	    }
+	  }, {
+	    key: 'submitEdit',
+	    value: function submitEdit() {
+	      var _this3 = this;
+	
+	      var data = {
+	        type: this[2],
+	        change: this[0].state[this[2]],
+	        id: this[0].props.location.pathname.split('blogs/')[1]
+	      };
+	      console.log(data.type, data.change);
+	      if (!data.change) {
+	        alert('Cannot Submit Without Change');return;
+	      }
+	      if (data.type === 'newBody' && data.change.length < 200) {
+	        alert('body must be at least 200 characters');
+	        return;
+	      }
+	      _jquery2.default.ajax({
+	        url: '/api/blogs/editblog',
+	        type: "PUT",
+	        data: data
+	      }).done(function (response) {
+	        _this3[0].props.fetchSingleBlog(data.id);
+	      }).fail(function (err) {
+	        console.log(err);
+	      });
+	      this[0].setState(_defineProperty({}, this[1], false));
+	    }
+	  }, {
+	    key: 'hideEdit',
+	    value: function hideEdit() {
+	      this[0].setState(_defineProperty({}, this[1], false));
+	    }
+	  }, {
 	    key: 'renderAlert',
 	    value: function renderAlert() {
 	      if (this.props.errorMessage) {
@@ -67493,20 +67549,46 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      var _props = this.props;
 	      var handleSubmit = _props.handleSubmit;
 	      var blog = _props.blog;
 	      var userInfo = _props.userInfo;
 	      var comment = _props.fields.comment;
-	      // let {blog, userInfo} = this.props;
 	
 	      if (blog && blog.blog) {
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, blog.blog.title, '   --    by ', _react2.default.createElement('a', { onClick: function onClick() {
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, _react2.default.createElement('span', null, !this.state.editTitle && _react2.default.createElement('div', {
+	          onClick: this.startEdit.bind([this, 'editTitle']) }, blog.blog.title), this.state.editTitle && _react2.default.createElement('div', null, _react2.default.createElement('input', {
+	          className: 'form-control',
+	          defaultValue: blog.blog.title,
+	          onChange: function onChange(e) {
+	            _this4.state.newTitle = e.target.value;
+	          }
+	        }), _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.hideEdit.bind([this, 'editTitle']) }, 'Hide'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.submitEdit.bind([this, 'editTitle', 'newTitle']) }, 'Submit'))), '   --    by \xA0 ', _react2.default.createElement('a', { onClick: function onClick() {
 	            _reactRouter.browserHistory.push('/userprofile/' + blog.blog.creator.id);
-	          } }, blog.blog.creator.username)), _react2.default.createElement('h3', null, blog.blog.tagline), _react2.default.createElement(_reactMarkdown2.default, { className: 'body-spacing', source: blog.blog.body })), _react2.default.createElement('div', { className: 'col-sm-2' }, _react2.default.createElement('ul', null, blog.blogList.map(function (blogEntry) {
-	          return _react2.default.createElement('li', { key: blogEntry._id }, _react2.default.createElement('ul', { className: 'borderBottom' }, _react2.default.createElement('li', { className: 'removeListBullet' }, blogEntry.dateCreated.split('T')[0]), _react2.default.createElement('li', { className: 'removeListBullet', onClick: _this3.toBlog.bind([_this3, blogEntry._id]) }, blogEntry.title)));
+	          } }, blog.blog.creator.username)), _react2.default.createElement('div', null, !this.state.editTagline && _react2.default.createElement('h3', {
+	          onClick: this.startEdit.bind([this, 'editTagline']) }, blog.blog.tagline), this.state.editTagline && _react2.default.createElement('div', null, _react2.default.createElement('input', {
+	          className: 'form-control',
+	          defaultValue: blog.blog.tagline,
+	          onChange: function onChange(e) {
+	            _this4.state.newTagline = e.target.value;
+	          }
+	        }), _react2.default.createElement('button', {
+	          className: 'btn btn-danger',
+	          onClick: this.hideEdit.bind([this, 'editTagline']) }, 'Hide'), _react2.default.createElement('button', {
+	          className: 'btn btn-primary',
+	          onClick: this.submitEdit.bind([this, 'editTagline', 'newTagline']) }, 'Submit'))), _react2.default.createElement('div', null, !this.state.editBody && _react2.default.createElement('div', { onClick: this.startEdit.bind([this, 'editBody']) }, _react2.default.createElement(_reactMarkdown2.default, {
+	          className: 'body-spacing',
+	          source: blog.blog.body })), this.state.editBody && _react2.default.createElement('div', null, _react2.default.createElement('textarea', {
+	          defaultValue: blog.blog.body,
+	          className: 'form-control',
+	          onChange: this.handleTextAreaChange.bind(this) }), _react2.default.createElement('button', {
+	          className: 'btn btn-danger',
+	          onClick: this.hideEdit.bind([this, 'editBody']) }, 'Hide'), _react2.default.createElement('button', {
+	          className: 'btn btn-primary',
+	          onClick: this.submitEdit.bind([this, 'editBody', 'newBody']) }, 'Submit')))), _react2.default.createElement('div', { className: 'col-sm-2' }, _react2.default.createElement('ul', null, blog.blogList.map(function (blogEntry) {
+	          return _react2.default.createElement('li', { key: blogEntry._id }, _react2.default.createElement('ul', { className: 'borderBottom' }, _react2.default.createElement('li', { className: 'removeListBullet' }, blogEntry.dateCreated.split('T')[0]), _react2.default.createElement('li', { className: 'removeListBullet', onClick: _this4.toBlog.bind([_this4, blogEntry._id]) }, blogEntry.title)));
 	        })))), _react2.default.createElement('hr', null), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('p', null, 'Comments: '), this.props.userInfo && _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmit.bind(this)) }, _react2.default.createElement('label', null, 'New Comment: '), _react2.default.createElement('textarea', _extends({ id: 'commentBlog', className: 'form-control', type: 'text' }, comment)), comment.touched && comment.error && _react2.default.createElement('div', { className: 'error' }, comment.error), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Submit')), _react2.default.createElement('div', { id: 'Comment-Section' }, _react2.default.createElement('ul', null, blog.blog.comments.map(function (comment) {
 	          return _react2.default.createElement('li', { className: 'commentBlock', key: comment._id }, _react2.default.createElement('h4', null, comment.username, ' at ', comment.dateCreated), _react2.default.createElement('hr', null), _react2.default.createElement('p', null, comment.comment));
 	        }))))));

@@ -109,3 +109,32 @@ exports.deleteBlog = (req, res) => {
     })
   });
 }
+exports.editBlog = (req, res) => {
+  console.log(req.body.type)
+  const type = req.body.type
+  if(type === 'newBody') {
+    Blog.findByIdAndUpdate(req.body.id,
+      { $set: { 'body' : req.body.change } },
+      function(err, blog) {
+        res.send(blog)
+      }
+    )
+  } else if(type === 'newTagline') {
+    Blog.findByIdAndUpdate(req.body.id,
+      { $set: { 'tagline' : req.body.change } },
+      function(err, blog) {
+        res.send(blog)
+      }
+    )
+  } else if(type === 'newTitle') {
+    Blog.findByIdAndUpdate(req.body.id,
+      { $set: { 'title' : req.body.change } },
+      function(err, blog) {
+        res.send(blog)
+      }
+    )
+  } else {
+    res.send()
+  }
+
+}

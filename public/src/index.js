@@ -30,7 +30,7 @@ import Blog_Container from './components/blog/blog_container';
 import My_Blog from './components/blog/mine/my_blog';
 import New_Blog from './components/blog/mine/new_blog';
 import Blog_List from './components/blog/blog_list';
-import Single_Blog from './components/blog/single_blog';
+import Single_Blog from './components/blog/singleBlog/single_blog';
 
 import Agreement_Container from './components/agreements/agreement_container';
 
