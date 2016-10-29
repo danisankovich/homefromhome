@@ -110,27 +110,48 @@ exports.deleteBlog = (req, res) => {
   });
 }
 exports.editBlog = (req, res) => {
-  console.log(req.body.type)
   const type = req.body.type
   if(type === 'newBody') {
     Blog.findByIdAndUpdate(req.body.id,
       { $set: { 'body' : req.body.change } },
       function(err, blog) {
-        res.send(blog)
+        console.log(blog._id)
+        User.update({
+          '_id' : req.body.userId, 'blogs._id': blog._id
+        },
+        { $set: { "blogs.$.body" : req.body.change } },
+        function(err, user) {
+          console.log(user.blogs)
+          res.send(blog)
+        })
       }
     )
   } else if(type === 'newTagline') {
     Blog.findByIdAndUpdate(req.body.id,
       { $set: { 'tagline' : req.body.change } },
       function(err, blog) {
-        res.send(blog)
+        User.update({
+          '_id' : req.body.userId, 'blogs._id': blog._id
+        },
+        { $set: { "blogs.$.tagline" : req.body.change } },
+        function(err, user) {
+          console.log(user.blogs)
+          res.send(blog)
+        })
       }
     )
   } else if(type === 'newTitle') {
     Blog.findByIdAndUpdate(req.body.id,
       { $set: { 'title' : req.body.change } },
       function(err, blog) {
-        res.send(blog)
+        User.update({
+          '_id' : req.body.userId, 'blogs._id': blog._id
+        },
+        { $set: { "blogs.$.title" : req.body.change } },
+        function(err, user) {
+          console.log(user.blogs)
+          res.send(blog)
+        })
       }
     )
   } else {
