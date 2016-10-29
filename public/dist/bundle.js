@@ -67558,8 +67558,8 @@
 	      var comment = _props.fields.comment;
 	
 	      if (blog && blog.blog) {
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, _react2.default.createElement('span', null, !this.state.editTitle && _react2.default.createElement('div', {
-	          onClick: this.startEdit.bind([this, 'editTitle']) }, blog.blog.title), this.state.editTitle && _react2.default.createElement('div', null, _react2.default.createElement('input', {
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, _react2.default.createElement('span', null, !this.state.editTitle && _react2.default.createElement('div', null, blog.blog.title, ' ', userInfo._id == blog.blog.creator.id && _react2.default.createElement('button', {
+	          onClick: this.startEdit.bind([this, 'editTitle']), className: 'btn btn-primary' }, 'Edit')), this.state.editTitle && _react2.default.createElement('div', null, _react2.default.createElement('input', {
 	          className: 'form-control',
 	          defaultValue: blog.blog.title,
 	          onChange: function onChange(e) {
@@ -67567,8 +67567,9 @@
 	          }
 	        }), _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.hideEdit.bind([this, 'editTitle']) }, 'Hide'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.submitEdit.bind([this, 'editTitle', 'newTitle']) }, 'Submit'))), '   --    by \xA0 ', _react2.default.createElement('a', { onClick: function onClick() {
 	            _reactRouter.browserHistory.push('/userprofile/' + blog.blog.creator.id);
-	          } }, blog.blog.creator.username)), _react2.default.createElement('div', null, !this.state.editTagline && _react2.default.createElement('h3', {
-	          onClick: this.startEdit.bind([this, 'editTagline']) }, blog.blog.tagline), this.state.editTagline && _react2.default.createElement('div', null, _react2.default.createElement('input', {
+	          } }, blog.blog.creator.username)), _react2.default.createElement('div', null, !this.state.editTagline && _react2.default.createElement('h3', null, blog.blog.tagline, ' ', userInfo._id == blog.blog.creator.id && _react2.default.createElement('button', {
+	          className: 'btn btn-primary',
+	          onClick: this.startEdit.bind([this, 'editTagline']) }, 'Edit')), this.state.editTagline && _react2.default.createElement('div', null, _react2.default.createElement('input', {
 	          className: 'form-control',
 	          defaultValue: blog.blog.tagline,
 	          onChange: function onChange(e) {
@@ -67578,9 +67579,12 @@
 	          className: 'btn btn-danger',
 	          onClick: this.hideEdit.bind([this, 'editTagline']) }, 'Hide'), _react2.default.createElement('button', {
 	          className: 'btn btn-primary',
-	          onClick: this.submitEdit.bind([this, 'editTagline', 'newTagline']) }, 'Submit'))), _react2.default.createElement('div', null, !this.state.editBody && _react2.default.createElement('div', { onClick: this.startEdit.bind([this, 'editBody']) }, _react2.default.createElement(_reactMarkdown2.default, {
+	          onClick: this.submitEdit.bind([this, 'editTagline', 'newTagline']) }, 'Submit'))), _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'borderBottom' }), !this.state.editBody && userInfo._id == blog.blog.creator.id && _react2.default.createElement('button', {
+	          className: 'btn btn-primary minipush',
+	          onClick: this.startEdit.bind([this, 'editBody']) }, 'Edit Body'), !this.state.editBody && _react2.default.createElement('div', null, _react2.default.createElement(_reactMarkdown2.default, {
 	          className: 'body-spacing',
-	          source: blog.blog.body })), this.state.editBody && _react2.default.createElement('div', null, _react2.default.createElement('textarea', {
+	          source: blog.blog.body })), this.state.editBody && _react2.default.createElement('div', { className: 'minipush' }, _react2.default.createElement('textarea', {
+	          rows: '10',
 	          defaultValue: blog.blog.body,
 	          className: 'form-control',
 	          onChange: this.handleTextAreaChange.bind(this) }), _react2.default.createElement('button', {

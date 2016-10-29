@@ -122,6 +122,9 @@ a {
 .toppush {
   margin-top: 75px;
 }
+.minipush {
+  margin-top: 25px;
+}
 .blogListingBorder {
   border: 1px black solid;
   padding: 5px 5px 5px 5px;

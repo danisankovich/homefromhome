@@ -92,9 +92,10 @@ class SingleBlog extends Component {
               <h1>
                 <span>
                   {!this.state.editTitle &&
-                    <div
-                      onClick={this.startEdit.bind([this, 'editTitle'])}>
-                      {blog.blog.title}
+                    <div>
+                      {blog.blog.title} {userInfo._id == blog.blog.creator.id && <button
+                        onClick={this.startEdit.bind([this, 'editTitle'])} className='btn btn-primary'>Edit
+                      </button>}
                     </div>
                   }
                   {this.state.editTitle && <div>
@@ -111,9 +112,11 @@ class SingleBlog extends Component {
                 </a>
               </h1>
               <div>
-                {!this.state.editTagline && <h3
-                  onClick={this.startEdit.bind([this, 'editTagline'])}>
-                  {blog.blog.tagline}
+                {!this.state.editTagline && <h3>
+                  {blog.blog.tagline} {userInfo._id == blog.blog.creator.id && <button
+                    className='btn btn-primary'
+                    onClick={this.startEdit.bind([this, 'editTagline'])}>Edit
+                  </button>}
                 </h3>}
                 {this.state.editTagline && <div>
                   <input
@@ -134,14 +137,20 @@ class SingleBlog extends Component {
                 </div>}
               </div>
               <div>
-                {!this.state.editBody && <div onClick={this.startEdit.bind([this, 'editBody'])}>
+                <div className='borderBottom'></div>
+                  {!this.state.editBody && userInfo._id == blog.blog.creator.id && <button
+                    className='btn btn-primary minipush'
+                    onClick={this.startEdit.bind([this, 'editBody'])}>Edit Body
+                  </button>}
+                {!this.state.editBody && <div>
                   <ReactMarkdown
                     className='body-spacing'
                     source={blog.blog.body} />
                 </div>
                 }
-                {this.state.editBody && <div>
+                {this.state.editBody && <div className='minipush'>
                   <textarea
+                    rows='10'
                     defaultValue={blog.blog.body}
                     className='form-control'
                     onChange={this.handleTextAreaChange.bind(this)}>
