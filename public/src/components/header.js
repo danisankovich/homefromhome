@@ -23,7 +23,17 @@ class Header extends Component {
         <li className="nav-item" key={4}>
           {!this.props.userInfo.hostUserAgreementSigned && <Link className="nav-link" to="/useragreements/host">Become A Host</Link>}
         </li>,
-         <li className="dropdown" key={5}>
+        <li className="nav-item" key={5}>
+          <Link className="nav-link" to="/messages">
+            <span
+              className={
+                this.props.userInfo.newMessages
+                  ? "unreadMessages glyphicon glyphicon-envelope"
+                  : "glyphicon glyphicon-envelope"}>
+            </span>
+          </Link>
+        </li>,
+         <li className="dropdown" key={6}>
            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               {this.props.userInfo.username}
               <span className="caret"></span>

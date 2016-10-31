@@ -47,13 +47,16 @@ class SingleBlog extends Component {
   handleTextAreaChange(e) {
     this.setState({newBody: e.target.value})
   }
-  submitEdit() {
+  submitEdit(e) {
+    e.preventDefault()
+    console.log('fired')
     const data = {
       type: this[2],
       change: this[0].state[this[2]],
       id: this[0].props.location.pathname.split('blogs/')[1],
       userId: this[0].props.userInfo._id
     }
+    console.log(data)
     if (!data.change) {alert('Cannot Submit Without Change'); return;}
     if (data.type === 'newBody' && data.change.length < 200) {
       alert('body must be at least 200 characters')
@@ -99,13 +102,19 @@ class SingleBlog extends Component {
                     </div>
                   }
                   {this.state.editTitle && <div>
-                    <input
-                      className='form-control'
-                      defaultValue={blog.blog.title}
-                      onChange={(e) => {this.state.newTitle = e.target.value}}
-                    />
-                    <button className='btn btn-danger' onClick={this.hideEdit.bind([this, 'editTitle'])}>Hide</button>
-                    <button className='btn btn-primary' onClick={this.submitEdit.bind([this, 'editTitle', 'newTitle'])}>Submit</button>
+                    <div>
+                      <input
+                        className='form-control'
+                        defaultValue={blog.blog.title}
+                        onChange={(e) => {this.state.newTitle = e.target.value}}
+                      />
+                      <button className='btn btn-danger' onClick={this.hideEdit.bind([this, 'editTitle'])}>Hide</button>
+                      <button
+                        onClick={this.submitEdit.bind([this, 'editTitle', 'newTitle'])}
+                        className='btn btn-primary'>
+                        Submit
+                      </button>
+                    </div>
                   </div>}
                 </span>   --    by &nbsp; <a onClick={() => {browserHistory.push(`/userprofile/${blog.blog.creator.id}`)}}>
                   {blog.blog.creator.username}

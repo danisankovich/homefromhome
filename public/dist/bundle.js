@@ -29319,7 +29319,8 @@
 	      var userInfo = this.props.userInfo;
 	
 	      if (this.props.authenticated && this.props.userInfo) {
-	        return [_react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/information' }, 'Information')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 4 }, !this.props.userInfo.hostUserAgreementSigned && _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'Become A Host')), _react2.default.createElement('li', { className: 'dropdown', key: 5 }, _react2.default.createElement('a', { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, this.props.userInfo.username, _react2.default.createElement('span', { className: 'caret' })), _react2.default.createElement('ul', { className: 'dropdown-menu' }, _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/profile' }, 'Profile')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs/mine' }, 'My Blog')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/settings' }, 'Settings')), _react2.default.createElement('li', { role: 'separator', className: 'divider' }), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signout' }, 'Sign Out'))))];
+	        return [_react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/information' }, 'Information')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 4 }, !this.props.userInfo.hostUserAgreementSigned && _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/useragreements/host' }, 'Become A Host')), _react2.default.createElement('li', { className: 'nav-item', key: 5 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/messages' }, _react2.default.createElement('span', {
+	          className: this.props.userInfo.newMessages ? "unreadMessages glyphicon glyphicon-envelope" : "glyphicon glyphicon-envelope" }))), _react2.default.createElement('li', { className: 'dropdown', key: 6 }, _react2.default.createElement('a', { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' }, this.props.userInfo.username, _react2.default.createElement('span', { className: 'caret' })), _react2.default.createElement('ul', { className: 'dropdown-menu' }, _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/profile' }, 'Profile')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs/mine' }, 'My Blog')), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/settings' }, 'Settings')), _react2.default.createElement('li', { role: 'separator', className: 'divider' }), _react2.default.createElement('li', null, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signout' }, 'Sign Out'))))];
 	      } else {
 	        return [_react2.default.createElement('li', { className: 'nav-item', key: 0 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/listings' }, 'Listings')), _react2.default.createElement('li', { className: 'nav-item', key: 1 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/blogs' }, 'Blogs')), _react2.default.createElement('li', { className: 'nav-item', key: 2 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signin' }, 'Sign In')), _react2.default.createElement('li', { className: 'nav-item', key: 3 }, _react2.default.createElement(_reactRouter.Link, { className: 'nav-link', to: '/signup' }, 'Sign Up'))];
 	      }
@@ -67507,15 +67508,18 @@
 	    }
 	  }, {
 	    key: 'submitEdit',
-	    value: function submitEdit() {
+	    value: function submitEdit(e) {
 	      var _this3 = this;
 	
+	      e.preventDefault();
+	      console.log('fired');
 	      var data = {
 	        type: this[2],
 	        change: this[0].state[this[2]],
 	        id: this[0].props.location.pathname.split('blogs/')[1],
 	        userId: this[0].props.userInfo._id
 	      };
+	      console.log(data);
 	      if (!data.change) {
 	        alert('Cannot Submit Without Change');return;
 	      }
@@ -67559,13 +67563,15 @@
 	
 	      if (blog && blog.blog) {
 	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-2' }, _react2.default.createElement('h1', null, _react2.default.createElement('span', null, !this.state.editTitle && _react2.default.createElement('div', null, blog.blog.title, ' ', userInfo._id == blog.blog.creator.id && _react2.default.createElement('button', {
-	          onClick: this.startEdit.bind([this, 'editTitle']), className: 'btn btn-primary' }, 'Edit')), this.state.editTitle && _react2.default.createElement('div', null, _react2.default.createElement('input', {
+	          onClick: this.startEdit.bind([this, 'editTitle']), className: 'btn btn-primary' }, 'Edit')), this.state.editTitle && _react2.default.createElement('div', null, _react2.default.createElement('div', null, _react2.default.createElement('input', {
 	          className: 'form-control',
 	          defaultValue: blog.blog.title,
 	          onChange: function onChange(e) {
 	            _this4.state.newTitle = e.target.value;
 	          }
-	        }), _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.hideEdit.bind([this, 'editTitle']) }, 'Hide'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.submitEdit.bind([this, 'editTitle', 'newTitle']) }, 'Submit'))), '   --    by \xA0 ', _react2.default.createElement('a', { onClick: function onClick() {
+	        }), _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.hideEdit.bind([this, 'editTitle']) }, 'Hide'), _react2.default.createElement('button', {
+	          onClick: this.submitEdit.bind([this, 'editTitle', 'newTitle']),
+	          className: 'btn btn-primary' }, 'Submit')))), '   --    by \xA0 ', _react2.default.createElement('a', { onClick: function onClick() {
 	            _reactRouter.browserHistory.push('/userprofile/' + blog.blog.creator.id);
 	          } }, blog.blog.creator.username)), _react2.default.createElement('div', null, !this.state.editTagline && _react2.default.createElement('h3', null, blog.blog.tagline, ' ', userInfo._id == blog.blog.creator.id && _react2.default.createElement('button', {
 	          className: 'btn btn-primary',
