@@ -32,7 +32,27 @@ class BookingApplications extends Component {
       type: 'PUT',
       data: application
     }).done((response) => {
-      console.log(response)
+      const url = `/listings/${application.applicationId}`
+      const message = `
+        Congratulations. Your listing request has been approved for listing
+        <Link to=${url}>HERE</Link> for ${application.arrivalDate} to ${application.departureDate}.
+        `
+      const data = {
+        senderId: this[0].props.userInfo._id,
+        senderUsername: this[0].props.userInfo.username,
+        recipientId: application.userId,
+        recipientUsername: application.username,
+        message,
+      }
+      $.ajax({
+        url: `/api/messages/newmessage`,
+        type: 'POST',
+        data: data
+      }).done((responseTwo) => {
+        console.log(responseTwo)
+      }).fail((err) => {
+        console.log(err)
+      })
     }).fail((err) => {
       console.log(err)
     })

@@ -157,6 +157,10 @@
 	
 	var _agreement_container2 = _interopRequireDefault(_agreement_container);
 	
+	var _message_container = __webpack_require__(/*! ./components/messages/message_container */ 378);
+	
+	var _message_container2 = _interopRequireDefault(_message_container);
+	
 	var _require_auth = __webpack_require__(/*! ./components/auth/require_auth */ 373);
 	
 	var _require_auth2 = _interopRequireDefault(_require_auth);
@@ -171,13 +175,13 @@
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
 	
-	// Listings Routes
-	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxPromise2.default)(_redux.createStore);
-	
 	// blog Routes
 	
 	
 	// Main Routes
+	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxPromise2.default)(_redux.createStore);
+	
+	// Listings Routes
 	
 	var store = createStoreWithMiddleware(_reducers2.default);
 	
@@ -187,7 +191,7 @@
 	  store.dispatch({ type: _types.AUTH_USER }); //any action in here is sent off to all reducers in the application, just as with other dispatch
 	}
 	
-	_reactDom2.default.render(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: _information2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'userprofile/:id', component: _userProfile2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/listings', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/new', component: (0, _require_auth2.default)(_newListing2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/myphotos/:id', component: (0, _require_auth2.default)(_mysinglephoto2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/blogs', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: (0, _require_auth2.default)(_my_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: (0, _require_auth2.default)(_new_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/useragreements', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _agreement_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/useragreements/host', component: (0, _require_auth2.default)(_agreement_container2.default) })))), document.querySelector('.thing'));
+	_reactDom2.default.render(_react2.default.createElement(_reactRedux.Provider, { store: store }, _react2.default.createElement(_reactRouter.Router, { history: _reactRouter.browserHistory }, _react2.default.createElement(_reactRouter.Route, { path: '/', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _welcome_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signin', component: _signin2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signup', component: _signup2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: _information2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'userprofile/:id', component: _userProfile2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/listings', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _listings_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _listing2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/new', component: (0, _require_auth2.default)(_newListing2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'signout', component: _signout2.default }), _react2.default.createElement(_reactRouter.Route, { path: 'information', component: (0, _require_auth2.default)(_information2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: (0, _require_auth2.default)(_profile2.default) }), _react2.default.createElement(_reactRouter.Route, { path: 'settings', component: (0, _require_auth2.default)(_settings2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/myphotos/:id', component: (0, _require_auth2.default)(_mysinglephoto2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/blogs', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _blog_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine', component: (0, _require_auth2.default)(_my_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/mine/new', component: (0, _require_auth2.default)(_new_blog2.default) }), _react2.default.createElement(_reactRouter.Route, { path: '/blogs/:id', component: _single_blog2.default })), _react2.default.createElement(_reactRouter.Route, { path: '/useragreements', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _agreement_container2.default }), _react2.default.createElement(_reactRouter.Route, { path: '/useragreements/host', component: (0, _require_auth2.default)(_agreement_container2.default) })), _react2.default.createElement(_reactRouter.Route, { path: '/messages', component: _app2.default }, _react2.default.createElement(_reactRouter.IndexRoute, { component: _message_container2.default })))), document.querySelector('.thing'));
 
 /***/ },
 /* 2 */
@@ -58366,7 +58370,7 @@
 	          onChange: function onChange(e) {
 	            return _this3.state.application.message = e.target.value;
 	          }
-	        })))), _react2.default.createElement('button', { type: 'submit' }, 'Submit Application')), this.props.userInfo._id === this.props.listing.creator.id && _react2.default.createElement(_booking_applications2.default, { applications: listing.applications }))))), _react2.default.createElement('br', null)));
+	        })))), _react2.default.createElement('button', { type: 'submit' }, 'Submit Application')), this.props.userInfo._id === this.props.listing.creator.id && _react2.default.createElement(_booking_applications2.default, { userInfo: userInfo, applications: listing.applications }))))), _react2.default.createElement('br', null)));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading...... ');
 	    }
@@ -66504,6 +66508,8 @@
 	  }, {
 	    key: 'approve',
 	    value: function approve() {
+	      var _this2 = this;
+	
 	      this[0].state.shownAppId === this[1].applicationId ? this[0].setState({ shownAppId: '', shownApp: '' }) : this[0].setState({ shownAppId: this[1].applicationId, shownApp: this[1] });
 	      var application = this[1];
 	      application.approved = this[2];
@@ -66512,7 +66518,24 @@
 	        type: 'PUT',
 	        data: application
 	      }).done(function (response) {
-	        console.log(response);
+	        var url = '/listings/' + application.applicationId;
+	        var message = '\n        Congratulations. Your listing request has been approved for listing\n        <Link to=' + url + '>HERE</Link> for ' + application.arrivalDate + ' to ' + application.departureDate + '.\n        ';
+	        var data = {
+	          senderId: _this2[0].props.userInfo._id,
+	          senderUsername: _this2[0].props.userInfo.username,
+	          recipientId: application.userId,
+	          recipientUsername: application.username,
+	          message: message
+	        };
+	        $.ajax({
+	          url: '/api/messages/newmessage',
+	          type: 'POST',
+	          data: data
+	        }).done(function (responseTwo) {
+	          console.log(responseTwo);
+	        }).fail(function (err) {
+	          console.log(err);
+	        });
 	      }).fail(function (err) {
 	        console.log(err);
 	      });
@@ -68150,6 +68173,339 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
+
+/***/ },
+/* 378 */
+/*!*************************************************************!*\
+  !*** ./public/src/components/messages/message_container.js ***!
+  \*************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _my_message_chains = __webpack_require__(/*! ./my_message_chains */ 379);
+	
+	var _my_message_chains2 = _interopRequireDefault(_my_message_chains);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	//Messaging PAGE
+	var Message_Container = function (_Component) {
+	  _inherits(Message_Container, _Component);
+	
+	  function Message_Container() {
+	    _classCallCheck(this, Message_Container);
+	
+	    return _possibleConstructorReturn(this, (Message_Container.__proto__ || Object.getPrototypeOf(Message_Container)).apply(this, arguments));
+	  }
+	
+	  _createClass(Message_Container, [{
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      return _react2.default.createElement('div', { className: 'container toppush' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-3' }, _react2.default.createElement('h1', { className: 'text-center' }, 'Messages'), userInfo && _react2.default.createElement(_my_message_chains2.default, {
+	        userInfo: userInfo
+	      }))), _react2.default.createElement('br', null));
+	    }
+	  }]);
+	
+	  return Message_Container;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return {
+	    authenticated: state.auth.authenticated,
+	    userInfo: state.auth.userInfo
+	  };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Message_Container);
+
+/***/ },
+/* 379 */
+/*!*************************************************************!*\
+  !*** ./public/src/components/messages/my_message_chains.js ***!
+  \*************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _single_message_chain = __webpack_require__(/*! ./single_message_chain */ 380);
+	
+	var _single_message_chain2 = _interopRequireDefault(_single_message_chain);
+	
+	var _jquery = __webpack_require__(/*! jquery */ 261);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === 'undefined' ? 'undefined' : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	//Messaging PAGE
+	var MyMessageChains = function (_Component) {
+	  _inherits(MyMessageChains, _Component);
+	
+	  function MyMessageChains() {
+	    _classCallCheck(this, MyMessageChains);
+	
+	    return _possibleConstructorReturn(this, (MyMessageChains.__proto__ || Object.getPrototypeOf(MyMessageChains)).apply(this, arguments));
+	  }
+	
+	  _createClass(MyMessageChains, [{
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      return _react2.default.createElement('div', null, userInfo && userInfo.messagesChainIds.map(function (message) {
+	        return _react2.default.createElement(_single_message_chain2.default, { userInfo: userInfo, message: message, key: message });
+	      }));
+	    }
+	  }]);
+	
+	  return MyMessageChains;
+	}(_react.Component);
+	
+	module.exports = MyMessageChains;
+
+/***/ },
+/* 380 */
+/*!****************************************************************!*\
+  !*** ./public/src/components/messages/single_message_chain.js ***!
+  \****************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	var _actions = __webpack_require__(/*! ../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _jquery = __webpack_require__(/*! jquery */ 261);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	//Messaging PAGE
+	var MyMessageChains = function (_Component) {
+	  _inherits(MyMessageChains, _Component);
+	
+	  function MyMessageChains(props) {
+	    _classCallCheck(this, MyMessageChains);
+	
+	    var _this = _possibleConstructorReturn(this, (MyMessageChains.__proto__ || Object.getPrototypeOf(MyMessageChains)).call(this, props));
+	
+	    console.log(_this.props);
+	    return _this;
+	  }
+	
+	  _createClass(MyMessageChains, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      _jquery2.default.ajax({
+	        url: '/api/messages/' + this.props.message,
+	        type: "GET"
+	      }).done(function (response) {
+	        _this2.setState({ messageChain: response });
+	      }).fail(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _ref = this.state || [];
+	
+	      var messageChain = _ref.messageChain;
+	      var userInfo = this.props.userInfo;
+	
+	      return _react2.default.createElement('div', { className: 'borderBottom' }, messageChain && _react2.default.createElement('h3', null, 'Username: ', userInfo.username === messageChain.usernames[0] ? messageChain.usernames[1] : messageChain.usernames[0]));
+	    }
+	  }]);
+	
+	  return MyMessageChains;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return {
+	    authenticated: state.auth.authenticated,
+	    userInfo: state.auth.userInfo
+	  };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyMessageChains);
 
 /***/ }
 /******/ ]);

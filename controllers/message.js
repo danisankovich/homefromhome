@@ -1,30 +1,60 @@
 var User = require('../models/user');
 var Message = require('../models/message');
 
+exports.getMessage = (req, res) => {
+  const messageChainId = req.params.id
+  Message.findById(messageChainId, function(err, message){
+    if(err) res.send(err)
+    res.send(message)
+  });
+}
+
 exports.newMessage = (req, res) => {
-  var first = 'John';
-  var second = 'ty';
+  var senderId = req.body.senderId;
+  var sender = req.body.senderUsername;
+  var recipientId = req.body.recipientId;
+  var recipient = req.body.recipientUsername;
   Message.findOne(
-    {userIds: { $all: [first, second]}},
+    {userIds: { $all: [senderId, recipientId]}},
     function(err, message) {
       if (err) res.send(err)
       if (!message) {
         const newMessageChain = new Message({
-          userIds: [first, second],
+          userIds: [senderId, recipientId],
+          usernames: [sender, recipient],
           messages: [{
-            senderId: first,
+            senderId: senderId,
+            senderUsername: sender,
             dateSent: Date.now(),
-            message: 'Let\'s go now man'
+            message: req.body.message
           }]
         })
-        newMessageChain.save()
-        res.send(newMessageChain);
+        newMessageChain.save(function(err) {
+          if(err) res.send(err)
+          console.log(newMessageChain._id, err)
+          User.findByIdAndUpdate(senderId,
+            {$push: {'messagesChainIds': newMessageChain._id}},
+            {safe: true, upsert: true},
+            function(err, user) {
+              if (err) res.send(err)
+              User.findByIdAndUpdate(recipientId,
+                {$push: {'messagesChainIds': newMessageChain._id}},
+                {safe: true, upsert: true},
+                function(err, user) {
+                  if (err) res.send(err)
+                  res.send(newMessageChain);
+                }
+              )
+            }
+          )
+        })
       }
       else if (message) {
         const newMessage = {
-          senderId: second,
+          senderId: senderId,
+          senderUsername: sender,
           dateSent: Date.now(),
-          message: 'Let\'s go now man and keep it on'
+          message: req.body.message
         }
         message.messages.push(newMessage)
         message.lastMessage = Date.now()

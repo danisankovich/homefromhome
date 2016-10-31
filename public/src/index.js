@@ -34,6 +34,9 @@ import Single_Blog from './components/blog/singleBlog/single_blog';
 
 import Agreement_Container from './components/agreements/agreement_container';
 
+
+import Message_Container from './components/messages/message_container';
+
 import RequireAuth from './components/auth/require_auth';
 
 import reducers from './reducers';
@@ -81,6 +84,9 @@ ReactDOM.render(
         <Route path ='/useragreements' component={App}>
           <IndexRoute component={Agreement_Container} />
           <Route path='/useragreements/host' component={RequireAuth(Agreement_Container)}></Route>
+        </Route>
+        <Route path ='/messages' component={App}>
+          <IndexRoute component={Message_Container} />
         </Route>
     </Router>
   </Provider>

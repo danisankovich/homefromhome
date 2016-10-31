@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var messageSchema = new Schema({
   userIds: [],
+  usernames: [],
   lastMessage: {type: Date, default: Date.now},
   messages: []
 });

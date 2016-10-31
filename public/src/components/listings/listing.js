@@ -272,7 +272,7 @@ class SingleListing extends Component {
                       </fieldset>
                       <button type='submit'>Submit Application</button>
                     </form>}
-                    {this.props.userInfo._id === this.props.listing.creator.id && <BookingApplications applications={listing.applications}/>}
+                    {this.props.userInfo._id === this.props.listing.creator.id && <BookingApplications userInfo={userInfo} applications={listing.applications}/>}
                   </div>
                 </div>
               </div>

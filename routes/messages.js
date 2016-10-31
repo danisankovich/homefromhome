@@ -9,6 +9,7 @@ const Message = require('../models/message');
 const Authentication = require('../controllers/authentication');
 const MessageController = require('../controllers/message');
 
-router.get('/', MessageController.newMessage);
+router.get('/:id', MessageController.getMessage);
+router.post('/newmessage', MessageController.newMessage);
 
 module.exports = router;
