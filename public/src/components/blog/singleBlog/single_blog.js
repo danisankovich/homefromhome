@@ -56,7 +56,6 @@ class SingleBlog extends Component {
       id: this[0].props.location.pathname.split('blogs/')[1],
       userId: this[0].props.userInfo._id
     }
-    console.log(data)
     if (!data.change) {alert('Cannot Submit Without Change'); return;}
     if (data.type === 'newBody' && data.change.length < 200) {
       alert('body must be at least 200 characters')

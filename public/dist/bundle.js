@@ -67542,7 +67542,6 @@
 	        id: this[0].props.location.pathname.split('blogs/')[1],
 	        userId: this[0].props.userInfo._id
 	      };
-	      console.log(data);
 	      if (!data.change) {
 	        alert('Cannot Submit Without Change');return;
 	      }

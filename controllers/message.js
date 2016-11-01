@@ -2,7 +2,7 @@ var User = require('../models/user');
 var Message = require('../models/message');
 
 exports.getMessage = (req, res) => {
-  const messageChainId = req.params.id
+  var messageChainId = req.params.id
   Message.findById(messageChainId, function(err, message){
     if(err) res.send(err)
     User.findByIdAndUpdate(req.params.user,
@@ -24,7 +24,7 @@ exports.newMessage = (req, res) => {
     function(err, message) {
       if (err) res.send(err)
       if (!message) {
-        const newMessageChain = new Message({
+        var newMessageChain = new Message({
           userIds: [senderId, recipientId],
           usernames: [sender, recipient],
           messages: [{
@@ -55,7 +55,7 @@ exports.newMessage = (req, res) => {
         })
       }
       else if (message) {
-        const newMessage = {
+        var newMessage = {
           senderId: senderId,
           senderUsername: sender,
           dateSent: Date.now(),
@@ -64,9 +64,9 @@ exports.newMessage = (req, res) => {
         message.messages.push(newMessage)
         message.lastMessage = Date.now()
         message.save(function(err) {
-          let nonIndex = message.userIds.indexOf(senderId);
+          var nonIndex = message.userIds.indexOf(senderId);
           nonIndex = nonIndex === 0 ? 1 : 0;
-          const recipientId = message.userIds[nonIndex]
+          var recipientId = message.userIds[nonIndex]
           User.findByIdAndUpdate(recipientId,
             {$set: {"newMessages": true}},
             {safe: true, upsert: true},
