@@ -68093,7 +68093,7 @@
 	  _createClass(MyMessageChain, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.setState({ renderedMessage: {} });
+	      this.setState({ renderedMessage: {}, newMessage: '' });
 	    }
 	  }, {
 	    key: 'handleResponse',
@@ -68101,9 +68101,35 @@
 	      this.setState({ renderedMessage: data });
 	    }
 	  }, {
+	    key: 'submitNewMessage',
+	    value: function submitNewMessage() {
+	      var _this2 = this;
+	
+	      var message = this.state.newMessage.replace(/<script/g, '');
+	      var renderedMessage = this.state.renderedMessage;
+	      var recipientId = renderedMessage.userIds.indexOf(this.props.userInfo._id) === 0 ? renderedMessage.userIds[1] : renderedMessage.userIds[0];
+	      var recipientUsername = renderedMessage.usernames.indexOf(this.props.userInfo.username) === 0 ? renderedMessage.usernames[1] : renderedMessage.usernames[0];
+	      var data = {
+	        senderId: this.props.userInfo._id,
+	        senderUsername: this.props.userInfo.username,
+	        recipientId: recipientId,
+	        recipientUsername: recipientUsername,
+	        message: message
+	      };
+	      _jquery2.default.ajax({
+	        url: '/api/messages/newmessage',
+	        type: 'POST',
+	        data: data
+	      }).done(function (response) {
+	        _this2.setState({ renderedMessage: response });
+	      }).fail(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var userInfo = this.props.userInfo;
 	
@@ -68112,17 +68138,20 @@
 	      var renderedMessage = _ref.renderedMessage;
 	
 	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-3 chainList' }, userInfo && userInfo.messagesChainIds.map(function (message) {
-	        return _react2.default.createElement('div', { key: message }, _react2.default.createElement(_single_message_chain2.default, { handleResponse: _this2.handleResponse.bind(_this2),
+	        return _react2.default.createElement('div', { key: message }, _react2.default.createElement(_single_message_chain2.default, { handleResponse: _this3.handleResponse.bind(_this3),
 	          userInfo: userInfo,
 	          message: message
 	        }));
-	      })), _react2.default.createElement('div', { className: 'col-sm-9' }, renderedMessage && renderedMessage.messages && renderedMessage.messages.map(function (message) {
-	        return _react2.default.createElement('div', {
-	          className: (message.senderId === userInfo._id ? "col-sm-6 col-sm-offset-1" : "col-sm-6 col-sm-offset-4") + " messagepush",
-	          key: message.dateSent,
+	      })), renderedMessage && renderedMessage.messages && _react2.default.createElement('div', { className: 'col-sm-9' }, renderedMessage.messages.map(function (message) {
+	        return _react2.default.createElement('div', { key: message.dateSent, className: 'messagepush row' }, _react2.default.createElement('div', {
+	          className: message.senderId === userInfo._id ? "myMessage messageBox" : "theirMessage messageBox",
 	          dangerouslySetInnerHTML: { __html: message.message }
-	        });
-	      })));
+	        }), _react2.default.createElement('br', null));
+	      })), renderedMessage && renderedMessage.messages && _react2.default.createElement('div', { className: 'col-sm-6 col-sm-offset-4' }, _react2.default.createElement('textarea', {
+	        className: 'form-control',
+	        onChange: function onChange(e) {
+	          _this3.state.newMessage = e.target.value;
+	        }, cols: '30' }), _react2.default.createElement('button', { onClick: this.submitNewMessage.bind(this) }, 'Send')));
 	    }
 	  }]);
 	

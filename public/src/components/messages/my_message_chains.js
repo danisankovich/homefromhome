@@ -8,12 +8,35 @@ import $ from 'jquery';
 //Messaging PAGE
 class MyMessageChain extends Component {
   componentWillMount() {
-    this.setState({renderedMessage: {}})
+    this.setState({renderedMessage: {}, newMessage: ''})
   }
   handleResponse(data) {
     this.setState({renderedMessage: data});
   }
-
+  submitNewMessage() {
+    const message = this.state.newMessage.replace(/<script/g, '');
+    const renderedMessage = this.state.renderedMessage
+    const recipientId = renderedMessage.userIds.indexOf(
+      this.props.userInfo._id) === 0 ? renderedMessage.userIds[1] : renderedMessage.userIds[0];
+    const recipientUsername = renderedMessage.usernames.indexOf(
+      this.props.userInfo.username) === 0 ? renderedMessage.usernames[1] : renderedMessage.usernames[0];
+    const data = {
+      senderId: this.props.userInfo._id,
+      senderUsername: this.props.userInfo.username,
+      recipientId,
+      recipientUsername,
+      message,
+    }
+    $.ajax({
+      url: `/api/messages/newmessage`,
+      type: 'POST',
+      data: data
+    }).done((response) => {
+      this.setState({renderedMessage: response});
+    }).fail((err) => {
+      console.log(err)
+    })
+  }
   render() {
     const {userInfo} = this.props
     const {renderedMessage} = this.state || {}
@@ -31,20 +54,29 @@ class MyMessageChain extends Component {
             )
           })}
         </div>
-        <div className="col-sm-9">
-          {renderedMessage && renderedMessage.messages && renderedMessage.messages.map((message) => {
+        {renderedMessage && renderedMessage.messages && <div className="col-sm-9">
+          {renderedMessage.messages.map((message) => {
             return (
-              <div
-                className={(message.senderId === userInfo._id
-                  ? "col-sm-6 col-sm-offset-1"
-                  : "col-sm-6 col-sm-offset-4") + " messagepush"}
-                key={message.dateSent}
-                dangerouslySetInnerHTML={{__html: message.message}}
-              >
+              <div key={message.dateSent} className="messagepush row">
+                <div
+                  className={(message.senderId === userInfo._id
+                    ? "myMessage messageBox"
+                    : "theirMessage messageBox")}
+                  dangerouslySetInnerHTML={{__html: message.message}}
+                >
+                </div>
+                <br />
               </div>
             )
           })}
-        </div>
+        </div>}
+        {renderedMessage && renderedMessage.messages && <div className="col-sm-6 col-sm-offset-4">
+          <textarea
+            className="form-control"
+            onChange={(e)=>{this.state.newMessage = e.target.value}} cols='30'>
+          </textarea>
+          <button onClick={this.submitNewMessage.bind(this)}>Send</button>
+        </div>}
       </div>
     );
   };

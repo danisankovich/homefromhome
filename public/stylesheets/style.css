@@ -126,7 +126,7 @@ a {
   margin-top: 25px;
 }
 .messagepush {
-  margin-top: 20px;
+  margin-top: 2%;
 }
 .blogListingBorder {
   border: 1px black solid;
@@ -164,4 +164,18 @@ a {
 }
 .chainList {
   height: 100vh;
+}
+.myMessage {
+  float: right;
+  max-width: 50%;
+}
+.theirMessage {
+  float: left;
+  max-width: 50%;
+}
+.messageBox {
+  border: 1px solid lightblue;
+  background-color: lightblue;
+  border-radius: 5000px;
+  padding: 5px 15px 5px 15px;
 }
