@@ -6,25 +6,25 @@ import $ from 'jquery';
 
 //Messaging PAGE
 class MyMessageChains extends Component {
-  constructor(props) {
-    super(props);
-    console.log(this.props)
-  }
   componentWillMount() {
     $.ajax({
-       url: `/api/messages/${this.props.message}`,
+       url: `/api/messages/${this.props.message}/${this.props.userInfo._id}`,
        type: "GET",
     }).done((response) => {
       this.setState({messageChain: response});
+      this.props.fetchInfo();
     }).fail((err) => {
       console.log(err)
     });
+  }
+  getMessageData() {
+    this.props.handleResponse(this.state.messageChain);
   }
   render() {
     const {messageChain} = this.state || []
     const {userInfo} = this.props
     return (
-      <div className="borderBottom">
+      <div className="borderBottom" onClick={this.getMessageData.bind(this)}>
         {
           messageChain &&
           <h3>Username: {userInfo.username === messageChain.usernames[0]

@@ -5,7 +5,12 @@ exports.getMessage = (req, res) => {
   const messageChainId = req.params.id
   Message.findById(messageChainId, function(err, message){
     if(err) res.send(err)
-    res.send(message)
+    User.findByIdAndUpdate(req.params.user,
+      {$set: {"newMessages": false}},
+      function(err, user) {
+        res.send(message)
+      }
+    )
   });
 }
 
@@ -38,7 +43,7 @@ exports.newMessage = (req, res) => {
             function(err, user) {
               if (err) res.send(err)
               User.findByIdAndUpdate(recipientId,
-                {$push: {'messagesChainIds': newMessageChain._id}},
+                {$push: {'messagesChainIds': newMessageChain._id}, $set: {"newMessages": true}},
                 {safe: true, upsert: true},
                 function(err, user) {
                   if (err) res.send(err)
@@ -58,8 +63,19 @@ exports.newMessage = (req, res) => {
         }
         message.messages.push(newMessage)
         message.lastMessage = Date.now()
-        message.save()
-        res.send(message)
+        message.save(function(err) {
+          let nonIndex = message.userIds.indexOf(senderId);
+          nonIndex = nonIndex === 0 ? 1 : 0;
+          const recipientId = message.userIds[nonIndex]
+          User.findByIdAndUpdate(recipientId,
+            {$set: {"newMessages": true}},
+            {safe: true, upsert: true},
+            function(err, user) {
+              if (err) res.send(err)
+              res.send(message);
+            }
+          )
+        })
       }
     }
   );

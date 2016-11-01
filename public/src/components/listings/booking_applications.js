@@ -32,10 +32,10 @@ class BookingApplications extends Component {
       type: 'PUT',
       data: application
     }).done((response) => {
-      const url = `/listings/${application.applicationId}`
+      const url = `/listings/${application.listingId}`
       const message = `
         Congratulations. Your listing request has been approved for listing
-        <Link to=${url}>HERE</Link> for ${application.arrivalDate} to ${application.departureDate}.
+        <a href=${url}>HERE</a> for ${application.arrivalDate} to ${application.departureDate}.
         `
       const data = {
         senderId: this[0].props.userInfo._id,

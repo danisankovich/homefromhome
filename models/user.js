@@ -23,7 +23,7 @@ var userSchema = new Schema({
   confirmedStays: [],
   hostUserAgreementSigned: {type: Boolean, default: false},
   messagesChainIds: [],
-  newMessages: false
+  newMessages: Boolean
 });
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
