@@ -23,8 +23,9 @@ class MyMessageChains extends Component {
   render() {
     const {messageChain} = this.state || []
     const {userInfo} = this.props
+
     return (
-      <div className="borderBottom" onClick={this.getMessageData.bind(this)}>
+      <div className="borderBottom messageChainUser" onClick={this.getMessageData.bind(this)}>
         {
           messageChain &&
           <h3>Username: {userInfo.username === messageChain.usernames[0]

@@ -39,10 +39,11 @@ class MyMessageChain extends Component {
   }
   render() {
     const {userInfo} = this.props
-    const {renderedMessage} = this.state || {}
+    const {renderedMessage} = this.state || {};
     return (
       <div className="col-sm-12">
         <div className="col-sm-3 chainList">
+          <h4>Click User To Open Chat</h4>
           {userInfo && userInfo.messagesChainIds.map((message) => {
             return (
               <div key={message}>
@@ -55,6 +56,7 @@ class MyMessageChain extends Component {
           })}
         </div>
         {renderedMessage && renderedMessage.messages && <div className="col-sm-9">
+          <div className="textScroller">
           {renderedMessage.messages.map((message) => {
             return (
               <div key={message.dateSent} className="messagepush row">
@@ -69,8 +71,7 @@ class MyMessageChain extends Component {
               </div>
             )
           })}
-        </div>}
-        {renderedMessage && renderedMessage.messages && <div className="col-sm-6 col-sm-offset-4">
+          </div>
           <textarea
             className="form-control"
             onChange={(e)=>{this.state.newMessage = e.target.value}} cols='30'>

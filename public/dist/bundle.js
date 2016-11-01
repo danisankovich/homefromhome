@@ -68137,17 +68137,17 @@
 	
 	      var renderedMessage = _ref.renderedMessage;
 	
-	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-3 chainList' }, userInfo && userInfo.messagesChainIds.map(function (message) {
+	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-3 chainList' }, _react2.default.createElement('h4', null, 'Click User To Open Chat'), userInfo && userInfo.messagesChainIds.map(function (message) {
 	        return _react2.default.createElement('div', { key: message }, _react2.default.createElement(_single_message_chain2.default, { handleResponse: _this3.handleResponse.bind(_this3),
 	          userInfo: userInfo,
 	          message: message
 	        }));
-	      })), renderedMessage && renderedMessage.messages && _react2.default.createElement('div', { className: 'col-sm-9' }, renderedMessage.messages.map(function (message) {
+	      })), renderedMessage && renderedMessage.messages && _react2.default.createElement('div', { className: 'col-sm-9' }, _react2.default.createElement('div', { className: 'textScroller' }, renderedMessage.messages.map(function (message) {
 	        return _react2.default.createElement('div', { key: message.dateSent, className: 'messagepush row' }, _react2.default.createElement('div', {
 	          className: message.senderId === userInfo._id ? "myMessage messageBox" : "theirMessage messageBox",
 	          dangerouslySetInnerHTML: { __html: message.message }
 	        }), _react2.default.createElement('br', null));
-	      })), renderedMessage && renderedMessage.messages && _react2.default.createElement('div', { className: 'col-sm-6 col-sm-offset-4' }, _react2.default.createElement('textarea', {
+	      })), _react2.default.createElement('textarea', {
 	        className: 'form-control',
 	        onChange: function onChange(e) {
 	          _this3.state.newMessage = e.target.value;
@@ -68273,7 +68273,7 @@
 	      var messageChain = _ref.messageChain;
 	      var userInfo = this.props.userInfo;
 	
-	      return _react2.default.createElement('div', { className: 'borderBottom', onClick: this.getMessageData.bind(this) }, messageChain && _react2.default.createElement('h3', null, 'Username: ', userInfo.username === messageChain.usernames[0] ? messageChain.usernames[1] : messageChain.usernames[0]));
+	      return _react2.default.createElement('div', { className: 'borderBottom messageChainUser', onClick: this.getMessageData.bind(this) }, messageChain && _react2.default.createElement('h3', null, 'Username: ', userInfo.username === messageChain.usernames[0] ? messageChain.usernames[1] : messageChain.usernames[0]));
 	    }
 	  }]);
 	
