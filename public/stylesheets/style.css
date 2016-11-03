@@ -169,18 +169,21 @@ a {
   float: right;
   max-width: 50%;
   margin-right: 5%;
-}
-.theirMessage {
-  margin-left: 5%;
-  float: left;
-  max-width: 50%;
-}
-.messageBox {
   border: 1px solid lightblue;
   background-color: lightblue;
   border-radius: 5000px;
   padding: 5px 15px 5px 15px;
 }
+.theirMessage {
+  margin-left: 5%;
+  float: left;
+  max-width: 50%;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 5000px;
+  padding: 5px 15px 5px 15px;
+}
+
 .messageChainUser:hover {
   cursor: pointer;
 }

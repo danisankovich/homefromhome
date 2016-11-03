@@ -43401,7 +43401,7 @@
 	    value: function showApplications() {
 	      this.state.showPhotos = false;
 	      this.state.showListings = false;
-	      this.state.blogs = false;
+	      this.state.showBlogs = false;
 	      this.state.showApplications ? this.setState({ showApplications: false }) : this.setState({ showApplications: true });
 	    }
 	  }, {
@@ -43418,7 +43418,7 @@
 	            return lang;
 	          }
 	          return lang + ', ';
-	        })), _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { onClick: this.showListings.bind(this) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { onClick: this.showBlogs.bind(this) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { onClick: this.showApplications.bind(this) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo }))));
+	        })), _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showListings.bind(this) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showBlogs.bind(this) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showApplications.bind(this) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo }))));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading........ ');
 	    }
@@ -68144,11 +68144,12 @@
 	        }));
 	      })), renderedMessage && renderedMessage.messages && _react2.default.createElement('div', { className: 'col-sm-9' }, _react2.default.createElement('div', { className: 'textScroller' }, renderedMessage.messages.map(function (message) {
 	        return _react2.default.createElement('div', { key: message.dateSent, className: 'messagepush row' }, _react2.default.createElement('div', {
-	          className: message.senderId === userInfo._id ? "myMessage messageBox" : "theirMessage messageBox",
+	          className: message.senderId === userInfo._id ? "myMessage" : "theirMessage",
 	          dangerouslySetInnerHTML: { __html: message.message }
 	        }), _react2.default.createElement('br', null));
 	      })), _react2.default.createElement('textarea', {
 	        className: 'form-control',
+	        id: 'sendMessageTextArea',
 	        onChange: function onChange(e) {
 	          _this3.state.newMessage = e.target.value;
 	        }, cols: '30' }), _react2.default.createElement('button', { onClick: this.submitNewMessage.bind(this) }, 'Send')));

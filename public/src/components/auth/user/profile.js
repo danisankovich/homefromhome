@@ -32,7 +32,7 @@ class Profile extends Component {
   showApplications() {
     this.state.showPhotos = false;
     this.state.showListings = false;
-    this.state.blogs = false;
+    this.state.showBlogs = false;
     this.state.showApplications ? this.setState({showApplications: false}) : this.setState({showApplications: true})
   }
   render() {
@@ -61,10 +61,10 @@ class Profile extends Component {
           </div>
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
-              <button onClick={this.showAlbums.bind(this)}>Show Albums</button>
-              <button onClick={this.showListings.bind(this)}>Show Listings ({this.props.userInfo.myListings.length})</button>
-              <button onClick={this.showBlogs.bind(this)}>Show Blogs ({this.props.userInfo.blogs.length})</button>
-              <button onClick={this.showApplications.bind(this)}>Show Applications ({this.props.userInfo.applications.length})</button>
+              <button className='btn btn-primary' onClick={this.showAlbums.bind(this)}>Show Albums</button>
+              <button className='btn btn-primary' onClick={this.showListings.bind(this)}>Show Listings ({this.props.userInfo.myListings.length})</button>
+              <button className='btn btn-primary' onClick={this.showBlogs.bind(this)}>Show Blogs ({this.props.userInfo.blogs.length})</button>
+              <button className='btn btn-primary' onClick={this.showApplications.bind(this)}>Show Applications ({this.props.userInfo.applications.length})</button>
             </div>
             <div className="col-sm-10 col-sm-offset-1">
               {this.state.showPhotos && <PhotoBook userInfo={this.props.userInfo}></PhotoBook>}

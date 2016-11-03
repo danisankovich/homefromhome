@@ -62,8 +62,8 @@ class MyMessageChain extends Component {
               <div key={message.dateSent} className="messagepush row">
                 <div
                   className={(message.senderId === userInfo._id
-                    ? "myMessage messageBox"
-                    : "theirMessage messageBox")}
+                    ? "myMessage"
+                    : "theirMessage")}
                   dangerouslySetInnerHTML={{__html: message.message}}
                 >
                 </div>
@@ -74,6 +74,7 @@ class MyMessageChain extends Component {
           </div>
           <textarea
             className="form-control"
+            id='sendMessageTextArea'
             onChange={(e)=>{this.state.newMessage = e.target.value}} cols='30'>
           </textarea>
           <button onClick={this.submitNewMessage.bind(this)}>Send</button>
