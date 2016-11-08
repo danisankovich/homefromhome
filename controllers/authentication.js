@@ -74,10 +74,12 @@ exports.getUserProfile = (req, res) => {
   })
 }
 exports.editInfo = function(req, res, next) {
-  var newPhone = req.body.phoneNumber;
-  var newEmail = req.body.email;
-  var newLang = JSON.parse(req.body.lang);
-  User.findById(req.body.user, (err, user) => {
+  const data = JSON.parse(req.body.data);
+  var newPhone = data.phoneNumber;
+  var newEmail = data.email;
+  var newLang = data.lang;
+  console.log(newPhone)
+  User.findById(data.user, (err, user) => {
     user.phoneNumber = newPhone || user.phoneNumber;
     user.email = newEmail || user.email;
     user.languages = newLang || user.languages

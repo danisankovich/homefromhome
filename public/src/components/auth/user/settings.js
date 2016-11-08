@@ -40,15 +40,15 @@ class Settings extends Component {
     this.setState({editEmail: false})
   }
   handleLangClick(formProps) {
-    formProps.lang = JSON.stringify(this.state.selectedLanguages);
+    formProps.lang = this.state.selectedLanguages;
 
     this.props.editUser(formProps, this.props.userInfo._id);
     this.props.fetchInfo();
   }
   previewFile() {
     var self = this;
-    var file    = document.querySelector('input[type=file]').files[0];
-    var reader  = new FileReader();
+    var file = document.querySelector('input[type=file]').files[0];
+    var reader = new FileReader();
     var image;
     reader.addEventListener("load", function () {
       image = reader.result;
@@ -74,12 +74,9 @@ class Settings extends Component {
       'English', 'Español', 'Français', '日本語', 'Italiano', 'Deutsch', 'Русский язык',
       '中文', '한국어', 'دزيري / جزائري', 'Português', 'Kiswahili', 'Polish'
     ]
-    let currentLangs;
-    if(userInfo) {
-      currentLangs = userInfo.languages;
-    }
     let avatar = this.state.file
     if(userInfo) {
+      const currentLangs = userInfo.languages;
       return (
         <div className="toppush">
           <h3>Settings</h3>
@@ -97,7 +94,7 @@ class Settings extends Component {
               Phone Number: {this.props.userInfo.phoneNumber || 'Set Number'}
             </li>
             <li className={this.state.editPhone ? '' : 'hidden'}>
-              <form onSubmit={handleSubmit(this.handleFormSubmitPhoneNumber.bind(this))}>
+              <form>
                 <fieldset className="form-group">
                   <label>Phone Number: {this.props.userInfo.phoneNumber}</label>
                   {phoneNumber.touched && phoneNumber.error && <div className="error">{phoneNumber.error}</div>}
@@ -109,7 +106,7 @@ class Settings extends Component {
                   }.bind(this)}>
                   hide
                 </button>
-                <button action="submit" className="btn btn-primary">Save</button>
+                <button onClick={handleSubmit(this.handleFormSubmitPhoneNumber.bind(this))} className="btn btn-primary">Save</button>
               </form>
             </li>
             <li
@@ -120,7 +117,7 @@ class Settings extends Component {
               Email: {this.props.userInfo.email}
             </li>
             <li className={this.state.editEmail ? '' : 'hidden'}>
-              <form onSubmit={handleSubmit(this.handleFormSubmitEmail.bind(this))}>
+              <form>
                 <fieldset className="form-group">
                   <label>Email: {this.props.userInfo.email}</label>
                   {email.touched && email.error && <div className="error">{email.error}</div>}
@@ -132,7 +129,7 @@ class Settings extends Component {
                   }.bind(this)}>
                   hide
                 </button>
-                <button action="submit" className="btn btn-primary">Save</button>
+                <button onClick={handleSubmit(this.handleFormSubmitEmail.bind(this))} className="btn btn-primary">Save</button>
               </form>
             </li>
             <li

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../../actions';
-import PhotoBook from './photobook';
-import MyListings from './myListings';
-import MyBlogs from './bloglist';
-import MyApplications from './myApplications';
-import MyLanguages from './language_container';
+import PhotoBook from './my_profile_stuff/photobook';
+import MyListings from './my_profile_stuff/myListings';
+import MyBlogs from './my_profile_stuff/bloglist';
+import MyApplications from './my_profile_stuff/myApplications';
+import MyLanguages from './my_profile_stuff/language_container';
 
 class Profile extends Component {
   componentWillMount() {

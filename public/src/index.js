@@ -15,7 +15,7 @@ import Signup from './components/auth/signup';
 import Signout from './components/auth/signout';
 import Information from './components/infoPage/information';
 import Profile from './components/auth/user/profile';
-import MySinglePhoto from './components/auth/user/mysinglephoto';
+import MySinglePhoto from './components/auth/user/my_profile_stuff/mysinglephoto';
 import UserProfile from './components/auth/user/otheruser/userProfile';
 import Settings from './components/auth/user/settings';
 import Welcome_Container from './components/welcome_container';

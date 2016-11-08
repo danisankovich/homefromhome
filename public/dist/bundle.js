@@ -105,7 +105,7 @@
 	
 	var _profile2 = _interopRequireDefault(_profile);
 	
-	var _mysinglephoto = __webpack_require__(/*! ./components/auth/user/mysinglephoto */ 319);
+	var _mysinglephoto = __webpack_require__(/*! ./components/auth/user/my_profile_stuff/mysinglephoto */ 387);
 	
 	var _mysinglephoto2 = _interopRequireDefault(_mysinglephoto);
 	
@@ -29578,11 +29578,11 @@
 	  var lang = _ref3.lang;
 	
 	  dispatch({ type: _types.EDIT_USER });
-	
+	  var data = JSON.stringify({ phoneNumber: phoneNumber, email: email, user: user, lang: lang });
 	  _jquery2.default.ajax({
 	    url: '/api/editInfo',
 	    type: "POST",
-	    data: { phoneNumber: phoneNumber, email: email, user: user, lang: lang }
+	    data: { data: data }
 	  }).done(function (response) {
 	    dispatch({ type: _types.FETCH_INFO });
 	  }).fail(function (error) {
@@ -43307,23 +43307,23 @@
 	
 	var actions = _interopRequireWildcard(_actions);
 	
-	var _photobook = __webpack_require__(/*! ./photobook */ 315);
+	var _photobook = __webpack_require__(/*! ./my_profile_stuff/photobook */ 382);
 	
 	var _photobook2 = _interopRequireDefault(_photobook);
 	
-	var _myListings = __webpack_require__(/*! ./myListings */ 316);
+	var _myListings = __webpack_require__(/*! ./my_profile_stuff/myListings */ 383);
 	
 	var _myListings2 = _interopRequireDefault(_myListings);
 	
-	var _bloglist = __webpack_require__(/*! ./bloglist */ 317);
+	var _bloglist = __webpack_require__(/*! ./my_profile_stuff/bloglist */ 384);
 	
 	var _bloglist2 = _interopRequireDefault(_bloglist);
 	
-	var _myApplications = __webpack_require__(/*! ./myApplications */ 318);
+	var _myApplications = __webpack_require__(/*! ./my_profile_stuff/myApplications */ 385);
 	
 	var _myApplications2 = _interopRequireDefault(_myApplications);
 	
-	var _language_container = __webpack_require__(/*! ./language_container */ 381);
+	var _language_container = __webpack_require__(/*! ./my_profile_stuff/language_container */ 386);
 	
 	var _language_container2 = _interopRequireDefault(_language_container);
 	
@@ -43412,679 +43412,11 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(Profile);
 
 /***/ },
-/* 315 */
-/*!******************************************************!*\
-  !*** ./public/src/components/auth/user/photobook.js ***!
-  \******************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }return target;
-	};
-	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _reduxForm = __webpack_require__(/*! redux-form */ 266);
-	
-	var _actions = __webpack_require__(/*! ../../../actions */ 259);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 188);
-	
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj.default = obj;return newObj;
-	  }
-	}
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var PhotoBook = function (_Component) {
-	  _inherits(PhotoBook, _Component);
-	
-	  function PhotoBook(props) {
-	    _classCallCheck(this, PhotoBook);
-	
-	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).call(this, props));
-	  }
-	
-	  _createClass(PhotoBook, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.setState({ file: '' });
-	    }
-	  }, {
-	    key: 'uploadPhotos',
-	    value: function uploadPhotos(formprops) {
-	      formprops.image = this.state.file;
-	      this.props.uploadMyPhoto(formprops, this.props.userInfo._id);
-	      this.props.fetchInfo();
-	    }
-	  }, {
-	    key: 'renderAlert',
-	    value: function renderAlert() {
-	      if (this.props.errorMessage) {
-	        return _react2.default.createElement('div', { className: 'alert alert-danger' }, _react2.default.createElement('strong', null, 'Error!!! '), ' ', this.props.errorMessage);
-	      }
-	    }
-	  }, {
-	    key: 'previewFile',
-	    value: function previewFile() {
-	      var self = this;
-	      var file = document.querySelector('input[type=file]').files[0];
-	      var reader = new FileReader();
-	      var image;
-	      reader.addEventListener("load", function () {
-	        image = reader.result;
-	        self.setState({ file: image });
-	      }, false);
-	
-	      if (file) {
-	        reader.readAsDataURL(file);
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var handleSubmit = _props.handleSubmit;
-	      var userInfo = _props.userInfo;
-	      var _props$fields = _props.fields;
-	      var image = _props$fields.image;
-	      var tagline = _props$fields.tagline;
-	      var location = _props$fields.location;
-	
-	      var photos = userInfo.myPhotos || [];
-	      var notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden';
-	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('h4', null, 'Upload Photos to Your Photo Album'), _react2.default.createElement('form', { onSubmit: handleSubmit(this.uploadPhotos.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })), _react2.default.createElement('fieldset', { className: notHiddenClass }, _react2.default.createElement('label', null, 'Tagline: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)), tagline.touched && tagline.error && _react2.default.createElement('div', { className: 'error' }, tagline.error)), _react2.default.createElement('fieldset', { className: notHiddenClass }, _react2.default.createElement('label', null, 'Location: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, location)), location.touched && location.error && _react2.default.createElement('div', { className: 'error' }, location.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: this.state.file ? "btn btn-primary" : "hidden" }, 'Upload Photo')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, photos.map(function (e) {
-	        return _react2.default.createElement('div', { className: 'col-sm-4', key: e._id, onClick: function onClick() {
-	            _reactRouter.browserHistory.push('/myphotos/' + e._id);
-	          } }, _react2.default.createElement('ul', { className: 'photoBookBorder' }, _react2.default.createElement('li', null, e.location), _react2.default.createElement('li', null, e.tagline), _react2.default.createElement('li', null, _react2.default.createElement('img', { className: 'photoBookImage', src: e.image }))));
-	      })));
-	    }
-	  }]);
-	
-	  return PhotoBook;
-	}(_react.Component);
-	
-	function validate(formProps) {
-	  var errors = {};
-	
-	  if (!formProps.tagline) {
-	    errors.tagline = 'Please Enter a Tagline';
-	  }
-	  return errors;
-	}
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reduxForm.reduxForm)({
-	  form: 'photoBook',
-	  fields: ['image', 'tagline', 'location'],
-	  validate: validate
-	}, mapStateToProps, actions)(PhotoBook);
-
-/***/ },
-/* 316 */
-/*!*******************************************************!*\
-  !*** ./public/src/components/auth/user/myListings.js ***!
-  \*******************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _actions = __webpack_require__(/*! ../../../actions */ 259);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 188);
-	
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj.default = obj;return newObj;
-	  }
-	}
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var MyListings = function (_Component) {
-	  _inherits(MyListings, _Component);
-	
-	  function MyListings() {
-	    _classCallCheck(this, MyListings);
-	
-	    return _possibleConstructorReturn(this, (MyListings.__proto__ || Object.getPrototypeOf(MyListings)).apply(this, arguments));
-	  }
-	
-	  _createClass(MyListings, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var listings = this.props.userInfo.myListings;
-	      this.props.fetchMyListings(listings);
-	      this.setState({ listings: [] });
-	    }
-	  }, {
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      var clickResult = this._id;
-	      _reactRouter.browserHistory.push('/listings/' + clickResult);
-	    }
-	  }, {
-	    key: 'deleteClickHandle',
-	    value: function deleteClickHandle(e) {
-	      e.preventDefault();
-	      var clickResult = this[1]._id;
-	      var array = this[2].state.listings;
-	      var index = this[2].state.listings.indexOf(clickResult);
-	      this[2].state.listings.splice(index, 1);
-	      this[0].removeListing(clickResult);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      this.state.listings = this.props.mylistings || [];
-	      if (this.state.listings) {
-	        return _react2.default.createElement('div', null, this.state.listings && this.state.listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Open Applications'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.listings.map(function (result) {
-	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.rating === 0 ? 'Not Rated' : result.rating), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.applications.length), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
-	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
-	            onClick: this.deleteClickHandle.bind([this.props, result, this])
-	          }))));
-	        }.bind(this)))));
-	      } else {
-	        return _react2.default.createElement('div', null, 'No Listings Found');
-	      }
-	    }
-	  }]);
-	
-	  return MyListings;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo, mylistings: state.listing.mylistings, userStuff: state.auth };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyListings);
-
-/***/ },
-/* 317 */
-/*!*****************************************************!*\
-  !*** ./public/src/components/auth/user/bloglist.js ***!
-  \*****************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _actions = __webpack_require__(/*! ../../../actions */ 259);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 188);
-	
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj.default = obj;return newObj;
-	  }
-	}
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var MyBlogs = function (_Component) {
-	  _inherits(MyBlogs, _Component);
-	
-	  function MyBlogs() {
-	    _classCallCheck(this, MyBlogs);
-	
-	    return _possibleConstructorReturn(this, (MyBlogs.__proto__ || Object.getPrototypeOf(MyBlogs)).apply(this, arguments));
-	  }
-	
-	  _createClass(MyBlogs, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.setState({ blogs: [] });
-	    }
-	  }, {
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      var clickResult = this._id;
-	      _reactRouter.browserHistory.push('/blogs/' + clickResult);
-	    }
-	  }, {
-	    key: 'deleteClickHandle',
-	    value: function deleteClickHandle(e) {
-	      e.preventDefault();
-	      var clickResult = this[1]._id;
-	      var array = this[2].state.blogs;
-	      var index = this[2].state.blogs.indexOf(clickResult);
-	      this[2].state.blogs.splice(index, 1);
-	      console.log(this[2].state.blogs);
-	      this[0].removeBlog(clickResult);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var userInfo = this.props.userInfo;
-	
-	      this.state.blogs = userInfo.blogs || [];
-	      if (this.state.blogs) {
-	        return _react2.default.createElement('div', null, this.state.blogs && this.state.blogs.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Title'), _react2.default.createElement('th', null, 'keywords'), _react2.default.createElement('th', null, '# of Comments'), _react2.default.createElement('th', null, 'Edit'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.blogs.map(function (result) {
-	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.keywords), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '(', result.comments.length, ')'), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'Edit'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
-	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
-	            onClick: this.deleteClickHandle.bind([this.props, result, this])
-	          }))));
-	        }.bind(this)))));
-	      } else {
-	        return _react2.default.createElement('div', null, 'No Blogs Found');
-	      }
-	    }
-	  }]);
-	
-	  return MyBlogs;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyBlogs);
-
-/***/ },
-/* 318 */
-/*!***********************************************************!*\
-  !*** ./public/src/components/auth/user/myApplications.js ***!
-  \***********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _actions = __webpack_require__(/*! ../../../actions */ 259);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 188);
-	
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj.default = obj;return newObj;
-	  }
-	}
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var MyApplications = function (_Component) {
-	  _inherits(MyApplications, _Component);
-	
-	  function MyApplications() {
-	    _classCallCheck(this, MyApplications);
-	
-	    return _possibleConstructorReturn(this, (MyApplications.__proto__ || Object.getPrototypeOf(MyApplications)).apply(this, arguments));
-	  }
-	
-	  _createClass(MyApplications, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.setState({ applications: [] });
-	    }
-	  }, {
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      var clickResult = this._id;
-	      _reactRouter.browserHistory.push('/applications/' + clickResult);
-	    }
-	  }, {
-	    key: 'deleteClickHandle',
-	    value: function deleteClickHandle(e) {
-	      e.preventDefault();
-	      var clickResult = this[1]._id;
-	      var array = this[2].state.applications;
-	      var index = this[2].state.applications.indexOf(clickResult);
-	      this[2].state.applications.splice(index, 1);
-	      console.log(this[2].state.applications);
-	      this[0].removeApplication(clickResult);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var userInfo = this.props.userInfo;
-	
-	      this.state.applications = userInfo.applications || [];
-	      if (this.state.applications) {
-	        return _react2.default.createElement('div', null, this.state.applications && this.state.applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Title'), _react2.default.createElement('th', null, 'Listing Country'), _react2.default.createElement('th', null, 'Planned Date of Arrival'), _react2.default.createElement('th', null, 'Planned Date of Departure'), _react2.default.createElement('th', null, 'Reviewed'), _react2.default.createElement('th', null, 'Approved'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.applications.map(function (result) {
-	          return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
-	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
-	            onClick: this.deleteClickHandle.bind([this.props, result, this])
-	          }))));
-	        }.bind(this)))));
-	      } else {
-	        return _react2.default.createElement('div', null, 'No applications Found');
-	      }
-	    }
-	  }]);
-	
-	  return MyApplications;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyApplications);
-
-/***/ },
-/* 319 */
-/*!**********************************************************!*\
-  !*** ./public/src/components/auth/user/mysinglephoto.js ***!
-  \**********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	  };
-	}();
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
-	
-	var _actions = __webpack_require__(/*! ../../../actions */ 259);
-	
-	var actions = _interopRequireWildcard(_actions);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 188);
-	
-	function _interopRequireWildcard(obj) {
-	  if (obj && obj.__esModule) {
-	    return obj;
-	  } else {
-	    var newObj = {};if (obj != null) {
-	      for (var key in obj) {
-	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-	      }
-	    }newObj.default = obj;return newObj;
-	  }
-	}
-	
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-	
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	}
-	
-	function _possibleConstructorReturn(self, call) {
-	  if (!self) {
-	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-	}
-	
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-	
-	var MySinglePhoto = function (_Component) {
-	  _inherits(MySinglePhoto, _Component);
-	
-	  function MySinglePhoto() {
-	    _classCallCheck(this, MySinglePhoto);
-	
-	    return _possibleConstructorReturn(this, (MySinglePhoto.__proto__ || Object.getPrototypeOf(MySinglePhoto)).apply(this, arguments));
-	  }
-	
-	  _createClass(MySinglePhoto, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.setState({ photo: {} });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      var userInfo = this.props.userInfo;
-	
-	      var photoToShow = void 0;
-	      if (userInfo) {
-	        (function () {
-	          var photoId = _this2.props.location.pathname.split('myphotos/')[1];
-	          userInfo.myPhotos.forEach(function (e) {
-	            if (e._id == photoId) {
-	              _this2.state.photo = e;
-	            }
-	          });
-	        })();
-	      }
-	      if (userInfo) {
-	        return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'imageHolderCenter' }, _react2.default.createElement('img', { src: this.state.photo.image, className: 'onephotoviewing' })), _react2.default.createElement('div', null, _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Tagline: ', this.state.photo.tagline), _react2.default.createElement('li', null, 'Location: ', this.state.photo.location))));
-	      } else {
-	        return _react2.default.createElement('div', null, 'Loading');
-	      }
-	    }
-	  }]);
-	
-	  return MySinglePhoto;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return { userInfo: state.auth.userInfo };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MySinglePhoto);
-
-/***/ },
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
 /* 320 */
 /*!******************************************************************!*\
   !*** ./public/src/components/auth/user/otheruser/userProfile.js ***!
@@ -44618,11 +43950,17 @@
 
 	'use strict';
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol" ? function (obj) {
+	  return typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	} : function (obj) {
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof2(obj);
+	};
 	
 	var _extends = Object.assign || function (target) {
 	  for (var i = 1; i < arguments.length; i++) {
@@ -44681,12 +44019,12 @@
 	function _possibleConstructorReturn(self, call) {
 	  if (!self) {
 	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof2(call)) === "object" || typeof call === "function") ? call : self;
 	}
 	
 	function _inherits(subClass, superClass) {
 	  if (typeof superClass !== "function" && superClass !== null) {
-	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof2(superClass)));
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 	
@@ -44748,7 +44086,7 @@
 	  }, {
 	    key: 'handleLangClick',
 	    value: function handleLangClick(formProps) {
-	      formProps.lang = JSON.stringify(this.state.selectedLanguages);
+	      formProps.lang = this.state.selectedLanguages;
 	
 	      this.props.editUser(formProps, this.props.userInfo._id);
 	      this.props.fetchInfo();
@@ -44792,53 +44130,56 @@
 	      var userInfo = this.props.userInfo;
 	
 	      var languages = ['English', 'Español', 'Français', '日本語', 'Italiano', 'Deutsch', 'Русский язык', '中文', '한국어', 'دزيري / جزائري', 'Português', 'Kiswahili', 'Polish'];
-	      var currentLangs = void 0;
-	      if (userInfo) {
-	        currentLangs = userInfo.languages;
-	      }
 	      var avatar = this.state.file;
 	      if (userInfo) {
-	        return _react2.default.createElement('div', { className: 'toppush' }, _react2.default.createElement('h3', null, 'Settings'), _react2.default.createElement('p', null, 'Edit User Info: '), _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Username: ', this.props.userInfo.username), _react2.default.createElement('li', null, 'Click On the Properties Below to Edit'), _react2.default.createElement('li', {
-	          className: this.state.editPhone ? 'hidden' : '',
-	          onClick: function () {
-	            this.handleClick({ editPhone: true });
-	          }.bind(this) }, 'Phone Number: ', this.props.userInfo.phoneNumber || 'Set Number'), _react2.default.createElement('li', { className: this.state.editPhone ? '' : 'hidden' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmitPhoneNumber.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Phone Number: ', this.props.userInfo.phoneNumber), phoneNumber.touched && phoneNumber.error && _react2.default.createElement('div', { className: 'error' }, phoneNumber.error), _react2.default.createElement('input', _extends({ className: 'form-control' }, phoneNumber))), _react2.default.createElement('button', { type: 'button', className: 'btn btn-danger',
-	          onClick: function () {
-	            this.handleClick({ editPhone: false });
-	          }.bind(this) }, 'hide'), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', {
-	          className: this.state.editEmail ? 'hidden' : '',
-	          onClick: function () {
-	            this.handleClick({ editEmail: true });
-	          }.bind(this) }, 'Email: ', this.props.userInfo.email), _react2.default.createElement('li', { className: this.state.editEmail ? '' : 'hidden' }, _react2.default.createElement('form', { onSubmit: handleSubmit(this.handleFormSubmitEmail.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Email: ', this.props.userInfo.email), email.touched && email.error && _react2.default.createElement('div', { className: 'error' }, email.error), _react2.default.createElement('input', _extends({ className: 'form-control' }, email))), _react2.default.createElement('button', { type: 'button', className: 'btn btn-danger',
-	          onClick: function () {
-	            this.handleClick({ editEmail: false });
-	          }.bind(this) }, 'hide'), _react2.default.createElement('button', { action: 'submit', className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', {
-	          className: this.state.selectedLanguages ? '' : 'hidden',
-	          onClick: function onClick() {
-	            $('#myModal').modal('show');
-	          } }, 'Languages: ', this.props.userInfo.languages.map(function (lang, i) {
-	          if (i === _this2.props.userInfo.languages.length - 1) {
-	            return lang;
-	          }
-	          return lang + ', ';
-	        })), _react2.default.createElement('li', null, _react2.default.createElement('form', { onSubmit: handleSubmit(this.uploadAvatar.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('img', { src: userInfo.avatar, height: '200px' }), _react2.default.createElement('br', null), _react2.default.createElement('label', null, 'Upload/Change Avatar: ', _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) }), ' ')), _react2.default.createElement('button', { action: 'submit', className: this.state.file ? '' : 'hidden' }, 'Change Avatar')))), _react2.default.createElement('div', { className: 'modal fade', id: 'myModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'myModalLabel', 'aria-hidden': 'true' }, _react2.default.createElement('div', { className: 'modal-dialog', role: 'document' }, _react2.default.createElement('div', { className: 'modal-content' }, _react2.default.createElement('div', { className: 'modal-header' }, _react2.default.createElement('button', { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' }, _react2.default.createElement('span', { 'aria-hidden': 'true' }, '\xD7')), _react2.default.createElement('h4', { className: 'modal-title', id: 'myModalLabel' }, 'Languages')), _react2.default.createElement('div', { className: 'modal-body' }, _react2.default.createElement('form', null, languages.map(function (lang) {
-	          var isChecked = void 0;
-	          if (currentLangs.indexOf(lang) > -1) {
-	            isChecked = true;
-	            if (_this2.state.selectedLanguages.indexOf(lang) === -1) {
-	              _this2.state.selectedLanguages.push(lang);
-	            }
-	          }
-	          return _react2.default.createElement('div', { key: lang, className: 'langDiv col-sm-6' }, _react2.default.createElement('label', { htmlFor: lang }, ' ', lang, ' '), _react2.default.createElement('input', { type: 'checkbox', id: lang, value: lang, defaultChecked: isChecked,
-	            onChange: function onChange() {
-	              if (currentLangs.indexOf(lang) === -1) {
-	                currentLangs.push(lang);
-	              } else {
-	                currentLangs.splice(currentLangs.indexOf(lang), 1);
+	        var _ret = function () {
+	          var currentLangs = userInfo.languages;
+	          return {
+	            v: _react2.default.createElement('div', { className: 'toppush' }, _react2.default.createElement('h3', null, 'Settings'), _react2.default.createElement('p', null, 'Edit User Info: '), _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Username: ', _this2.props.userInfo.username), _react2.default.createElement('li', null, 'Click On the Properties Below to Edit'), _react2.default.createElement('li', {
+	              className: _this2.state.editPhone ? 'hidden' : '',
+	              onClick: function () {
+	                this.handleClick({ editPhone: true });
+	              }.bind(_this2) }, 'Phone Number: ', _this2.props.userInfo.phoneNumber || 'Set Number'), _react2.default.createElement('li', { className: _this2.state.editPhone ? '' : 'hidden' }, _react2.default.createElement('form', null, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Phone Number: ', _this2.props.userInfo.phoneNumber), phoneNumber.touched && phoneNumber.error && _react2.default.createElement('div', { className: 'error' }, phoneNumber.error), _react2.default.createElement('input', _extends({ className: 'form-control' }, phoneNumber))), _react2.default.createElement('button', { type: 'button', className: 'btn btn-danger',
+	              onClick: function () {
+	                this.handleClick({ editPhone: false });
+	              }.bind(_this2) }, 'hide'), _react2.default.createElement('button', { onClick: handleSubmit(_this2.handleFormSubmitPhoneNumber.bind(_this2)), className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', {
+	              className: _this2.state.editEmail ? 'hidden' : '',
+	              onClick: function () {
+	                this.handleClick({ editEmail: true });
+	              }.bind(_this2) }, 'Email: ', _this2.props.userInfo.email), _react2.default.createElement('li', { className: _this2.state.editEmail ? '' : 'hidden' }, _react2.default.createElement('form', null, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Email: ', _this2.props.userInfo.email), email.touched && email.error && _react2.default.createElement('div', { className: 'error' }, email.error), _react2.default.createElement('input', _extends({ className: 'form-control' }, email))), _react2.default.createElement('button', { type: 'button', className: 'btn btn-danger',
+	              onClick: function () {
+	                this.handleClick({ editEmail: false });
+	              }.bind(_this2) }, 'hide'), _react2.default.createElement('button', { onClick: handleSubmit(_this2.handleFormSubmitEmail.bind(_this2)), className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', {
+	              className: _this2.state.selectedLanguages ? '' : 'hidden',
+	              onClick: function onClick() {
+	                $('#myModal').modal('show');
+	              } }, 'Languages: ', _this2.props.userInfo.languages.map(function (lang, i) {
+	              if (i === _this2.props.userInfo.languages.length - 1) {
+	                return lang;
 	              }
-	              _this2.state.selectedLanguages = currentLangs;
-	            } }));
-	        }))), _react2.default.createElement('div', { className: 'modal-footer' }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-secondary', 'data-dismiss': 'modal' }, 'Close'), _react2.default.createElement('button', { type: 'button', className: 'btn btn-primary', onClick: handleSubmit(self.handleLangClick.bind(self)), 'data-dismiss': 'modal' }, 'Save changes'))))));
+	              return lang + ', ';
+	            })), _react2.default.createElement('li', null, _react2.default.createElement('form', { onSubmit: handleSubmit(_this2.uploadAvatar.bind(_this2)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('img', { src: userInfo.avatar, height: '200px' }), _react2.default.createElement('br', null), _react2.default.createElement('label', null, 'Upload/Change Avatar: ', _react2.default.createElement('input', { type: 'file', onChange: _this2.previewFile.bind(_this2) }), ' ')), _react2.default.createElement('button', { action: 'submit', className: _this2.state.file ? '' : 'hidden' }, 'Change Avatar')))), _react2.default.createElement('div', { className: 'modal fade', id: 'myModal', tabIndex: '-1', role: 'dialog', 'aria-labelledby': 'myModalLabel', 'aria-hidden': 'true' }, _react2.default.createElement('div', { className: 'modal-dialog', role: 'document' }, _react2.default.createElement('div', { className: 'modal-content' }, _react2.default.createElement('div', { className: 'modal-header' }, _react2.default.createElement('button', { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' }, _react2.default.createElement('span', { 'aria-hidden': 'true' }, '\xD7')), _react2.default.createElement('h4', { className: 'modal-title', id: 'myModalLabel' }, 'Languages')), _react2.default.createElement('div', { className: 'modal-body' }, _react2.default.createElement('form', null, languages.map(function (lang) {
+	              var isChecked = void 0;
+	              if (currentLangs.indexOf(lang) > -1) {
+	                isChecked = true;
+	                if (_this2.state.selectedLanguages.indexOf(lang) === -1) {
+	                  _this2.state.selectedLanguages.push(lang);
+	                }
+	              }
+	              return _react2.default.createElement('div', { key: lang, className: 'langDiv col-sm-6' }, _react2.default.createElement('label', { htmlFor: lang }, ' ', lang, ' '), _react2.default.createElement('input', { type: 'checkbox', id: lang, value: lang, defaultChecked: isChecked,
+	                onChange: function onChange() {
+	                  if (currentLangs.indexOf(lang) === -1) {
+	                    currentLangs.push(lang);
+	                  } else {
+	                    currentLangs.splice(currentLangs.indexOf(lang), 1);
+	                  }
+	                  _this2.state.selectedLanguages = currentLangs;
+	                } }));
+	            }))), _react2.default.createElement('div', { className: 'modal-footer' }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-secondary', 'data-dismiss': 'modal' }, 'Close'), _react2.default.createElement('button', { type: 'button', className: 'btn btn-primary', onClick: handleSubmit(self.handleLangClick.bind(self)), 'data-dismiss': 'modal' }, 'Save changes'))))))
+	          };
+	        }();
+	
+	        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	      }
 	      return _react2.default.createElement('div', null, 'Loading........ ');
 	    }
@@ -68548,10 +67889,565 @@
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
 
 /***/ },
-/* 381 */
-/*!***************************************************************!*\
-  !*** ./public/src/components/auth/user/language_container.js ***!
-  \***************************************************************/
+/* 381 */,
+/* 382 */
+/*!***********************************************************************!*\
+  !*** ./public/src/components/auth/user/my_profile_stuff/photobook.js ***!
+  \***********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }return target;
+	};
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _reduxForm = __webpack_require__(/*! redux-form */ 266);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var PhotoBook = function (_Component) {
+	  _inherits(PhotoBook, _Component);
+	
+	  function PhotoBook(props) {
+	    _classCallCheck(this, PhotoBook);
+	
+	    return _possibleConstructorReturn(this, (PhotoBook.__proto__ || Object.getPrototypeOf(PhotoBook)).call(this, props));
+	  }
+	
+	  _createClass(PhotoBook, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ file: '' });
+	    }
+	  }, {
+	    key: 'uploadPhotos',
+	    value: function uploadPhotos(formprops) {
+	      formprops.image = this.state.file;
+	      this.props.uploadMyPhoto(formprops, this.props.userInfo._id);
+	      this.props.fetchInfo();
+	    }
+	  }, {
+	    key: 'renderAlert',
+	    value: function renderAlert() {
+	      if (this.props.errorMessage) {
+	        return _react2.default.createElement('div', { className: 'alert alert-danger' }, _react2.default.createElement('strong', null, 'Error!!! '), ' ', this.props.errorMessage);
+	      }
+	    }
+	  }, {
+	    key: 'previewFile',
+	    value: function previewFile() {
+	      var self = this;
+	      var file = document.querySelector('input[type=file]').files[0];
+	      var reader = new FileReader();
+	      var image;
+	      reader.addEventListener("load", function () {
+	        image = reader.result;
+	        self.setState({ file: image });
+	      }, false);
+	
+	      if (file) {
+	        reader.readAsDataURL(file);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var handleSubmit = _props.handleSubmit;
+	      var userInfo = _props.userInfo;
+	      var _props$fields = _props.fields;
+	      var image = _props$fields.image;
+	      var tagline = _props$fields.tagline;
+	      var location = _props$fields.location;
+	
+	      var photos = userInfo.myPhotos || [];
+	      var notHiddenClass = this.state.file ? 'form-group' : 'form-group init-hidden';
+	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('h4', null, 'Upload Photos to Your Photo Album'), _react2.default.createElement('form', { onSubmit: handleSubmit(this.uploadPhotos.bind(this)) }, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('input', { type: 'file', onChange: this.previewFile.bind(this) })), _react2.default.createElement('fieldset', { className: notHiddenClass }, _react2.default.createElement('label', null, 'Tagline: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, tagline)), tagline.touched && tagline.error && _react2.default.createElement('div', { className: 'error' }, tagline.error)), _react2.default.createElement('fieldset', { className: notHiddenClass }, _react2.default.createElement('label', null, 'Location: '), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'text' }, location)), location.touched && location.error && _react2.default.createElement('div', { className: 'error' }, location.error)), this.renderAlert(), _react2.default.createElement('button', { action: 'submit', className: this.state.file ? "btn btn-primary" : "hidden" }, 'Upload Photo')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, photos.map(function (e) {
+	        return _react2.default.createElement('div', { className: 'col-sm-4', key: e._id, onClick: function onClick() {
+	            _reactRouter.browserHistory.push('/myphotos/' + e._id);
+	          } }, _react2.default.createElement('ul', { className: 'photoBookBorder' }, _react2.default.createElement('li', null, e.location), _react2.default.createElement('li', null, e.tagline), _react2.default.createElement('li', null, _react2.default.createElement('img', { className: 'photoBookImage', src: e.image }))));
+	      })));
+	    }
+	  }]);
+	
+	  return PhotoBook;
+	}(_react.Component);
+	
+	function validate(formProps) {
+	  var errors = {};
+	
+	  if (!formProps.tagline) {
+	    errors.tagline = 'Please Enter a Tagline';
+	  }
+	  return errors;
+	}
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reduxForm.reduxForm)({
+	  form: 'photoBook',
+	  fields: ['image', 'tagline', 'location'],
+	  validate: validate
+	}, mapStateToProps, actions)(PhotoBook);
+
+/***/ },
+/* 383 */
+/*!************************************************************************!*\
+  !*** ./public/src/components/auth/user/my_profile_stuff/myListings.js ***!
+  \************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var MyListings = function (_Component) {
+	  _inherits(MyListings, _Component);
+	
+	  function MyListings() {
+	    _classCallCheck(this, MyListings);
+	
+	    return _possibleConstructorReturn(this, (MyListings.__proto__ || Object.getPrototypeOf(MyListings)).apply(this, arguments));
+	  }
+	
+	  _createClass(MyListings, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var listings = this.props.userInfo.myListings;
+	      this.props.fetchMyListings(listings);
+	      this.setState({ listings: [] });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/listings/' + clickResult);
+	    }
+	  }, {
+	    key: 'deleteClickHandle',
+	    value: function deleteClickHandle(e) {
+	      e.preventDefault();
+	      var clickResult = this[1]._id;
+	      var array = this[2].state.listings;
+	      var index = this[2].state.listings.indexOf(clickResult);
+	      this[2].state.listings.splice(index, 1);
+	      this[0].removeListing(clickResult);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      this.state.listings = this.props.mylistings || [];
+	      if (this.state.listings) {
+	        return _react2.default.createElement('div', null, this.state.listings && this.state.listings.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Name'), _react2.default.createElement('th', null, 'Country'), _react2.default.createElement('th', null, 'State'), _react2.default.createElement('th', null, 'City'), _react2.default.createElement('th', null, 'Address'), _react2.default.createElement('th', null, 'Price Per Night'), _react2.default.createElement('th', null, 'Rating'), _react2.default.createElement('th', null, 'Open Applications'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.listings.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.country), result.location.country === 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), result.location.country !== 'united states' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'X'), result.location.usCity !== 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.usCity), result.location.usCity === 'not valid' && _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.city), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.location.address), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '$', result.pricePerNight), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.rating === 0 ? 'Not Rated' : result.rating), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.applications.length), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
+	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
+	            onClick: this.deleteClickHandle.bind([this.props, result, this])
+	          }))));
+	        }.bind(this)))));
+	      } else {
+	        return _react2.default.createElement('div', null, 'No Listings Found');
+	      }
+	    }
+	  }]);
+	
+	  return MyListings;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo, mylistings: state.listing.mylistings, userStuff: state.auth };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyListings);
+
+/***/ },
+/* 384 */
+/*!**********************************************************************!*\
+  !*** ./public/src/components/auth/user/my_profile_stuff/bloglist.js ***!
+  \**********************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var MyBlogs = function (_Component) {
+	  _inherits(MyBlogs, _Component);
+	
+	  function MyBlogs() {
+	    _classCallCheck(this, MyBlogs);
+	
+	    return _possibleConstructorReturn(this, (MyBlogs.__proto__ || Object.getPrototypeOf(MyBlogs)).apply(this, arguments));
+	  }
+	
+	  _createClass(MyBlogs, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ blogs: [] });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/blogs/' + clickResult);
+	    }
+	  }, {
+	    key: 'deleteClickHandle',
+	    value: function deleteClickHandle(e) {
+	      e.preventDefault();
+	      var clickResult = this[1]._id;
+	      var array = this[2].state.blogs;
+	      var index = this[2].state.blogs.indexOf(clickResult);
+	      this[2].state.blogs.splice(index, 1);
+	      console.log(this[2].state.blogs);
+	      this[0].removeBlog(clickResult);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      this.state.blogs = userInfo.blogs || [];
+	      if (this.state.blogs) {
+	        return _react2.default.createElement('div', null, this.state.blogs && this.state.blogs.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Title'), _react2.default.createElement('th', null, 'keywords'), _react2.default.createElement('th', null, '# of Comments'), _react2.default.createElement('th', null, 'Edit'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.blogs.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.keywords), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '(', result.comments.length, ')'), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'Edit'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
+	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
+	            onClick: this.deleteClickHandle.bind([this.props, result, this])
+	          }))));
+	        }.bind(this)))));
+	      } else {
+	        return _react2.default.createElement('div', null, 'No Blogs Found');
+	      }
+	    }
+	  }]);
+	
+	  return MyBlogs;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyBlogs);
+
+/***/ },
+/* 385 */
+/*!****************************************************************************!*\
+  !*** ./public/src/components/auth/user/my_profile_stuff/myApplications.js ***!
+  \****************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var MyApplications = function (_Component) {
+	  _inherits(MyApplications, _Component);
+	
+	  function MyApplications() {
+	    _classCallCheck(this, MyApplications);
+	
+	    return _possibleConstructorReturn(this, (MyApplications.__proto__ || Object.getPrototypeOf(MyApplications)).apply(this, arguments));
+	  }
+	
+	  _createClass(MyApplications, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ applications: [] });
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var clickResult = this._id;
+	      _reactRouter.browserHistory.push('/applications/' + clickResult);
+	    }
+	  }, {
+	    key: 'deleteClickHandle',
+	    value: function deleteClickHandle(e) {
+	      e.preventDefault();
+	      var clickResult = this[1]._id;
+	      var array = this[2].state.applications;
+	      var index = this[2].state.applications.indexOf(clickResult);
+	      this[2].state.applications.splice(index, 1);
+	      console.log(this[2].state.applications);
+	      this[0].removeApplication(clickResult);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var userInfo = this.props.userInfo;
+	
+	      this.state.applications = userInfo.applications || [];
+	      if (this.state.applications) {
+	        return _react2.default.createElement('div', null, this.state.applications && this.state.applications.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Listing Title'), _react2.default.createElement('th', null, 'Listing Country'), _react2.default.createElement('th', null, 'Planned Date of Arrival'), _react2.default.createElement('th', null, 'Planned Date of Departure'), _react2.default.createElement('th', null, 'Reviewed'), _react2.default.createElement('th', null, 'Approved'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.applications.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result.applicationId, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.listingTitle), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.listingLocation.country), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.arrivalDate), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.departureDate), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.reviewed ? 'Yes' : 'No'), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.approved ? 'Yes' : result.approved === 'rejected' ? 'Rejected' : 'No'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
+	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
+	            onClick: this.deleteClickHandle.bind([this.props, result, this])
+	          }))));
+	        }.bind(this)))));
+	      } else {
+	        return _react2.default.createElement('div', null, 'No applications Found');
+	      }
+	    }
+	  }]);
+	
+	  return MyApplications;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MyApplications);
+
+/***/ },
+/* 386 */
+/*!********************************************************************************!*\
+  !*** ./public/src/components/auth/user/my_profile_stuff/language_container.js ***!
+  \********************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68619,6 +68515,125 @@
 	}(_react.Component);
 	
 	exports.default = MyLanguages;
+
+/***/ },
+/* 387 */
+/*!***************************************************************************!*\
+  !*** ./public/src/components/auth/user/my_profile_stuff/mysinglephoto.js ***!
+  \***************************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 160);
+	
+	var _actions = __webpack_require__(/*! ../../../../actions */ 259);
+	
+	var actions = _interopRequireWildcard(_actions);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 188);
+	
+	function _interopRequireWildcard(obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};if (obj != null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }newObj.default = obj;return newObj;
+	  }
+	}
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var MySinglePhoto = function (_Component) {
+	  _inherits(MySinglePhoto, _Component);
+	
+	  function MySinglePhoto() {
+	    _classCallCheck(this, MySinglePhoto);
+	
+	    return _possibleConstructorReturn(this, (MySinglePhoto.__proto__ || Object.getPrototypeOf(MySinglePhoto)).apply(this, arguments));
+	  }
+	
+	  _createClass(MySinglePhoto, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({ photo: {} });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var userInfo = this.props.userInfo;
+	
+	      var photoToShow = void 0;
+	      if (userInfo) {
+	        (function () {
+	          var photoId = _this2.props.location.pathname.split('myphotos/')[1];
+	          userInfo.myPhotos.forEach(function (e) {
+	            if (e._id == photoId) {
+	              _this2.state.photo = e;
+	            }
+	          });
+	        })();
+	      }
+	      if (userInfo) {
+	        return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'imageHolderCenter' }, _react2.default.createElement('img', { src: this.state.photo.image, className: 'onephotoviewing' })), _react2.default.createElement('div', null, _react2.default.createElement('ul', null, _react2.default.createElement('li', null, 'Tagline: ', this.state.photo.tagline), _react2.default.createElement('li', null, 'Location: ', this.state.photo.location))));
+	      } else {
+	        return _react2.default.createElement('div', null, 'Loading');
+	      }
+	    }
+	  }]);
+	
+	  return MySinglePhoto;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return { userInfo: state.auth.userInfo };
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(MySinglePhoto);
 
 /***/ }
 /******/ ]);
