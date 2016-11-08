@@ -29582,7 +29582,7 @@
 	  _jquery2.default.ajax({
 	    url: '/api/editInfo',
 	    type: "POST",
-	    data: { phoneNumber: phoneNumber, email: email, user: user, 'lang': lang }
+	    data: { phoneNumber: phoneNumber, email: email, user: user, lang: lang }
 	  }).done(function (response) {
 	    dispatch({ type: _types.FETCH_INFO });
 	  }).fail(function (error) {
@@ -43323,6 +43323,10 @@
 	
 	var _myApplications2 = _interopRequireDefault(_myApplications);
 	
+	var _language_container = __webpack_require__(/*! ./language_container */ 381);
+	
+	var _language_container2 = _interopRequireDefault(_language_container);
+	
 	function _interopRequireWildcard(obj) {
 	  if (obj && obj.__esModule) {
 	    return obj;
@@ -43393,20 +43397,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      var userInfo = this.props.userInfo;
 	
-	      if (userInfo && userInfo.languages) {
-	        var photos = userInfo.myPhotos;
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userInfo.username + "'s", ' Profile'), _react2.default.createElement('h3', null, 'Email: ', userInfo.email), _react2.default.createElement('h3', null, 'Phone Number: ', userInfo.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userInfo.languages.map(function (lang, i) {
-	          if (i === _this2.props.userInfo.languages.length - 1) {
-	            return lang;
-	          }
-	          return lang + ', ';
-	        })), _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showPhotos']) }, 'Show Albums'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showListings']) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showBlogs']) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showApplications']) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo }))));
-	      }
-	      return _react2.default.createElement('div', null, 'Loading........ ');
+	      return _react2.default.createElement('div', { className: 'toppush container' }, userInfo && _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userInfo.username + "'s", ' Profile'), _react2.default.createElement('h3', null, 'Email: ', userInfo.email), _react2.default.createElement('h3', null, 'Phone Number: ', userInfo.phoneNumber), _react2.default.createElement(_language_container2.default, { languages: userInfo.languages }), _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showPhotos']) }, 'Show Photos'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showListings']) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showBlogs']) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showApplications']) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo })))), !userInfo && _react2.default.createElement('div', null, 'No User Found'));
 	    }
 	  }]);
 	
@@ -44755,7 +44748,7 @@
 	  }, {
 	    key: 'handleLangClick',
 	    value: function handleLangClick(formProps) {
-	      formProps.lang = this.state.selectedLanguages;
+	      formProps.lang = JSON.stringify(this.state.selectedLanguages);
 	
 	      this.props.editUser(formProps, this.props.userInfo._id);
 	      this.props.fetchInfo();
@@ -68553,6 +68546,79 @@
 	};
 	
 	var _types = __webpack_require__(/*! ../actions/types */ 262);
+
+/***/ },
+/* 381 */
+/*!***************************************************************!*\
+  !*** ./public/src/components/auth/user/language_container.js ***!
+  \***************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	  };
+	}();
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+	
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	}
+	
+	function _possibleConstructorReturn(self, call) {
+	  if (!self) {
+	    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+	}
+	
+	function _inherits(subClass, superClass) {
+	  if (typeof superClass !== "function" && superClass !== null) {
+	    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+	
+	var MyLanguages = function (_Component) {
+	  _inherits(MyLanguages, _Component);
+	
+	  function MyLanguages() {
+	    _classCallCheck(this, MyLanguages);
+	
+	    return _possibleConstructorReturn(this, (MyLanguages.__proto__ || Object.getPrototypeOf(MyLanguages)).apply(this, arguments));
+	  }
+	
+	  _createClass(MyLanguages, [{
+	    key: 'render',
+	    value: function render() {
+	      var languages = this.props.languages.length > 0 ? this.props.languages.join(', ') : 'None Listed';
+	      return _react2.default.createElement('div', null, _react2.default.createElement('h4', null, 'Languages: ', languages));
+	    }
+	  }]);
+	
+	  return MyLanguages;
+	}(_react.Component);
+	
+	exports.default = MyLanguages;
 
 /***/ }
 /******/ ]);

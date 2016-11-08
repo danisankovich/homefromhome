@@ -51,7 +51,7 @@ exports.userEdit = function(dispatch, {phoneNumber, email, lang}, user) {
   $.ajax({
     url: `/api/editInfo`,
     type: "POST",
-    data: {phoneNumber, email, user, 'lang': lang },
+    data: {phoneNumber, email, user, lang },
   })
     .done(response => {
       dispatch({type: FETCH_INFO});

@@ -40,7 +40,7 @@ class Settings extends Component {
     this.setState({editEmail: false})
   }
   handleLangClick(formProps) {
-    formProps.lang = this.state.selectedLanguages;
+    formProps.lang = JSON.stringify(this.state.selectedLanguages);
 
     this.props.editUser(formProps, this.props.userInfo._id);
     this.props.fetchInfo();

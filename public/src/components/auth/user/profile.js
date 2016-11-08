@@ -5,6 +5,7 @@ import PhotoBook from './photobook';
 import MyListings from './myListings';
 import MyBlogs from './bloglist';
 import MyApplications from './myApplications';
+import MyLanguages from './language_container';
 
 class Profile extends Component {
   componentWillMount() {
@@ -27,31 +28,21 @@ class Profile extends Component {
   }
   render() {
     let {userInfo} = this.props;
-    if(userInfo && userInfo.languages) {
-      let photos = userInfo.myPhotos;
-      return (
-        <div className="toppush container">
+    return (
+      <div className="toppush container">
+        {userInfo && <div>
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
               <h2>{userInfo.username + "'s"} Profile</h2>
               <h3>Email: {userInfo.email}</h3>
               <h3>Phone Number: {userInfo.phoneNumber}</h3>
-              <h4>
-                Languages: {
-                  userInfo.languages.map((lang, i) => {
-                    if (i === this.props.userInfo.languages.length -1) {
-                      return lang;
-                    }
-                    return lang + ', '
-                  })
-                }
-              </h4>
+              <MyLanguages languages={userInfo.languages}/>
               <img src={this.props.userInfo.avatar} height='200px'/>
             </div>
           </div>
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
-              <button className='btn btn-primary' onClick={this.show.bind([this, 'showPhotos'])}>Show Albums</button>
+              <button className='btn btn-primary' onClick={this.show.bind([this, 'showPhotos'])}>Show Photos</button>
               <button className='btn btn-primary' onClick={this.show.bind([this, 'showListings'])}>Show Listings ({this.props.userInfo.myListings.length})</button>
               <button className='btn btn-primary' onClick={this.show.bind([this, 'showBlogs'])}>Show Blogs ({this.props.userInfo.blogs.length})</button>
               <button className='btn btn-primary' onClick={this.show.bind([this, 'showApplications'])}>Show Applications ({this.props.userInfo.applications.length})</button>
@@ -63,11 +54,9 @@ class Profile extends Component {
               {this.state.showApplications && <MyApplications userInfo={this.props.userInfo}></MyApplications>}
             </div>
           </div>
-        </div>
-      );
-    }
-    return (
-      <div>Loading........ </div>
+        </div>}
+        {!userInfo && <div>No User Found</div>}
+      </div>
     );
   };
 }
