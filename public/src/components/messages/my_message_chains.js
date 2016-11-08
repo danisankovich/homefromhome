@@ -47,7 +47,8 @@ class MyMessageChain extends Component {
           {userInfo && userInfo.messagesChainIds.map((message) => {
             return (
               <div key={message}>
-                <SingleMessageChain handleResponse={this.handleResponse.bind(this)}
+                <SingleMessageChain
+                  handleResponse={this.handleResponse.bind(this)}
                   userInfo={userInfo}
                   message={message}
                 />

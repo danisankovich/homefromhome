@@ -67480,7 +67480,8 @@
 	      var renderedMessage = _ref.renderedMessage;
 	
 	      return _react2.default.createElement('div', { className: 'col-sm-12' }, _react2.default.createElement('div', { className: 'col-sm-3 chainList' }, _react2.default.createElement('h4', null, 'Click User To Open Chat'), userInfo && userInfo.messagesChainIds.map(function (message) {
-	        return _react2.default.createElement('div', { key: message }, _react2.default.createElement(_single_message_chain2.default, { handleResponse: _this3.handleResponse.bind(_this3),
+	        return _react2.default.createElement('div', { key: message }, _react2.default.createElement(_single_message_chain2.default, {
+	          handleResponse: _this3.handleResponse.bind(_this3),
 	          userInfo: userInfo,
 	          message: message
 	        }));
