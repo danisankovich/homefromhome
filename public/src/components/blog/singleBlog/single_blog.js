@@ -9,6 +9,8 @@ import $ from 'jquery';
 class SingleBlog extends Component {
   componentWillMount() {
     this.setState({editTitle: false, editBody: false});
+  }
+  componentDidMount() {
     let id = this.props.location.pathname.split('blogs/')[1]
     this.props.fetchSingleBlog(id);
   }

@@ -68,7 +68,6 @@ exports.getUser = (req, res) => {
 }
 exports.getUserProfile = (req, res) => {
   User.findById(req.params.id, (err, user) => {
-    console.log(user)
     if (err) res.send(err);
     res.send(user)
   })
@@ -78,7 +77,6 @@ exports.editInfo = function(req, res, next) {
   var newPhone = data.phoneNumber;
   var newEmail = data.email;
   var newLang = data.lang;
-  console.log(newPhone)
   User.findById(data.user, (err, user) => {
     user.phoneNumber = newPhone || user.phoneNumber;
     user.email = newEmail || user.email;
@@ -116,7 +114,7 @@ exports.addFollower = (req, res) => {
     try {
       var decoded = jwt.decode(token, config.secret);
       User.findByIdAndUpdate(
-        decoded.sub, {$addToSet: {"followers": req.body.user}}, {safe: true, upsert: true},
+        decoded.sub, {$addToSet: {"following": req.body.user}}, {safe: true, upsert: true},
         function(err, user) {
           if (err) res.send(err);
           res.send(user);
@@ -137,7 +135,7 @@ exports.removeFollower = (req, res) => {
     try {
       var decoded = jwt.decode(token, config.secret);
       User.findByIdAndUpdate(
-        decoded.sub, {$pull: {"followers": req.body.user}}, { multi: true },
+        decoded.sub, {$pull: {"following": req.body.user}}, { multi: true },
         function(err, user) {
           if (err) res.send(err);
           res.send(user);

@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import * as actions from '../actions';
 
 class Header extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchInfo();
   }
   renderLinks() {

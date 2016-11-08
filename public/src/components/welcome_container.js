@@ -5,7 +5,7 @@ import * as actions from '../actions';
 import BasicInfo from './info/basic';
 
 class Welcome_Container extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchInfo();
   }
   render() {

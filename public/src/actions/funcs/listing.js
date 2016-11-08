@@ -41,7 +41,7 @@ exports.getMyListings = function(array, dispatch) {
   $.ajax({
      url: '/api/listings/mylistings',
      type: "POST",
-     data: {'data': array}
+     data: {data: JSON.stringify(array)}
   }).done((response) => {
     dispatch({
       type: FETCH_MY_LISTINGS,

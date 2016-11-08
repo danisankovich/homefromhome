@@ -13,6 +13,8 @@ import $ from 'jquery';
 class SingleListing extends Component {
   componentWillMount() {
     this.setState({listing: '', inputValue: '', application: {}})
+  }
+  componentDidMount() {
     let id = this.props.location.pathname.split('listings/')[1]
     this.props.fetchSingleListing(id);
   }

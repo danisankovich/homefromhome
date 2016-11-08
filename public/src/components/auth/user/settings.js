@@ -15,6 +15,15 @@ class Settings extends Component {
     };
   }
   componentWillMount() {
+    this.setState({
+      editEmail: false,
+      editPhone: false,
+      editUser: false,
+      editLang: false,
+      selectedLanguages: []
+    });
+  }
+  componentDidMount() {
     this.props.fetchInfo();
   }
 

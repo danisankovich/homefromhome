@@ -115,13 +115,11 @@ exports.editBlog = (req, res) => {
     Blog.findByIdAndUpdate(req.body.id,
       { $set: { 'body' : req.body.change } },
       function(err, blog) {
-        console.log(blog._id)
         User.update({
           '_id' : req.body.userId, 'blogs._id': blog._id
         },
         { $set: { "blogs.$.body" : req.body.change } },
         function(err, user) {
-          console.log(user.blogs)
           res.send(blog)
         })
       }
@@ -135,7 +133,6 @@ exports.editBlog = (req, res) => {
         },
         { $set: { "blogs.$.tagline" : req.body.change } },
         function(err, user) {
-          console.log(user.blogs)
           res.send(blog)
         })
       }
@@ -149,7 +146,6 @@ exports.editBlog = (req, res) => {
         },
         { $set: { "blogs.$.title" : req.body.change } },
         function(err, user) {
-          console.log(user.blogs)
           res.send(blog)
         })
       }

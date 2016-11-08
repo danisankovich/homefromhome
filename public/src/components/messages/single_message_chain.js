@@ -6,7 +6,7 @@ import $ from 'jquery';
 
 //Messaging PAGE
 class MyMessageChains extends Component {
-  componentWillMount() {
+  componentDidMount() {
     $.ajax({
        url: `/api/messages/${this.props.message}/${this.props.userInfo._id}`,
        type: "GET",

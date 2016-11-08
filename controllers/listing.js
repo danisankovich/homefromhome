@@ -15,14 +15,14 @@ exports.findOneListing = (req, res) => {
 }
 
 exports.findMyListings = (req, res) => {
-  Listing.find({'_id': { $in: req.body['data[]']}}, (err, listings) => {
+  const data = JSON.parse(req.body.data);
+  Listing.find({'_id': { $in: data}}, (err, listings) => {
     if (err) res.send(err);
     res.send(listings);
   });
 }
 
 exports.findByLocation = (req, res) => {
-  console.log(req.body)
   var minPrice = req.query.minPrice || 0;
   var maxPrice = req.query.maxPrice || 5001.00;
   var minRating = req.query.minRating || 0;
@@ -79,9 +79,7 @@ exports.editListing = (req, res) => {
         res.send('You do not have these permissions');
       }
       else {
-        console.log(updatedListing.type)
         if(['address', 'city', 'usCity', 'country'].indexOf(updatedListing.type) > -1) {
-          console.log(updatedListing.location)
           listing.location[updatedListing.type] = updatedListing.location[updatedListing.type]
         } else {
           listing[updatedListing.type] = updatedListing[updatedListing.type]
@@ -136,7 +134,6 @@ exports.deleteListing = (req, res) => {
       if(err) {
         res.send(err)
       }
-      console.log('passed the errors')
       if (index > -1) {
         user.myListings.splice(index, 1);
         user.save(user)
@@ -171,7 +168,6 @@ exports.applyForBooking = (req, res) => {
   )
 }
 exports.reviewApplication = (req, res) => {
-  console.log(req.body)
   Listing.update({
     '_id' : req.body.listingId, 'applications.applicationId': req.body.applicationId
   },
@@ -187,7 +183,6 @@ exports.reviewApplication = (req, res) => {
   })
 }
 exports.approverejectApplication = (req, res) => {
-  console.log(req.body)
   Listing.update({
     '_id' : req.body.listingId, 'applications.applicationId': req.body.applicationId
   },

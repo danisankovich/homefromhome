@@ -8,10 +8,12 @@ import $ from 'jquery';
 
 class UserProfile extends Component {
   componentWillMount() {
+    this.setState({showPhotos: false, showListings: false})
+  }
+  componentDidMount() {
     this.props.fetchInfo();
     let id = this.props.location.pathname.split('userprofile/')[1]
     this.props.fetchProfileInfo(id);
-    this.setState({showPhotos: false, showListings: false})
   }
   unfollowOrFollowUser() {
     var token = localStorage.getItem('token');
@@ -24,8 +26,8 @@ class UserProfile extends Component {
           "authorization": token
        }
     }).done((response) => {
-      if (url === '/api/addfollower') alert(this[0].props.userProfile.username + ' has been added to your follower list')
-      if (url === '/api/removefollower') alert(this[0].props.userProfile.username + ' has been removed from your follower list')
+      if (url === '/api/addfollower') alert(this[0].props.userProfile.username + ' has been added to your following list')
+      if (url === '/api/removefollower') alert(this[0].props.userProfile.username + ' has been removed from your following list')
       this[0].props.fetchInfo();
     }).fail((err) => {
       console.log('error', err)
@@ -53,9 +55,9 @@ class UserProfile extends Component {
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
               <h2>{userProfile.username + "'s"} Profile</h2>
-              {userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && <h3>
+              {userInfo && userInfo.following.indexOf(userProfile._id) === -1 && <h3>
                 <button className='btn btn-primary' onClick={this.unfollowOrFollowUser.bind([this, '/api/addfollower'])}>Follow +</button></h3>}
-              {userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && <h3>
+              {userInfo && userInfo.following.indexOf(userProfile._id) > -1 && <h3>
                 <button className='btn btn-danger' onClick={this.unfollowOrFollowUser.bind([this, '/api/removefollower'])}>Unfollow -</button></h3>}
               <h3>Email: {userProfile.email}</h3>
               <h3>Phone Number: {userProfile.phoneNumber}</h3>

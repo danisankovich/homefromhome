@@ -29313,8 +29313,8 @@
 	  }
 	
 	  _createClass(Header, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.props.fetchInfo();
 	    }
 	  }, {
@@ -39256,7 +39256,7 @@
 	  _jquery2.default.ajax({
 	    url: '/api/listings/mylistings',
 	    type: "POST",
-	    data: { 'data': array }
+	    data: { data: JSON.stringify(array) }
 	  }).done(function (response) {
 	    dispatch({
 	      type: _types.FETCH_MY_LISTINGS,
@@ -43248,8 +43248,8 @@
 	  }
 	
 	  _createClass(Information, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.props.fetchInfo();
 	    }
 	  }, {
@@ -43513,10 +43513,14 @@
 	  _createClass(UserProfile, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      this.setState({ showPhotos: false, showListings: false });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.props.fetchInfo();
 	      var id = this.props.location.pathname.split('userprofile/')[1];
 	      this.props.fetchProfileInfo(id);
-	      this.setState({ showPhotos: false, showListings: false });
 	    }
 	  }, {
 	    key: 'unfollowOrFollowUser',
@@ -43533,8 +43537,8 @@
 	          "authorization": token
 	        }
 	      }).done(function (response) {
-	        if (url === '/api/addfollower') alert(_this2[0].props.userProfile.username + ' has been added to your follower list');
-	        if (url === '/api/removefollower') alert(_this2[0].props.userProfile.username + ' has been removed from your follower list');
+	        if (url === '/api/addfollower') alert(_this2[0].props.userProfile.username + ' has been added to your following list');
+	        if (url === '/api/removefollower') alert(_this2[0].props.userProfile.username + ' has been removed from your following list');
 	        _this2[0].props.fetchInfo();
 	      }).fail(function (err) {
 	        console.log('error', err);
@@ -43570,7 +43574,7 @@
 	
 	      if (userProfile && userProfile.languages) {
 	        var photos = userProfile.myPhotos;
-	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), userInfo && userInfo.followers.indexOf(userProfile._id) === -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.unfollowOrFollowUser.bind([this, '/api/addfollower']) }, 'Follow +')), userInfo && userInfo.followers.indexOf(userProfile._id) > -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.unfollowOrFollowUser.bind([this, '/api/removefollower']) }, 'Unfollow -')), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
+	        return _react2.default.createElement('div', { className: 'toppush container' }, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userProfile.username + "'s", ' Profile'), userInfo && userInfo.following.indexOf(userProfile._id) === -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.unfollowOrFollowUser.bind([this, '/api/addfollower']) }, 'Follow +')), userInfo && userInfo.following.indexOf(userProfile._id) > -1 && _react2.default.createElement('h3', null, _react2.default.createElement('button', { className: 'btn btn-danger', onClick: this.unfollowOrFollowUser.bind([this, '/api/removefollower']) }, 'Unfollow -')), _react2.default.createElement('h3', null, 'Email: ', userProfile.email), _react2.default.createElement('h3', null, 'Phone Number: ', userProfile.phoneNumber), _react2.default.createElement('h4', null, 'Languages: ', userProfile.languages.map(function (lang, i) {
 	          if (i === _this3.props.userProfile.languages.length - 1) {
 	            return lang;
 	          }
@@ -44049,6 +44053,17 @@
 	  _createClass(Settings, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      this.setState({
+	        editEmail: false,
+	        editPhone: false,
+	        editUser: false,
+	        editLang: false,
+	        selectedLanguages: []
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.props.fetchInfo();
 	    }
 	
@@ -44282,8 +44297,8 @@
 	  }
 	
 	  _createClass(Welcome_Container, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.props.fetchInfo();
 	    }
 	  }, {
@@ -44374,11 +44389,10 @@
 	var BasicInfo = function (_Component) {
 	  _inherits(BasicInfo, _Component);
 	
-	  function BasicInfo(props) {
+	  function BasicInfo() {
 	    _classCallCheck(this, BasicInfo);
 	
-	    return _possibleConstructorReturn(this, (BasicInfo.__proto__ || Object.getPrototypeOf(BasicInfo)).call(this, props));
-	    // alert('Pardon The Mess. This is a Work In Progress')
+	    return _possibleConstructorReturn(this, (BasicInfo.__proto__ || Object.getPrototypeOf(BasicInfo)).apply(this, arguments));
 	  }
 	
 	  _createClass(BasicInfo, [{
@@ -57520,6 +57534,10 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.setState({ listing: '', inputValue: '', application: {} });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      var id = this.props.location.pathname.split('listings/')[1];
 	      this.props.fetchSingleListing(id);
 	    }
@@ -66329,8 +66347,8 @@
 	  }
 	
 	  _createClass(BlogList, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.props.fetchAllBlogs();
 	    }
 	  }, {
@@ -66798,6 +66816,10 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.setState({ editTitle: false, editBody: false });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      var id = this.props.location.pathname.split('blogs/')[1];
 	      this.props.fetchSingleBlog(id);
 	    }
@@ -67567,8 +67589,8 @@
 	  }
 	
 	  _createClass(MyMessageChains, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      var _this2 = this;
 	
 	      _jquery2.default.ajax({

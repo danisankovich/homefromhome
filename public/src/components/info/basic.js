@@ -5,10 +5,7 @@ import { browserHistory } from 'react-router'
 
 
 class BasicInfo extends Component {
-  constructor(props) {
-    super(props)
-    // alert('Pardon The Mess. This is a Work In Progress')
-  }
+
   render() {
 
     return (

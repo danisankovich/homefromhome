@@ -4,7 +4,7 @@ import * as actions from '../../actions';
 import {Link} from 'react-router';
 
 class Information extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchInfo();
   }
   render() {

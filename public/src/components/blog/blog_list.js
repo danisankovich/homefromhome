@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router'
 import $ from 'jquery';
 
 class BlogList extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchAllBlogs();
   }
   handleChange(e) {
