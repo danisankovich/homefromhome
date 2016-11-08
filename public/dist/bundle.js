@@ -43369,40 +43369,26 @@
 	  _createClass(Profile, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.props.fetchInfo();
 	      this.setState({ showPhotos: false, showListings: false, showBlogs: false, showApplications: false });
 	    }
 	  }, {
-	    key: 'showAlbums',
-	    value: function showAlbums() {
-	      this.state.showListings = false;
-	      this.state.showBlogs = false;
-	      this.state.showApplications = false;
-	      this.state.showPhotos ? this.setState({ showPhotos: false }) : this.setState({ showPhotos: true });
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.fetchInfo();
 	    }
 	  }, {
-	    key: 'showListings',
-	    value: function showListings() {
-	      this.state.showPhotos = false;
-	      this.state.showBlogs = false;
-	      this.state.showApplications = false;
-	      this.state.showListings ? this.setState({ showListings: false }) : this.setState({ showListings: true });
-	    }
-	  }, {
-	    key: 'showBlogs',
-	    value: function showBlogs() {
-	      this.state.showPhotos = false;
-	      this.state.showListings = false;
-	      this.state.showApplications = false;
-	      this.state.showBlogs ? this.setState({ showBlogs: false }) : this.setState({ showBlogs: true });
-	    }
-	  }, {
-	    key: 'showApplications',
-	    value: function showApplications() {
-	      this.state.showPhotos = false;
-	      this.state.showListings = false;
-	      this.state.showBlogs = false;
-	      this.state.showApplications ? this.setState({ showApplications: false }) : this.setState({ showApplications: true });
+	    key: 'show',
+	    value: function show() {
+	      var resetObj = {
+	        showPhotos: false,
+	        showListings: false,
+	        showBlogs: false,
+	        showApplications: false
+	      };
+	      var self = this[0];
+	      var type = this[1];
+	      resetObj[type] = true;
+	      self.setState(resetObj);
 	    }
 	  }, {
 	    key: 'render',
@@ -43418,7 +43404,7 @@
 	            return lang;
 	          }
 	          return lang + ', ';
-	        })), _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showAlbums.bind(this) }, 'Show Albums'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showListings.bind(this) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showBlogs.bind(this) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.showApplications.bind(this) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo }))));
+	        })), _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showPhotos']) }, 'Show Albums'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showListings']) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showBlogs']) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showApplications']) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo }))));
 	      }
 	      return _react2.default.createElement('div', null, 'Loading........ ');
 	    }

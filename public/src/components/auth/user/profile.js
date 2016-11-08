@@ -8,32 +8,22 @@ import MyApplications from './myApplications';
 
 class Profile extends Component {
   componentWillMount() {
-    this.props.fetchInfo();
     this.setState({showPhotos: false, showListings: false, showBlogs: false, showApplications: false})
   }
-  showAlbums() {
-    this.state.showListings = false;
-    this.state.showBlogs = false;
-    this.state.showApplications = false;
-    this.state.showPhotos ? this.setState({showPhotos: false}) : this.setState({showPhotos: true})
+  componentDidMount() {
+    this.props.fetchInfo();
   }
-  showListings() {
-    this.state.showPhotos = false;
-    this.state.showBlogs = false;
-    this.state.showApplications = false;
-    this.state.showListings ? this.setState({showListings: false}) : this.setState({showListings: true})
-  }
-  showBlogs() {
-    this.state.showPhotos = false;
-    this.state.showListings = false;
-    this.state.showApplications = false;
-    this.state.showBlogs ? this.setState({showBlogs: false}) : this.setState({showBlogs: true})
-  }
-  showApplications() {
-    this.state.showPhotos = false;
-    this.state.showListings = false;
-    this.state.showBlogs = false;
-    this.state.showApplications ? this.setState({showApplications: false}) : this.setState({showApplications: true})
+  show() {
+    const resetObj = {
+      showPhotos: false,
+      showListings: false,
+      showBlogs: false,
+      showApplications: false
+    }
+    const self = this[0];
+    const type = this[1];
+    resetObj[type] = true;
+    self.setState(resetObj);
   }
   render() {
     let {userInfo} = this.props;
@@ -61,10 +51,10 @@ class Profile extends Component {
           </div>
           <div className='row'>
             <div className="col-sm-10 col-sm-offset-1">
-              <button className='btn btn-primary' onClick={this.showAlbums.bind(this)}>Show Albums</button>
-              <button className='btn btn-primary' onClick={this.showListings.bind(this)}>Show Listings ({this.props.userInfo.myListings.length})</button>
-              <button className='btn btn-primary' onClick={this.showBlogs.bind(this)}>Show Blogs ({this.props.userInfo.blogs.length})</button>
-              <button className='btn btn-primary' onClick={this.showApplications.bind(this)}>Show Applications ({this.props.userInfo.applications.length})</button>
+              <button className='btn btn-primary' onClick={this.show.bind([this, 'showPhotos'])}>Show Albums</button>
+              <button className='btn btn-primary' onClick={this.show.bind([this, 'showListings'])}>Show Listings ({this.props.userInfo.myListings.length})</button>
+              <button className='btn btn-primary' onClick={this.show.bind([this, 'showBlogs'])}>Show Blogs ({this.props.userInfo.blogs.length})</button>
+              <button className='btn btn-primary' onClick={this.show.bind([this, 'showApplications'])}>Show Applications ({this.props.userInfo.applications.length})</button>
             </div>
             <div className="col-sm-10 col-sm-offset-1">
               {this.state.showPhotos && <PhotoBook userInfo={this.props.userInfo}></PhotoBook>}
