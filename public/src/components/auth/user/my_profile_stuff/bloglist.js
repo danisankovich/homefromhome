@@ -31,7 +31,6 @@ class MyBlogs extends Component {
                 <th>Title</th>
                 <th>keywords</th>
                 <th># of Comments</th>
-                <th>Edit</th>
                 <th>Delete</th>
               </tr>
             </thead>
@@ -42,7 +41,6 @@ class MyBlogs extends Component {
                     <td onClick={this.handleClick.bind(result)}>{result.title}</td>
                     <td onClick={this.handleClick.bind(result)}>{result.keywords}</td>
                     <td onClick={this.handleClick.bind(result)}>({result.comments.length})</td>
-                    <td onClick={this.handleClick.bind(result)}>Edit</td>
                     <td onClick={this.deleteClickHandle.bind([this.props, result, this])}>
                       <button type="button" className="btn btn-default">
                          Remove <span

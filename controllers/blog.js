@@ -72,7 +72,13 @@ exports.newBlogComment = (req, res) => {
     {$push: {"comments": req.body}},
     {safe: true, upsert: true},
     function(err, blog) {
-        res.send(blog);
+      User.update({
+        '_id' : blog.creator.id, 'blogs._id': blog._id
+      },
+      { $push: { "blogs.$.comments" : req.body } },
+      function(err, user) {
+        res.send(blog)
+      })
     }
   );
 }

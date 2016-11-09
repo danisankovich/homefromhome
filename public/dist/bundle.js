@@ -43373,7 +43373,13 @@
 	  _createClass(Profile, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.setState({ showPhotos: false, showListings: false, showBlogs: false, showApplications: false });
+	      this.setState({
+	        showPhotos: false,
+	        showListings: false,
+	        showBlogs: false,
+	        showApplications: false,
+	        showInfo: true
+	      });
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -43383,15 +43389,17 @@
 	  }, {
 	    key: 'show',
 	    value: function show() {
+	      var self = this[0];
+	      var type = this[1];
+	      var hide = self.state[type] === true ? true : false;
 	      var resetObj = {
 	        showPhotos: false,
 	        showListings: false,
 	        showBlogs: false,
-	        showApplications: false
+	        showApplications: false,
+	        showInfo: false
 	      };
-	      var self = this[0];
-	      var type = this[1];
-	      resetObj[type] = true;
+	      if (!hide) resetObj[type] = true;
 	      self.setState(resetObj);
 	    }
 	  }, {
@@ -43399,7 +43407,7 @@
 	    value: function render() {
 	      var userInfo = this.props.userInfo;
 	
-	      return _react2.default.createElement('div', { className: 'toppush container' }, userInfo && _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('h2', null, userInfo.username + "'s", ' Profile'), _react2.default.createElement('h3', null, 'Email: ', userInfo.email), _react2.default.createElement('h3', null, 'Phone Number: ', userInfo.phoneNumber), _react2.default.createElement(_language_container2.default, { languages: userInfo.languages }), _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' }))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showPhotos']) }, 'Show Photos'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showListings']) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showBlogs']) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showApplications']) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-10 col-sm-offset-1' }, this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo })))), !userInfo && _react2.default.createElement('div', null, 'No User Found'));
+	      return _react2.default.createElement('div', { className: 'toppush container' }, userInfo && _react2.default.createElement('div', null, _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-3 col-sm-offset-1' }, _react2.default.createElement('img', { src: this.props.userInfo.avatar, height: '200px' })), _react2.default.createElement('div', { className: 'col-sm-3 col-sm-offset-2' }, _react2.default.createElement('h1', null, userInfo.username + "'s", ' Profile'))), _react2.default.createElement('div', { className: 'row' }, _react2.default.createElement('div', { className: 'col-sm-2 col-sm-offset-1' }, _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showInfo']) }, 'Show Info'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showPhotos']) }, 'Show Photos'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showListings']) }, 'Show Listings (', this.props.userInfo.myListings.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showBlogs']) }, 'Show Blogs (', this.props.userInfo.blogs.length, ')'), _react2.default.createElement('button', { className: 'btn btn-primary', onClick: this.show.bind([this, 'showApplications']) }, 'Show Applications (', this.props.userInfo.applications.length, ')')), _react2.default.createElement('div', { className: 'col-sm-8 col-sm-offset-1' }, this.state.showInfo && _react2.default.createElement('div', { className: 'col-sm-offset-1' }, _react2.default.createElement('h3', null, 'Email: ', userInfo.email), _react2.default.createElement('h3', null, 'Phone Number: ', userInfo.phoneNumber), _react2.default.createElement(_language_container2.default, { languages: userInfo.languages })), this.state.showPhotos && _react2.default.createElement(_photobook2.default, { userInfo: this.props.userInfo }), this.state.showListings && _react2.default.createElement(_myListings2.default, { userInfo: this.props.userInfo }), this.state.showBlogs && _react2.default.createElement(_bloglist2.default, { userInfo: this.props.userInfo }), this.state.showApplications && _react2.default.createElement(_myApplications2.default, { userInfo: this.props.userInfo })))), !userInfo && _react2.default.createElement('div', null, 'No User Found'));
 	    }
 	  }]);
 	
@@ -68317,8 +68325,8 @@
 	
 	      this.state.blogs = userInfo.blogs || [];
 	      if (this.state.blogs) {
-	        return _react2.default.createElement('div', null, this.state.blogs && this.state.blogs.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Title'), _react2.default.createElement('th', null, 'keywords'), _react2.default.createElement('th', null, '# of Comments'), _react2.default.createElement('th', null, 'Edit'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.blogs.map(function (result) {
-	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.keywords), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '(', result.comments.length, ')'), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, 'Edit'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
+	        return _react2.default.createElement('div', null, this.state.blogs && this.state.blogs.length > 0 && _react2.default.createElement('table', { className: 'table table-hover table-bordered' }, _react2.default.createElement('thead', null, _react2.default.createElement('tr', null, _react2.default.createElement('th', null, 'Title'), _react2.default.createElement('th', null, 'keywords'), _react2.default.createElement('th', null, '# of Comments'), _react2.default.createElement('th', null, 'Delete'))), _react2.default.createElement('tbody', null, this.state.blogs.map(function (result) {
+	          return _react2.default.createElement('tr', { key: result._id, className: 'table-row' }, _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.title), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, result.keywords), _react2.default.createElement('td', { onClick: this.handleClick.bind(result) }, '(', result.comments.length, ')'), _react2.default.createElement('td', { onClick: this.deleteClickHandle.bind([this.props, result, this]) }, _react2.default.createElement('button', { type: 'button', className: 'btn btn-default' }, 'Remove ', _react2.default.createElement('span', {
 	            className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true',
 	            onClick: this.deleteClickHandle.bind([this.props, result, this])
 	          }))));
