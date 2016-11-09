@@ -31,7 +31,11 @@ class Profile extends Component {
       showApplications: false,
       showInfo: false
     }
-    if (!hide) resetObj[type] = true;
+    if (!hide) {
+      resetObj[type] = true;
+    } else {
+      resetObj.showInfo = true;
+    }
     self.setState(resetObj);
   }
   render() {

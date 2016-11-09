@@ -107,7 +107,7 @@ class Settings extends Component {
                 <fieldset className="form-group">
                   <label>Phone Number: {this.props.userInfo.phoneNumber}</label>
                   {phoneNumber.touched && phoneNumber.error && <div className="error">{phoneNumber.error}</div>}
-                  <input className="form-control" {...phoneNumber}/>
+                  <input className="form-control" type="tel" {...phoneNumber}/>
                 </fieldset>
                 <button type='button' className="btn btn-danger"
                   onClick={function(){

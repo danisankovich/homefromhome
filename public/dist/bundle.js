@@ -43399,7 +43399,11 @@
 	        showApplications: false,
 	        showInfo: false
 	      };
-	      if (!hide) resetObj[type] = true;
+	      if (!hide) {
+	        resetObj[type] = true;
+	      } else {
+	        resetObj.showInfo = true;
+	      }
 	      self.setState(resetObj);
 	    }
 	  }, {
@@ -44162,7 +44166,7 @@
 	              className: _this2.state.editPhone ? 'hidden' : '',
 	              onClick: function () {
 	                this.handleClick({ editPhone: true });
-	              }.bind(_this2) }, 'Phone Number: ', _this2.props.userInfo.phoneNumber || 'Set Number'), _react2.default.createElement('li', { className: _this2.state.editPhone ? '' : 'hidden' }, _react2.default.createElement('form', null, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Phone Number: ', _this2.props.userInfo.phoneNumber), phoneNumber.touched && phoneNumber.error && _react2.default.createElement('div', { className: 'error' }, phoneNumber.error), _react2.default.createElement('input', _extends({ className: 'form-control' }, phoneNumber))), _react2.default.createElement('button', { type: 'button', className: 'btn btn-danger',
+	              }.bind(_this2) }, 'Phone Number: ', _this2.props.userInfo.phoneNumber || 'Set Number'), _react2.default.createElement('li', { className: _this2.state.editPhone ? '' : 'hidden' }, _react2.default.createElement('form', null, _react2.default.createElement('fieldset', { className: 'form-group' }, _react2.default.createElement('label', null, 'Phone Number: ', _this2.props.userInfo.phoneNumber), phoneNumber.touched && phoneNumber.error && _react2.default.createElement('div', { className: 'error' }, phoneNumber.error), _react2.default.createElement('input', _extends({ className: 'form-control', type: 'tel' }, phoneNumber))), _react2.default.createElement('button', { type: 'button', className: 'btn btn-danger',
 	              onClick: function () {
 	                this.handleClick({ editPhone: false });
 	              }.bind(_this2) }, 'hide'), _react2.default.createElement('button', { onClick: handleSubmit(_this2.handleFormSubmitPhoneNumber.bind(_this2)), className: 'btn btn-primary' }, 'Save'))), _react2.default.createElement('li', {
